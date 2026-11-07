@@ -2827,7 +2827,6 @@ void func_sc03_014_801898BC(u8 *o) {
     u8 *p;
     s32 t;
     u8 v;
-    u8 c[0]; /* MATCH-TRICK: zero-size local gives the original 0x10 frame of this leaf */
 
     p = AF(o, u8 *, 0x20);
     if (AF(p, s16, 0x18) > 0x800) {

@@ -2005,7 +2005,6 @@ s32 func_80132784(u8 *arg0, u8 *arg1, s32 arg2) {
     MATRIX rot;
     MATRIX m;
     SVECTOR r;
-    u8 pad[8]; /* MATCH-TRICK: unused frame pad, the original frame is 8 bytes bigger than its locals (0xF8) */
     u8 *o;
     u8 *pose;
     u8 *p;
@@ -2045,7 +2044,7 @@ s32 func_80132784(u8 *arg0, u8 *arg1, s32 arg2) {
         p = (u8 *)((u32)pose & 0xFEFFFFFF) + (u16)arg2 * 8;
         r.vx = AF(p, u16, 6);
         w = AF(p, u32, 0);
-        r.vy = AF(p, u8, 1) | ((w & 0xF) << 8);
+        r.vy = ((w >> 8) & 0xFF) | ((w & 0xF) << 8);
         r.vz = ((w >> 16) & 0xFF) | ((w & 0xF0) << 4);
         RotMatrixZYX(&r, &rot);
         rot.t[0] = AF(p, s8, 3);
@@ -2141,10 +2140,9 @@ extern void func_8012F14C();
 void func_80132F40(StageActor *a) {
     SVECTOR p;
     SVECTOR np;
-    SVECTOR unused; /* MATCH-TRICK: frame pad, 8 unused bytes in the original frame */
     HitBox *h;
     s16 y;
-    s32 y0;
+    s16 y0;
     s16 y1;
     SVECTOR *npp = &np;
     p.vx = D_80126B5E;
@@ -2156,9 +2154,10 @@ void func_80132F40(StageActor *a) {
         /* MATCH-TRICK: the loop end note stops cse from reusing the copy's &p pseudo at the later calls */
         do { y0 = h->y0; } while (0);
         y1 = h->y1;
-        y = y0;
-        if (y1 < y0) {
+        if (y0 > y1) {
             y = y1;
+        } else {
+            y = y0;
         }
         func_8012F038(&a->model->coord.coord, &p, npp);
         np.vy = y;
@@ -4698,16 +4697,17 @@ void func_80139788(void) {
 /* the window's portrait */
 void func_801397B0(Win *w) {
     GsSPRITE s;
-    u8 pad[8]; /* MATCH-TRICK: frame 0x48, nothing stored */
     s32 k = w->unk20 - 1;
     Pos16 *e = &D_8018DB54[k];
     UPos16 *c;
     s32 x, y;
     s32 t;
     s16 sc;
+    s32 v;
     s.attribute = 0;
-    x = e->x;
-    y = e->y;
+    v = *(s32 *)e;
+    x = (s16)v;
+    y = v >> 16;
     t = ((0 & 3) << 7) | ((1 & 3) << 5) | ((y & 0x100) >> 4) | ((x & 0x3C0) >> 6) | ((y & 0x200) << 2);
     do { c = &D_8018DB98[k]; } while (0); /* MATCH-TRICK: loop-depth weight puts k's quantity above y in local-alloc (k in a0, y in a1) */
     s.tpage = t;

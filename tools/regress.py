@@ -307,6 +307,14 @@ def main():
         if os.path.exists(lp):
             for l in failure_lines(open(lp, encoding='utf-8').read()):
                 print(f'    {area}.log: {l[:200]}')
+    pc_map = os.path.join(ROOT, 'build', 'pc', 'Twinblade.map')
+    if os.path.exists(pc_map):   # r285: every static of a save state's owners classified (the last PC build's map)
+        c = subprocess.run([sys.executable, os.path.join(ROOT, 'tools', 'state_tool.py'), 'census'], capture_output=True,
+                           text=True, cwd=ROOT)
+        print('census ' + (c.stdout.strip().splitlines() or ['no output'])[-1])
+        if c.returncode:
+            print(c.stdout[-2000:])
+            fails = fails or [('census', 'state_tool', 'FAIL', 'pc/state_census.txt')]
     missing = sum(1 for r in results if r[3] == 'no baseline entry')
     if missing:
         print(f'note: {missing} originals have no baseline entry (tools/regress.py --record-baseline after checking them)')

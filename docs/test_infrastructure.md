@@ -735,6 +735,8 @@ the logo movie) are counted but not compared (card F4).
   --exclusive skip now and --exclusive only later) ALL PASS, plus the A/B at 4:3 and 16:9 where the picture can
   change."
 
+**Unattended real-time runs (r304, 5 Nov):** Windows turns the monitors off after 15 idle minutes, and a run then fails timing (53.6 Hz, 99 resets; docs/monitor_refresh_r304.md). Keep the display on through any run with the PC idle. `--monitor primary` or `secondary` places a run on that monitor and keeps each run's present.txt (TWINBLADE_PRESENT_STATS); the rule stays the secondary, and the primary needs LuciDin's or the dispatcher's yes.
+
 **Recording a route** (only when the routes have to change; LuciDin plays): `--record-route <profile> --debug-menu`
 starts the game borderless on the secondary monitor in the check's own setup (As Shipped, the window settings fixed,
 a copy of the pinned card, the debug menu's key on R3 / F1 as a logged exception) and records every pad poll from cold

@@ -3016,7 +3016,7 @@ The MATCH-TRICK sweep: 181 lines to 154. Removed: 3 HARD_V0, 11 nv, 3 v, 8 comma
 
 | Lines | Family | Why it stayed |
 |---|---|---|
-| 69 | frame pads (unused locals) | not steering: an unused local is what the frame shows. Not touched |
+| 69 | frame pads (unused locals) | not steering: an unused local is what the frame shows. Not touched (r292: 3 removed; an unused area can be leaked pseudos, see the r292 rows) |
 | 9 | `pq = &D_800AF630` dead store in func_sc06_018_8018F060 and its 2 clones | 216 per-site forms on sc06_018: changing any one site leaves 6 lines, a `MATRIX *` inline parameter 9 at best |
 | 6 + 2 | `umn` / `yl` do-while(0) | sc03_089: 96 combinations of declaration order and arm order stop at 6 lines (pa / pb in a1 / a0). The trick keeps the original's `umn = pa` first; the form that lifts umn needs the other arm order. yl not tried |
 | 2 | `x = (s16)t` in func_80145C54 | 8 forms: removal gives 1 extra insn at best, as the original's delay-slot `move a1,v1` needs the copy after the test |
@@ -3050,7 +3050,7 @@ counts, and no statement order could repair that (r287's 50,000 orders).
 |---|---|---|
 | a packed table entry (two s16 in one word) read as `lw` + sll / sra + sra for one index, two `lh` for another, `lh` + `lw` + sra for a third | read every entry as a word and split it into s16 locals: `v = tab[i]; s = v; c = v >> 16;`. combine folds "load, shift left 16, shift right 16" into a half load when the three insns are linked, and keeps the word load when the word has another use (its rule for two independent sets made from three insns). flow.c links a register's setter only to its FIRST use, and an s16 local is sign-extended where it is used, so the half that a multiply uses first decides: sin first folds to `lh` (and cos after it, if the word then dies), cos first keeps the `lw`. The order of the split statements does not matter | func_80020DA4: `c = xc * zs;` uses x's cos and z's sin first, so x keeps the word and z becomes two `lh`; `a = xs * ys` uses y's sin first, and y's word stays for `yc` and the negation: `lh` + `lw` |
 | a local-alloc quantity needs one more reference than the asm shows, in straight-line code with no repeated paths | a value that combine folds away still counts: refs are taken at flow, before combine. `ys = yv;` folded into `lh` leaves yv with 6 refs where the asm shows 5, so yv's priority is 4000 against the x word's 3947 and yv takes v1. The struct half read gave 5 refs, 3333, and the x word took v1 | func_80020DA4 (r287's rule, without any repeated source) |
-| an unused 16-byte frame area and an unused s0 save, until now a `s32 pad[4];` | the s16 cos locals (`s16 xc, yc, zc;` set from `v >> 16`): frame 24 with `vars= 16` and both saves, no pad. With s32 cos locals: frame 8 and 90 lines. Which slots make up the 16 bytes was not traced | func_80020DA4 |
+| an unused 16-byte frame area and an unused s0 save, until now a `s32 pad[4];` | the s16 cos locals (`s16 xc, yc, zc;` set from `v >> 16`): frame 24 with `vars= 16` and both saves, no pad. With s32 cos locals: frame 8 and 90 lines. The 16 bytes are two leaked pseudos, the `sll` halves of the s16 sign extensions (traced by r292, see its rows) | func_80020DA4 |
 | two address chains take v0 / v1 the wrong way round | local-alloc gives v0 to the higher priority, floor_log2(refs) * refs / life. The chain read twice (9 refs, 27 / life) beats the chain read once (8 refs, 24 / life) only when their lives are about equal, which needs the once-read chain to start first: x first gives z 15000 and x 13333; z first gives x 24000 and z 10384. Print the quantities with an instrumented cc1 before trying orders | func_80020DA4 |
 | a search over statement orders stalls a few lines short | stop and ask what source would make the odd part of the target (here the load pattern), then read the pass that makes it. The match was the first compile of the new idiom, and 5 different statement orders of its set-up lines all match (a, b, c in that order does not: the multiply order follows source order) | func_80020DA4 |
 
@@ -3074,3 +3074,26 @@ insn order beside it, a register question becomes a table to read. The build is 
 The general lesson: when a function is a few lines off after a long search, the remaining difference is rarely a matter
 of order. Look for something in the target that the current C explains only by coincidence (here: mixed load widths, an
 unused frame area), and ask what plainer source the compiler would turn into it.
+
+### r292 rows (the frame-pad sweep with r290's lever; 7 Nov)
+
+3 of the 56 frame pads go, each in plain C with no pad: func_80132784, func_80132F40 and func_801397B0
+(src/stage/engine_8012F5F4.c). 52 stay, each with a cause (notes folder r292_kept.md). **The lever, now traced: each
+unused 8 bytes of these frames is a pseudo that combine folded away. In a three-insn combination whose first value
+stays live elsewhere, combine re-emits that set as the new i2 and folds the middle insn into i3. try_combine clears a
+dead register's reference count only when there is no new i2 (its "zero its use count" step), so the middle pseudo
+keeps the count flow gave it. regclass then finds no uses ("ST_REGS or none"), global gives it no register, and
+reload's alter_reg gives it a stack slot (8 bytes, BIGGEST_ALIGNMENT) that nothing ever touches.** r290's 16 bytes
+are two of these: the `sll` halves of its s16 sign extensions. So an unused frame area is not always an unused local.
+Count the leaks it needs (bytes / 8) and look for the source that makes them.
+
+| Symptom | Fix | Example |
+|---|---|---|
+| N unused frame bytes, nothing stored, held by a pad array | look in the original for the fingerprint of a leak, which is always a narrow load made from a value that stays live: two loads from one aligned word in one block with no store or call between (`lw` + `lbu 1`, `lh 0` + `lh 2`), or an `lh` whose value is used both extended (compare, arithmetic) and plain (copy, store). Write the source that makes it: read the word once and take the part with shifts, or load an s16 local once and use it both ways. Each fold gives 8 bytes | func_80132784: byte 1 of a packed entry as `(w >> 8) & 0xFF` gives `lbu 1` and keeps the `lw` (1 leak); func_801397B0: the Pos16 entry as `v = *(s32 *)e; x = (s16)v; y = v >> 16;` gives `lh 0` + `lh 2` (1 leak); func_80132F40: `s16 y0` and `y1`, each compared and copied (2 leaks) |
+| a pad in a function with no `lh` / `lb` and no second read of a loaded word | keep it: no source form can make combine leak a slot there. CSE turns a constant pointer to a global back into symbols, a half of a loaded word into a half load, and folds address arithmetic, all before flow counts anything. So the plain explanation is an unused local, as the C says | 25 functions, the sc03_001 80187690 leaf and its 9 copies (one load, used only in compares), the func_80152254 family (5) |
+| the pad's size does not match the leaks you can make | the current C may already leak: compile with the pad removed and count before planning. The explicit pad sits on top of those | func_80132F40 already leaked 1 of its 2; func_8014EA4C leaks 2 of 4, sc05_010 80180AA0 1 of 3 (both on the Fable list) |
+| a min written `y = y0; if (y1 < y0) y = y1;` loads the halves the wrong way round once y0 and y1 are s16 | `if (y0 > y1) y = y1; else y = y0;` (all three read orders and three declaration orders match) | func_80132F40 |
+| checking a candidate for leaks | cc1 with `-dr -dg`: in the .greg dump a leaked pseudo is listed under "regs to allocate" with an empty conflict list and is missing from "Register dispositions"; the .rtl dump shows what set it. The r292 lab (notes folder r292_lab/lab.py, LAB_DUMP=1) prints them and recompiles a whole unit in under a second | all three |
+
+Not covered by the 56 (their comments do not say "pad"): engine_801458E0.c 2266, 6695 and 6697, the `u8 c[0]` in
+sc03_014_post / sc03_015_post, sc06_006 1596, sc06_027 487, sc06_029 888, 3820 and 6018. The same scan applies.
