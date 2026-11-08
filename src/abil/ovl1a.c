@@ -3,8 +3,8 @@
 
 extern void func_800183E0();
 extern u8 D_ovl1a_800CB294[];
-extern AbilStep D_ovl1a_800CB260[];
-extern AbilStep D_ovl1a_800CB26C[];
+extern type_1 D_ovl1a_800CB260[];
+extern type_1 D_ovl1a_800CB26C[];
 void func_ovl1a_800CAEB0(u8 *a);
 
 void func_ovl1a_800CAE0C(void) {
@@ -32,7 +32,7 @@ extern void func_801655E4();
 extern s32 func_80165910();
 extern void func_8016629C();
 extern s32 func_ovl1a_800CAF6C();
-extern void StartRumbleScript();
+extern void func_80019064();
 extern void func_8012A304();
 extern void func_80147324();
 extern void func_801477E8();
@@ -141,5 +141,5 @@ void func_ovl1a_800CB17C(u8 *arg0) {
     func_80147324(0x47A);
     func_8014C010(arg0, 2);
     func_801483E8(arg0);
-    StartRumbleScript(&D_80062BD0);
+    func_80019064(&D_80062BD0);
 }

@@ -12,64 +12,64 @@
 
 extern s32 func_80029178(s32 n);
 extern void func_8002D4C8(s32 a, s32 b);
-StageActor *func_80143B6C(StageActor *a, s32 n);
-void func_80143CD4(StageActor *a);
-extern void StartRumbleScript(u8 *p);
-typedef struct Cursor Cursor;
+struct_10C *func_80143B6C(struct_10C *a, s32 n);
+void func_80143CD4(struct_10C *a);
+extern void func_80019064(u8 *p);
+typedef struct struct_10 struct_10;
 /* a message window (three at D_801269F0, 0x4C bytes each; window 0 is the fixed one of func_801376E8) */
 typedef struct {
-    /* 0x00 */ s32 id;
-    /* 0x04 */ s16 state;
-    /* 0x06 */ s16 unk6;
-    /* 0x08 */ s32 flags;
-    /* 0x0C */ u8 unkC;
-    /* 0x0D */ u8 unkD;
-    /* 0x0E */ u16 unkE;            /* a countdown (func_80138BE0) */
-    /* 0x10 */ u16 unk10;
-    /* 0x12 */ u16 unk12;            /* the text row */
-    /* 0x14 */ u16 unk14;            /* the column */
-    /* 0x16 */ u16 unk16;
-    /* 0x18 */ u16 unk18;
-    /* 0x1A */ u16 unk1A;            /* its OT depth */
-    /* 0x1C */ s16 unk1C;
-    /* 0x1E */ u8 unk1E;
-    /* 0x1F */ s8 unk1F;             /* the choice */
-    /* 0x20 */ u8 unk20;
-    /* 0x21 */ u8 unk21;             /* the number of choices */
-    /* 0x22 */ u8 unk22;
-    /* 0x23 */ u8 unk23;
-    /* 0x24 */ s16 pos[2];
-    /* 0x28 */ s16 unk28;
-    /* 0x2A */ s16 unk2A;
-    /* 0x2C */ s16 unk2C;
-    /* 0x2E */ s16 unk2E;
-    /* 0x30 */ s16 unk30;
-    /* 0x32 */ s16 unk32;
-    /* 0x34 */ s16 unk34;
-    /* 0x36 */ s16 unk36;
-    /* 0x38 */ u16 unk38;            /* the text area in VRAM */
-    /* 0x3A */ u16 unk3A;
-    /* 0x3C */ u16 unk3C;
-    /* 0x3E */ u16 unk3E;
-    /* 0x40 */ Cursor *unk40;        /* its choice cursor */
-    /* 0x44 */ u16 unk44;            /* the number's digit being put */
-    /* 0x46 */ s16 unk46;
-    /* 0x48 */ u16 unk48;            /* which number (D_80127540) */
-    /* 0x4A */ u16 unk4A;            /* which text (D_80127530) */
-} Win; /* size 0x4C */
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s16 field_4;
+    /* 0x06 */ s16 field_6;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ u8 field_C;
+    /* 0x0D */ u8 field_D;
+    /* 0x0E */ u16 field_E;            /* a countdown (func_80138BE0) */
+    /* 0x10 */ u16 field_10;
+    /* 0x12 */ u16 field_12;            /* the text row */
+    /* 0x14 */ u16 field_14;            /* the column */
+    /* 0x16 */ u16 field_16;
+    /* 0x18 */ u16 field_18;
+    /* 0x1A */ u16 field_1A;            /* its OT depth */
+    /* 0x1C */ s16 field_1C;
+    /* 0x1E */ u8 field_1E;
+    /* 0x1F */ s8 field_1F;             /* the choice */
+    /* 0x20 */ u8 field_20;
+    /* 0x21 */ u8 field_21;             /* the number of choices */
+    /* 0x22 */ u8 field_22;
+    /* 0x23 */ u8 field_23;
+    /* 0x24 */ s16 field_24[2];
+    /* 0x28 */ s16 field_28;
+    /* 0x2A */ s16 field_2A;
+    /* 0x2C */ s16 field_2C;
+    /* 0x2E */ s16 field_2E;
+    /* 0x30 */ s16 field_30;
+    /* 0x32 */ s16 field_32;
+    /* 0x34 */ s16 field_34;
+    /* 0x36 */ s16 field_36;
+    /* 0x38 */ u16 field_38;            /* the text area in VRAM */
+    /* 0x3A */ u16 field_3A;
+    /* 0x3C */ u16 field_3C;
+    /* 0x3E */ u16 field_3E;
+    /* 0x40 */ struct_10 *field_40;        /* its choice cursor */
+    /* 0x44 */ u16 field_44;            /* the number's digit being put */
+    /* 0x46 */ s16 field_46;
+    /* 0x48 */ u16 field_48;            /* which number (D_80127540) */
+    /* 0x4A */ u16 field_4A;            /* which text (D_80127530) */
+} struct_4C; /* size 0x4C */
 /* a window's choice cursor (two at D_8011DA80) */
-struct Cursor {
-    /* 0x00 */ s16 state;
-    /* 0x02 */ u16 unk2;
-    /* 0x04 */ Win *owner;
-    /* 0x08 */ u16 unk8;              /* its scale */
-    /* 0x0A */ u16 unkA;
-    /* 0x0C */ s16 unkC;
-    /* 0x0E */ s16 unkE;
+struct struct_10 {
+    /* 0x00 */ s16 field_0;
+    /* 0x02 */ u16 field_2;
+    /* 0x04 */ struct_4C *field_4;
+    /* 0x08 */ u16 field_8;              /* its scale */
+    /* 0x0A */ u16 field_A;
+    /* 0x0C */ s16 field_C;
+    /* 0x0E */ s16 field_E;
 }; /* size 0x10 */
-Win *func_801376E8(s32 id, u16 *pos);
+struct_4C *func_801376E8(s32 id, u16 *pos);
 extern void func_80016714(void *p, s32 n);
-extern s32 GetRumbleScript(void);
+extern s32 func_80019198(void);
 extern u8 D_80062BC0[];
 extern s8 *D_801ED428;          /* a sequence of (value, frames) pairs played into D_801269C8/D4 */
 extern u8 D_801ED42C;           /* its pair */
@@ -94,65 +94,65 @@ extern u8 D_801EF3F2;
 extern u8 D_801EF466;
 /* an image to upload, in a list ended by kind 0xFF */
 typedef struct {
-    /* 0x00 */ u16 kind;
-    /* 0x02 */ u16 pad2;
-    /* 0x04 */ RECT r;
-    /* 0x0C */ u16 *data;
-} ImgRec; /* size 0x10 */
-extern ImgRec *D_801ED43C;
+    /* 0x00 */ u16 field_0;
+    /* 0x02 */ u16 field_2;
+    /* 0x04 */ RECT field_4;
+    /* 0x0C */ u16 *field_C;
+} struct_10_2; /* size 0x10 */
+extern struct_10_2 *D_801ED43C;
 extern s32 SquareRoot12(s32 a);
 extern void Square12(VECTOR *in, VECTOR *out);
 extern s32 D_801ED454;
 extern s16 D_80126CB0;
-extern StageActor D_801202A0[];     /* the actor table from slot 1 */
-StageActor *func_8012C724(SpawnDef *d, StageActor *a);
-StageActor *func_8012C750(SpawnDef *d);
-StageActor *func_8013E410(void);
-s32 func_8013E448(SpawnDef *d);
-extern SpawnDef *D_801274C8;    /* the stage's spawn lists, ended by kind 0 */
-extern SpawnDef *D_801274CC;
+extern struct_10C D_801202A0[];     /* the actor table from slot 1 */
+struct_10C *func_8012C724(struct_14 *d, struct_10C *a);
+struct_10C *func_8012C750(struct_14 *d);
+struct_10C *func_8013E410(void);
+s32 func_8013E448(struct_14 *d);
+extern struct_14 *D_801274C8;    /* the stage's spawn lists, ended by kind 0 */
+extern struct_14 *D_801274CC;
 extern void (*D_8011DB24)(void);   /* the stage's frame step */
 extern void func_800D24A0(s32 n);
 extern s32 func_800D0EC4(void);
 extern void func_80029444(void);
-extern void StepRumbleScript(void);
+extern void func_800190AC(void);
 void func_801754A8(void);
 void func_80141C04(void);
-extern u16 GetPadHeldDirWide(s32 n);
-extern u16 GetPadPressedDirWide(s32 n);
+extern u16 func_80015018(s32 n);
+extern u16 func_80014ED4(s32 n);
 void func_80141788(void);
 void func_80141874(void);
 void func_8013E5E8(void);
 void func_8013E6AC(void);
 /* the stage's mode state */
 typedef struct {
-    /* 0x00 */ u16 unk0;
-    /* 0x02 */ u16 mode;            /* D_8018E8C0's step */
-    /* 0x04 */ u16 unk4;
-    /* 0x06 */ u16 frames;          /* frames in the mode */
-    /* 0x08 */ u16 fade;              /* 0 to 0x40 in steps of 0x10 */
-    /* 0x0A */ u16 unkA;
-    /* 0x0C */ s16 padHeld;         /* pad 0: GetPadHeldDirWide */
-    /* 0x0E */ s16 padPressed;      /* GetPadPressedDirWide */
-    /* 0x10 */ s32 unk10;
-    /* 0x14 */ s16 unk14;
-    /* 0x16 */ s16 unk16;
-    /* 0x18 */ s16 unk18;
-    /* 0x1A */ s16 unk1A[2];
-    /* 0x1E */ s16 unk1E;
-    /* 0x20 */ s32 unk20;            /* the message shown (func_8013EB7C) */
-    /* 0x24 */ s32 unk24[6];
-    /* 0x3C */ s16 unk3C;
-    /* 0x3E */ s16 unk3E;
-    /* 0x40 */ s32 unk40[2];
-    /* 0x48 */ s16 unk48[8];
-    /* 0x58 */ s32 unk58[5];         /* D_8018E8AC >> 6 (func_8013E958); also read as D_80115168 */
-    /* 0x6C */ s32 unk6C[3];
-    /* 0x78 */ s32 unk78[5];         /* also read as D_80115188 */
-    /* 0x8C */ s32 unk8C[11];
-    /* 0xB8 */ s32 unkB8[2];         /* D_801151C8 */
-} StageMode;
-extern StageMode D_80115110;
+    /* 0x00 */ u16 field_0;
+    /* 0x02 */ u16 field_2;            /* D_8018E8C0's step */
+    /* 0x04 */ u16 field_4;
+    /* 0x06 */ u16 field_6;          /* frames in the mode */
+    /* 0x08 */ u16 field_8;              /* 0 to 0x40 in steps of 0x10 */
+    /* 0x0A */ u16 field_A;
+    /* 0x0C */ s16 field_C;         /* pad 0: GetPadHeldDirWide */
+    /* 0x0E */ s16 field_E;      /* GetPadPressedDirWide */
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s16 field_14;
+    /* 0x16 */ s16 field_16;
+    /* 0x18 */ s16 field_18;
+    /* 0x1A */ s16 field_1A[2];
+    /* 0x1E */ s16 field_1E;
+    /* 0x20 */ s32 field_20;            /* the message shown (func_8013EB7C) */
+    /* 0x24 */ s32 field_24[6];
+    /* 0x3C */ s16 field_3C;
+    /* 0x3E */ s16 field_3E;
+    /* 0x40 */ s32 field_40[2];
+    /* 0x48 */ s16 field_48[8];
+    /* 0x58 */ s32 field_58[5];         /* D_8018E8AC >> 6 (func_8013E958); also read as D_80115168 */
+    /* 0x6C */ s32 field_6C[3];
+    /* 0x78 */ s32 field_78[5];         /* also read as D_80115188 */
+    /* 0x8C */ s32 field_8C[11];
+    /* 0xB8 */ s32 field_B8[2];         /* D_801151C8 */
+} struct_C0;
+extern struct_C0 D_80115110;
 extern void (*D_8018E8C0[])(void);
 s16 func_80141C50(void);
 s16 func_8013F350(void);
@@ -172,26 +172,26 @@ extern u8 *D_801ED488;
 extern u8 *D_801ED48C;
 /* the two word arrays at StageMode +0x58 and +0x78, read as their own symbols (array-of-struct indexing keeps the
    `lui at; addu at` form in the loops) */
-typedef struct { s32 v; } S32R;
-extern S32R D_80115168[];
-extern S32R D_80115188[];
+typedef struct { s32 field_0; } struct_4_2;
+extern struct_4_2 D_80115168[];
+extern struct_4_2 D_80115188[];
 extern s16 D_8018E884[2];
 extern s32 func_800D0488(s16 n);
 extern u32 func_80029504(void);
 extern u8 D_80078EC0;
 extern s32 D_8018E8AC[];
 /* StageMode's message tables at +0x38 and +0x30, cleared as their own symbols */
-typedef struct { s16 v; } S16R;
-typedef struct { u8 v; } U8R;
-extern S16R D_80115148[];
-extern U8R D_80115140[];
+typedef struct { s16 field_0; } struct_2;
+typedef struct { u8 field_0; } struct_1;
+extern struct_2 D_80115148[];
+extern struct_1 D_80115140[];
 void func_8013E83C(void);
 void func_80139954(void);
 void func_8014AA28(void);
 extern u8 D_800B9A15;
 
 /* defined in engine_8012F5F4.c */
-Win *func_801376E8(s32 id, u16 *pos);
+struct_4C *func_801376E8(s32 id, u16 *pos);
 void func_80137B80(void);
 void func_80139954(void);
 
@@ -206,8 +206,8 @@ void func_8013C9C4(s8 *seq) {
     D_801ED428 = seq;
     D_801ED42C = 0;
     D_801ED42D = 0;
-    if (GetRumbleScript() == 0) {
-        StartRumbleScript(D_80062BC0);
+    if (func_80019198() == 0) {
+        func_80019064(D_80062BC0);
     }
 }
 
@@ -342,7 +342,7 @@ extern s32 D_8018EB30[];
 extern u8 D_8018EB50;
 extern u8 D_8018EBB0;
 
-extern void ClearRumbleScript();
+extern void func_8001903C();
 
 extern u16 D_80115116;
 extern void (*D_8018E90C[])();
@@ -444,10 +444,10 @@ extern void func_8013CF68();
 extern void func_8013DBE4();
 extern void func_8013D330();
 extern void func_8013D178();
-struct S9 { u8 b[9]; };
-extern struct S9 D_8018DE3C[];
-struct S12 { s32 a; s32 b; s32 c; };
-extern struct S12 D_8018DE74[];
+struct struct_9 { u8 field_0[9]; };
+extern struct struct_9 D_8018DE3C[];
+struct struct_C_3 { s32 field_0; s32 field_4; s32 field_8; };
+extern struct struct_C_3 D_8018DE74[];
 
 void func_8013CB84(void) {
     s32 m = D_800B9A08;
@@ -456,10 +456,10 @@ void func_8013CB84(void) {
     D_801EF3C0 = 0;
     if (D_801ED450 == 0 && k != D_801ED448) {
         D_801ED448 = k;
-        D_801EF466 = D_8018DE74[k].a;
-        D_801EF3BC = D_8018DE74[k].b;
-        D_801EF2F1 = D_8018DE74[k].c;
-        *(struct S9 *)D_801EF398 = D_8018DE3C[k];
+        D_801EF466 = D_8018DE74[k].field_0;
+        D_801EF3BC = D_8018DE74[k].field_4;
+        D_801EF2F1 = D_8018DE74[k].field_8;
+        *(struct struct_9 *)D_801EF398 = D_8018DE3C[k];
         D_801ED44C = 1;
         D_801ED440 = 1;
         if (D_801ED460 & 2) {
@@ -817,7 +817,7 @@ extern s32 D_801ED474;
 
 /* the stage palette tables (D_8018DE74.. by D_801ED448) set up, and kind-9 images of the list arg0 tinted by the
    colour scale (PORT NOTE: the only caller, func_8013D3D4, passes no argument: arg0 is its own a0, as the original) */
-void func_8013D53C(ImgRec *arg0) {
+void func_8013D53C(struct_10_2 *arg0) {
     s32 mr, mg, mb;
     u16 *src, *dst;
     s32 n, i, c, v, r, g, b;
@@ -827,11 +827,11 @@ void func_8013D53C(ImgRec *arg0) {
     } else {
         D_801ED448 = (&D_80078E78)[0x37];
     }
-    D_801EF466 = D_801EF3F2 = D_8018DE74[D_801ED448].a;
-    D_801EF3BC = D_801EF2F2 = D_8018DE74[D_801ED448].b;
-    D_801EF2F1 = D_801EF2C8 = D_8018DE74[D_801ED448].c;
-    *(struct S9 *)D_801EF2E8 = D_8018DE3C[D_801ED448];
-    *(struct S9 *)D_801EF398 = AF(&D_801EF2C8, struct S9, 0x20);
+    D_801EF466 = D_801EF3F2 = D_8018DE74[D_801ED448].field_0;
+    D_801EF3BC = D_801EF2F2 = D_8018DE74[D_801ED448].field_4;
+    D_801EF2F1 = D_801EF2C8 = D_8018DE74[D_801ED448].field_8;
+    *(struct struct_9 *)D_801EF2E8 = D_8018DE3C[D_801ED448];
+    *(struct struct_9 *)D_801EF398 = AF(&D_801EF2C8, struct struct_9, 0x20);
     D_801EF3C0 = 1;
     D_801ED45C = -1;
     D_801ED458 = 0;
@@ -855,10 +855,10 @@ void func_8013D53C(ImgRec *arg0) {
             D_801ED470 = D_801ED438[D_801ED448 * 3 + 1];
             D_801ED474 = D_801ED438[D_801ED448 * 3 + 2];
         } else {
-            for (; arg0->kind != 0xFF; arg0++) {
-                if (arg0->kind == 9) {
-                    n = arg0->r.w * arg0->r.h;
-                    src = arg0->data;
+            for (; arg0->field_0 != 0xFF; arg0++) {
+                if (arg0->field_0 == 9) {
+                    n = arg0->field_4.w * arg0->field_4.h;
+                    src = arg0->field_C;
                     dst = src + n;
                     for (i = 0; i < n; i++) {
                         c = *src;
@@ -880,19 +880,19 @@ void func_8013D53C(ImgRec *arg0) {
 
 /* the list's images of kind 9 uploaded */
 void func_8013D8FC(void) {
-    ImgRec *p = D_801ED43C;
+    struct_10_2 *p = D_801ED43C;
     RECT r;
     s32 w;
     u16 *d;
     if (p != NULL) {
-        for (; p->kind != 0xFF; p++) {
-            if (p->kind == 9) {
-                w = p->r.w;
-                d = p->data;
-                r.x = p->r.x;
-                r.y = p->r.y;
-                r.w = p->r.w;
-                r.h = p->r.h;
+        for (; p->field_0 != 0xFF; p++) {
+            if (p->field_0 == 9) {
+                w = p->field_4.w;
+                d = p->field_C;
+                r.x = p->field_4.x;
+                r.y = p->field_4.y;
+                r.w = p->field_4.w;
+                r.h = p->field_4.h;
                 LoadImage(&r, (u32 *)(d + w));
             }
         }
@@ -900,7 +900,7 @@ void func_8013D8FC(void) {
 }
 
 void func_8013D9B0(s32 a0) {
-    ImgRec *p = D_801ED43C;
+    struct_10_2 *p = D_801ED43C;
     RECT r;
     u32 col;
     u32 src;
@@ -920,15 +920,15 @@ void func_8013D9B0(s32 a0) {
         col = D_801ED434[a0];
         D_801ED454 = -1;
         any = 0;
-        for (; p->kind != 0xFF; p++) {
-            if (p->kind == 9) {
-                r.x = p->r.x;
-                r.y = p->r.y;
-                r.w = p->r.w;
-                r.h = p->r.h;
-                n = p->r.w * p->r.h;
+        for (; p->field_0 != 0xFF; p++) {
+            if (p->field_0 == 9) {
+                r.x = p->field_4.x;
+                r.y = p->field_4.y;
+                r.w = p->field_4.w;
+                r.h = p->field_4.h;
+                n = p->field_4.w * p->field_4.h;
                 changed = 0;
-                s = p->data;
+                s = p->field_C;
                 dst = s + n;
                 d = dst;
                 for (i = 0; i < n; i++) {
@@ -1021,7 +1021,7 @@ void func_8013DBE4(s32 arg0) {
     }
 }
 
-extern s32 g_PrimNext;
+extern s32 D_800A5E60;
 extern DRAWENV D_8018DEB0;
 extern s32 D_801ED46C;
 extern s32 D_801ED470;
@@ -1035,14 +1035,14 @@ void func_8013DD68(void) {
     u16 *rec;
     s32 n;
     s32 i;
-    Work *w = &D_800AF630;
-    p = (u8 *)g_PrimNext;
+    struct_A444 *w = &D_800AF630;
+    p = (u8 *)D_800A5E60;
     rec = (u16 *)D_801ED43C;
     n = *rec++;
-    env = w->draw[w->dispIdx];
+    env = w->field_38[w->field_188];
     env.isbg = 0;
     SetDrawEnv((DR_ENV *)p, &env);
-    addPrim(D_800BA0E4[w->frame], p);
+    addPrim(D_800BA0E4[w->field_A3D2], p);
     p += 0x40;
     for (i = 0; i < n; i++) {
         p[3] = 5;
@@ -1058,14 +1058,14 @@ void func_8013DD68(void) {
         ((u16 *)p)[9] = 0x7800;
         ((u16 *)p)[10] = rec[6];
         ((u16 *)p)[11] = rec[7];
-        addPrim(D_800BA0E4[w->frame], p);
+        addPrim(D_800BA0E4[w->field_A3D2], p);
         p += 0x18;
         rec += 8;
     }
     SetDrawEnv((DR_ENV *)p, &D_8018DEB0);
-    addPrim(D_800BA0E4[w->frame], p);
+    addPrim(D_800BA0E4[w->field_A3D2], p);
     p += 0x40;
-    g_PrimNext = (s32)p;
+    D_800A5E60 = (s32)p;
 }
 
 s32 func_8013E054(void) {
@@ -1073,12 +1073,12 @@ s32 func_8013E054(void) {
 }
 
 /* the distance between two 16.16 positions (whole parts) */
-s32 func_8013E064(Fixed *a, Fixed *b) {
+s32 func_8013E064(union_4 *a, union_4 *b) {
     VECTOR d;
     VECTOR s;
-    d.vx = a[0].h.i - b[0].h.i;
-    d.vy = a[1].h.i - b[1].h.i;
-    d.vz = a[2].h.i - b[2].h.i;
+    d.vx = a[0].m1.field_2 - b[0].m1.field_2;
+    d.vy = a[1].m1.field_2 - b[1].m1.field_2;
+    d.vz = a[2].m1.field_2 - b[2].m1.field_2;
     gte_ldlvl(&d);
     gte_sqr12();
     gte_stlvnl(&s);
@@ -1086,12 +1086,12 @@ s32 func_8013E064(Fixed *a, Fixed *b) {
 }
 
 /* from a 16.16 position to a point */
-s32 func_8013E0FC(Fixed *a, SVECTOR *b) {
+s32 func_8013E0FC(union_4 *a, SVECTOR *b) {
     VECTOR d;
     VECTOR s;
-    d.vx = a[0].h.i - b->vx;
-    d.vy = a[1].h.i - b->vy;
-    d.vz = a[2].h.i - b->vz;
+    d.vx = a[0].m1.field_2 - b->vx;
+    d.vy = a[1].m1.field_2 - b->vy;
+    d.vz = a[2].m1.field_2 - b->vz;
     gte_ldlvl(&d);
     gte_sqr12();
     gte_stlvnl(&s);
@@ -1112,12 +1112,12 @@ s32 func_8013E194(SVECTOR *a, SVECTOR *b) {
 }
 
 /* the squared distance from a 16.16 position to a point */
-s32 func_8013E22C(Fixed *a, SVECTOR *b) {
+s32 func_8013E22C(union_4 *a, SVECTOR *b) {
     VECTOR d;
     VECTOR s;
-    d.vx = a[0].h.i - b->vx;
-    d.vy = a[1].h.i - b->vy;
-    d.vz = a[2].h.i - b->vz;
+    d.vx = a[0].m1.field_2 - b->vx;
+    d.vy = a[1].m1.field_2 - b->vy;
+    d.vz = a[2].m1.field_2 - b->vz;
     Square12(&d, &s);
     return s.vx + s.vy + s.vz;
 }
@@ -1135,9 +1135,9 @@ s32 func_8013E298(SVECTOR *v) {
 s32 func_8013E2C4(SVECTOR *p) {
     s32 v[3];
     s32 r[3];
-    v[0] = D_80126B58.focus[0] - p->vx;
-    v[1] = D_80126B58.focus[1] - p->vy;
-    v[2] = D_80126B58.focus[2] - p->vz;
+    v[0] = D_80126B58.field_154[0] - p->vx;
+    v[1] = D_80126B58.field_154[1] - p->vy;
+    v[2] = D_80126B58.field_154[2] - p->vz;
     gte_ldlvl(v);
     gte_sqr0();
     gte_stlvnl(r);
@@ -1146,11 +1146,11 @@ s32 func_8013E2C4(SVECTOR *p) {
 
 /* the spawn list's free definitions in range get their actors */
 void func_8013E370(void) {
-    SpawnDef *d = D_801274CC;
-    StageActor *a;
+    struct_14 *d = D_801274CC;
+    struct_10C *a;
     if (d != NULL) {
-        for (; (u16)d->kind != 0; d++) {
-            if (!(d->flags & 0x8000)) {
+        for (; (u16)d->field_6 != 0; d++) {
+            if (!(d->field_A & 0x8000)) {
                 a = func_8013E410();
                 if (a == NULL) {
                     return;
@@ -1164,11 +1164,11 @@ void func_8013E370(void) {
 }
 
 /* a free actor */
-StageActor *func_8013E410(void) {
-    StageActor *a;
+struct_10C *func_8013E410(void) {
+    struct_10C *a;
     s32 i;
     for (a = D_801202A0, i = 0; i < 0x60; i++, a++) {
-        if (a->state == 0) {
+        if (a->field_0 == 0) {
             return a;
         }
     }
@@ -1178,11 +1178,11 @@ StageActor *func_8013E410(void) {
 extern s32 D_801274D8;
 extern s32 D_801274DC;
 extern s32 func_800132BC();
-extern s32 (*D_801274D0)(SpawnDef *d);  /* replaces the range test of func_8013E448 when set */
+extern s32 (*D_801274D0)(struct_14 *d);  /* replaces the range test of func_8013E448 when set */
 
-s32 func_8013E448(SpawnDef *d) {
+s32 func_8013E448(struct_14 *d) {
     if (D_801274D0 == NULL) {
-        s32 r = func_800132BC(D_80126B58.focus, d);
+        s32 r = func_800132BC(D_80126B58.field_154, d);
         if (D_801274D8 < r && r < D_801274DC) return 1;
         return 0;
     }
@@ -1191,16 +1191,16 @@ s32 func_8013E448(SpawnDef *d) {
 
 /* the fixed list spawned, and the range list's definitions all marked free */
 void func_8013E4B4(void) {
-    SpawnDef *d = D_801274C8;
+    struct_14 *d = D_801274C8;
     if (d != NULL) {
-        for (; (u16)d->kind != 0; d++) {
+        for (; (u16)d->field_6 != 0; d++) {
             func_8012C750(d);
         }
     }
     d = D_801274CC;
     if (d != NULL) {
-        for (; (u16)d->kind != 0; d++) {
-            d->flags &= 0x7FFF;
+        for (; (u16)d->field_6 != 0; d++) {
+            d->field_A &= 0x7FFF;
         }
     }
 }
@@ -1212,10 +1212,10 @@ void func_8013E558(void) {
 
 void func_8013E588(void) {
     if (func_800D0EC4() == 0) {
-        D_800AF630.unkA3E5 = 1;
-        D_800AF630.pauseMenu = 2;
-        D_80115110.unk0 = 1;
-        D_80115110.mode = 0;
+        D_800AF630.field_A3E5 = 1;
+        D_800AF630.field_A3E3 = 2;
+        D_80115110.field_0 = 1;
+        D_80115110.field_2 = 0;
         D_8011DB24 = func_80141874;
     }
 }
@@ -1224,12 +1224,12 @@ void func_8013E588(void) {
 void func_8013E5E8(void) {
     func_80029444();
     func_801754A8();
-    D_80115110.padPressed = GetPadPressedDirWide(0);
-    D_80115110.padHeld = GetPadHeldDirWide(0);
-    D_8018E8C0[D_80115110.mode]();
-    StepRumbleScript();
+    D_80115110.field_E = func_80014ED4(0);
+    D_80115110.field_C = func_80015018(0);
+    D_8018E8C0[D_80115110.field_2]();
+    func_800190AC();
     func_80141C04();
-    D_80115110.frames++;
+    D_80115110.field_6++;
 }
 
 void func_8013E67C(void) {
@@ -1242,28 +1242,28 @@ void func_8013E67C(void) {
 void func_8013E6AC(void) {
     s16 i;
     s32 v;
-    StageMode *m;
+    struct_C0 *m;
     func_8013E83C();
-    D_80115110.unkA = 0;
-    D_80115110.unk14 = D_80078EC0;
+    D_80115110.field_A = 0;
+    D_80115110.field_14 = D_80078EC0;
     for (i = 0; i < 8; i++) {
-        D_80115148[i].v = 0;
-        D_80115140[i].v = 0;
+        D_80115148[i].field_0 = 0;
+        D_80115140[i].field_0 = 0;
     }
     if (func_80029504() >= 5 && D_800B9A08 != 0x302A && D_800B9A08 != 0x3073) {
         for (i = 0, m = &D_80115110; i < 5; i++) {
-            m->unk58[i] = v = D_8018E8AC[i] * 3 >> 2;
-            D_80115188[i].v = v;
+            m->field_58[i] = v = D_8018E8AC[i] * 3 >> 2;
+            D_80115188[i].field_0 = v;
         }
         D_8018E884[0] = 2;
         D_8018E884[1] = 1;
-        D_80115110.mode++;
+        D_80115110.field_2++;
     } else {
         func_8013E83C();
-        D_80115110.unkA = 7;
+        D_80115110.field_A = 7;
         D_8018E884[1] = 0;
         D_8018E884[0] = 0;
-        D_80115110.mode = 6;
+        D_80115110.field_2 = 6;
     }
 }
 
@@ -1273,12 +1273,12 @@ void func_8013E814(void) {
 }
 
 void func_8013E83C(void) {
-    D_80115110.fade = 0;
-    D_80115110.unk20 = 0;
-    if (D_80115110.unkA >= 4) {
-        D_80115110.unkA -= 3;
+    D_80115110.field_8 = 0;
+    D_80115110.field_20 = 0;
+    if (D_80115110.field_A >= 4) {
+        D_80115110.field_A -= 3;
     }
-    D_80115110.unk48[0] = 0x106;
+    D_80115110.field_48[0] = 0x106;
     if (!(func_80029178(0x1C) & 0xFF)) {
         D_801ED488 = D_8018E524;
         D_801ED48C = D_8018E5B0;
@@ -1286,14 +1286,14 @@ void func_8013E83C(void) {
         D_801ED488 = D_8018E53C;
         D_801ED48C = D_8018E5B8;
     }
-    D_80115110.unk48[1] = 0x104;
-    D_80115110.unk48[2] = 0x104;
-    D_80115110.unk48[3] = 0x129;
-    D_80115110.unk48[5] = 0x103;
-    D_80115110.unk48[7] = 0x105;
-    D_80115110.unk18 = 0;
-    D_80115110.unk1E = 0;
-    if (D_80115110.unk0 == 3) {
+    D_80115110.field_48[1] = 0x104;
+    D_80115110.field_48[2] = 0x104;
+    D_80115110.field_48[3] = 0x129;
+    D_80115110.field_48[5] = 0x103;
+    D_80115110.field_48[7] = 0x105;
+    D_80115110.field_18 = 0;
+    D_80115110.field_1E = 0;
+    if (D_80115110.field_0 == 3) {
         func_8002D4C8(0x46E, 0);
     } else {
         func_80141C0C(0);
@@ -1305,11 +1305,11 @@ void func_8013E958(void) {
     s16 *p;
     s16 i;
     s32 v;
-    StageMode *m;
+    struct_C0 *m;
 
     D_800B9A15 = 0;
     func_80139954();
-    p = &D_80115110.unk14;
+    p = &D_80115110.field_14;
     if (D_80078EC0 != *p) {
         func_8014AA28();
         if (D_80078EC0 & 0x7F) {
@@ -1320,30 +1320,30 @@ void func_8013E958(void) {
     *p = 0;
 loop:
     for (i = 0, m = &D_80115110; i < 5; i++) {
-        m->unk58[i] = v = D_8018E8AC[i] >> 6;
-        D_80115188[i].v = v;
+        m->field_58[i] = v = D_8018E8AC[i] >> 6;
+        D_80115188[i].field_0 = v;
     }
     func_80141C0C(7);
-    D_80115110.mode = 4;
+    D_80115110.field_2 = 4;
 }
 
 void func_8013EA54(void) {
     SVECTOR unused;
     if (func_80141C50() == 0) {
-        D_801151D0 = D_801151C8[D_800AF630.frame];
+        D_801151D0 = D_801151C8[D_800AF630.field_A3D2];
         func_8013F244();
         func_8013FAF8(0, 5);
         func_80137B80();
-        if (D_80115110.padPressed & 0x40) {
-            if (D_80115110.unkA == 0 && D_800B9A08 == 0x308F) {
+        if (D_80115110.field_E & 0x40) {
+            if (D_80115110.field_A == 0 && D_800B9A08 == 0x308F) {
                 func_8002D4C8(0x466, 0);
             } else {
-                if (D_80115110.unkA != 4) D_80115110.unk20 = 0;
-                if (D_80115110.unkA == 1 || D_80115110.unkA == 2) D_80115110.unk3C = 0;
+                if (D_80115110.field_A != 4) D_80115110.field_20 = 0;
+                if (D_80115110.field_A == 1 || D_80115110.field_A == 2) D_80115110.field_3C = 0;
                 func_8002D4C8(0x45D, 0);
-                D_80115110.mode++;
+                D_80115110.field_2++;
             }
-        } else if (D_80115110.padPressed & 0x810) {
+        } else if (D_80115110.field_E & 0x810) {
             func_8013E958();
         }
     }
@@ -1355,9 +1355,9 @@ void func_8013EB7C(void) {
     u16 k;
     SVECTOR unused;
     if (func_80141C50() == 0) {
-        D_801151D0 = D_801151C8[D_800AF630.frame];
+        D_801151D0 = D_801151C8[D_800AF630.field_A3D2];
         r = func_8013F350();
-        k = D_80115110.unkA;
+        k = D_80115110.field_A;
         if (k >= 4) {
             func_8013FAF8((s16)k, (s16)(k + 1));
         }
@@ -1367,20 +1367,20 @@ void func_8013EB7C(void) {
         } else {
             w = func_8014032C((s16)D_8011511A, func_8014168C(D_8011511A));
         }
-        if (w != 0 && w != D_80115110.unk20) {
-            D_80115110.unk20 = w;
+        if (w != 0 && w != D_80115110.field_20) {
+            D_80115110.field_20 = w;
             func_80139954();
             func_801376E8(w, D_8018E888);
         }
         func_80137B80();
-        if ((D_80115110.padPressed & 0x10) && D_80115110.unkA < 5 && r == 0) {
-            D_80115110.unk18 = 0;
+        if ((D_80115110.field_E & 0x10) && D_80115110.field_A < 5 && r == 0) {
+            D_80115110.field_18 = 0;
             func_8002D4C8(0x466, 0);
-            if (D_80115110.unkA != 4) {
+            if (D_80115110.field_A != 4) {
                 func_801376E8(func_80141CA4(), D_8018E888);
             }
-            D_80115110.mode--;
-        } else if ((D_80115110.padPressed & 0x800) || D_80115110.unk1A[0] != 0) {
+            D_80115110.field_2--;
+        } else if ((D_80115110.field_E & 0x800) || D_80115110.field_1A[0] != 0) {
             func_8013E958();
         }
     }
@@ -1389,12 +1389,12 @@ void func_8013EB7C(void) {
 void func_8013ED6C(void) {
     SVECTOR unused;
     if (func_80141C50() == 0) {
-        D_801151D0 = D_801151C8[D_800AF630.frame];
+        D_801151D0 = D_801151C8[D_800AF630.field_A3D2];
         func_8013F350();
         func_8013FAF8(7, 8);
-        if (D_80115110.unkA != 7 || (D_80115110.padPressed & 0x810)) {
+        if (D_80115110.field_A != 7 || (D_80115110.field_E & 0x810)) {
             func_8013E958();
-            D_80115110.mode = 4;
+            D_80115110.field_2 = 4;
         }
     }
 }
@@ -1403,23 +1403,23 @@ void func_8013EE10(void) {
     s16 i;
     s32 v;
     SVECTOR unused;
-    StageMode *m;
-    D_801151D0 = D_801151C8[D_800AF630.frame];
+    struct_C0 *m;
+    D_801151D0 = D_801151C8[D_800AF630.field_A3D2];
     func_8013FAF8(0, 5);
     for (i = 0; i < 5; i++) {
-        v = D_80115168[i].v * 3 >> 2;
-        D_80115188[i].v = v;
-        D_80115168[i].v -= v;
+        v = D_80115168[i].field_0 * 3 >> 2;
+        D_80115188[i].field_0 = v;
+        D_80115168[i].field_0 -= v;
     }
     if (D_8018E884[1] < 3) D_8018E884[1]++;
     D_8018E884[0] += 2;
-    if (D_80115110.fade++ >= 5) {
+    if (D_80115110.field_8++ >= 5) {
         func_801376E8(func_80141CA4(), D_8018E888);
         for (i = 0, m = &D_80115110; i < 5; i++) {
-            m->unk78[i] = 0;
-            D_80115168[i].v = 0;
+            m->field_78[i] = 0;
+            D_80115168[i].field_0 = 0;
         }
-        D_80115110.mode++;
+        D_80115110.field_2++;
     }
 }
 
@@ -1427,68 +1427,68 @@ void func_8013EF88(void) {
     s16 i;
     s32 v;
     s32 r;
-    if (D_80115110.fade != 0 && --D_80115110.fade != 0) {
-        D_801151D0 = D_80115110.unkB8[D_800AF630.frame];
+    if (D_80115110.field_8 != 0 && --D_80115110.field_8 != 0) {
+        D_801151D0 = D_80115110.field_B8[D_800AF630.field_A3D2];
         func_8013FAF8(0, 5);
         for (i = 0; i < 5; i++) {
-            v = D_80115188[i].v * 3;
-            D_80115188[i].v = v;
-            D_80115168[i].v += v;
+            v = D_80115188[i].field_0 * 3;
+            D_80115188[i].field_0 = v;
+            D_80115168[i].field_0 += v;
         }
-        if (D_80115110.fade < 3) D_8018E884[1]--;
+        if (D_80115110.field_8 < 3) D_8018E884[1]--;
         if ((D_8018E884[0] -= 2) < 0) D_8018E884[0] = 0;
     }
-    if (D_80115110.unk14 != 0) {
-        if (func_800D0488(D_80115110.unk14) == 0) return;
-        D_80115110.unk14 = 0;
+    if (D_80115110.field_14 != 0) {
+        if (func_800D0488(D_80115110.field_14) == 0) return;
+        D_80115110.field_14 = 0;
     }
-    if (D_80115110.fade == 0) {
-        if (D_80115110.unk4 == (D_800AF630.frame ^ 1)) {
+    if (D_80115110.field_8 == 0) {
+        if (D_80115110.field_4 == (D_800AF630.field_A3D2 ^ 1)) {
             func_800D2624();
         } else {
-            D_80115110.mode++;
+            D_80115110.field_2++;
         }
     }
 }
 
 /* the fade in; then window 0 opens with the stage's message (unless unk0 is set) */
 void func_8013F138(void) {
-    D_80115110.fade += 0x10;
-    if (D_80115110.fade >= 0x40) {
-        if (D_80115110.unk0 == 0) {
+    D_80115110.field_8 += 0x10;
+    if (D_80115110.field_8 >= 0x40) {
+        if (D_80115110.field_0 == 0) {
             func_801376E8(func_80141CA4(), D_8018E888);
         }
-        D_80115110.mode++;
+        D_80115110.field_2++;
     }
 }
 
 void func_8013F1BC(void) {
-    if (D_80115110.fade != 0) D_80115110.fade -= 0x10; if (D_80115110.fade == 0) {
-        if (D_80115110.unk4 == (D_800AF630.frame ^ 1)) {
+    if (D_80115110.field_8 != 0) D_80115110.field_8 -= 0x10; if (D_80115110.field_8 == 0) {
+        if (D_80115110.field_4 == (D_800AF630.field_A3D2 ^ 1)) {
             func_800D2624();
         } else {
-            D_80115110.mode++;
+            D_80115110.field_2++;
         }
     }
 }
 
 void func_8013F244(void) {
     s16 n = 0;
-    if (D_80115110.unkA < 3) {
-        if (D_80115110.padPressed & 0x2000) {
+    if (D_80115110.field_A < 3) {
+        if (D_80115110.field_E & 0x2000) {
             n = 1;
-            if (++D_80115110.unkA >= 3) D_80115110.unkA = 0;
+            if (++D_80115110.field_A >= 3) D_80115110.field_A = 0;
         }
-        if ((u16)D_80115110.padPressed & 0x8000) {
-            if (--D_80115110.unkA >= 3) D_80115110.unkA = 2;
+        if ((u16)D_80115110.field_E & 0x8000) {
+            if (--D_80115110.field_A >= 3) D_80115110.field_A = 2;
             n++;
         }
-        if (D_80115110.padPressed & 0x5000) {
-            D_80115110.unkA = 3;
+        if (D_80115110.field_E & 0x5000) {
+            D_80115110.field_A = 3;
             n++;
         }
-    } else if (D_80115110.padPressed & 0x5000) {
-        D_80115110.unkA = 0;
+    } else if (D_80115110.field_E & 0x5000) {
+        D_80115110.field_A = 0;
         n = 1;
     }
     if (n) func_80141C0C(2);
@@ -1521,18 +1521,18 @@ s16 func_8013F350(void) {
     s32 m;
     u16 k;
 
-    rep = D_80115110.padHeld;
+    rep = D_80115110.field_C;
     do { /* MATCH-TRICK: ends cse1's block (cse2 relates the +0x10 field to the base) */
         moved = 0;
     } while (0);
     if (rep != 0) {
-        if (rep == *(u16 *)&D_80115110.unk10) {
+        if (rep == *(u16 *)&D_80115110.field_10) {
             if (--D_80115122 == 0) {
                 D_8011511E = rep & 0xF000;
                 D_80115122 = 3;
             }
         } else {
-            *(u16 *)&D_80115110.unk10 = rep;
+            *(u16 *)&D_80115110.field_10 = rep;
             D_80115122 = 6;
         }
     } else {
@@ -1542,7 +1542,7 @@ s16 func_8013F350(void) {
     for (i = 0; i < 6; i++) {
         if (!(func_80029178(D_8018E5A8[i]) & 0xFF)) break;
     }
-    D_80115110.unk48[0] = i | 0x100;
+    D_80115110.field_48[0] = i | 0x100;
     switch (D_8011511A) {
     case 0:
         n = func_8014168C(0);
@@ -1570,9 +1570,9 @@ s16 func_8013F350(void) {
             break;
         case 1:
             n = func_8014168C(2);
-            if ((u16)D_80115110.padPressed & 0x40) {
+            if ((u16)D_80115110.field_E & 0x40) {
                 if (D_8011512E == 0) {
-                    if ((func_800291B4(D_8018E5C0[(s16)n]) & 0xFF) && ((u16)D_80115110.padPressed & 0x40)) {
+                    if ((func_800291B4(D_8018E5C0[(s16)n]) & 0xFF) && ((u16)D_80115110.field_E & 0x40)) {
                         D_8011511A = 5;
                         *(u16 *)&D_80115152 = 0;
                         func_80141C0C(3);
@@ -1585,7 +1585,7 @@ s16 func_8013F350(void) {
                     func_80141C0C(3);
                     return 1;
                 }
-            } else if ((u16)D_80115110.padPressed & 0x20) {
+            } else if ((u16)D_80115110.field_E & 0x20) {
                 if (D_8011512E == 0) {
                     D_8011512E = n | 0x8000;
                 } else {
@@ -1602,7 +1602,7 @@ s16 func_8013F350(void) {
             func_801407F4();
             break;
         }
-        if (D_80115128 != 0 && (D_8011511E & 0x10) && D_80115110.unk0 != 1) {
+        if (D_80115128 != 0 && (D_8011511E & 0x10) && D_80115110.field_0 != 1) {
             D_8011511E &= ~0x10;
             D_8011511A = 1;
             D_8011512E = 0;
@@ -1610,7 +1610,7 @@ s16 func_8013F350(void) {
         }
         break;
     case 3:
-        if (D_80115110.unk3E == 0 && (D_8011511E & 0x40)) {
+        if (D_80115110.field_3E == 0 && (D_8011511E & 0x40)) {
             D_8011511A += 3;
             func_80141C0C(3);
             return 1;
@@ -1624,7 +1624,7 @@ s16 func_8013F350(void) {
             d = func_801416D4(D_80115152);
             if (d == 0) break;
             if (d < 0) {
-                D_80115110.unk1A[0] = 1;
+                D_80115110.field_1A[0] = 1;
                 break;
             }
             D_8011511A -= 3;
@@ -1637,7 +1637,7 @@ s16 func_8013F350(void) {
     case 6:
         if (D_8011511E & 0x10) {
         clear:
-            D_80115110.padPressed &= ~0x10;
+            D_80115110.field_E &= ~0x10;
             D_8011511A -= 3;
             func_80141C0C(6);
             return 1;
@@ -1650,7 +1650,7 @@ s16 func_8013F350(void) {
         func_801407F4();
         break;
     }
-    k = D_80115110.unkA;
+    k = D_80115110.field_A;
     a = (u8 *)&D_80115110 + 0x38 + k * 2;
     b = (u8 *)&D_80115110 + 0x48 + k * 2;
     if (k != 2 && b[0] < 2) {
@@ -1699,20 +1699,20 @@ s16 func_8013F350(void) {
     } else {
         e = a[0];
         m = D_8011511A;
-        d = (s8)e - (s8)D_80115140[m].v;
+        d = (s8)e - (s8)D_80115140[m].field_0;
         if (d > 0) {
-            D_80115140[m].v = e;
+            D_80115140[m].field_0 = e;
         } else if (d < 0) {
-            D_80115140[m].v = e;
+            D_80115140[m].field_0 = e;
         }
     }
     if (D_8011511A == 1) {
         D_80115128 = func_8014168C(1) + 1;
         if (D_8011511E & 0x5000) {
-            D_80115110.unk3C = 0;
+            D_80115110.field_3C = 0;
         }
     }
-    D_80115110.unk48[2] = D_8018E4C4[D_80115128];
+    D_80115110.field_48[2] = D_8018E4C4[D_80115128];
     if (moved) {
         func_80141C0C(1);
     }
@@ -2060,7 +2060,7 @@ s32 func_80140608(s32 arg0) {
         v = func_80028D58() ^ 1;
         func_80028D78(v);
         if (v == 0) {
-            StartRumbleScript(&D_80062BDC);
+            func_80019064(&D_80062BDC);
         }
         break;
     case 1:
@@ -2173,33 +2173,33 @@ s32 func_80140958(s32 p, s32 a0, s32 b0) {
     s32 m;
 
     for (i = a0; i < end; i++) {
-        if (D_80115110.unk0 == 0 && D_80115110.mode != 3 && D_80115110.mode < 6) {
-            if (i == D_80115110.unkA) {
-                p = func_80140D68(p, &D_8018E32C[i * 2], i, D_8018E88C[D_80115110.frames & 7], 0);
+        if (D_80115110.field_0 == 0 && D_80115110.field_2 != 3 && D_80115110.field_2 < 6) {
+            if (i == D_80115110.field_A) {
+                p = func_80140D68(p, &D_8018E32C[i * 2], i, D_8018E88C[D_80115110.field_6 & 7], 0);
             }
         } else {
             tbl = (u16 *)D_8018E470[i];
-            if (tbl != NULL && i == D_80115110.unkA && i != 6) {
-                if (i == 2 && D_80115110.unk18 != 0) {
+            if (tbl != NULL && i == D_80115110.field_A && i != 6) {
+                if (i == 2 && D_80115110.field_18 != 0) {
                     tbl = (u16 *)&D_8018E37C;
                 }
                 if (i != 3) {
                     j = func_8014168C(i) * 2;
                 } else {
-                    j = (((u8 *)D_80115148)[6] - D_80115140[3].v) * 2;
+                    j = (((u8 *)D_80115148)[6] - D_80115140[3].field_0) * 2;
                 }
-                p = func_80140D68(p, tbl, i, D_8018E89C[D_80115110.frames & 7], j);
-                if (i == 2 && D_80115110.unk18 == 1 && D_80115110.unk1E != 0) {
-                    p = func_80140D68(p, tbl, 2, 8, (D_80115110.unk1E & 0xF) * 2);
+                p = func_80140D68(p, tbl, i, D_8018E89C[D_80115110.field_6 & 7], j);
+                if (i == 2 && D_80115110.field_18 == 1 && D_80115110.field_1E != 0) {
+                    p = func_80140D68(p, tbl, 2, 8, (D_80115110.field_1E & 0xF) * 2);
                 }
             }
         }
-        if (i == 3 && D_80115110.unkA == i && (D_80115110.frames & 8)) {
-            k = D_80115110.unkA;
+        if (i == 3 && D_80115110.field_A == i && (D_80115110.field_6 & 8)) {
+            k = D_80115110.field_A;
             n = 0;
             do {
                 if ((s16)n == 0) {
-                    c = D_80115140[k].v;
+                    c = D_80115140[k].field_0;
                     if (c == 0) {
                         goto nx;
                     }
@@ -2447,7 +2447,7 @@ void func_80141788(void) {
 }
 
 void func_801417C4(void) {
-    ClearRumbleScript();
+    func_8001903C();
     *(s16 *)&D_80115112 += 1;
 }
 
@@ -2463,8 +2463,8 @@ void func_801417F8(void) {
 
 void func_80141874(void) {
     func_801754A8();
-    ((SVECTOR *)&D_8011511C)->vy = GetPadPressedDirWide(0);
-    ((SVECTOR *)&D_8011511C)->vx = GetPadHeldDirWide(0);
+    ((SVECTOR *)&D_8011511C)->vy = func_80014ED4(0);
+    ((SVECTOR *)&D_8011511C)->vx = func_80015018(0);
     D_8018E90C[D_80115112]();
     func_80141C04();
     ((SVECTOR *)&D_80115112)->vz += 1;
@@ -2474,13 +2474,13 @@ extern u8 D_8018E524[];
 extern u8 D_8018E53C[];
 extern u8 D_8018E5B0[];
 
-static inline void func_8013E83C_body(void) {
-    D_80115110.fade = 0;
-    D_80115110.unk20 = 0;
-    if (D_80115110.unkA >= 4) {
-        D_80115110.unkA -= 3;
+static inline void func_801418F8_inline(void) {
+    D_80115110.field_8 = 0;
+    D_80115110.field_20 = 0;
+    if (D_80115110.field_A >= 4) {
+        D_80115110.field_A -= 3;
     }
-    D_80115110.unk48[0] = 0x106;
+    D_80115110.field_48[0] = 0x106;
     if (!(func_80029178(0x1C) & 0xFF)) {
         D_801ED488 = D_8018E524;
         D_801ED48C = D_8018E5B0;
@@ -2488,14 +2488,14 @@ static inline void func_8013E83C_body(void) {
         D_801ED488 = D_8018E53C;
         D_801ED48C = D_8018E5B8;
     }
-    D_80115110.unk48[1] = 0x104;
-    D_80115110.unk48[2] = 0x104;
-    D_80115110.unk48[3] = 0x129;
-    D_80115110.unk48[5] = 0x103;
-    D_80115110.unk48[7] = 0x105;
-    D_80115110.unk18 = 0;
-    D_80115110.unk1E = 0;
-    if (D_80115110.unk0 == 3) {
+    D_80115110.field_48[1] = 0x104;
+    D_80115110.field_48[2] = 0x104;
+    D_80115110.field_48[3] = 0x129;
+    D_80115110.field_48[5] = 0x103;
+    D_80115110.field_48[7] = 0x105;
+    D_80115110.field_18 = 0;
+    D_80115110.field_1E = 0;
+    if (D_80115110.field_0 == 3) {
         func_8002D4C8(0x46E, 0);
     } else {
         func_80141C0C(0);
@@ -2504,12 +2504,12 @@ static inline void func_8013E83C_body(void) {
 
 void func_801418F8(void) {
     func_800D24A0(1);
-    D_80115110.unkA = 2;
-    func_8013E83C_body();
-    D_80115110.unk18 = 1;
+    D_80115110.field_A = 2;
+    func_801418F8_inline();
+    D_80115110.field_18 = 1;
     D_8018E884[0] = 0xE;
     D_8018E884[1] = 3;
-    D_80115110.mode++;
+    D_80115110.field_2++;
 }
 
 void func_80141A60(void) {
@@ -2518,21 +2518,21 @@ void func_80141A60(void) {
     u16 k;
     D_801151D0 = D_801151C8[D_800B9A02];
     func_8013F350();
-    k = D_80115110.unkA;
+    k = D_80115110.field_A;
     if (k >= 4) {
         func_8013FAF8((s16)k, (s16)(k + 1));
     }
     func_8013FAF8(2, 3);
     w = func_8014032C(2, (s16)(((u8 *)D_80115148)[4] + D_80115149[4] * D_80115158[4]));
-    if (w != 0 && w != D_80115110.unk20) {
-        D_80115110.unk20 = w;
+    if (w != 0 && w != D_80115110.field_20) {
+        D_80115110.field_20 = w;
         func_80139954();
         func_801376E8(w, D_8018E888);
     }
     func_80137B80();
     if (func_800D0EC4() != 0) {
-        D_80115110.frames = -8;
-        D_80115110.mode++;
+        D_80115110.field_6 = -8;
+        D_80115110.field_2++;
     }
 }
 
@@ -2553,7 +2553,7 @@ extern u16 D_8018E860[];
 
 void func_80141C0C(s32 n) {
     s16 x = n;
-    func_8002D4C8(D_8018E860[x * 2 + D_80115110.unk0], 0);
+    func_8002D4C8(D_8018E860[x * 2 + D_80115110.field_0], 0);
 }
 
 s16 func_80141C50(void) {
@@ -2820,24 +2820,24 @@ void func_80142414(s32 arg0, s16 arg1) {
     }
 }
 
-StageActor *func_8012C51C(SpawnDef *d, StageActor *parent);
+struct_10C *func_8012C51C(struct_14 *d, struct_10C *parent);
 
 void func_80142454(s32 arg0) {
-    SpawnDef d;
-    StageActor *a;
+    struct_14 d;
+    struct_10C *a;
 
-    d.kind = 0x13;
-    d.x = D_80126B58.pos[0].h.i;
-    d.y = D_80126B58.pos[1].h.i;
-    d.z = D_80126B58.pos[2].h.i;
-    d.unk8 = 1;
-    d.flags = 0;
-    d.unkE = 0;
-    d.unk10 = 0;
+    d.field_6 = 0x13;
+    d.field_0 = D_80126B58.field_4[0].m1.field_2;
+    d.field_2 = D_80126B58.field_4[1].m1.field_2;
+    d.field_4 = D_80126B58.field_4[2].m1.field_2;
+    d.field_8 = 1;
+    d.field_A = 0;
+    d.field_E = 0;
+    d.field_10 = 0;
     a = func_8012C51C(&d, 0);
     if (a != 0) {
         AF(a, s16, 0x52) = arg0;
-        AF(a, Player *, 0x64) = &D_80126B58;
+        AF(a, struct_18C *, 0x64) = &D_80126B58;
     }
 }
 
@@ -3018,14 +3018,14 @@ void func_80142A10(u8 *arg0) {
 }
 
 extern u16 D_800B99D8;
-struct C4 { u8 r, g, b, a; };
-extern struct C4 D_801EC5F8;
+struct struct_4_3 { u8 field_0, field_1, field_2, field_3; };
+extern struct struct_4_3 D_801EC5F8;
 extern u8 D_801ED490;
 extern u8 D_801ED491;
 extern u8 D_801ED492;
 
 void func_80142A80(void) {
-    struct C4 c;
+    struct struct_4_3 c;
     s32 k;
 
     c = D_801EC5F8;
@@ -3034,9 +3034,9 @@ void func_80142A80(void) {
     } else {
         k = 0x10 - ((D_800B99D8 & 0xF) >> 1);
     }
-    D_801ED490 = k * (c.r >> 4);
-    D_801ED491 = k * (c.g >> 4);
-    D_801ED492 = k * (c.b >> 4);
+    D_801ED490 = k * (c.field_0 >> 4);
+    D_801ED491 = k * (c.field_1 >> 4);
+    D_801ED492 = k * (c.field_2 >> 4);
 }
 
 s32 func_80142B2C(s32 arg0) {
@@ -3161,7 +3161,7 @@ void func_80142EC0(s32 arg0, s32 arg1) {
     AF(temp_v0, s16, 0x1A) = temp_v1;
     AF(temp_v0, s16, 0x18) = temp_v1;
     AF(arg0, s16, 0xFC) = 0;
-    SetScript(arg0, D_8018EB30[(AF(arg0, u16, 0x70) & 0xF)]);
+    func_8012A828(arg0, D_8018EB30[(AF(arg0, u16, 0x70) & 0xF)]);
     func_80142B2C(arg0);
 }
 
@@ -3206,7 +3206,7 @@ void func_8014305C(s32 arg0, s32 arg1) {
     AF(temp_v0, s16, 0x1A) = temp_v0_2;
     AF(temp_v0, s16, 0x18) = temp_v0_2;
     AF(arg0, s16, 0xFC) = 0;
-    SetScript(arg0, (s32) &D_8018EBB0);
+    func_8012A828(arg0, (s32) &D_8018EBB0);
     func_80142B2C(arg0);
 }
 
@@ -3233,14 +3233,14 @@ void func_80143188(s32 arg0) {
     }
 }
 
-extern struct C4 D_801EC5F4;
-extern struct C4 D_801ED494;
+extern struct struct_4_3 D_801EC5F4;
+extern struct struct_4_3 D_801ED494;
 extern void func_8001CA88();
-extern StageActor * func_8012E504();
+extern struct_10C * func_8012E504();
 extern void func_800233CC();
 
 void func_801431E8(s32 arg0) {
-    struct C4 c;
+    struct struct_4_3 c;
     s16 temp_v0_2;
     s32 temp_v0;
 
@@ -3432,7 +3432,7 @@ void func_80143B30(u8 *arg0) {
     D_8018EE30[AF(arg0, u16, 2)]();
 }
 
-StageActor * func_80143B6C(StageActor *arg0, s32 arg1) {
+struct_10C * func_80143B6C(struct_10C *arg0, s32 arg1) {
     s32 temp_v0;
     void *temp_a0;
 
@@ -3445,19 +3445,19 @@ StageActor * func_80143B6C(StageActor *arg0, s32 arg1) {
     return temp_v0;
 }
 
-StageActor *func_8012C51C(SpawnDef *d, StageActor *parent);
+struct_10C *func_8012C51C(struct_14 *d, struct_10C *parent);
 
 void func_80143BDC(u8 *arg0) {
-    SpawnDef d;
+    struct_14 d;
 
-    d.x = AF(arg0, s16, 0);
-    d.y = AF(arg0, s16, 2);
-    d.z = AF(arg0, s16, 4);
-    d.kind = 0x1C;
-    d.unk8 = 1;
-    d.flags = 0;
-    d.unk10 = 0;
-    d.unkE = 0;
+    d.field_0 = AF(arg0, s16, 0);
+    d.field_2 = AF(arg0, s16, 2);
+    d.field_4 = AF(arg0, s16, 4);
+    d.field_6 = 0x1C;
+    d.field_8 = 1;
+    d.field_A = 0;
+    d.field_10 = 0;
+    d.field_E = 0;
     func_8012C51C(&d, 0);
 }
 
@@ -3473,7 +3473,7 @@ void func_80143C98(u8 *arg0) {
     D_8018EE44[AF(arg0, u16, 2)]();
 }
 
-void func_80143CD4(StageActor *arg0) {
+void func_80143CD4(struct_10C *arg0) {
     func_8012C658(0x39, 0, arg0);
     func_8012C658(0x39, 1, arg0);
     return func_8012C658(0x39, 2, arg0);
@@ -3569,7 +3569,7 @@ void func_80144054(u8 *arg0) {
 }
 
 extern u8 D_800AF648;
-extern s32 AllocPrim();
+extern s32 func_80010A08();
 extern GsOT D_800A6518[2];
 
 /* a ring of 16 white triangles around the actor's screen point (radius at 0x1C), the actor moved by its speed first */
@@ -3582,7 +3582,7 @@ void func_80144090(u8 *arg0) {
     s32 s;
     s32 c;
 
-    p = (POLY_F3 *)AllocPrim(0x140);
+    p = (POLY_F3 *)func_80010A08(0x140);
     if (p != NULL) {
         AF(arg0, s32, 4) += AF(arg0, s32, 0x10);
         AF(arg0, s32, 8) += AF(arg0, s32, 0x14);
@@ -3771,7 +3771,7 @@ void func_8014477C(s32 arg0, s32 arg1) {
             AF(arg0, u16, 0xA) = AF(arg0, u16, 0xA) - 0x60;
         }
     }
-    SetScript(arg0, (s32) &D_8018EE58);
+    func_8012A828(arg0, (s32) &D_8018EE58);
     AF(arg0, s16, 2) = 1;
     AF(AF(arg0, s32, 0x20), s16, 0x12) = (AF(arg0, s16, 0x70) << 0xC) / 3;
     AF(arg0, s32, 0x1C) = 0x78;

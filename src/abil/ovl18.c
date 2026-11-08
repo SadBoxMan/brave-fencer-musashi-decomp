@@ -2,8 +2,8 @@
 #include "abil.h"
 
 extern void func_80146994();
-extern AbilStep D_ovl18_800CB5E8[];
-extern AbilStep D_ovl18_800CB614[];
+extern type_1 D_ovl18_800CB5E8[];
+extern type_1 D_ovl18_800CB614[];
 void func_ovl18_800CAF30(u8 *a);
 extern void func_80165A20();
 extern s32 D_80078EC8;
@@ -187,7 +187,7 @@ void func_ovl18_800CB168(u8 *arg0) {
 }
 
 extern u8 D_80078EC1;
-extern AMtx D_800AE620;
+extern struct_20 D_800AE620;
 extern s16 D_80126B5E;
 extern s16 D_80126B62;
 extern s16 D_80126B66;
@@ -199,8 +199,8 @@ extern void func_8012F14C();
 extern void func_80016714();
 
 void func_ovl18_800CB328(u8 *arg0) {
-    AVec v;
-    AMtx m;
+    struct_8 v;
+    struct_20 m;
     u8 *mo;
     u8 *o;
     u32 t;
@@ -230,16 +230,16 @@ void func_ovl18_800CB328(u8 *arg0) {
         AF(arg0, s32, 0x30) += 0xA00000U / (AF(arg0, u32, 0x2C) * 804);
         m = D_800AE620;
         RotMatrixY(AF(arg0, s32, 0x30), &m);
-        v.vx = 0;
-        v.vy = -(AF(arg0, u32, 0x2C) >> 1);
-        v.vz = AF(arg0, s32, 0x2C);
-        m.t[0] = D_80126B5E;
-        m.t[1] = D_80126B62 - 0x1C;
-        m.t[2] = D_80126B66;
+        v.field_0 = 0;
+        v.field_2 = -(AF(arg0, u32, 0x2C) >> 1);
+        v.field_4 = AF(arg0, s32, 0x2C);
+        m.field_14[0] = D_80126B5E;
+        m.field_14[1] = D_80126B62 - 0x1C;
+        m.field_14[2] = D_80126B66;
         func_8012F14C(&m, &v, &v);
-        AF(arg0, u16, 6) = v.vx;
-        AF(arg0, u16, 0xA) = v.vy;
-        AF(arg0, u16, 0xE) = v.vz;
+        AF(arg0, u16, 6) = v.field_0;
+        AF(arg0, u16, 0xA) = v.field_2;
+        AF(arg0, u16, 0xE) = v.field_4;
         AF(o, s32, 4) &= msk;
         AF(o, u16, 0x18) = AF(mo, u16, 0x18);
         AF(o, u16, 0x1A) = AF(mo, u16, 0x1A);

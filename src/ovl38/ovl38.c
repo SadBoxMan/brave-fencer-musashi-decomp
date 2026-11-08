@@ -9,46 +9,46 @@
 
 /* A sprite with its own texture-page command (6 words) */
 typedef struct {
-    /* 0x00 */ u32 tag;
-    /* 0x04 */ u32 tpage;
-    /* 0x08 */ u8 r0, g0, b0, code;
-    /* 0x0C */ s16 x0, y0;
-    /* 0x10 */ u8 u0, v0;
-    /* 0x12 */ u16 clut;
-    /* 0x14 */ s16 w, h;
-} SprtTpage; /* size 0x18 */
+    /* 0x00 */ u32 field_0;
+    /* 0x04 */ u32 field_4;
+    /* 0x08 */ u8 field_8, field_9, field_A, field_B;
+    /* 0x0C */ s16 field_C, field_E;
+    /* 0x10 */ u8 field_10, field_11;
+    /* 0x12 */ u16 field_12;
+    /* 0x14 */ s16 field_14, field_16;
+} struct_18; /* size 0x18 */
 
-extern u32 g_WorldOtTable[2][0x1000];
+extern u32 D_800A6610[2][0x1000];
 extern s32 D_800AE840[];
 /* Parameters for an archive read (func_8001ABBC / LoadFileStep) */
 typedef struct {
-    /* 0x0 */ s32 unk0;
-    /* 0x4 */ u8 *unk4;
-} LoadParam;
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ u8 *field_4;
+} struct_8_4;
 
-extern LoadParam D_800C7C60;
+extern struct_8_4 D_800C7C60;
 extern u8 D_800A2E20[];
 
-extern SprtTpage D_800CF3F0[2];
-extern SprtTpage D_800CF420[2];
+extern struct_18 D_800CF3F0[2];
+extern struct_18 D_800CF420[2];
 extern void (*D_800CF450[8])(void);
 extern u8 D_800D3ABC[];
-extern SprtTpage D_800D3AEC[2];
-extern SprtTpage D_800D3B1C[2];
+extern struct_18 D_800D3AEC[2];
+extern struct_18 D_800D3B1C[2];
 extern s32 D_800D3C0C;
 extern s32 D_800D3C10;
 
 
-extern void ApplySoundOptions(void);
-extern void NextStep(void);
-extern void SetStep(s32 arg0);
-extern void SetScreenMode2(s32 arg0);
-extern s32 GetPadPressedDir(s32 arg0);
+extern void func_800116E0(void);
+extern void func_800118AC(void);
+extern void func_80011928(s32 arg0);
+extern void func_800146B0(s32 arg0);
+extern s32 func_800149E0(s32 arg0);
 extern void func_80015310(void);
 extern void func_800167B8(s32 arg0);
 extern s32 func_800167F0(s32 arg0);
 extern void func_800183E0(void *arg0);
-extern s32 func_8001ABBC(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, LoadParam *arg4);
+extern s32 func_8001ABBC(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, struct_8_4 *arg4);
 extern s32 func_8001BFE8(void);
 extern void func_8001BFF8(void);
 extern void func_8001C044(void);
@@ -60,34 +60,34 @@ void func_800CF290(void);
 /* Overlay main (0x800CEDFC): run the current step of the licence screen */
 void func_800CEDFC(void)
 {
-    if (WORK->step < 8) {
-        PS1_FN(D_800CF450[WORK->step])();
+    if (WORK->field_A3B4 < 8) {
+        PS1_FN(D_800CF450[WORK->field_A3B4])();
     }
 }
 
 /* Step 0: reset display state, decide whether to skip straight to the next mode */
 void func_800CEE40(void)
 {
-    WORK->unkA3E1 = 1;
+    WORK->field_A3E1 = 1;
     func_8001C044();
     func_80015310();
-    SetScreenMode2(7);
+    func_800146B0(7);
     SetDispMask(0);
     VSync(0);
     SetDispMask(1);
-    WORK->vsyncMode = 0;
+    WORK->field_A3E8 = 0;
     func_800167B8(0);
     func_800183E0(D_800D3ABC);
     D_800D3C0C = 0;
     D_800D3C10 = 0;
-    ApplySoundOptions();
-    WORK->timer = 0;
+    func_800116E0();
+    WORK->field_A3B8 = 0;
     if (func_8001BFE8() != 0) {
-        SetStep(3);
+        func_80011928(3);
         return;
     }
     func_8001BFF8();
-    NextStep();
+    func_800118AC();
 }
 
 /* Step 1: fade the licence image in */
@@ -96,7 +96,7 @@ void func_800CEF04(void)
     D_800D3C10 += 16;
     if (D_800D3C10 >= 0x80) {
         D_800D3C10 = 0x80;
-        NextStep();
+        func_800118AC();
     }
     func_800CF290();
 }
@@ -105,8 +105,8 @@ void func_800CEF04(void)
 void func_800CEF54(void)
 {
     func_800CF290();
-    if (++WORK->stepTimer >= 0x105) {
-        NextStep();
+    if (++WORK->field_A3BE >= 0x105) {
+        func_800118AC();
     }
 }
 
@@ -116,7 +116,7 @@ void func_800CEFA8(void)
     D_800D3C10 -= 4;
     if (D_800D3C10 <= 0) {
         D_800D3C10 = 0;
-        NextStep();
+        func_800118AC();
     }
     func_800CF290();
 }
@@ -127,7 +127,7 @@ void func_800CEFF4(void)
     func_800CF180();
     func_800CF114();
     if (func_800167F0(0) & 0xFFFF) {
-        NextStep();
+        func_800118AC();
     }
 }
 
@@ -138,11 +138,11 @@ void func_800CF038(void)
 
     func_800CF180();
     func_800CF114();
-    WORK->timer++;
-    pad = GetPadPressedDir(0);
-    if (D_800D3C0C != 0 && (WORK->timer >= 0x81 || (pad & 0x840))) {
+    WORK->field_A3B8++;
+    pad = func_800149E0(0);
+    if (D_800D3C0C != 0 && (WORK->field_A3B8 >= 0x81 || (pad & 0x840))) {
         func_800167B8(4);
-        NextStep();
+        func_800118AC();
     }
 }
 
@@ -151,9 +151,9 @@ void func_800CF0C4(void)
 {
     func_800CF180();
     if (func_800167F0(4) & 0xFFFF) {
-        WORK->done = 1;
-        SetScreenMode2(1);
-        WORK->vsyncMode = 2;
+        WORK->field_A3B6 = 1;
+        func_800146B0(1);
+        WORK->field_A3E8 = 2;
     }
 }
 
@@ -161,8 +161,8 @@ void func_800CF0C4(void)
 void func_800CF114(void)
 {
     if (D_800D3C0C == 0) {
-        D_800C7C60.unk0 = 0;
-        D_800C7C60.unk4 = D_800A2E20;
+        D_800C7C60.field_0 = 0;
+        D_800C7C60.field_4 = D_800A2E20;
         if (func_8001ABBC(0, 0, D_800AE840, 0, &D_800C7C60) != 0) {
             D_800D3C0C = 1;
         }
@@ -172,46 +172,46 @@ void func_800CF114(void)
 /* Link the SQUARESOFT logo's two sprites into this frame's ordering table (shown in steps 4 to 6) */
 void func_800CF180(void)
 {
-    addPrim(&g_WorldOtTable[WORK->frame][0xFFF], &D_800CF3F0[WORK->frame]);
-    addPrim(&g_WorldOtTable[WORK->frame][0xFFF], &D_800CF420[WORK->frame]);
+    addPrim(&D_800A6610[WORK->field_A3D2][0xFFF], &D_800CF3F0[WORK->field_A3D2]);
+    addPrim(&D_800A6610[WORK->field_A3D2][0xFFF], &D_800CF420[WORK->field_A3D2]);
 }
 
 /* Steps 1 to 3: build the licence image's two sprites (texture page, colour = the fade level) and link them into
  * the last entry of this frame's ordering table */
 void func_800CF290(void)
 {
-    SprtTpage *p;
-    SprtTpage *q;
+    struct_18 *p;
+    struct_18 *q;
     u32 *t; /* the texture-page word, written through its own pointer (as the original) */
     u32 *u;
-    s32 f = WORK->frame;
+    s32 f = WORK->field_A3D2;
 
     p = &D_800D3AEC[f];
-    t = &D_800D3AEC[f].tpage;
+    t = &D_800D3AEC[f].field_4;
     setlen(p, 5);
     *t = 0xE100008A;
-    p->code = 0x64;
-    p->r0 = p->g0 = p->b0 = D_800D3C10;
-    p->clut = 0x7840;
-    p->x0 = -0x100;
-    p->y0 = -0x1C;
-    p->u0 = 0;
-    p->v0 = 0x38;
-    p->w = 0x100;
-    p->h = 0x60;
+    p->field_B = 0x64;
+    p->field_8 = p->field_9 = p->field_A = D_800D3C10;
+    p->field_12 = 0x7840;
+    p->field_C = -0x100;
+    p->field_E = -0x1C;
+    p->field_10 = 0;
+    p->field_11 = 0x38;
+    p->field_14 = 0x100;
+    p->field_16 = 0x60;
     q = &D_800D3B1C[f];
-    u = &D_800D3B1C[f].tpage;
+    u = &D_800D3B1C[f].field_4;
     setlen(q, 5);
     *u = 0xE100008C;
-    q->code = 0x64;
-    q->r0 = q->g0 = q->b0 = D_800D3C10;
-    q->clut = 0x7840;
-    q->x0 = 0;
-    q->y0 = -0x1C;
-    q->u0 = 0;
-    q->v0 = 0x38;
-    q->w = 0x100;
-    q->h = 0x60;
-    addPrim(&g_WorldOtTable[f][0xFFF], q);
-    addPrim(&g_WorldOtTable[f][0xFFF], p);
+    q->field_B = 0x64;
+    q->field_8 = q->field_9 = q->field_A = D_800D3C10;
+    q->field_12 = 0x7840;
+    q->field_C = 0;
+    q->field_E = -0x1C;
+    q->field_10 = 0;
+    q->field_11 = 0x38;
+    q->field_14 = 0x100;
+    q->field_16 = 0x60;
+    addPrim(&D_800A6610[f][0xFFF], q);
+    addPrim(&D_800A6610[f][0xFFF], p);
 }

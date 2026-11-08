@@ -5,8 +5,8 @@ extern void func_80147364();
 extern void func_800183E0();
 extern u8 D_ovl24_800CB4FC[];
 extern u8 D_ovl24_800CB4BC[];
-extern AbilStep D_ovl24_800CB458[];
-extern AbilStep D_ovl24_800CB490[];
+extern type_1 D_ovl24_800CB458[];
+extern type_1 D_ovl24_800CB490[];
 void func_ovl24_800CAEC0(u8 *a);
 
 void func_ovl24_800CAE0C(void) {
@@ -150,7 +150,7 @@ void func_ovl24_800CB158(u8 *arg0) {
     }
 }
 
-extern AMtx D_800AE620;
+extern struct_20 D_800AE620;
 extern s16 D_80126B5E;
 extern s16 D_80126B62;
 extern s16 D_80126B66;
@@ -159,8 +159,8 @@ extern void func_8012F14C();
 extern void func_80016714();
 
 void func_ovl24_800CB1EC(u8 *arg0) {
-    AVec v;
-    AMtx m;
+    struct_8 v;
+    struct_20 m;
     u8 *mo;
     u8 *o;
     s16 k;
@@ -186,16 +186,16 @@ void func_ovl24_800CB1EC(u8 *arg0) {
         AF(mo, s32, 4) &= msk;
         m = D_800AE620;
         RotMatrixY((k << 5) + AF(arg0, s32, 0x2C), &m);
-        v.vx = 0;
-        m.t[0] = D_80126B5E;
-        m.t[1] = D_80126B62;
-        m.t[2] = D_80126B66;
-        v.vy = (rcos(((k & 0xF) << 8) + AF(arg0, s32, 0x2C)) >> 9) - 0x30;
-        v.vz = -0x50;
+        v.field_0 = 0;
+        m.field_14[0] = D_80126B5E;
+        m.field_14[1] = D_80126B62;
+        m.field_14[2] = D_80126B66;
+        v.field_2 = (rcos(((k & 0xF) << 8) + AF(arg0, s32, 0x2C)) >> 9) - 0x30;
+        v.field_4 = -0x50;
         func_8012F14C(&m, &v, &v);
-        AF(arg0, u16, 6) = v.vx;
-        AF(arg0, u16, 0xA) = v.vy;
-        AF(arg0, u16, 0xE) = v.vz;
+        AF(arg0, u16, 6) = v.field_0;
+        AF(arg0, u16, 0xA) = v.field_2;
+        AF(arg0, u16, 0xE) = v.field_4;
         AF(o, s32, 4) &= msk;
         AF(o, u16, 0x18) = AF(mo, u16, 0x18);
         AF(o, u16, 0x1A) = AF(mo, u16, 0x1A);

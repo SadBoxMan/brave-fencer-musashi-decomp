@@ -3,7 +3,7 @@
 
 extern void func_800183E0();
 extern u8 D_ovl1d_800CAF6C[];
-extern AbilStep D_ovl1d_800CAF40[];
+extern type_1 D_ovl1d_800CAF40[];
 extern s32 func_80161104();
 void func_ovl1d_800CAEC0(u8 *a);
 

@@ -4,9 +4,9 @@
 void func_ovl35_800CCB20(void) {
 }
 
-extern AbilStep D_ovl35_800CD6C8[];
-extern AbilStep D_ovl35_800CD6D0[];
-extern AbilStep D_ovl35_800CD6D8[];
+extern type_1 D_ovl35_800CD6C8[];
+extern type_1 D_ovl35_800CD6D0[];
+extern type_1 D_ovl35_800CD6D8[];
 
 extern void func_80146994();
 extern void func_801599A4();
@@ -42,12 +42,12 @@ extern s32 func_801465C0();
 extern void func_8001CD50();
 extern void func_ovl35_800CD314();
 
-extern AMtx D_800AE620;
+extern struct_20 D_800AE620;
 extern void func_80017758();
 
 s16 func_ovl35_800CCBC0(void) {
-    APrim s;
-    AMtx m;
+    struct_34 s;
+    struct_20 m;
     s16 (*p)[6];
     s16 *e;
     s16 n;
@@ -57,7 +57,7 @@ s16 func_ovl35_800CCBC0(void) {
     s16 h;
 
     m = D_800AE620;
-    s.code = 0x50000000;
+    s.field_30 = 0x50000000;
     if (D_ovl35_800CD6E0[0] == 0) {
         return 0;
     }
@@ -69,33 +69,33 @@ s16 func_ovl35_800CCBC0(void) {
     h = b >> 1;
     while (--k != -1) {
         e = p[i];
-        s.v[0].vx = e[0];
-        s.v[0].vy = e[1];
-        s.v[0].vz = e[2];
-        s.v[1].vx = e[3];
-        s.v[1].vy = e[4];
+        s.field_0[0].field_0 = e[0];
+        s.field_0[0].field_2 = e[1];
+        s.field_0[0].field_4 = e[2];
+        s.field_0[1].field_0 = e[3];
+        s.field_0[1].field_2 = e[4];
         n++;
         i--;
-        s.v[1].vz = e[5];
-        s.c[0].r = s.c[1].r = b;
-        s.c[0].g = s.c[1].g = s.c[0].b = s.c[1].b = h;
+        s.field_0[1].field_4 = e[5];
+        s.field_20[0].field_0 = s.field_20[1].field_0 = b;
+        s.field_20[0].field_1 = s.field_20[1].field_1 = s.field_20[0].field_2 = s.field_20[1].field_2 = h;
         if (i < 0) {
             i = 0xF;
         }
         e = p[i];
-        s.v[2].vx = e[0];
-        s.v[2].vy = e[1];
-        s.v[2].vz = e[2];
-        s.v[3].vx = e[3];
-        s.v[3].vy = e[4];
+        s.field_0[2].field_0 = e[0];
+        s.field_0[2].field_2 = e[1];
+        s.field_0[2].field_4 = e[2];
+        s.field_0[3].field_0 = e[3];
+        s.field_0[3].field_2 = e[4];
         b -= 0x10;
         h -= 0x10;
-        s.v[3].vz = e[5];
+        s.field_0[3].field_4 = e[5];
         if (h < 0) {
             h = 0;
         }
-        s.c[2].r = s.c[3].r = b;
-        s.c[2].g = s.c[3].g = s.c[2].b = s.c[3].b = h;
+        s.field_20[2].field_0 = s.field_20[3].field_0 = b;
+        s.field_20[2].field_1 = s.field_20[3].field_1 = s.field_20[2].field_2 = s.field_20[3].field_2 = h;
         func_80017758(&s, &m);
     }
     return n;
@@ -104,52 +104,52 @@ s16 func_ovl35_800CCBC0(void) {
 extern void func_80148534();
 extern void func_80165FA4();
 extern void func_80149350();
-typedef struct { u8 on, idx, cnt, alpha; s16 e[16][6]; } ARing;
+typedef struct { u8 field_0, field_1, field_2, field_3; s16 field_4[16][6]; } struct_C4;
 
 s32 func_ovl35_800CCDE8(o, mode, n)
 u8 *o;
 s16 mode;
 s16 n;
 {
-    AVec s;
-    AVec t;
-    AVec a;
-    AVec b;
+    struct_8 s;
+    struct_8 t;
+    struct_8 a;
+    struct_8 b;
     s32 flag;
     u8 *m;
-    ARing *r;
+    struct_C4 *r;
 
-    r = (ARing *)D_ovl35_800CD6E0;
+    r = (struct_C4 *)D_ovl35_800CD6E0;
     m = AF(o, u8 *, 0x34);
     switch (mode) {
     case 0:
-        r->on = 1;
-        r->cnt = 0;
-        r->idx = 0;
-        r->alpha = 0xF4;
+        r->field_0 = 1;
+        r->field_2 = 0;
+        r->field_1 = 0;
+        r->field_3 = 0xF4;
         break;
     case 1:
-        a.vx = r->e[r->idx][0];
-        a.vy = r->e[r->idx][1];
-        a.vz = r->e[r->idx][2];
-        b.vx = r->e[r->idx][3];
-        b.vy = r->e[r->idx][4];
-        b.vz = r->e[r->idx][5];
-        if (++r->idx >= 0x10) {
-            r->idx = 0;
+        a.field_0 = r->field_4[r->field_1][0];
+        a.field_2 = r->field_4[r->field_1][1];
+        a.field_4 = r->field_4[r->field_1][2];
+        b.field_0 = r->field_4[r->field_1][3];
+        b.field_2 = r->field_4[r->field_1][4];
+        b.field_4 = r->field_4[r->field_1][5];
+        if (++r->field_1 >= 0x10) {
+            r->field_1 = 0;
         }
-        if (r->cnt < 0xF) {
-            r->cnt++;
+        if (r->field_2 < 0xF) {
+            r->field_2++;
         }
         break;
     case 2:
-        r->alpha -= 0x10;
-        if (r->alpha < 0x10) {
-            r->on = 0;
+        r->field_3 -= 0x10;
+        if (r->field_3 < 0x10) {
+            r->field_0 = 0;
             return 1;
         }
-        if (r->cnt >= 2 && (r->alpha >> 4) < r->cnt) {
-            r->cnt--;
+        if (r->field_2 >= 2 && (r->field_3 >> 4) < r->field_2) {
+            r->field_2--;
         }
         return 0;
     }
@@ -158,58 +158,58 @@ s16 n;
     func_80149350(m, &s, &s);
     RotTransSV(&t, &t, &flag);
     if (mode != 0) {
-        a.vx = (s.vx + a.vx) >> 1;
-        a.vy = (s.vy + a.vy) >> 1;
-        a.vz = (s.vz + a.vz) >> 1;
-        b.vx = (t.vx + b.vx) >> 1;
-        b.vy = (t.vy + b.vy) >> 1;
-        b.vz = (t.vz + b.vz) >> 1;
-        a.vx -= b.vx;
-        a.vy -= b.vy;
-        a.vz -= b.vz;
+        a.field_0 = (s.field_0 + a.field_0) >> 1;
+        a.field_2 = (s.field_2 + a.field_2) >> 1;
+        a.field_4 = (s.field_4 + a.field_4) >> 1;
+        b.field_0 = (t.field_0 + b.field_0) >> 1;
+        b.field_2 = (t.field_2 + b.field_2) >> 1;
+        b.field_4 = (t.field_4 + b.field_4) >> 1;
+        a.field_0 -= b.field_0;
+        a.field_2 -= b.field_2;
+        a.field_4 -= b.field_4;
         VectorNormalSS(&a, &a);
-        a.vx = b.vx + a.vx / n;
-        a.vy = b.vy + a.vy / n;
-        a.vz = b.vz + a.vz / n;
-        r->e[r->idx][0] = a.vx;
-        r->e[r->idx][1] = a.vy;
-        r->e[r->idx][2] = a.vz;
-        r->e[r->idx][3] = b.vx;
-        r->e[r->idx][4] = b.vy;
-        r->e[r->idx][5] = b.vz;
-        if (++r->idx >= 0x10) {
-            r->idx = 0;
+        a.field_0 = b.field_0 + a.field_0 / n;
+        a.field_2 = b.field_2 + a.field_2 / n;
+        a.field_4 = b.field_4 + a.field_4 / n;
+        r->field_4[r->field_1][0] = a.field_0;
+        r->field_4[r->field_1][1] = a.field_2;
+        r->field_4[r->field_1][2] = a.field_4;
+        r->field_4[r->field_1][3] = b.field_0;
+        r->field_4[r->field_1][4] = b.field_2;
+        r->field_4[r->field_1][5] = b.field_4;
+        if (++r->field_1 >= 0x10) {
+            r->field_1 = 0;
         }
-        if (r->cnt < 0xF) {
-            r->cnt++;
+        if (r->field_2 < 0xF) {
+            r->field_2++;
         }
     }
-    r->e[r->idx][0] = s.vx;
-    r->e[r->idx][1] = s.vy;
-    r->e[r->idx][2] = s.vz;
-    r->e[r->idx][3] = t.vx;
-    r->e[r->idx][4] = t.vy;
-    r->e[r->idx][5] = t.vz;
+    r->field_4[r->field_1][0] = s.field_0;
+    r->field_4[r->field_1][1] = s.field_2;
+    r->field_4[r->field_1][2] = s.field_4;
+    r->field_4[r->field_1][3] = t.field_0;
+    r->field_4[r->field_1][4] = t.field_2;
+    r->field_4[r->field_1][5] = t.field_4;
     return 0;
 }
 
-extern AMtx D_8011F75C;
+extern struct_20 D_8011F75C;
 extern void func_80147324();
 extern void func_800233CC();
-extern AModel *D_8011F758[];
+extern struct_30 *D_8011F758[];
 
 void func_ovl35_800CD314(u8 *arg0) {
     s32 t;
-    AModel *m;
+    struct_30 *m;
 
     t = AF(arg0, s32, 0x1C);
-    m = AF(arg0, AModel *, 0x20);
+    m = AF(arg0, struct_30 *, 0x20);
     if (t < 0x20) {
         if (!(t & 7)) {
-            AF(arg0, AMtx, 0x38) = D_8011F75C;
-            m->unk04 = (m->unk04 & 0x7FFFFFFF) | (D_8011F758[0]->unk04 & 0x80000000);
-            m->scale.vx = D_8011F758[0]->scale.vx;
-            m->scale.vy = D_8011F758[0]->scale.vy;
+            AF(arg0, struct_20, 0x38) = D_8011F75C;
+            m->field_4 = (m->field_4 & 0x7FFFFFFF) | (D_8011F758[0]->field_4 & 0x80000000);
+            m->field_18.field_0 = D_8011F758[0]->field_18.field_0;
+            m->field_18.field_2 = D_8011F758[0]->field_18.field_2;
             AF(arg0, s16, 6) = AF(arg0, s32, 0x4C);
             AF(arg0, s16, 0xA) = AF(arg0, s32, 0x50) - 8;
             AF(arg0, s32, 0x30) = 0;

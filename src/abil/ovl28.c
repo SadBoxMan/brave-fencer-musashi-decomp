@@ -5,7 +5,7 @@
 extern void func_80162CCC();
 extern void func_800183E0();
 extern u8 D_ovl28_800CCA7C[];
-extern AbilStep D_ovl28_800CCA18[];
+extern type_1 D_ovl28_800CCA18[];
 void func_ovl28_800CC1E8(u8 *a);
 
 extern void func_ovl28_800CC6A4();
@@ -16,14 +16,14 @@ extern s32 D_80078EC8;
 extern void func_ovl28_800CC968();
 extern s32 func_ovl28_800CC9AC();
 extern u8 D_80078EC1;
-extern AbilStep D_ovl28_800CCA24[];
+extern type_1 D_ovl28_800CCA24[];
 
 extern void func_801599A4();
 extern void func_80159B3C();
 
 extern void func_80146CA0();
-extern ACol D_ovl28_800CCB10;
-extern ACol D_ovl28_800CCB14;
+extern struct_4 D_ovl28_800CCB10;
+extern struct_4 D_ovl28_800CCB14;
 extern s32 func_ovl28_800CC6C4();
 extern void func_80146E90();
 extern s32 D_ovl28_800CCA9C;
@@ -32,7 +32,7 @@ extern s32 func_ovl28_800CC7FC();
 extern void func_80146E98();
 
 extern s8 D_ovl28_800CCAD0;
-extern ACol D_ovl28_800CCAD4;
+extern struct_4 D_ovl28_800CCAD4;
 extern s32 func_80146578();
 extern void func_8001CD9C();
 extern void func_800233CC();
@@ -536,13 +536,13 @@ void func_ovl28_800CC310(u8 *arg0) {
         AF(arg0, s16, 0x58) = 0;
         AF(arg0, s16, 0x60) = 0;
         AF(arg0, s16, 0x62) = 0;
-        D_ovl28_800CCB14.r = 0x20;
-        D_ovl28_800CCB14.g = 0;
-        D_ovl28_800CCB14.b = 0x20;
+        D_ovl28_800CCB14.field_0 = 0x20;
+        D_ovl28_800CCB14.field_1 = 0;
+        D_ovl28_800CCB14.field_2 = 0x20;
         D_ovl28_800CCAD4 = D_ovl28_800CCB14;
-        D_ovl28_800CCB10.r = 0xFF;
-        D_ovl28_800CCB10.g = 0xFF;
-        D_ovl28_800CCB10.b = 0xFF;
+        D_ovl28_800CCB10.field_0 = 0xFF;
+        D_ovl28_800CCB10.field_1 = 0xFF;
+        D_ovl28_800CCB10.field_2 = 0xFF;
         func_80146CA0(arg0);
         return;
     }
@@ -660,28 +660,28 @@ s32 func_ovl28_800CC6C4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     return func_ovl28_800CC7FC(arg0, arg1, arg2, arg3, /* extra? */ &D_ovl28_800CCA9C);
 }
 
-s32 func_ovl28_800CC7FC(u8 *arg0, ACol *arg1, ACol *arg2, s16 *arg3, u8 *arg4) {
-    AMtx m;
+s32 func_ovl28_800CC7FC(u8 *arg0, struct_4 *arg1, struct_4 *arg2, s16 *arg3, u8 *arg4) {
+    struct_20 m;
     s32 pad[8];
-    AVec v;
-    AVec r;
+    struct_8 v;
+    struct_8 r;
 
     AF(arg4, s32, 0x30) = 0x50000000;
-    AF(arg4, ACol, 0x20) = *arg1;
-    AF(arg4, ACol, 0x24) = *arg1;
-    AF(arg4, ACol, 0x28) = *arg2;
-    AF(arg4, ACol, 0x2C) = *arg2;
+    AF(arg4, struct_4, 0x20) = *arg1;
+    AF(arg4, struct_4, 0x24) = *arg1;
+    AF(arg4, struct_4, 0x28) = *arg2;
+    AF(arg4, struct_4, 0x2C) = *arg2;
     func_80015978(arg0 + 4, &v);
     func_8012EFB8(&v, &v);
     func_80013F3C(&m);
     func_800123F0(&m, arg3[3]);
-    r.vx = arg3[0];
-    r.vy = arg3[1];
-    r.vz = arg3[2];
+    r.field_0 = arg3[0];
+    r.field_2 = arg3[1];
+    r.field_4 = arg3[2];
     func_80020F34(&m, &r);
-    m.t[0] = v.vx;
-    m.t[1] = v.vy;
-    m.t[2] = v.vz;
+    m.field_14[0] = v.field_0;
+    m.field_14[1] = v.field_2;
+    m.field_14[2] = v.field_4;
     func_8012F14C(&m, &D_ovl28_800CCA3C, arg4);
     func_8012F14C(&m, &D_ovl28_800CCA44, arg4 + 8);
     func_8012F14C(&m, &D_ovl28_800CCA4C, arg4 + 0x10);

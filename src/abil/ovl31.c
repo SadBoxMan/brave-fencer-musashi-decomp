@@ -2,8 +2,8 @@
 #include "abil.h"
 
 extern void func_80162CCC();
-extern AbilStep D_ovl31_800CD6EC[];
-extern AbilStep D_ovl31_800CD6F8[];
+extern type_1 D_ovl31_800CD6EC[];
+extern type_1 D_ovl31_800CD6F8[];
 
 extern s32 func_80146E98();
 extern void func_801599A4();
@@ -52,7 +52,7 @@ void func_ovl31_800CCB20(s32 arg0) {
     func_ovl31_800CCEA0(arg0);
 }
 
-extern AbilStep D_ovl31_800CD6DC[];
+extern type_1 D_ovl31_800CD6DC[];
 
 void func_ovl31_800CCB8C(u8 *arg0) {
     s32 i = AF(arg0, u16, 2) - 2;
@@ -245,7 +245,7 @@ void func_ovl31_800CD054(u8 *arg0) {
     if (AF(m, s16, 0x1C) == 0x1000) {
         AF(m, u16, 0x1C) = 0;
         AF(arg0, u16, 0x60) = 0;
-        AF(p, ACol, 4) = AF(p, ACol, 0xC);
+        AF(p, struct_4, 4) = AF(p, struct_4, 0xC);
     }
     if (func_80146E98(arg0) != 0) {
         func_80146CA0(arg0);
@@ -285,7 +285,7 @@ void func_ovl31_800CD258(u8 *arg0, u8 *arg1) {
 }
 
 void func_ovl31_800CD27C(u8 *arg0) {
-    AMtx sp10;
+    struct_20 sp10;
     s32 pad[2];
     void *temp_s0;
 
@@ -295,17 +295,17 @@ void func_ovl31_800CD27C(u8 *arg0) {
     func_800123F0(&sp10, AF(temp_s0, s16, 0x14));
     func_80012558(&sp10, AF(temp_s0, s16, 0x12));
     func_800126C4(&sp10, 0x400);
-    *AF(temp_s0, AMtx *, 0x34) = sp10;
+    *AF(temp_s0, struct_20 *, 0x34) = sp10;
 }
 
 void func_ovl31_800CD31C(u8 *arg0) {
-    AVec v;
+    struct_8 v;
     u8 *p;
 
     for (p = D_801202A0; p < D_801202A0 + 0x6480; p += 0x10C) {
         if (func_8014C308(arg0, p, 0x22, 0) != 0 && func_8014C278(arg0, p, 0x80) != 0) {
             func_80015978(p + 4, &v);
-            v.pad = 0;
+            v.field_6 = 0;
             func_8014C3A4(arg0, p, 0x22, &v);
         }
     }
@@ -318,7 +318,7 @@ void func_ovl31_800CD3C8(u8 *a) {
 extern u8 D_ovl31_800CD764[];
 extern void func_ovl31_800CD6D4();
 extern u8 D_800D3428;
-extern AMtx D_ovl31_800CD964[];
+extern struct_20 D_ovl31_800CD964[];
 extern void func_ovl31_800CD670();
 extern void func_ovl31_800CD650();
 
@@ -326,7 +326,7 @@ void func_ovl31_800CD404(u8 *arg0) {
     u8 *t;
     u8 *d;
     u8 *o;
-    AMtx *m;
+    struct_20 *m;
 
     t = AF(arg0, u8 *, 0x4C);
     d = &D_ovl31_800CD764[AF(arg0, s32, 0x50) << 6];
@@ -340,8 +340,8 @@ void func_ovl31_800CD404(u8 *arg0) {
         AF(o, s16, 0x1A) = 0;
         AF(o, s32, 4) |= 0x50000000;
         m = &D_ovl31_800CD964[AF(arg0, s32, 0x50)];
-        AF(o, AMtx *, 0x34) = m;
-        *m = *AF(AF(AF(arg0, u8 *, 0x4C), u8 *, 0x20), AMtx *, 0x34);
+        AF(o, struct_20 *, 0x34) = m;
+        *m = *AF(AF(AF(arg0, u8 *, 0x4C), u8 *, 0x20), struct_20 *, 0x34);
         AF(arg0, u16, 6) = AF(t, u16, 6);
         AF(arg0, u16, 0x60) = AF(arg0, u16, 0xA) = AF(t, u16, 0xA);
         AF(arg0, u16, 0xE) = AF(t, u16, 0xE);

@@ -9,58 +9,58 @@
  * 0x32 u16 held, 0x34.. analog after the dead zone (index 4 = left X, 5 = left Y; GetPadByte), 0x3A u16 pressed this
  * frame, 0x42 u16 held last frame + analog (GetPadPrevByte), 0x4A / 0x4B the small / large motor values */
 typedef struct {
-    /* 0x00 */ u8 pad0[4];      /* [0] the pad type id: 0x41 digital, 0x53 analog stick, 0x73 DualShock analog */
-    /* 0x04 */ s32 unk4;        /* 8 at InitPad, no reader found */
-    /* 0x08 */ u8 data[0x44]; /* receive buffer handed to PadInitDirect */
-} Pad;
+    /* 0x00 */ u8 field_0[4];      /* [0] the pad type id: 0x41 digital, 0x53 analog stick, 0x73 DualShock analog */
+    /* 0x04 */ s32 field_4;        /* 8 at InitPad, no reader found */
+    /* 0x08 */ u8 field_8[0x44]; /* receive buffer handed to PadInitDirect */
+} struct_4C;
 
 extern u8 D_800BA118[];
 extern s32 D_800AE610;
-extern Pad g_Pads[2];
-extern s32 g_StageImageEntry;
+extern struct_4C D_80078D98[2];
+extern s32 D_80078E30;
 
 /* A file the game looks up on the disc by ISO9660 name */
 typedef struct {
-    /* 0x00 */ char name[0x14];
-    /* 0x14 */ CdlFILE file;
-    /* 0x2C */ s32 unk2C;
-} FileEntry; /* size 0x30 */
+    /* 0x00 */ char field_0[0x14];
+    /* 0x14 */ CdlFILE field_14;
+    /* 0x2C */ s32 field_2C;
+} struct_30_2; /* size 0x30 */
 
 /* One file inside a .CD archive, resolved to an absolute disc position */
 typedef struct {
-    /* 0x0 */ CdlLOC pos;
-    /* 0x4 */ s32 size;
-} CdFileLoc;
+    /* 0x0 */ CdlLOC field_0;
+    /* 0x4 */ s32 field_4;
+} struct_8_4;
 
 /* LIST.CD as loaded: per archive, a count followed by (sector, size) pairs */
 typedef struct {
-    /* 0x0 */ s32 sector;
-    /* 0x4 */ s32 size;
-} ListEntry;
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ s32 field_4;
+} struct_8_5;
 
-extern FileEntry g_FileTable[22];
-extern FileEntry g_FileTableExtra; /* looked up separately, may be absent */
-extern CdFileLoc g_ArchiveFileLoc[];
+extern struct_30_2 D_80062C24[22];
+extern struct_30_2 D_80063044; /* looked up separately, may be absent */
+extern struct_8_4 D_800AE830[];
 /* LIST.CD is read to a fixed address */
-#define LIST_BUF ((ListEntry *)0x80180000)
+#define LIST_BUF ((struct_8_5 *)0x80180000)
 extern s32 D_800747D0;
 extern s32 D_800747D4;
 extern s32 D_80063074;
 extern s32 D_800747D8;
 
-extern void ResetLoader(void);
-extern s32 LoadFileStep(CdlFILE *file, void *dest, s32 arg2, s32 arg3);
+extern void func_80019990(void);
+extern s32 func_80019A24(CdlFILE *file, void *dest, s32 arg2, s32 arg3);
 extern void func_80016714(void *p, s32 size); /* zero-fills size bytes */
-extern void ResetGameState(void);
-extern void ResetMallocHeap(void);
-extern void InitDisplay(void);
-extern void Init3DScene(void);
+extern void func_800142C8(void);
+extern void func_80014928(void);
+extern void func_800143AC(void);
+extern void func_80014444(void);
 extern void func_8001C044(void);
-extern void ClearImageQueue(void);
+extern void func_80014588(void);
 extern void func_80015310(void);
 extern void func_80028A48(void);
 extern void func_80028C50(void);
-extern void StopPadRumble(void);
+extern void func_80018FC8(void);
 
 extern s16 D_800AF7CE;
 extern s32 D_800747C8;
@@ -79,14 +79,14 @@ extern s32 D_800760C8;
 extern s32 D_80075A40;
 extern s32 D_800A2B70;
 extern s32 D_800BA0FC;
-extern s32 g_LzssState;
-extern s32 g_LzssDst;
+extern s32 D_800C7D24;
+extern s32 D_800747AC;
 extern s32 D_800760AC;
 extern s32 D_8007609C;
 extern s32 D_800760A0;
 extern s32 D_800760A4;
 extern s32 D_800760A8;
-extern s32 g_RumbleScript;
+extern s32 D_800747C0;
 extern s32 D_800AE7EC;
 extern s32 D_800747FC;
 extern s32 D_80078EFC;
@@ -118,14 +118,14 @@ extern s32 func_8002A7B4(s32 d);
 extern s32 D_800747F8;
 extern s32 D_800AE6A8;
 typedef struct {
-    /* 0x0 */ s32 vx;
-    /* 0x4 */ s32 vy;
-    /* 0x8 */ s32 vz;
-    /* 0xC */ u8 r;
-    /* 0xD */ u8 g;
-    /* 0xE */ u8 b;
-} LightDir; /* GsF_LIGHT */
-extern void GsSetFlatLight(s32 id, LightDir *light);
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ s32 field_4;
+    /* 0x8 */ s32 field_8;
+    /* 0xC */ u8 field_C;
+    /* 0xD */ u8 field_D;
+    /* 0xE */ u8 field_E;
+} struct_10; /* GsF_LIGHT */
+extern void GsSetFlatLight(s32 id, struct_10 *light);
 
 extern s32 func_80029178(s32 n);
 extern u16 D_800638FA[];
@@ -163,7 +163,7 @@ extern void SetGeomScreen(s32 h);
 extern void GsInit3D(void);
 extern void GsInitCoordinate2(void *super, void *c);
 extern void GsSetLightMode(s32 m);
-extern void InitDefaultView(void);
+extern void func_800144D4(void);
 extern void func_8001455C(void);
 extern void func_8002850C(s16 r, s16 g, s16 b);
 extern void func_8002823C(void);
@@ -173,19 +173,19 @@ extern void ExitCriticalSection(void);
 extern void InitHeap(u32 *p, s32 n);
 
 typedef struct {
-    s16 flag;
-    u8 pad2[14];
-} Ent10;
-extern Ent10 D_800B93D8[];
-extern Ent10 D_800B97D8[];
-extern u16 g_Pad0Held;
-extern u16 g_Pad0Pressed;
-extern u16 g_Pad1Held;
-extern u16 g_Pad1Pressed;
+    s16 field_0;
+    u8 field_2[14];
+} struct_10_2;
+extern struct_10_2 D_800B93D8[];
+extern struct_10_2 D_800B97D8[];
+extern u16 D_80078DCA;
+extern u16 D_80078DD2;
+extern u16 D_80078E16;
+extern u16 D_80078E1E;
 extern u8 D_80078DD2b[];
 
-extern u16 GetPadHeldDirWide(s32 n);
-extern u16 GetPadPressedDirWide(s32 n);
+extern u16 func_80015018(s32 n);
+extern u16 func_80014ED4(s32 n);
 
 extern u8 D_80075A50[];
 extern u8 D_80063906[];
@@ -257,8 +257,8 @@ extern s32 D_80078F10;
 extern void CdMix(u8 *v);
 extern u8 D_800A4F19;
 
-typedef struct { s16 entry; s16 b; s16 sound; } SoundPack;   /* a sound request: its package's archive entry, ?, the sound id */
-extern SoundPack D_80063138[];
+typedef struct { s16 field_0; s16 field_2; s16 field_4; } struct_6;   /* a sound request: its package's archive entry, ?, the sound id */
+extern struct_6 D_80063138[];
 extern s32 D_8007623C;
 extern u8 D_80076243;
 extern void func_80038908(u8 *p);
@@ -271,14 +271,14 @@ extern s32 func_8002A2B0();
 extern void MulMatrix2(void *a, void *b);
 extern void RotMatrix(void *r, void *m);
 
-extern LightDir D_800A5E88[3];
-extern void func_80028620(s32 id, LightDir *src);
+extern struct_10 D_800A5E88[3];
+extern void func_80028620(s32 id, struct_10 *src);
 extern s32 func_8002A728();
 extern s32 func_8002AA00(s32 n);
 extern s8 D_80062BBC;
 extern s8 D_80062BBD;
-extern s8 g_RumbleActSmall;
-extern s8 g_RumbleActLarge;
+extern s8 D_800747B8;
+extern s8 D_800747B9;
 extern s16 D_800760E4;
 extern void SsSetSerialAttr(s32 a, s32 b, s32 c);
 extern void GsMapModelingData(s32 p);
@@ -300,12 +300,12 @@ extern u8 D_800630E8[];
 
 extern s32 func_80029CD4(s32 n);
 extern s32 func_80029E30();
-typedef struct { s32 w[0xB7]; } Blob2DC;
-extern Blob2DC D_80075CC0;
+typedef struct { s32 field_0[0xB7]; } struct_2DC;
+extern struct_2DC D_80075CC0;
 extern void func_8001BBBC(s32 a, s32 b, s32 c);
 extern s32 D_80074808;
 extern s32 D_8007480C;
-extern s32 g_PrimNext;
+extern s32 D_800A5E60;
 extern void func_80024448();
 extern void func_80026D64();
 extern s32 D_80078D88;
@@ -314,23 +314,23 @@ extern s32 D_800A2B78;
 extern s32 func_8002A76C();
 extern u8 D_80078F28[];
 
-extern u8 GetPadType(u8 n);
-extern u8 GetPadByte(u8 a, s32 b);
-extern void WideStickDeadzone(u16 *p);
-extern u8 GetPadType(u8 n);
-extern u8 GetPadByte(u8 a, s32 b);
-extern void WideStickDeadzone(u16 *p);
-extern void WideStickDeadzone(u16 *p);
+extern u8 func_80014C28(u8 n);
+extern u8 func_80014CF8(u8 a, s32 b);
+extern void func_80015118(u16 *p);
+extern u8 func_80014C28(u8 n);
+extern u8 func_80014CF8(u8 a, s32 b);
+extern void func_80015118(u16 *p);
+extern void func_80015118(u16 *p);
 
-typedef struct { u8 b[8]; } B8;
+typedef struct { u8 field_0[8]; } struct_8_6;
 
 extern s32 func_8002A26C();
 extern s32 func_8002A4B8();
 
 extern s32 func_80029504();
 extern void AddPrim(void *ot, void *p);
-typedef struct { u8 *ot; u8 pad[0x10]; } OtRec;
-extern OtRec D_800A651C[];
+typedef struct { u8 *field_0; u8 field_4[0x10]; } struct_14_2;
+extern struct_14_2 D_800A651C[];
 extern u16 D_800B9A02;
 
 extern void (*D_8006351C[])(u8 *, s32 *);
@@ -347,7 +347,7 @@ extern s32 D_800BA1B4;
 
 extern s32 D_80063108;
 extern s32 D_80063120;
-extern u32 g_WorldOtTable[2][0x1000];
+extern u32 D_800A6610[2][0x1000];
 
 extern s32 func_8002A354();
 extern void func_8002D4C8(s32 a, s32 b);
@@ -365,14 +365,14 @@ extern s16 D_80078EB6;
 extern s16 D_80078EB8;
 extern s8 D_80078EC0;
 
-extern void SetScreenMode(s32 n);
+extern void func_800145EC(s32 n);
 extern s8 D_800AF7C2;
 extern s8 D_800AF7C3;
 extern s8 D_800AF7C4;
-extern void StreamStep(s32 n);
+extern void func_80019AF8(s32 n);
 extern s32 catan(s32 a, s32 b);
-typedef struct { s32 len; u32 *ot; s32 c; s32 d; s32 e; } OtEnt;
-extern OtEnt D_800A6518[];
+typedef struct { s32 field_0; u32 *field_4; s32 field_8; s32 field_C; s32 field_10; } struct_14_3;
+extern struct_14_3 D_800A6518[];
 
 extern s32 D_800638A0[];
 extern s32 D_800638EC;
@@ -384,7 +384,7 @@ extern u8 D_80078E7F;
 
 extern void GsDefDispBuff(s32 a, s32 b, s32 c, s32 d);
 extern void GsInitGraph(s32 w, s32 h, s32 f, s32 a, s32 b);
-extern void InitDrawDispEnvs(void);
+extern void func_800147B8(void);
 extern u16 D_80062A3C;
 extern u16 D_80062A3E;
 extern u16 D_80062A40;
@@ -393,7 +393,7 @@ extern u16 D_800AF7BE;
 extern u16 D_800AF7C0;
 
 extern void SetLineG2(void *p);
-extern u8 *AllocPrim(s32 n);
+extern u8 *func_80010A08(s32 n);
 extern void func_80017E8C(s32 n);
 extern void func_80018094(void *p, s32 z, u32 a);
 extern void SetDrawMode(void *p, s32 a, s32 b, s32 c, s32 d);
@@ -416,94 +416,94 @@ extern void func_80016638(void *o, s32 a, s32 b);
 extern s32 RotTransPers4(void *a, void *b, void *c, void *d, void *e, void *f, void *g, void *h, s32 *flag, s32 *p);
 extern void SetPolyF4(void *p);
 typedef struct {
-    u32 tag;
-    u8 r0, g0, b0, code;
-    s16 x0, y0;
-    s16 x1, y1;
-    s16 x2, y2;
-    s16 x3, y3;
-} PolyF4;
+    u32 field_0;
+    u8 field_4, field_5, field_6, field_7;
+    s16 field_8, field_A;
+    s16 field_C, field_E;
+    s16 field_10, field_12;
+    s16 field_14, field_16;
+} struct_18;
 
-typedef struct { s16 m[3][3]; s16 pad; s32 t[3]; } Mtx;
+typedef struct { s16 field_0[3][3]; s16 field_12; s32 field_14[3]; } struct_20_3;
 extern s32 rsin(s32 a);
 extern s32 rcos(s32 a);
 extern void func_8001282C(u8 *n);
 
-inline void func_800123F0(Mtx *m, s32 a) {
-    Mtx r;
+inline void func_800123F0(struct_20_3 *m, s32 a) {
+    struct_20_3 r;
     s32 s = rsin(a);
     s32 c = rcos(a);
-    r.m[0][0] = c;
-    r.m[0][1] = -s;
-    r.m[0][2] = 0;
-    r.m[1][0] = s;
-    r.m[1][1] = c;
-    r.m[1][2] = 0;
-    r.m[2][0] = 0;
-    r.m[2][1] = 0;
-    r.m[2][2] = 0x1000;
+    r.field_0[0][0] = c;
+    r.field_0[0][1] = -s;
+    r.field_0[0][2] = 0;
+    r.field_0[1][0] = s;
+    r.field_0[1][1] = c;
+    r.field_0[1][2] = 0;
+    r.field_0[2][0] = 0;
+    r.field_0[2][1] = 0;
+    r.field_0[2][2] = 0x1000;
     gte_SetRotMatrix(m);
-    gte_ldclmv(&r.m[0][0]);
+    gte_ldclmv(&r.field_0[0][0]);
     gte_rtir();
-    gte_stclmv(&m->m[0][0]);
-    gte_ldclmv(&r.m[0][1]);
+    gte_stclmv(&m->field_0[0][0]);
+    gte_ldclmv(&r.field_0[0][1]);
     gte_rtir();
-    gte_stclmv(&m->m[0][1]);
-    gte_ldclmv(&r.m[0][2]);
+    gte_stclmv(&m->field_0[0][1]);
+    gte_ldclmv(&r.field_0[0][2]);
     gte_rtir();
-    gte_stclmv(&m->m[0][2]);
+    gte_stclmv(&m->field_0[0][2]);
     func_8001282C((u8 *)m);
 }
 
-inline void func_80012558(Mtx *m, s32 a) {
-    Mtx r;
+inline void func_80012558(struct_20_3 *m, s32 a) {
+    struct_20_3 r;
     s16 s = rsin(a);
     s32 c = rcos(a);
-    r.m[0][0] = c;
-    r.m[0][1] = 0;
-    r.m[0][2] = s;
-    r.m[1][0] = 0;
-    r.m[1][1] = 0x1000;
-    r.m[1][2] = 0;
-    r.m[2][0] = -s;
-    r.m[2][1] = 0;
-    r.m[2][2] = c;
+    r.field_0[0][0] = c;
+    r.field_0[0][1] = 0;
+    r.field_0[0][2] = s;
+    r.field_0[1][0] = 0;
+    r.field_0[1][1] = 0x1000;
+    r.field_0[1][2] = 0;
+    r.field_0[2][0] = -s;
+    r.field_0[2][1] = 0;
+    r.field_0[2][2] = c;
     gte_SetRotMatrix(m);
-    gte_ldclmv(&r.m[0][0]);
+    gte_ldclmv(&r.field_0[0][0]);
     gte_rtir();
-    gte_stclmv(&m->m[0][0]);
-    gte_ldclmv(&r.m[0][1]);
+    gte_stclmv(&m->field_0[0][0]);
+    gte_ldclmv(&r.field_0[0][1]);
     gte_rtir();
-    gte_stclmv(&m->m[0][1]);
-    gte_ldclmv(&r.m[0][2]);
+    gte_stclmv(&m->field_0[0][1]);
+    gte_ldclmv(&r.field_0[0][2]);
     gte_rtir();
-    gte_stclmv(&m->m[0][2]);
+    gte_stclmv(&m->field_0[0][2]);
     func_8001282C((u8 *)m);
 }
 
-inline void func_800126C4(Mtx *m, s32 a) {
-    Mtx r;
+inline void func_800126C4(struct_20_3 *m, s32 a) {
+    struct_20_3 r;
     s32 s = rsin(a);
     s32 c = rcos(a);
-    r.m[0][0] = 0x1000;
-    r.m[0][1] = 0;
-    r.m[0][2] = 0;
-    r.m[1][0] = 0;
-    r.m[1][1] = c;
-    r.m[1][2] = -s;
-    r.m[2][0] = 0;
-    r.m[2][1] = s;
-    r.m[2][2] = c;
+    r.field_0[0][0] = 0x1000;
+    r.field_0[0][1] = 0;
+    r.field_0[0][2] = 0;
+    r.field_0[1][0] = 0;
+    r.field_0[1][1] = c;
+    r.field_0[1][2] = -s;
+    r.field_0[2][0] = 0;
+    r.field_0[2][1] = s;
+    r.field_0[2][2] = c;
     gte_SetRotMatrix(m);
-    gte_ldclmv(&r.m[0][0]);
+    gte_ldclmv(&r.field_0[0][0]);
     gte_rtir();
-    gte_stclmv(&m->m[0][0]);
-    gte_ldclmv(&r.m[0][1]);
+    gte_stclmv(&m->field_0[0][0]);
+    gte_ldclmv(&r.field_0[0][1]);
     gte_rtir();
-    gte_stclmv(&m->m[0][1]);
-    gte_ldclmv(&r.m[0][2]);
+    gte_stclmv(&m->field_0[0][1]);
+    gte_ldclmv(&r.field_0[0][2]);
     gte_rtir();
-    gte_stclmv(&m->m[0][2]);
+    gte_stclmv(&m->field_0[0][2]);
     func_8001282C((u8 *)m);
 }
 
@@ -520,9 +520,9 @@ void func_8001282C(u8 *n) {
     func_80013ED0((u16 *)n, (u16 *)c, (u16 *)b, (u16 *)a);
 }
 
-extern void func_80013F3C(Mtx *m);
+extern void func_80013F3C(struct_20_3 *m);
 
-extern Mtx D_800AE688;
+extern struct_20_3 D_800AE688;
 
 extern void SetLineG4(void *p);
 
@@ -536,8 +536,8 @@ extern void SetPolyGT4(void *p);
 
 extern void SetPolyFT4(void *p);
 
-typedef struct { s16 vx, vy, vz, pad; } SVec;
-typedef struct { s32 vx, vy, vz, pad; } LVec;
+typedef struct { s16 field_0, field_2, field_4, field_6; } struct_8_7;
+typedef struct { s32 field_0, field_4, field_8, field_C; } struct_10_3;
 
 extern u8 D_800A46BA;
 extern u8 D_800A6588[];
@@ -557,8 +557,8 @@ extern void func_800128EC();
 extern s32 func_80013154(s32 a, s32 b, s32 c);
 extern s32 func_8001ABBC(s32 kind, s32 id, s32 *file, s32 c, s32 d);
 extern void func_8001B3C4(void);
-extern void ApplyBgColor(void);
-extern u16 g_Pad0PrevHeld;
+extern void func_80014998(void);
+extern u16 D_80078DDA;
 
 void func_800128B4(void *p) {
     s32 v[3];
@@ -613,14 +613,14 @@ extern s32 D_800A2BA0;
 extern s32 D_800C7D2C;
 extern u8 *D_8006A970[];
 extern s32 D_80065504[];
-typedef struct { s32 w[9]; } Blk24;
-extern Blk24 D_80079204;
+typedef struct { s32 field_0[9]; } struct_24;
+extern struct_24 D_80079204;
 extern void func_80029218(void);
-extern void ClearRumbleScript(void);
+extern void func_8001903C(void);
 extern void func_8001B324(void);
 extern s16 func_80012E6C(s32 a, s32 b, s16 n, s16 m, s16 *f);
 extern s16 func_80012FC8(s16 a, s16 b, s16 c, s16 d);
-extern s32 StageAlwaysReloads(s32 n);
+extern s32 func_8001923C(s32 n);
 extern s32 rand(void);
 extern void func_8002992C(s32 a);
 
@@ -633,15 +633,15 @@ extern s32 D_80126998;
 extern s32 D_8012699C;
 extern s32 D_801269A0;
 extern u8 D_800C6E2A[];
-extern s32 g_PadConnected;
+extern s32 D_800A5E78;
 extern s32 D_800A5E5C;
 extern s32 SpuIsTransferCompleted(s32 n);
 extern s32 func_8002A5C4();
-extern void CheckSelectHold(u8 *pad);
-extern void ClearPadInput(u8 *p);
-extern s32 PollPad(s32 i);
-extern void LatchPadInput(u8 *p);
-extern void UpdatePadState(u8 *p);
+extern void func_80018E9C(u8 *pad);
+extern void func_80018F88(u8 *p);
+extern s32 func_80018A20(s32 i);
+extern void func_80018C64(u8 *p);
+extern void func_80018CE8(u8 *p);
 extern void func_80029774(s32 a);
 extern void func_80020DA4(u8 *a, u8 *b);
 extern void func_80020F34(u8 *a, u8 *b);
@@ -649,8 +649,8 @@ extern void func_800373D0(void);
 extern void GsSetProjection(s32 a);
 extern void GsSetRefView2();
 
-typedef struct { u8 flag; } Flag8;
-extern Flag8 D_80076242;
+typedef struct { u8 field_0; } struct_1;
+extern struct_1 D_80076242;
 extern void (*D_80063500[])(u8 *o);
 
 extern u16 D_800A4E8A;
@@ -662,7 +662,7 @@ extern u8 D_800A63E4;
 extern u8 D_80075AC0[];
 extern s16 D_8006A9BC[];
 extern u16 D_8006A9B0[];
-extern Mtx D_800AF648;
+extern struct_20_3 D_800AF648;
 extern s32 ratan2(s32 y, s32 x);
 extern void SsVabClose(s32 id);
 extern void SetBackColor(s32 r, s32 g, s32 b);
@@ -742,9 +742,9 @@ s16 func_80012CB8(s16 a, s16 b, s16 c) {
     return func_80012D0C(a, b, c, &v);
 }
 
-typedef struct { s32 w[0x26]; } Blk98;
-extern Blk98 D_80072C84;
-extern Blk98 D_80078E78;
+typedef struct { s32 field_0[0x26]; } struct_98;
+extern struct_98 D_80072C84;
+extern struct_98 D_80078E78;
 
 s16 func_80012D0C(s16 a, s16 b, s16 c, s16 *p) {
     s16 d;
@@ -837,7 +837,7 @@ extern void SetLineG3();
 
 extern void GsDefDispBuff2(s32 a, s32 b, s32 c, s32 d);
 extern void GsInitGraph2(s32 w, s32 h, s32 f, s32 a, s32 b);
-extern void ClearVram(void);
+extern void func_80014774(void);
 
 extern void SetPolyF3();
 
@@ -853,11 +853,11 @@ extern s32 func_8001B7C4(s32 *p);
 extern s32 func_8001B0D4(void *file, s16 b);
 extern s32 D_800747E0;
 extern void func_80036AF8(void *file, s16 b);
-extern s32 DiscCheckStep(void);
-extern s32 g_CdSyncResult;      /* the last CdSync result */
+extern s32 func_8001A114(void);
+extern s32 D_800AE6E8;      /* the last CdSync result */
 extern s32 func_8002FD14(s32 a, s32 b);
-extern void StartDiscCheck(void);
-extern void StreamReadyCallback(u8 intr, u8 *result);
+extern void func_8001A0FC(void);
+extern void func_8001A338(u8 intr, u8 *result);
 extern u8 D_80078E40[12];       /* the sector's header: position and subheader */
 extern u8 D_80079A70[0x2000];   /* a PAC header sector, then the four texture sector buffers */
 extern u8 D_80079A74;           /* PAC header: type */
@@ -869,8 +869,8 @@ extern s32 D_80072C80;          /* where a type-7 block's payload goes */
 extern void func_8002FDC8(void);
 extern s32 func_8002FB08(s32 a);
 extern s32 func_8002FC64(s32 bytes, u8 *buf);
-extern void StartLzssDecode(s32 a);
-extern s32 LzssDecodeSector(u8 *p);
+extern void func_80018714(s32 a);
+extern s32 func_80018730(u8 *p);
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 extern s32 D_8006387C;
 
@@ -881,59 +881,59 @@ extern s32 D_80063884;
 extern u8 D_80063888;
 
 typedef struct {
-    u32 tag;
-    u8 r0, g0, b0, code;
-    s16 x0, y0;
-    u8 u0, v0;
-    u16 clut;
-    u8 r1, g1, b1, p1;
-    s16 x1, y1;
-    u8 u1, v1;
-    u16 tpage;
-    u8 r2, g2, b2, p2;
-    s16 x2, y2;
-    u8 u2, v2;
-    u16 pad2;
-} GT3;
+    u32 field_0;
+    u8 field_4, field_5, field_6, field_7;
+    s16 field_8, field_A;
+    u8 field_C, field_D;
+    u16 field_E;
+    u8 field_10, field_11, field_12, field_13;
+    s16 field_14, field_16;
+    u8 field_18, field_19;
+    u16 field_1A;
+    u8 field_1C, field_1D, field_1E, field_1F;
+    s16 field_20, field_22;
+    u8 field_24, field_25;
+    u16 field_26;
+} struct_28;
 extern u8 D_8006388C[];
 extern u8 D_8006389C[];
 
 typedef struct {
-    u32 tag;
-    u8 r0, g0, b0, code;
-    s16 x0, y0;
-    u8 u0, v0;
-    u16 clut;
-    u8 r1, g1, b1, p1;
-    s16 x1, y1;
-    u8 u1, v1;
-    u16 tpage;
-    u8 r2, g2, b2, p2;
-    s16 x2, y2;
-    u8 u2, v2;
-    u16 pad2;
-    u8 r3, g3, b3, p3;
-    s16 x3, y3;
-    u8 u3, v3;
-    u16 pad3;
-} GT4;
+    u32 field_0;
+    u8 field_4, field_5, field_6, field_7;
+    s16 field_8, field_A;
+    u8 field_C, field_D;
+    u16 field_E;
+    u8 field_10, field_11, field_12, field_13;
+    s16 field_14, field_16;
+    u8 field_18, field_19;
+    u16 field_1A;
+    u8 field_1C, field_1D, field_1E, field_1F;
+    s16 field_20, field_22;
+    u8 field_24, field_25;
+    u16 field_26;
+    u8 field_28, field_29, field_2A, field_2B;
+    s16 field_2C, field_2E;
+    u8 field_30, field_31;
+    u16 field_32;
+} struct_34_2;
 
 extern s16 D_800C7C74;
 
 typedef struct {
-     u8 pad0[2];
-     s16 unk2;
-     s16 unk4;
-     u8 pad6[0xA];
-     u8 unk10;
-     u8 pad11[3];
-     s32 spuAddr;
-} SoundSlot;
-extern SoundSlot g_SoundSlot[5];
+     u8 field_0[2];
+     s16 field_2;
+     s16 field_4;
+     u8 field_6[0xA];
+     u8 field_10;
+     u8 field_11[3];
+     s32 field_14;
+} struct_18_2;
+extern struct_18_2 D_800A4640[5];
 extern s16 func_8003836C(s32 a);
 
-typedef struct { s16 active; s16 pad2; s32 val; u8 pad8[5]; u8 unkD; u8 padE[2]; } Slot183E0;
-typedef struct { u8 pad[0xA1A8]; Slot183E0 slot[32]; } Work183E0;
+typedef struct { s16 field_0; s16 field_2; s32 field_4; u8 field_8[5]; u8 field_D; u8 field_E[2]; } struct_10_4;
+typedef struct { u8 field_0[0xA1A8]; struct_10_4 field_A1A8[32]; } struct_A3A8;
 
 s32 func_80013154(s32 a0, s32 a1, s32 a2) {
     s16 a = a0;
@@ -1034,42 +1034,42 @@ s32 func_80013478(s16 *a, s16 *b) {
 }
 
 void func_800134FC(s16 a, void *in, void *out) {
-    Mtx m;
+    struct_20_3 m;
     func_80013F3C(&m);
     func_800126C4(&m, a);
     ApplyMatrixLV(&m, in, out);
 }
 
 void func_80013694(s16 a, void *in, void *out) {
-    Mtx m;
+    struct_20_3 m;
     func_80013F3C(&m);
     func_800126C4(&m, a);
     ApplyMatrixSV(&m, in, out);
 }
 
 void func_8001382C(s16 a, void *in, void *out) {
-    Mtx m;
+    struct_20_3 m;
     func_80013F3C(&m);
     func_80012558(&m, a);
     ApplyMatrixLV(&m, in, out);
 }
 
 void func_800139C8(s16 a, void *in, void *out) {
-    Mtx m;
+    struct_20_3 m;
     func_80013F3C(&m);
     func_80012558(&m, a);
     ApplyMatrixSV(&m, in, out);
 }
 
 void func_80013B64(s16 a, void *in, void *out) {
-    Mtx m;
+    struct_20_3 m;
     func_80013F3C(&m);
     func_800123F0(&m, a);
     ApplyMatrixLV(&m, in, out);
 }
 
 void func_80013CFC(s16 a, void *in, void *out) {
-    Mtx m;
+    struct_20_3 m;
     func_80013F3C(&m);
     func_800123F0(&m, a);
     ApplyMatrixSV(&m, in, out);
@@ -1091,7 +1091,7 @@ void func_80013ED0(u16 *m, u16 *x, u16 *y, u16 *z) {
     m[8] = z[2];
 }
 
-void func_80013F3C(Mtx *m) {
+void func_80013F3C(struct_20_3 *m) {
     s16 *v = (s16 *)m;
     v[0] = 0x1000;
     v[1] = 0;
@@ -1166,7 +1166,7 @@ void func_80014094(u8 *a, u8 *b) {
     *(s16 *)(b + 0x4) = *(s32 *)(a + 0x8);
 }
 
-void func_800140B8(Mtx *m, s16 *v, s32 *out) {
+void func_800140B8(struct_20_3 *m, s16 *v, s32 *out) {
     gte_SetRotMatrix(m);
     gte_ldv0(v);
     gte_rtv0();
@@ -1177,65 +1177,65 @@ void func_800140B8(Mtx *m, s16 *v, s32 *out) {
 }
 
 /* Unused wrapper: ApplyMatrixSV with the caller's own argument registers */
-s32 ApplyMatrixSVPass(void) {
+s32 func_80014128(void) {
     return ApplyMatrixSV();
 }
 
 /* Unused wrapper: ApplyMatrixLV with the caller's own argument registers */
-void ApplyMatrixLVPass(void) {
+void func_80014148(void) {
     ApplyMatrixLV();
 }
 
 /* Rotate a short vector by matrix m, writing the result back over the input */
-void ApplyMatrixSVInPlace(void *m, B8 *v) {
-    B8 in;
-    in = *(B8 *)v;
+void func_80014168(void *m, struct_8_6 *v) {
+    struct_8_6 in;
+    in = *(struct_8_6 *)v;
     ApplyMatrixSV(m, &in, v);
 }
 
 /* Rotate a long VECTOR by matrix m, writing the result back over the input */
-void ApplyMatrixLVInPlace(void *m, VECTOR *v) {
+void func_800141AC(void *m, VECTOR *v) {
     VECTOR in = *v;
     ApplyMatrixLV(m, &in, v);
 }
 
 /* One-time graphics setup at boot */
-void InitGraph(void)
+void func_800141F0(void)
 {
     ResetGraph(0);
     SetGraphDebug(0);
     SetDispMask(0);
     func_80016714(D_800BA118, 0x98);
-    ResetGameState();
+    func_800142C8();
 }
 
 /* Per-mode setup run each time main() re-enters its frame loop */
-void ResetSystems(void)
+void func_80014238(void)
 {
-    ResetMallocHeap();
+    func_80014928();
     ResetGraph(1);
     SetDispMask(0);
     VSync(0);
-    func_80016714(&D_800AF630, sizeof(Work));
-    InitDisplay();
-    Init3DScene();
+    func_80016714(&D_800AF630, sizeof(struct_A444));
+    func_800143AC();
+    func_80014444();
     func_8001C044();
-    ClearImageQueue();
+    func_80014588();
     func_80015310();
     func_80028A48();
     func_80028C50();
-    ResetGameState();
+    func_800142C8();
     SetDispMask(1);
 }
 
 /* Clear the game's flag bits, byte vars and load state; set vars 0x2C/0x2D to 7, clear flags 0xC/0xD */
-void ResetGameState(void) {
+void func_800142C8(void) {
     func_80029044();
     func_8002906C();
     func_80029094();
     func_80029218();
-    ClearRumbleScript();
-    StopPadRumble();
+    func_8001903C();
+    func_80018FC8();
     func_8001B324();
     func_80028FDC(7);
     func_80029020(7);
@@ -1244,7 +1244,7 @@ void ResetGameState(void) {
 }
 
 /* Clear flags and vars to their new-game values and copy the default stats block into D_80078E78 */
-void ResetGameProgress(void) {
+void func_80014338(void) {
     func_80029044();
     func_8002906C();
     func_80029094();
@@ -1256,30 +1256,30 @@ void ResetGameProgress(void) {
 }
 
 /* Arm the frame loop: clear Work.exitLoop and run at one frame per 2 vblanks */
-void ResetFrameLoop(void)
+void func_80014390(void)
 {
-    D_800AF630.exitLoop = 0;
-    D_800AF630.vsyncMode = 2;
+    D_800AF630.field_A3D4 = 0;
+    D_800AF630.field_A3E8 = 2;
 }
 
 /* Set screen mode 1, wait a vblank, and set up the two 4096-entry GsOT headers */
-void InitDisplay(void) {
+void func_800143AC(void) {
     u32 *unused_ot;
     s32 i;
-    SetScreenMode(1);
+    func_800145EC(1);
     VSync(0);
-    unused_ot = g_WorldOtTable[0]; i = 0; D_800AF7C4 = 0; D_800AF7C3 = 0; D_800AF7C2 = 0;
-    do { D_800A6518[i].ot = g_WorldOtTable[i]; D_800A6518[i].len = 0xC; D_800A6518[i].c = 0; D_800A6518[i].d = 0; i++; } while (i < 2);
+    unused_ot = D_800A6610[0]; i = 0; D_800AF7C4 = 0; D_800AF7C3 = 0; D_800AF7C2 = 0;
+    do { D_800A6518[i].field_4 = D_800A6610[i]; D_800A6518[i].field_0 = 0xC; D_800A6518[i].field_8 = 0; D_800A6518[i].field_C = 0; i++; } while (i < 2);
 }
 
 /* GTE and libgs 3D setup: screen distance, default view, ambient, lights, two coordinate systems */
-void Init3DScene(void) {
+void func_80014444(void) {
     register u8 *w = (u8 *)&D_800AF630;
     InitGeom();
     D_80126950 = 0x3E8;
     SetGeomScreen(0x3E8);
     GsInit3D();
-    InitDefaultView();
+    func_800144D4();
     func_8001455C();
     func_8002850C(0x800, 0x800, 0x800);
     func_8002823C();
@@ -1289,7 +1289,7 @@ void Init3DScene(void) {
 }
 
 /* Projection 300 and a GsRVIEW2 at (0,0,-300) looking at the origin */
-void InitDefaultView(void) {
+void func_800144D4(void) {
     D_80126950 = 0x12C;
     GsSetProjection(0x12C);
     D_80126984 = 0;
@@ -1314,17 +1314,17 @@ s32 func_80014564(s32 a) {
 }
 
 /* Clear the 32 records of the end-of-frame image upload queue (D_800B97D8) */
-void ClearImageQueue(void) {
-    Ent10 *rec = D_800B97D8;
+void func_80014588(void) {
+    struct_10_2 *rec = D_800B97D8;
     s16 i;
     for (i = 0; i < 0x20; i++, rec++) {
-        rec->flag = 0;
+        rec->field_0 = 0;
         libc_memset(rec, 0, 0x10);
     }
 }
 
 /* Set the display from screen-mode table entry mode (w, h, flags) via GsInitGraph, then the envs */
-void SetScreenMode(s32 mode) {
+void func_800145EC(s32 mode) {
     s32 ofs = (mode & 0xFFFF) * 6;
     u16 width; u16 height; u16 flags;
     width = *(u16 *)((u32)&D_80062A3C + ofs);
@@ -1337,12 +1337,12 @@ void SetScreenMode(s32 mode) {
     if (D_800AF7BE == 0x1E0) { GsDefDispBuff(0, 0, 0, 0); } else { GsDefDispBuff(0, D_800AF7BE, 0, 0); }
     ResetGraph(1);
     GsInit3D();
-    ClearVram();
-    InitDrawDispEnvs();
+    func_80014774();
+    func_800147B8();
 }
 
 /* SetScreenMode with GsInitGraph2 / GsDefDispBuff2 (used by overlays and stages) */
-void SetScreenMode2(s32 mode) {
+void func_800146B0(s32 mode) {
     s32 ofs = (mode & 0xFFFF) * 6;
     u16 width; u16 height; u16 flags;
     width = *(u16 *)((u32)&D_80062A3C + ofs);
@@ -1355,12 +1355,12 @@ void SetScreenMode2(s32 mode) {
     if (D_800AF7BE == 0x1E0) { GsDefDispBuff2(0, 0, 0, 0); } else { GsDefDispBuff2(0, D_800AF7BE, 0, 0); }
     ResetGraph(1);
     GsInit3D();
-    ClearVram();
-    InitDrawDispEnvs();
+    func_80014774();
+    func_800147B8();
 }
 
 /* Clear VRAM rectangle (0,0)-(640,480) to black */
-void ClearVram(void) {
+void func_80014774(void) {
     RECT r;
     r.w = 0x280;
     r.x = 0;
@@ -1373,8 +1373,8 @@ void ClearVram(void) {
 extern void SetDefDrawEnv();
 extern void SetDefDispEnv();
 
-void InitDrawDispEnvs(void) {
-    register Work *w = &D_800AF630;
+void func_800147B8(void) {
+    register struct_A444 *w = &D_800AF630;
     s32 height = D_800AF7BE;
     s32 buf1Y;
     s16 ofsY1;
@@ -1385,49 +1385,49 @@ void InitDrawDispEnvs(void) {
     } else {
         buf1Y = height;
     }
-    SetDefDrawEnv(&w->draw[0], 0, 0xA, D_800AF7BC, height - 0x14);
-    SetDefDispEnv(&w->disp[0], 0, 0, D_800AF7BC, D_800AF7BE);
-    SetDefDrawEnv(&w->draw[1], 0, buf1Y + 0xA, D_800AF7BC, D_800AF7BE - 0x14);
-    SetDefDispEnv(&w->disp[1], 0, buf1Y, D_800AF7BC, D_800AF7BE);
+    SetDefDrawEnv(&w->field_38[0], 0, 0xA, D_800AF7BC, height - 0x14);
+    SetDefDispEnv(&w->field_14C[0], 0, 0, D_800AF7BC, D_800AF7BE);
+    SetDefDrawEnv(&w->field_38[1], 0, buf1Y + 0xA, D_800AF7BC, D_800AF7BE - 0x14);
+    SetDefDispEnv(&w->field_14C[1], 0, buf1Y, D_800AF7BC, D_800AF7BE);
     halfW = D_800AF7BC >> 1;
     screenH = D_800AF7BE;
-    w->draw[0].ofs[0] = halfW;
-    w->draw[0].ofs[1] = screenH >> 1;
-    w->draw[1].ofs[0] = halfW;
+    w->field_38[0].ofs[0] = halfW;
+    w->field_38[0].ofs[1] = screenH >> 1;
+    w->field_38[1].ofs[0] = halfW;
     if (screenH == 0xF0) {
         ofsY1 = 0x168;
     } else {
         ofsY1 = 0xF0;
     }
-    w->draw[1].tw.h = 0x100;
-    w->draw[1].tw.w = 0x100;
-    w->draw[0].tw.h = 0x100;
-    w->draw[0].tw.w = 0x100;
-    w->draw[1].ofs[1] = ofsY1;
-    w->draw[1].dtd = 0;
-    w->draw[0].dtd = 0;
-    w->draw[1].isbg = 1;
-    w->draw[0].isbg = 1;
-    ClearBgColor();
+    w->field_38[1].tw.h = 0x100;
+    w->field_38[1].tw.w = 0x100;
+    w->field_38[0].tw.h = 0x100;
+    w->field_38[0].tw.w = 0x100;
+    w->field_38[1].ofs[1] = ofsY1;
+    w->field_38[1].dtd = 0;
+    w->field_38[0].dtd = 0;
+    w->field_38[1].isbg = 1;
+    w->field_38[0].isbg = 1;
+    func_80014960();
 }
 
 /* Re-initialise the 2 KB malloc heap at 0x801FF800 with interrupts off */
-void ResetMallocHeap(void) {
+void func_80014928(void) {
     EnterCriticalSection();
     InitHeap((u32 *)0x801FF800, 0x800);
     ExitCriticalSection();
 }
 
 /* Zero the Work background colour bytes (0x192-0x194) and copy them into both DRAWENVs */
-void ClearBgColor(void) {
+void func_80014960(void) {
     D_800AF7C4 = 0;
     D_800AF7C3 = 0;
     D_800AF7C2 = 0;
-    ApplyBgColor();
+    func_80014998();
 }
 
 /* Copy the Work background colour (0x192-0x194) into both DRAWENVs' r0, g0, b0 */
-void ApplyBgColor(void) {
+void func_80014998(void) {
     u8 *p; u8 *w; s32 i;
     w = (u8 *)&D_800AF630; i = 0; p = w;
 loop:
@@ -1441,10 +1441,10 @@ loop:
     }
 }
 
-extern u8 GetPadPrevByte(u8 port, u8 idx);
+extern u8 func_80014D30(u8 port, u8 idx);
 
 /* Buttons pressed this frame; with none, the left stick leaving centre as d-pad bits (analog pads only) */
-u16 GetPadPressedDir(u8 port) {
+u16 func_800149E0(u8 port) {
     s32 pressed;
     s32 id;
     u16 prevY;
@@ -1453,19 +1453,19 @@ u16 GetPadPressedDir(u8 port) {
     u16 curX;
     u16 dir;
     s32 p;
-    pressed = (&g_Pad0Pressed)[port * 0x26];
+    pressed = (&D_80078DD2)[port * 0x26];
     if (pressed != 0) {
         return pressed;
     }
-    id = GetPadType(port) & 0xFF;
+    id = func_80014C28(port) & 0xFF;
     if (id != 0x53 && (id < 0x54 || id != 0x73)) {
         return 0;
     }
     p = port;
-    prevY = GetPadPrevByte(p, 5);
-    prevX = GetPadPrevByte(p, 4);
-    curY = GetPadByte(p, 5);
-    curX = GetPadByte(p, 4);
+    prevY = func_80014D30(p, 5);
+    prevX = func_80014D30(p, 4);
+    curY = func_80014CF8(p, 5);
+    curX = func_80014CF8(p, 4);
     dir = 0;
     if (prevY == 0x80 && curY != prevY) {
         if (curY >= 0x80) {
@@ -1483,20 +1483,20 @@ u16 GetPadPressedDir(u8 port) {
 }
 
 /* Buttons held; with none, the left stick tilted (past the 0x51-0xAF dead zone) as d-pad bits (analog only) */
-u16 GetPadHeldDir(s32 port) {
+u16 func_80014B10(s32 port) {
     u16 held;
     u8 type;
     u16 stickY;
     u16 stickX;
     s32 dir;
-    held = *(u16 *)((u8 *)&g_Pad0Held + (u8)port * 0x4C);
+    held = *(u16 *)((u8 *)&D_80078DCA + (u8)port * 0x4C);
     if (held != 0) {
         return held;
     }
-    type = GetPadType(port);
+    type = func_80014C28(port);
     switch (type) { case 0x53: case 0x73: break; default: return 0; case 0x41: return 0; }
-    stickY = GetPadByte(port, 5);
-    stickX = GetPadByte(port, 4);
+    stickY = func_80014CF8(port, 5);
+    stickX = func_80014CF8(port, 4);
     dir = 0;
     if (stickY != 0x80) {
         dir = 0x1000; if (stickY >= 0x80) { dir = 0x4000; }
@@ -1512,18 +1512,18 @@ u16 GetPadHeldDir(s32 port) {
 }
 
 /* Buttons held last frame */
-u16 GetPadPrevHeld(u8 port) {
-    return (&g_Pad0PrevHeld)[port * 0x26];
+u16 func_80014BFC(u8 port) {
+    return (&D_80078DDA)[port * 0x26];
 }
 
 /* The pad type id (0x41 digital, 0x53 / 0x73 analog; 0 none) */
-u8 GetPadType(u8 port) {
-    return g_Pads[port].pad0[0];
+u8 func_80014C28(u8 port) {
+    return D_80078D98[port].field_0[0];
 }
 
 /* 1 when every bit of mask is held (which == 1) or pressed this frame (otherwise) on this port */
-s32 TestPadAll(s32 port, s32 which, s32 mask) {
-    u8 *pad = (u8 *)&g_Pads[port & 0xFF];
+s32 func_80014C54(s32 port, s32 which, s32 mask) {
+    u8 *pad = (u8 *)&D_80078D98[port & 0xFF];
     s32 bits;
     if ((which & 0xFF) == 1) {
         bits = *(u16 *)(pad + 0x32) & mask;
@@ -1534,77 +1534,77 @@ s32 TestPadAll(s32 port, s32 which, s32 mask) {
 }
 
 /* 1 when any bit of mask is held (which == 1) or pressed this frame (otherwise) on either port */
-s32 TestPadsAny(u8 which, s32 mask) {
+s32 func_80014CAC(u8 which, s32 mask) {
     s32 bits;
     if (which == 1) {
-        bits = g_Pad0Held | g_Pad1Held;
+        bits = D_80078DCA | D_80078E16;
     } else {
-        bits = g_Pad0Pressed | g_Pad1Pressed;
+        bits = D_80078DD2 | D_80078E1E;
     }
     return (bits & mask) != 0;
 }
 
 /* Byte idx of the current state (0-1 buttons, 2-7 analog after the dead zone: 4 left X, 5 left Y) */
-u8 GetPadByte(u8 port, s32 idx) {
-    u8 *p = (u8 *)&g_Pads[port];
+u8 func_80014CF8(u8 port, s32 idx) {
+    u8 *p = (u8 *)&D_80078D98[port];
     return (p + (u8)idx)[0x32];
 }
 
 /* Byte idx of last frame's state (as GetPadByte) */
-u8 GetPadPrevByte(u8 port, u8 idx) {
-    u8 *q = (u8 *)&g_Pads[port];
+u8 func_80014D30(u8 port, u8 idx) {
+    u8 *q = (u8 *)&D_80078D98[port];
     q += idx;
     return q[0x42];
 }
 
 /* Buttons held */
-u16 GetPadHeld(u8 port) {
-    return (&g_Pad0Held)[port * 0x26];
+u16 func_80014D68(u8 port) {
+    return (&D_80078DCA)[port * 0x26];
 }
 
 /* Buttons pressed this frame */
-u16 GetPadPressed(u8 port) {
-    return *(u16 *)((u8 *)&g_Pad0Pressed + port * 0x4C);
+u16 func_80014D94(u8 port) {
+    return *(u16 *)((u8 *)&D_80078DD2 + port * 0x4C);
 }
 
 /* The pad type id: a second copy of GetPadType (used by the stage engine) */
-u8 GetPadTypeAlt(u8 port) {
-    return g_Pads[port].pad0[0];
+u8 func_80014DC0(u8 port) {
+    return D_80078D98[port].field_0[0];
 }
 
 /* Byte idx of the current state: a second copy of GetPadByte (no caller found) */
-u8 GetPadByteAlt(u8 port, u8 idx) {
-    u8 *q = (u8 *)&g_Pads[port];
+u8 func_80014DEC(u8 port, u8 idx) {
+    u8 *q = (u8 *)&D_80078D98[port];
     q += idx;
     return q[0x32];
 }
 
 /* 1 when every bit of mask is in GetPadHeldDirWide (kind == 1) or GetPadPressedDirWide (otherwise); no caller found */
-s32 TestPadDirWideAll(u8 port, u8 kind, s32 mask) {
+s32 func_80014E24(u8 port, u8 kind, s32 mask) {
     s32 p = port;
     s32 bits;
     if (kind == 1) {
-        bits = GetPadHeldDirWide(p) & 0xFFFF;
+        bits = func_80015018(p) & 0xFFFF;
     } else {
-        bits = GetPadPressedDirWide(p) & 0xFFFF;
+        bits = func_80014ED4(p) & 0xFFFF;
     }
     return (bits & mask) == mask;
 }
 
 /* 1 when any bit of mask is in pad 0's GetPadHeldDirWide (which == 1) or GetPadPressedDirWide (otherwise) */
-s32 TestPadDirWideAny(u8 which, s32 mask) {
+s32 func_80014E80(u8 which, s32 mask) {
     s32 bits;
     if (which == 1) {
-        bits = GetPadHeldDirWide(0);
+        bits = func_80015018(0);
     } else {
-        bits = GetPadPressedDirWide(0);
+        bits = func_80014ED4(0);
     }
     return (bits & mask) != 0;
 }
 
 /* Buttons pressed this frame; with none, the left stick leaving centre (wide dead zone) as d-pad bits: menus */
-u16 GetPadPressedDirWide(s32 port) {
-    Pad *p;
+u16 func_80014ED4(s32 port) {
+    struct_4C *p;
     u16 pressed;
     u8 type;
     u16 prevY;
@@ -1612,18 +1612,18 @@ u16 GetPadPressedDirWide(s32 port) {
     u16 curY;
     u16 curX;
     s32 dir;
-    p = (void *)&g_Pads[(u8)port];
+    p = (void *)&D_80078D98[(u8)port];
     pressed = *(u16 *)((u8 *)p + 0x3A);
     if (pressed != 0) {
         return pressed;
     }
     type = *(u8 *)p;
     switch (type) { case 0x53: case 0x73: break; default: return 0; case 0x41: return 0; }
-    { Pad *q = &g_Pads[(u8)port]; prevY = q->data[0x3F]; prevX = q->data[0x3E]; curY = q->data[0x2F]; curX = q->data[0x2E]; }
-    WideStickDeadzone(&prevY);
-    WideStickDeadzone(&prevX);
-    WideStickDeadzone(&curY);
-    WideStickDeadzone(&curX);
+    { struct_4C *q = &D_80078D98[(u8)port]; prevY = q->field_8[0x3F]; prevX = q->field_8[0x3E]; curY = q->field_8[0x2F]; curX = q->field_8[0x2E]; }
+    func_80015118(&prevY);
+    func_80015118(&prevX);
+    func_80015118(&curY);
+    func_80015118(&curX);
     dir = 0;
     if (prevY == 0x80 && curY != 0x80) {
         dir = 0x1000;
@@ -1642,23 +1642,23 @@ u16 GetPadPressedDirWide(s32 port) {
 }
 
 /* Buttons held; with none, the left stick near full tilt (wide dead zone) as d-pad bits: menus */
-u16 GetPadHeldDirWide(s32 port) {
-    Pad *p;
+u16 func_80015018(s32 port) {
+    struct_4C *p;
     u16 held;
     u8 type;
     u16 stickY;
     u16 stickX;
     s32 dir;
-    p = (void *)&g_Pads[(u8)port];
+    p = (void *)&D_80078D98[(u8)port];
     held = *(u16 *)((u8 *)p + 0x32);
     if (held != 0) {
         return held;
     }
     type = *(u8 *)p;
     switch (type) { case 0x53: case 0x73: break; default: return 0; case 0x41: return 0; }
-    { Pad *q = &g_Pads[(u8)port]; stickY = q->data[0x2F]; stickX = q->data[0x2E]; }
-    WideStickDeadzone(&stickY);
-    WideStickDeadzone(&stickX);
+    { struct_4C *q = &D_80078D98[(u8)port]; stickY = q->field_8[0x2F]; stickX = q->field_8[0x2E]; }
+    func_80015118(&stickY);
+    func_80015118(&stickX);
     dir = 0;
     if (stickY != 0x80) {
         dir = 0x1000;
@@ -1677,41 +1677,41 @@ u16 GetPadHeldDirWide(s32 port) {
 }
 
 /* Centre (0x80) a stick value inside 0x15-0xEB: only a near-full tilt counts */
-void WideStickDeadzone(u16 *v) {
+void func_80015118(u16 *v) {
     if ((u32)(v[0] - 0x15) < 0xD7) {
         v[0] = 0x80;
     }
 }
 
 /* Empty end-of-frame hook (last call of main()'s frame loop) */
-void FrameEndNop(void) {
+void func_8001513C(void) {
 }
 
 extern s16 D_800B9A04;
 extern void func_8003500C();
 extern void func_8002D034();
 extern void func_8002F67C();
-extern s32 GetLoadRequestId(void);
+extern s32 func_8001AA78(void);
 
 s32 func_80015144(void) {
-    Work *w = &D_800AF630;
+    struct_A444 *w = &D_800AF630;
     if (func_80034B98() != 0) {
         func_8002D4C8(2, 0);
         do {
             func_8003500C();
             func_8002D034();
-            VSync(w->vsyncMode);
+            VSync(w->field_A3E8);
         } while (func_80034B98() != 0);
-        w->exitLoop = 1;
+        w->field_A3D4 = 1;
     } else {
-        if (GetLoadRequestId() != 0) {
+        if (func_8001AA78() != 0) {
             return 0;
         }
         D_800B9A04 = 1;
         func_8002D4C8(2, 0);
     }
     func_8002F67C();
-    ResetLoader();
+    func_80019990();
     return 1;
 }
 
@@ -1723,18 +1723,18 @@ extern u8 D_800B9A17;
 void func_801281D8(void);
 
 /* Open the pause / status menu on Start (or when pad 1 is lost) while the field allows it */
-void CheckPauseStart(void) {
-    register Work *w = &D_800AF630;
+void func_80015208(void) {
+    register struct_A444 *w = &D_800AF630;
     if (D_800B9A64 == 0 && D_800B9A10 == 1 && D_800B9A17 == 1 && D_800B9A15 != 1) {
         if (D_800B9A16 != 0) {
             D_800B9A15 = 1;
         } else {
             s32 m = 0x800;
             if (D_800B9A13 == 0) {
-                s32 x = g_Pad0Pressed & m;
+                s32 x = D_80078DD2 & m;
                 if (x == m) x = 1; else x = 0;
-                if (x || g_PadConnected == 0) {
-                    w->unkA3E5 = 1;
+                if (x || D_800A5E78 == 0) {
+                    w->field_A3E5 = 1;
                     func_801281D8();
                 }
             }
@@ -1743,19 +1743,19 @@ void CheckPauseStart(void) {
 }
 
 void func_800152F4(s16 n) {
-    D_800B93D8[n].flag = 0;
+    D_800B93D8[n].field_0 = 0;
 }
 
 void func_80015310(void) {
     s32 pad[2];
-    Ent10 *p;
+    struct_10_2 *p;
     for (p = D_800B93D8; p < D_800B97D8; p++) {
-        p->flag = 0;
+        p->field_0 = 0;
     }
 }
 
 void func_8001534C(s16 n, s32 x, s16 a, s16 b, u8 c, u8 d) {
-    register Work *w = &D_800AF630;
+    register struct_A444 *w = &D_800AF630;
     func_800153A4((u8 *)w + 0x9DA8 + n * 16, x, a, b, c, d);
 }
 
@@ -1769,7 +1769,7 @@ void func_800153A4(u8 *p, s32 x, s16 a, s16 b, u8 c, u8 d) {
 }
 
 void func_800153CC(s16 n, s32 x, s16 a, s16 b, u8 c, u8 d) {
-    register Work *w = &D_800AF630;
+    register struct_A444 *w = &D_800AF630;
     func_80015424((u8 *)w + 0x9DA8 + n * 16, x, a, b, c, d);
 }
 
@@ -1782,11 +1782,11 @@ void func_80015424(u8 *p, s32 x, s16 a, s16 b, u8 c, u8 d) {
     p[0xD] = d;
 }
 
-Ent10 *func_8001544C(void) {
-    Ent10 *p;
+struct_10_2 *func_8001544C(void) {
+    struct_10_2 *p;
     s32 pad[2];
     for (p = D_800B93D8; p < D_800B97D8; p++) {
-        if (p->flag == 0) {
+        if (p->field_0 == 0) {
             return p;
         }
     }
@@ -1797,9 +1797,9 @@ extern void func_80015608(u8 *p, u8 *ot);
 extern void func_80015760(u8 *p, u8 *ot);
 
 /* Draw the 64 debug-text records (Work+0x9DA8) into the OT, then the font's texture page */
-void DrawDebugText(void) {
+void func_80015498(void) {
     u8 *w = (u8 *)&D_800AF630;
-    u8 *ot = D_800A651C[D_800B9A02].ot;
+    u8 *ot = D_800A651C[D_800B9A02].field_0;
     u8 *p;
     u8 *prim;
 
@@ -1816,11 +1816,11 @@ void DrawDebugText(void) {
                 break;
             }
         }
-        prim = (u8 *)g_PrimNext;
+        prim = (u8 *)D_800A5E60;
         prim[3] = 1;
         *(u32 *)(prim + 4) = (GetTPage(0, 0, 0x140, 0x100) & 0x9FF) | 0xE1000000;
         addPrim(ot, prim);
-        g_PrimNext += 8;
+        D_800A5E60 += 8;
     }
 }
 
@@ -1853,7 +1853,7 @@ void func_80015608(u8 *p, u8 *ot) {
         len = 0x03000000;
     }
 
-    pk = (u32 *)g_PrimNext;
+    pk = (u32 *)D_800A5E60;
     while (*s) {
         pk[1] = code | 0x808080;
         pk[2] = (x & 0xFFFF) | (y << 16);
@@ -1865,7 +1865,7 @@ void func_80015608(u8 *p, u8 *ot) {
         *(u32 *)ot = u;
         pk += 4;
     }
-    g_PrimNext = (s32)pk;
+    D_800A5E60 = (s32)pk;
 }
 
 extern u8 D_80062B78[];
@@ -1912,7 +1912,7 @@ void func_80015760(u8 *p, u8 *ot) {
         tag = 0x03000000;
     }
     clut = 0x40560000;
-    prim = (u32 *)g_PrimNext;
+    prim = (u32 *)D_800A5E60;
     while (n != 0) {
         s32 c;
         u8 i;
@@ -1931,7 +1931,7 @@ void func_80015760(u8 *p, u8 *ot) {
         *(u32 *)ot = b;
         prim += 4;
     }
-    g_PrimNext = (s32)prim;
+    D_800A5E60 = (s32)prim;
 }
 
 extern u16 D_80062A78[];
@@ -2031,8 +2031,8 @@ s32 func_80015AD0(s16 x, s16 y) {
 }
 
 void func_80015B6C(s16 x, s16 y, s16 w, s16 h, u8 r0, u8 g0, u8 b0, u8 r1, u8 g1, u8 b1) {
-    u8 *ot = D_800A651C[D_800B9A02].ot;
-    u8 *p = AllocPrim(0x34);
+    u8 *ot = D_800A651C[D_800B9A02].field_0;
+    u8 *p = func_80010A08(0x34);
     u8 *q;
     setlen(p, 1);
     *(u32 *)(p + 4) = 0xE1000000;
@@ -2078,7 +2078,7 @@ void func_80015D4C(s32 x0, s32 y0, s32 w0, s32 h0, s32 r0, s32 g0, s32 b0, s32 z
     u8 b = b0;
     u16 z = z0;
     u16 m = m0;
-    u8 *prim = AllocPrim(0x18);
+    u8 *prim = func_80010A08(0x18);
     u32 t;
     u32 v;
     prim[3] = 5;
@@ -2097,12 +2097,12 @@ void func_80015D4C(s32 x0, s32 y0, s32 w0, s32 h0, s32 r0, s32 g0, s32 b0, s32 z
     *(s16 *)(prim + 0x12) = y + h;
     *(s16 *)(prim + 0x14) = x + w;
     *(s16 *)(prim + 0x16) = y + h;
-    v = (*(u32 *)(D_800A651C[D_800B9A02].ot + z * 4)) & 0xFFFFFF;
+    v = (*(u32 *)(D_800A651C[D_800B9A02].field_0 + z * 4)) & 0xFFFFFF;
     t = *(u32 *)prim;
     t &= 0xFF000000;
     t |= v;
     *(u32 *)prim = t;
-    (*(u32 *)(D_800A651C[D_800B9A02].ot + z * 4)) = ((*(u32 *)(D_800A651C[D_800B9A02].ot + z * 4)) & 0xFF000000) | ((u32)prim & 0xFFFFFF);
+    (*(u32 *)(D_800A651C[D_800B9A02].field_0 + z * 4)) = ((*(u32 *)(D_800A651C[D_800B9A02].field_0 + z * 4)) & 0xFF000000) | ((u32)prim & 0xFFFFFF);
     if (m < 4) {
         func_80016638(&D_800A6518[D_800B9A02], z, m);
     }
@@ -2118,7 +2118,7 @@ void func_80015F04(s32 x0, s32 y0, s32 w0, s32 h0, s32 r0, s32 g0, s32 b0, s32 z
     u8 b = b0;
     u16 z = z0;
     u16 abr = abr0;
-    Work *wk = &D_800AF630;
+    struct_A444 *wk = &D_800AF630;
     s16 pts[4][2];
     LINE_F2 *p;
     s32 i;
@@ -2131,7 +2131,7 @@ void func_80015F04(s32 x0, s32 y0, s32 w0, s32 h0, s32 r0, s32 g0, s32 b0, s32 z
     pts[2][1] = y + h;
     pts[3][0] = x;
     pts[3][1] = y + h;
-    p = (LINE_F2 *)AllocPrim(0x40);
+    p = (LINE_F2 *)func_80010A08(0x40);
     for (i = 0; i < 4; i = j) {
         setlen(p, 3);
         p->code = 0x40;
@@ -2146,18 +2146,18 @@ void func_80015F04(s32 x0, s32 y0, s32 w0, s32 h0, s32 r0, s32 g0, s32 b0, s32 z
         j = i + 1;
         p->x1 = pts[j][0];
         p->y1 = pts[j][1];
-        addPrim(D_800A651C[wk->frame].ot + z * 4, p);
+        addPrim(D_800A651C[wk->field_A3D2].field_0 + z * 4, p);
         p++;
     }
     p[-1].x1 = pts[0][0];
     p[-1].y1 = pts[0][1];
     if (abr < 4) {
-        func_80016638(&D_800A6518[wk->frame], z, abr);
+        func_80016638(&D_800A6518[wk->field_A3D2], z, abr);
     }
 }
 
 void func_80016110(void) {
-    u8 *p = AllocPrim(0x18);
+    u8 *p = func_80010A08(0x18);
     u32 t;
     p[3] = 5;
     p[7] = 0x2A;
@@ -2174,47 +2174,47 @@ void func_80016110(void) {
     *(s16 *)(p + 0x12) = 0x78;
     t = *(u32 *)p;
     t &= 0xFF000000;
-    t |= *(u32 *)D_800A651C[D_800B9A02].ot & 0xFFFFFF;
+    t |= *(u32 *)D_800A651C[D_800B9A02].field_0 & 0xFFFFFF;
     *(u32 *)p = t;
-    *(u32 *)D_800A651C[D_800B9A02].ot = (*(u32 *)D_800A651C[D_800B9A02].ot & 0xFF000000) | ((u32)p & 0xFFFFFF);
+    *(u32 *)D_800A651C[D_800B9A02].field_0 = (*(u32 *)D_800A651C[D_800B9A02].field_0 & 0xFF000000) | ((u32)p & 0xFFFFFF);
     func_80016638(&D_800A6518[D_800B9A02], 0, 0);
 }
 
-extern OtRec D_800AE7BC[];
-extern OtEnt D_800AE7B8[];
-typedef struct { u16 v; } U16S;
+extern struct_14_2 D_800AE7BC[];
+extern struct_14_3 D_800AE7B8[];
+typedef struct { u16 field_0; } struct_2;
 
 void func_80016224(s32 a, s32 b) {
     u8 *p;
     u16 z;
-    p = AllocPrim(0x18);
+    p = func_80010A08(0x18);
     z = b;
     p[3] = 5;
     p[7] = 0x2A;
     p[4] = p[5] = p[6] = a;
-    *(s16 *)(p + 8) = *(s16 *)(p + 0x10) = -((U16S *)&D_800AF7BC)->v / 2;
+    *(s16 *)(p + 8) = *(s16 *)(p + 0x10) = -((struct_2 *)&D_800AF7BC)->field_0 / 2;
     *(s16 *)(p + 0xC) = *(s16 *)(p + 0x14) = D_800AF7BC / 2;
-    *(s16 *)(p + 0xA) = *(s16 *)(p + 0xE) = -((U16S *)&D_800AF7BE)->v / 2;
+    *(s16 *)(p + 0xA) = *(s16 *)(p + 0xE) = -((struct_2 *)&D_800AF7BE)->field_0 / 2;
     *(s16 *)(p + 0x12) = *(s16 *)(p + 0x16) = D_800AF7BE / 2;
     if (z != 0) {
         u32 t;
         u32 v;
-        v = *(u32 *)(D_800A651C[D_800B9A02].ot + z * 4) & 0xFFFFFF;
+        v = *(u32 *)(D_800A651C[D_800B9A02].field_0 + z * 4) & 0xFFFFFF;
         t = *(u32 *)p;
         t &= 0xFF000000;
         t |= v;
         *(u32 *)p = t;
-        *(u32 *)(D_800A651C[D_800B9A02].ot + z * 4) = (*(u32 *)(D_800A651C[D_800B9A02].ot + z * 4) & 0xFF000000) | ((u32)p & 0xFFFFFF);
+        *(u32 *)(D_800A651C[D_800B9A02].field_0 + z * 4) = (*(u32 *)(D_800A651C[D_800B9A02].field_0 + z * 4) & 0xFF000000) | ((u32)p & 0xFFFFFF);
         func_80016638(&D_800A6518[D_800B9A02], z, 2);
     } else {
         u32 t;
         u32 v;
-        v = *(u32 *)D_800AE7BC[D_800B9A02].ot & 0xFFFFFF;
+        v = *(u32 *)D_800AE7BC[D_800B9A02].field_0 & 0xFFFFFF;
         t = *(u32 *)p;
         t &= 0xFF000000;
         t |= v;
         *(u32 *)p = t;
-        *(u32 *)D_800AE7BC[D_800B9A02].ot = (*(u32 *)D_800AE7BC[D_800B9A02].ot & 0xFF000000) | ((u32)p & 0xFFFFFF);
+        *(u32 *)D_800AE7BC[D_800B9A02].field_0 = (*(u32 *)D_800AE7BC[D_800B9A02].field_0 & 0xFF000000) | ((u32)p & 0xFFFFFF);
         func_80016638(&D_800AE7B8[D_800B9A02], 0, 2);
     }
 }
@@ -2223,42 +2223,42 @@ void func_80016450(c, z)
     u8 c;
     u16 z;
 {
-    PolyF4 *p = (PolyF4 *)AllocPrim(0x18);
+    struct_18 *p = (struct_18 *)func_80010A08(0x18);
     setlen(p, 5);
-    p->code = 0x2A;
-    p->x0 = p->x2 = -160;
-    p->x1 = p->x3 = 160;
-    p->y0 = p->y1 = -120;
-    p->r0 = p->g0 = p->b0 = c;
-    p->y2 = p->y3 = 120;
+    p->field_7 = 0x2A;
+    p->field_8 = p->field_10 = -160;
+    p->field_C = p->field_14 = 160;
+    p->field_A = p->field_E = -120;
+    p->field_4 = p->field_5 = p->field_6 = c;
+    p->field_12 = p->field_16 = 120;
     if (z != 0) {
         u32 t;
         u32 v;
-        v = *(u32 *)(D_800A651C[D_800B9A02].ot + z * 4) & 0xFFFFFF;
+        v = *(u32 *)(D_800A651C[D_800B9A02].field_0 + z * 4) & 0xFFFFFF;
         t = *(u32 *)p;
         t &= 0xFF000000;
         t |= v;
         *(u32 *)p = t;
-        *(u32 *)(D_800A651C[D_800B9A02].ot + z * 4) = (*(u32 *)(D_800A651C[D_800B9A02].ot + z * 4) & 0xFF000000) | ((u32)p & 0xFFFFFF);
+        *(u32 *)(D_800A651C[D_800B9A02].field_0 + z * 4) = (*(u32 *)(D_800A651C[D_800B9A02].field_0 + z * 4) & 0xFF000000) | ((u32)p & 0xFFFFFF);
         func_80016638(&D_800A6518[D_800B9A02], z, 1);
     } else {
         u32 t;
         u32 v;
-        v = *(u32 *)D_800AE7BC[D_800B9A02].ot & 0xFFFFFF;
+        v = *(u32 *)D_800AE7BC[D_800B9A02].field_0 & 0xFFFFFF;
         t = *(u32 *)p;
         t &= 0xFF000000;
         t |= v;
         *(u32 *)p = t;
-        *(u32 *)D_800AE7BC[D_800B9A02].ot = (*(u32 *)D_800AE7BC[D_800B9A02].ot & 0xFF000000) | ((u32)p & 0xFFFFFF);
+        *(u32 *)D_800AE7BC[D_800B9A02].field_0 = (*(u32 *)D_800AE7BC[D_800B9A02].field_0 & 0xFF000000) | ((u32)p & 0xFFFFFF);
         func_80016638(&D_800AE7B8[D_800B9A02], 0, 1);
     }
 }
 
 void func_80016638(void *o, s32 z, s32 tpage) {
-    u8 *p = AllocPrim(8);
+    u8 *p = func_80010A08(8);
     setlen(p, 1);
     *(u32 *)(p + 4) = ((tpage << 5) & 0x9FF) | 0xE1000000;
-    addPrim(((OtEnt *)o)->ot + z, p);
+    addPrim(((struct_14_3 *)o)->field_4 + z, p);
 }
 
 void func_800166E8(s8 *p, s32 n) {
@@ -2396,7 +2396,7 @@ s32 func_80016A7C(u8 *a, s32 m) {
     s32 flag;
     s32 p;
     s32 z;
-    u8 *prim = AllocPrim(0x14);
+    u8 *prim = func_80010A08(0x14);
     *(s32 *)(prim + 4) = *(s32 *)(a + 0x10);
     *(s32 *)(prim + 0xC) = *(s32 *)(a + 0x14);
     SetLineG2(prim);
@@ -2415,7 +2415,7 @@ s32 func_80016A7C(u8 *a, s32 m) {
 }
 
 void func_80016B60(u8 *o, void *m) {
-    u8 *p = AllocPrim(0x20);
+    u8 *p = func_80010A08(0x20);
     s32 flag;
     s32 otz;
     s32 r;
@@ -2431,8 +2431,8 @@ void func_80016B60(u8 *o, void *m) {
 }
 
 void func_80016C28(u8 *a, s32 m) {
-    struct { s32 flag; s32 flag2; s32 otz; } t;
-    u8 *prim = AllocPrim(0x28);
+    struct { s32 field_0; s32 field_4; s32 field_8; } t;
+    u8 *prim = func_80010A08(0x28);
     SetLineG4(prim);
     *(s32 *)(prim + 4) = *(s32 *)(a + 0x20);
     *(s32 *)(prim + 0xC) = *(s32 *)(a + 0x24);
@@ -2441,17 +2441,17 @@ void func_80016C28(u8 *a, s32 m) {
     func_80017E8C(m);
     gte_ldv3(a, a + 8, a + 0x10);
     gte_rtpt();
-    gte_stflg(&t.flag);
+    gte_stflg(&t.field_0);
     gte_stsxy3(prim + 8, prim + 0x10, prim + 0x18);
     gte_ldv0(a + 0x18);
     gte_rtps();
-    gte_stflg(&t.flag2);
-    t.flag |= t.flag2;
+    gte_stflg(&t.field_4);
+    t.field_0 |= t.field_4;
     gte_stsxy(prim + 0x20);
     gte_avsz4();
-    gte_stotz(&t.otz);
-    if (!(t.flag & ~0x1000)) {
-        func_80018094(prim, t.otz, *(s32 *)(a + 0x30));
+    gte_stotz(&t.field_8);
+    if (!(t.field_0 & ~0x1000)) {
+        func_80018094(prim, t.field_8, *(s32 *)(a + 0x30));
     }
 }
 
@@ -2462,7 +2462,7 @@ void func_80016D78(u8 *a, s32 m) {
     s32 flag;
     s32 otz;
     u32 w;
-    u8 *prim = AllocPrim(0x20);
+    u8 *prim = func_80010A08(0x20);
     *(s32 *)(prim + 4) = *(s32 *)(a + 0x24);
     SetPolyFT3(prim);
     func_80017E8C(m);
@@ -2491,30 +2491,30 @@ s32 func_80016EF8(u8 *a, s32 m) {
 }
 
 s32 func_80016F18(u8 *a, s32 m, s32 k) {
-    struct { s32 flag; s32 flag2; s32 otz; } t;
+    struct { s32 field_0; s32 field_4; s32 field_8; } t;
     u32 w;
-    u8 *prim = AllocPrim(0x28);
+    u8 *prim = func_80010A08(0x28);
     *(s32 *)(prim + 4) = *(s32 *)(a + 0x30);
     SetPolyFT4(prim);
     if (m != 0) {
         func_80017E8C(m);
         gte_ldv3(a, a + 8, a + 0x10);
         gte_rtpt();
-        gte_stflg(&t.flag);
+        gte_stflg(&t.field_0);
         gte_stsxy3(prim + 8, prim + 0x10, prim + 0x18);
         gte_ldv0(a + 0x18);
         gte_rtps();
-        gte_stflg(&t.flag2);
-        t.flag |= t.flag2;
+        gte_stflg(&t.field_4);
+        t.field_0 |= t.field_4;
         gte_stsxy(prim + 0x20);
         gte_avsz4();
-        gte_stotz(&t.otz);
+        gte_stotz(&t.field_8);
     } else {
         *(s32 *)(prim + 8) = *(s32 *)(a + 0);
         *(s32 *)(prim + 0x10) = *(s32 *)(a + 8);
         *(s32 *)(prim + 0x18) = *(s32 *)(a + 0x10);
         *(s32 *)(prim + 0x20) = *(s32 *)(a + 0x18);
-        t.otz = *(s16 *)(a + 4); t.flag = 0;
+        t.field_8 = *(s16 *)(a + 4); t.field_0 = 0;
     }
     w = *(u32 *)(a + 0x20); prim[0xC] = w; prim[0xD] = w >> 16;
     w = *(u32 *)(a + 0x24); prim[0x14] = w; prim[0x15] = w >> 16;
@@ -2527,13 +2527,13 @@ s32 func_80016F18(u8 *a, s32 m, s32 k) {
                                          *(u16 *)(a + 0x22) & 0xFF00);
     }
     *(u16 *)(prim + 0xE) = GetClut(a[0x38] < 0xE0 ? 0x160 : 0x100, a[0x38] | 0x100);
-    if (!(t.flag & ~0x1000)) {
-        func_80018194(prim, t.otz, *(s32 *)(a + 0x34));
+    if (!(t.field_0 & ~0x1000)) {
+        func_80018194(prim, t.field_8, *(s32 *)(a + 0x34));
     }
 }
 
 void func_80017168(u8 *o, void *m) {
-    u8 *p = AllocPrim(0x14);
+    u8 *p = func_80010A08(0x14);
     s32 otz;
     s32 flag;
     s32 r;
@@ -2566,7 +2566,7 @@ s32 func_80017294(u8 *a, s32 m) {
     s32 flag;
     s32 p;
     s32 z;
-    u8 *prim = AllocPrim(0x18);
+    u8 *prim = func_80010A08(0x18);
     *(s32 *)(prim + 4) = *(s32 *)(a + 0x20);
     SetPolyF4(prim);
     if (m != 0) {
@@ -2599,7 +2599,7 @@ s32 func_800173DC(u8 *a, s32 m) {
     s32 flag;
     s32 p;
     s32 z;
-    u8 *prim = AllocPrim(0x1C);
+    u8 *prim = func_80010A08(0x1C);
     *(s32 *)(prim + 4) = *(s32 *)(a + 0x18);
     *(s32 *)(prim + 0xC) = *(s32 *)(a + 0x1C);
     *(s32 *)(prim + 0x14) = *(s32 *)(a + 0x20);
@@ -2628,28 +2628,28 @@ s32 func_800174FC(u8 *a, s32 m) {
 }
 
 s32 func_8001751C(u8 *a, s32 m) {
-    struct { s32 p; s32 flag; s32 otz; } t;
+    struct { s32 field_0; s32 field_4; s32 field_8; } t;
     u32 w;
-    u8 *prim = AllocPrim(0x28);
+    u8 *prim = func_80010A08(0x28);
     *(s32 *)(prim + 4) = *(s32 *)(a + 0x24);
     *(s32 *)(prim + 0x10) = *(s32 *)(a + 0x28);
     *(s32 *)(prim + 0x1C) = *(s32 *)(a + 0x2C);
     SetPolyGT3(prim);
     if (m != 0) {
         func_80017E8C(m);
-        gte_RotTransPers3(a, a + 8, a + 0x10, prim + 8, prim + 0x14, prim + 0x20, &t.p, &t.flag, &t.otz);
+        gte_RotTransPers3(a, a + 8, a + 0x10, prim + 8, prim + 0x14, prim + 0x20, &t.field_0, &t.field_4, &t.field_8);
     } else {
         *(s32 *)(prim + 8) = *(s32 *)(a + 0);
         *(s32 *)(prim + 0x14) = *(s32 *)(a + 8);
         *(s32 *)(prim + 0x20) = *(s32 *)(a + 0x10);
-        t.otz = *(s16 *)(a + 4); t.p = 0;
+        t.field_8 = *(s16 *)(a + 4); t.field_0 = 0;
     }
     w = *(u32 *)(a + 0x18); prim[0xC] = w; prim[0xD] = w >> 16; w = *(u32 *)(a + 0x1C); prim[0x18] = w; prim[0x19] = w >> 16; w = *(u32 *)(a + 0x20); prim[0x24] = w; prim[0x25] = w >> 16;
     *(u16 *)(prim + 0x1A) = GetTPage((*(u32 *)(a + 0x30) >> 24) & 3, (*(u32 *)(a + 0x30) >> 28) & 3,
                                      (*(u16 *)(a + 0x18) >> 2) & 0x3FC0, *(u16 *)(a + 0x1A) & 0xFF00);
     *(u16 *)(prim + 0xE) = GetClut(a[0x34] < 0xE0 ? 0x160 : 0x100, a[0x34] | 0x100);
-    if (!(t.p & ~0x1000)) {
-        func_80018194(prim, t.otz, *(s32 *)(a + 0x30));
+    if (!(t.field_0 & ~0x1000)) {
+        func_80018194(prim, t.field_8, *(s32 *)(a + 0x30));
     }
 }
 
@@ -2677,7 +2677,7 @@ s32 func_80017778(u8 *a, s32 m, s32 g) {
     s32 flag;
     s32 p;
     s32 z;
-    u8 *prim = AllocPrim(0x24);
+    u8 *prim = func_80010A08(0x24);
     *(s32 *)(prim + 4) = *(s32 *)(a + 0x20);
     *(s32 *)(prim + 0xC) = *(s32 *)(a + 0x24);
     *(s32 *)(prim + 0x14) = *(s32 *)(a + 0x28);
@@ -2716,9 +2716,9 @@ s32 func_80017910(s32 a, s32 b) {
 }
 
 s32 func_80017930(u8 *a, s32 m, s32 k) {
-    struct { s32 flag; s32 flag2; s32 otz; } t;
+    struct { s32 field_0; s32 field_4; s32 field_8; } t;
     u32 w;
-    u8 *prim = AllocPrim(0x34);
+    u8 *prim = func_80010A08(0x34);
     *(s32 *)(prim + 4) = *(s32 *)(a + 0x30);
     *(s32 *)(prim + 0x10) = *(s32 *)(a + 0x34);
     *(s32 *)(prim + 0x1C) = *(s32 *)(a + 0x38);
@@ -2728,21 +2728,21 @@ s32 func_80017930(u8 *a, s32 m, s32 k) {
         func_80017E8C(m);
         gte_ldv3(a, a + 8, a + 0x10);
         gte_rtpt();
-        gte_stflg(&t.flag);
+        gte_stflg(&t.field_0);
         gte_stsxy3(prim + 8, prim + 0x14, prim + 0x20);
         gte_ldv0(a + 0x18);
         gte_rtps();
-        gte_stflg(&t.flag2);
-        t.flag |= t.flag2;
+        gte_stflg(&t.field_4);
+        t.field_0 |= t.field_4;
         gte_stsxy(prim + 0x2C);
         gte_avsz4();
-        gte_stotz(&t.otz);
+        gte_stotz(&t.field_8);
     } else {
         *(s32 *)(prim + 8) = *(s32 *)(a + 0);
         *(s32 *)(prim + 0x14) = *(s32 *)(a + 8);
         *(s32 *)(prim + 0x20) = *(s32 *)(a + 0x10);
         *(s32 *)(prim + 0x2C) = *(s32 *)(a + 0x18);
-        t.otz = *(s16 *)(a + 4); t.flag = 0;
+        t.field_8 = *(s16 *)(a + 4); t.field_0 = 0;
     }
     w = *(u32 *)(a + 0x20); prim[0xC] = w; prim[0xD] = w >> 16;
     w = *(u32 *)(a + 0x24); prim[0x18] = w; prim[0x19] = w >> 16;
@@ -2751,18 +2751,18 @@ s32 func_80017930(u8 *a, s32 m, s32 k) {
     *(u16 *)(prim + 0x1A) = GetTPage((*(u32 *)(a + 0x40) >> 24) & 3, (*(u32 *)(a + 0x40) >> 28) & 3,
                                      (*(u16 *)(a + 0x20) >> 2) & 0x3FC0, *(u16 *)(a + 0x22) & 0xFF00);
     *(u16 *)(prim + 0xE) = GetClut(a[0x44] < 0xE0 ? 0x160 : 0x100, a[0x44] | 0x100);
-    if (!(t.flag & ~0x1000)) {
+    if (!(t.field_0 & ~0x1000)) {
         if (k != 0) {
-            func_8001820C(prim, t.otz, *(s32 *)(a + 0x40));
+            func_8001820C(prim, t.field_8, *(s32 *)(a + 0x40));
         } else {
-            func_80018194(prim, t.otz, *(s32 *)(a + 0x40));
+            func_80018194(prim, t.field_8, *(s32 *)(a + 0x40));
         }
     }
 }
 
 void func_80017B98(u8 *a) {
     u8 *w = (u8 *)&D_800AF630;
-    u8 *prim = AllocPrim(0x2C);
+    u8 *prim = func_80010A08(0x2C);
     u8 *s;
     s32 z;
     u32 t;
@@ -2787,7 +2787,7 @@ void func_80017B98(u8 *a) {
     if (z >= 0x1000) {
         z = 0xFFF;
     }
-    addPrim(D_800A651C[*(u16 *)(w + 0xA3D2)].ot + z * 4, prim);
+    addPrim(D_800A651C[*(u16 *)(w + 0xA3D2)].field_0 + z * 4, prim);
 }
 
 void func_80017D98(u8 *a) {
@@ -2821,7 +2821,7 @@ void func_80017DF8(void *r, void *m) {
 }
 
 void func_80017E30(void *r, void *m) {
-    Mtx t;
+    struct_20_3 t;
     RotMatrixZYX(r, &t);
     MulMatrix2(&t, m);
 }
@@ -2833,7 +2833,7 @@ void func_80017E68(u8 *a, u8 *b) {
 }
 
 void func_80017E8C(s32 n) {
-    Mtx m = *(Mtx *)n;
+    struct_20_3 m = *(struct_20_3 *)n;
     CompMatrix(&D_800AF648, &m, &m);
     SetRotMatrix(&m);
     SetTransMatrix(&m);
@@ -2844,16 +2844,16 @@ void func_80017F14(void *p, s32 z, u32 a) {
     if ((u32)z >= 0x1000) {
         z = 0xFFF;
     }
-    q = AllocPrim(0xC);
+    q = func_80010A08(0xC);
     SetDrawMode(q, 0, 0, GetTPage(2, (a >> 28) & 3, 0x280, 0), 0);
-    AddPrim(D_800A651C[D_800B9A02].ot + z * 4, q);
-    AddPrim(D_800A651C[D_800B9A02].ot + z * 4, p);
+    AddPrim(D_800A651C[D_800B9A02].field_0 + z * 4, q);
+    AddPrim(D_800A651C[D_800B9A02].field_0 + z * 4, p);
     if (a & 0x40000000) {
         ((u8 *)p)[7] |= 2;
     }
-    q = AllocPrim(0xC);
+    q = func_80010A08(0xC);
     SetDrawMode(q, 0, 1, GetTPage(2, (a >> 28) & 3, 0x280, 0), 0);
-    AddPrim(D_800A651C[D_800B9A02].ot + z * 4, q);
+    AddPrim(D_800A651C[D_800B9A02].field_0 + z * 4, q);
 }
 
 void func_80018094(void *p, s32 z, u32 a) {
@@ -2861,12 +2861,12 @@ void func_80018094(void *p, s32 z, u32 a) {
     if ((u32)z >= 0x1000) {
         z = 0xFFF;
     }
-    AddPrim(D_800A651C[D_800B9A02].ot + z * 4, p);
+    AddPrim(D_800A651C[D_800B9A02].field_0 + z * 4, p);
     if (a & 0x40000000) {
         ((u8 *)p)[7] |= 2;
-        q = AllocPrim(0xC);
+        q = func_80010A08(0xC);
         SetDrawMode(q, 0, 0, GetTPage(2, (a >> 28) & 3, 0x280, 0), 0);
-        AddPrim(D_800A651C[D_800B9A02].ot + z * 4, q);
+        AddPrim(D_800A651C[D_800B9A02].field_0 + z * 4, q);
     }
 }
 
@@ -2890,14 +2890,14 @@ void func_8001820C(u8 *prim, u32 z, s32 flags) {
     if (z >= 0x1000) {
         z = 0xFFF;
     }
-    q = AllocPrim(0xC);
+    q = func_80010A08(0xC);
     t = ((u32)flags >> 28) & 3;
     SetDrawMode(q, 0, 0, GetTPage(2, t, 0x280, 0), 0);
-    AddPrim(D_800A651C[D_800B9A02].ot + z * 4, q);
-    AddPrim(D_800A651C[D_800B9A02].ot + z * 4, prim);
-    q = AllocPrim(0xC);
+    AddPrim(D_800A651C[D_800B9A02].field_0 + z * 4, q);
+    AddPrim(D_800A651C[D_800B9A02].field_0 + z * 4, prim);
+    q = func_80010A08(0xC);
     SetDrawMode(q, 0, 1, GetTPage(2, t, 0x280, 0), 0);
-    AddPrim(D_800A651C[D_800B9A02].ot + z * 4, q);
+    AddPrim(D_800A651C[D_800B9A02].field_0 + z * 4, q);
 }
 
 void func_80018384(u32 *ot, u32 *prim) {
@@ -2909,14 +2909,14 @@ void func_80018384(u32 *ot, u32 *prim) {
 }
 
 s32 func_800183E0(s32 a) {
-    register Work183E0 *w = (Work183E0 *)&D_800AF630;
+    register struct_A3A8 *w = (struct_A3A8 *)&D_800AF630;
     s32 r = 0;
     s32 i;
     for (i = 0; i < 32; i++) {
-        if (w->slot[i].active == 0) {
-            w->slot[i].active = 1;
-            w->slot[i].val = a;
-            w->slot[i].unkD = 0;
+        if (w->field_A1A8[i].field_0 == 0) {
+            w->field_A1A8[i].field_0 = 1;
+            w->field_A1A8[i].field_4 = a;
+            w->field_A1A8[i].field_D = 0;
             r = 1;
             break;
         }
@@ -2924,21 +2924,21 @@ s32 func_800183E0(s32 a) {
     return r;
 }
 
-typedef struct { s16 active; s16 pad2; s32 val; u16 unk8; u16 unkA; u8 unkC; u8 unkD; u8 padE[2]; } Slot18450;
-typedef struct { u8 pad[0xA1A8]; Slot18450 slot[32]; } Work18450;
+typedef struct { s16 field_0; s16 field_2; s32 field_4; u16 field_8; u16 field_A; u8 field_C; u8 field_D; u8 field_E[2]; } struct_10_5;
+typedef struct { u8 field_0[0xA1A8]; struct_10_5 field_A1A8[32]; } struct_A3A8_2;
 
 s32 func_80018450(u8 *a, s32 v) {
-    Work18450 *w = (Work18450 *)&D_800AF630;
+    struct_A3A8_2 *w = (struct_A3A8_2 *)&D_800AF630;
     s32 r = 0;
     s32 i;
     for (i = 0; i < 32; i++) {
-        if (w->slot[i].active == 0) {
-            w->slot[i].active = 1;
-            w->slot[i].val = v;
-            w->slot[i].unkD = 0;
-            w->slot[i].unk8 = *(u16 *)(a + 0x28);
-            w->slot[i].unkA = *(u16 *)(a + 0x2A);
-            w->slot[i].unkC = a[0x27];
+        if (w->field_A1A8[i].field_0 == 0) {
+            w->field_A1A8[i].field_0 = 1;
+            w->field_A1A8[i].field_4 = v;
+            w->field_A1A8[i].field_D = 0;
+            w->field_A1A8[i].field_8 = *(u16 *)(a + 0x28);
+            w->field_A1A8[i].field_A = *(u16 *)(a + 0x2A);
+            w->field_A1A8[i].field_C = a[0x27];
             r = 1;
             break;
         }
@@ -2951,9 +2951,9 @@ extern void GsGetTimInfo(u32 *tim, GsIMAGE *img);
 extern u16 LoadTPage(u32 *pix, s32 tp, s32 abr, s32 x, s32 y, s32 w, s32 h);
 
 /* Run the end-of-frame VRAM upload queue: LoadImage / TIM / LoadTPage entries of 32 records */
-void FlushImageQueue(void) {
+void func_800184F0(void) {
     GsIMAGE img;
-    Ent10 *rec;
+    struct_10_2 *rec;
     u8 *entry;
     s32 done;
     s32 i;
@@ -2961,7 +2961,7 @@ void FlushImageQueue(void) {
 
     rect = (RECT *)0x1F800000;
     for (i = 0, rec = D_800B97D8; i < 0x20; i++, rec++) {
-        if (rec->flag != 0) {
+        if (rec->field_0 != 0) {
             entry = *(u8 **)((u8 *)rec + 4);
             done = 0;
             do {
@@ -3013,36 +3013,36 @@ void FlushImageQueue(void) {
                 }
                 entry += 0x10;
             } while (done == 0);
-            rec->flag = 0;
+            rec->field_0 = 0;
         }
     }
 }
 
 /* Arm the streaming LZSS decoder: output to dst, state 1 (first flag byte next) */
-void StartLzssDecode(s32 dst) {
-    g_LzssState = 1;
-    g_LzssDst = dst;
+void func_80018714(s32 dst) {
+    D_800C7D24 = 1;
+    D_800747AC = dst;
 }
 
-extern s32 g_LzssRingPos;
-extern u8 g_LzssMask;
-extern u8 g_LzssFlags;
-extern u16 g_LzssMatch;
+extern s32 D_800747B0;
+extern u8 D_800747A0;
+extern u8 D_800747A4;
+extern u16 D_800747B4;
 
 /* Decode one 0x800-byte sector of an LZSS stream (1 KB ring at 0x1F800000); 0 when the stream ends */
-s32 LzssDecodeSector(u8 *src) {
+s32 func_80018730(u8 *src) {
     s32 left = 0x800;
-    s32 ringPos = g_LzssRingPos;
-    u8 mask = g_LzssMask;
-    u8 flags = g_LzssFlags;
-    u8 *dst = (u8 *)g_LzssDst;
-    u16 match = g_LzssMatch;
+    s32 ringPos = D_800747B0;
+    u8 mask = D_800747A0;
+    u8 flags = D_800747A4;
+    u8 *dst = (u8 *)D_800747AC;
+    u16 match = D_800747B4;
     s32 off;
     s32 len;
     u8 c;
     u8 *ring = (u8 *)0x1F800000;
 
-    switch (g_LzssState) {
+    switch (D_800C7D24) {
     case 0:
         return 0;
     case 1:
@@ -3062,12 +3062,12 @@ s32 LzssDecodeSector(u8 *src) {
             match = (match & 0xFF00) | *src++;
             left--;
             if (left == 0) {
-                g_LzssState = 3;
-                g_LzssRingPos = ringPos;
-                g_LzssMask = mask;
-                g_LzssFlags = flags;
-                g_LzssDst = (s32)dst;
-                g_LzssMatch = match;
+                D_800C7D24 = 3;
+                D_800747B0 = ringPos;
+                D_800747A0 = mask;
+                D_800747A4 = flags;
+                D_800747AC = (s32)dst;
+                D_800747B4 = match;
                 return 1;
             }
     case 3:
@@ -3075,7 +3075,7 @@ s32 LzssDecodeSector(u8 *src) {
             left--;
             off = match & 0x3FF;
             if (off == 0) {
-                g_LzssState = 0;
+                D_800C7D24 = 0;
                 return 0;
             }
             for (len = (match >> 10) + 2; len != 0; len--) {
@@ -3085,12 +3085,12 @@ s32 LzssDecodeSector(u8 *src) {
             }
         }
         if (left == 0) {
-            g_LzssState = 4;
-            g_LzssRingPos = ringPos;
-            g_LzssMask = mask;
-            g_LzssFlags = flags;
-            g_LzssDst = (s32)dst;
-            g_LzssMatch = match;
+            D_800C7D24 = 4;
+            D_800747B0 = ringPos;
+            D_800747A0 = mask;
+            D_800747A4 = flags;
+            D_800747AC = (s32)dst;
+            D_800747B4 = match;
             return 1;
         }
     case 4:
@@ -3104,47 +3104,47 @@ s32 LzssDecodeSector(u8 *src) {
         if (left != 0) {
             goto loop;
         }
-        g_LzssState = 2;
-        g_LzssRingPos = ringPos;
-        g_LzssMask = mask;
-        g_LzssFlags = flags;
-        g_LzssDst = (s32)dst;
-        g_LzssMatch = match;
+        D_800C7D24 = 2;
+        D_800747B0 = ringPos;
+        D_800747A0 = mask;
+        D_800747A4 = flags;
+        D_800747AC = (s32)dst;
+        D_800747B4 = match;
         return 1;
     }
 }
 
 /* Controller init: clear both pad buffers, then start PsyQ's pad driver */
-void InitPad(void)
+void func_80018918(void)
 {
     u32 i;
-    Pad *p;
+    struct_4C *p;
 
     D_800AE610 = 0;
     for (i = 0; i < 2; i++) {
-        p = &g_Pads[i];
-        func_80016714(p, sizeof(Pad));
-        p->unk4 = 8;
+        p = &D_80078D98[i];
+        func_80016714(p, sizeof(struct_4C));
+        p->field_4 = 8;
     }
-    StopPadRumble();
+    func_80018FC8();
     ResetCallback();
-    PadInitDirect(g_Pads[0].data, g_Pads[1].data);
+    PadInitDirect(D_80078D98[0].field_8, D_80078D98[1].field_8);
     PadStartCom();
 }
 
 /* Read both controller ports into g_Pads: poll, latch, held / pressed / previous, the Select hold */
-void UpdatePads(void) {
+void func_800189A8(void) {
     u32 i;
-    Pad *p;
-    g_PadConnected = 1;
+    struct_4C *p;
+    D_800A5E78 = 1;
     i = 0;
-    p = g_Pads;
+    p = D_80078D98;
     for (; i < 2; i++, p++) {
-        if (PollPad(i) != 0) {
-            LatchPadInput((u8 *)p);
+        if (func_80018A20(i) != 0) {
+            func_80018C64((u8 *)p);
         }
-        UpdatePadState((u8 *)p);
-        CheckSelectHold((u8 *)p);
+        func_80018CE8((u8 *)p);
+        func_80018E9C((u8 *)p);
     }
 }
 
@@ -3157,11 +3157,11 @@ extern u8 D_80062BAC[];
 extern u8 D_80062BB4[];
 
 /* One port's PsyQ pad state; sends the rumble motors on port 1; returns 1 when there is a reply to latch */
-s32 PollPad(s32 index) {
+s32 func_80018A20(s32 index) {
     s32 port;
     u8 *p;
 
-    p = (u8 *)&g_Pads[index];
+    p = (u8 *)&D_80078D98[index];
     switch (index) {
     case 0:
         port = 0;
@@ -3175,11 +3175,11 @@ s32 PollPad(s32 index) {
         if (index == 0) {
             if ((u32)D_800AE610++ >= 10) {
                 D_800AE610 = 0;
-                g_PadConnected = 0;
+                D_800A5E78 = 0;
             }
         }
     case 1:
-        ClearPadInput(p);
+        func_80018F88(p);
         return 0;
     case 2:
         if (index == 0) {
@@ -3194,7 +3194,7 @@ s32 PollPad(s32 index) {
                     p[0x4B] = 0;
                     p[0x4A] = 0;
                 } else {
-                    StopPadRumble();
+                    func_80018FC8();
                 }
                 PadSetAct(port, (u8 *)&D_80062BBC, 2);
                 PadSetActAlign(port, D_80062BAC);
@@ -3206,14 +3206,14 @@ s32 PollPad(s32 index) {
             D_800AE610 = 0;
             if (PadInfoMode(port, 2, 0) != 0) {
                 if (func_80028D58() == 0) {
-                    g_RumbleActSmall = p[0x4A];
-                    g_RumbleActLarge = p[0x4B];
+                    D_800747B8 = p[0x4A];
+                    D_800747B9 = p[0x4B];
                     p[0x4B] = 0;
                     p[0x4A] = 0;
                 } else {
-                    StopPadRumble();
+                    func_80018FC8();
                 }
-                PadSetAct(port, (u8 *)&g_RumbleActSmall, 2);
+                PadSetAct(port, (u8 *)&D_800747B8, 2);
                 PadSetActAlign(port, D_80062BB4);
             }
         }
@@ -3222,10 +3222,10 @@ s32 PollPad(s32 index) {
 }
 
 /* Copy the pad's reply into its latch: type id, buttons (inverted to 1 = down), analog bytes */
-void LatchPadInput(u8 *pad) {
+void func_80018C64(u8 *pad) {
     s32 i;
     if (pad[8] != 0) {
-        ClearPadInput(pad);
+        func_80018F88(pad);
     } else {
         pad[0] = pad[9];
         for (i = 0; i < 2; i++) {
@@ -3237,15 +3237,15 @@ void LatchPadInput(u8 *pad) {
     }
 }
 
-extern u8 g_Pad1[];
+extern u8 D_80078DE4[];
 /* Analog bytes: 0x51-0xAF -> 0x80 (centre), under 8 -> 0, 0xF8 and up -> 0xFF */
-void ApplyStickDeadzone(u8 *pad);
+void func_80018F20(u8 *pad);
 
 /* From the latch: previous = held, pressed = new bits, held = latch; analog with the dead zone. Pad 2 is cleared */
-void UpdatePadState(u8 *pad) {
+void func_80018CE8(u8 *pad) {
     s32 i;
-    if (pad == g_Pad1) {
-        func_80016714(g_Pad1, 0x4C);
+    if (pad == D_80078DE4) {
+        func_80016714(D_80078DE4, 0x4C);
         return;
     }
     switch (pad[0]) {
@@ -3266,7 +3266,7 @@ void UpdatePadState(u8 *pad) {
             (pad + i)[0x42] = (pad + i)[0x32];
             (pad + i)[0x32] = (pad + i)[0x2A];
         }
-        ApplyStickDeadzone(pad);
+        func_80018F20(pad);
         break;
     case 0x73:
         for (i = 0; i < 2; i++) {
@@ -3278,7 +3278,7 @@ void UpdatePadState(u8 *pad) {
             (pad + i)[0x42] = (pad + i)[0x32];
             (pad + i)[0x32] = (pad + i)[0x2A];
         }
-        ApplyStickDeadzone(pad);
+        func_80018F20(pad);
         break;
     default:
         func_80016714(pad, 0x4C);
@@ -3287,15 +3287,15 @@ void UpdatePadState(u8 *pad) {
 }
 
 /* Restart the Select hold count (var 0xE2) */
-void ResetSelectHold(void) {
+void func_80018E78(void) {
     func_800291A0(0xE2, 0);
 }
 
 /* Pad 1 only: Select held for 90 reads in a row turns vibration off (flag 0xB) */
-void CheckSelectHold(u8 *pad) {
+void func_80018E9C(u8 *pad) {
     s32 count;
-    if (pad == (u8 *)g_Pads) {
-        if (g_Pad0Held & 0x100) {
+    if (pad == (u8 *)D_80078D98) {
+        if (D_80078DCA & 0x100) {
             count = func_800291B4(0xE2) + 1;
             if ((u32)(count & 0xFF) >= 0x5A) {
                 count = 0;
@@ -3308,7 +3308,7 @@ void CheckSelectHold(u8 *pad) {
     }
 }
 
-void ApplyStickDeadzone(u8 *p) {
+void func_80018F20(u8 *p) {
     u32 i;
     for (i = 2; i < 8; i++) {
         u8 *q = p + i;
@@ -3324,7 +3324,7 @@ void ApplyStickDeadzone(u8 *p) {
 }
 
 /* Clear the latch: no buttons down, analog bytes centred (0x80) */
-void ClearPadInput(u8 *pad) {
+void func_80018F88(u8 *pad) {
     s32 i = 1;
     u8 *q = pad + 1;
     s32 j;
@@ -3339,18 +3339,18 @@ void ClearPadInput(u8 *pad) {
 }
 
 /* Zero both actuator buffers' motor values and both pads' requested motor values (+0x4A/+0x4B) */
-void StopPadRumble(void) {
+void func_80018FC8(void) {
     s32 i;
-    Pad *p;
+    struct_4C *p;
     
-    g_RumbleActLarge = 0;
-    g_RumbleActSmall = 0;
+    D_800747B9 = 0;
+    D_800747B8 = 0;
     D_80062BBC = 0x40;
     D_80062BBD = 0;
-    i = 0; p = g_Pads;
+    i = 0; p = D_80078D98;
 loop:
-    p->data[0x43] = 0;
-    p->data[0x42] = 0;
+    p->field_8[0x43] = 0;
+    p->field_8[0x42] = 0;
     p++; i++;
     if (i < 2) {
         goto loop;
@@ -3358,82 +3358,82 @@ loop:
 }
 
 /* Allow StartRumbleScript to start patterns again (clear the block flag) */
-void EnableRumbleScripts(void) {
+void func_80019018(void) {
     D_800747C8 = 0;
 }
 
 /* Block new rumble patterns (StartRumbleScript ignores requests) */
-void DisableRumbleScripts(void) {
+void func_80019028(void) {
     D_800747C8 = 1;
 }
 
 /* Stop the running rumble pattern (zero script pointer, step and frame count) */
-void ClearRumbleScript(void) {
-    func_80016714(&g_RumbleScript, 8);
+void func_8001903C(void) {
+    func_80016714(&D_800747C0, 8);
 }
 
 /* Start a rumble pattern (3-byte steps: large motor, small motor, frames) unless blocked or a demo plays */
-void StartRumbleScript(s32 script) {
+void func_80019064(s32 script) {
     if (D_800747C8 == 0 && D_800B9A64 == 0) {
-        g_RumbleScript = script;
+        D_800747C0 = script;
         D_800747C4 = 0xFF;
         D_800747C5 = 0;
     }
 }
 
-extern u8 g_Pad0RumbleSmall;
-extern u8 g_Pad0RumbleLarge;
+extern u8 D_80078DE2;
+extern u8 D_80078DE3;
 
 /* Per frame: copy the pattern's current step into pad 1's motor bytes; next step when its frames run out */
-void StepRumbleScript(void) {
-    s32 *script = &g_RumbleScript;
+void func_800190AC(void) {
+    s32 *script = &D_800747C0;
     if (*script != 0) {
         if (D_800747C5 == 0) {
             u8 *step;
             D_800747C4++;
-            step = (u8 *)(D_800747C4 * 3 + g_RumbleScript);
-            g_Pad0RumbleSmall = step[1];
-            g_Pad0RumbleLarge = step[0];
+            step = (u8 *)(D_800747C4 * 3 + D_800747C0);
+            D_80078DE2 = step[1];
+            D_80078DE3 = step[0];
             D_800747C5 = step[2];
             if (D_800747C5 == 0) {
-                g_Pad0RumbleSmall = 0;
-                g_Pad0RumbleLarge = 0;
+                D_80078DE2 = 0;
+                D_80078DE3 = 0;
                 D_800747C4 = 0xFF;
                 *script = 0;
             }
         } else {
             u8 *step;
-            step = (u8 *)(D_800747C4 * 3 + g_RumbleScript);
-            g_Pad0RumbleSmall = step[1];
-            g_Pad0RumbleLarge = step[0];
+            step = (u8 *)(D_800747C4 * 3 + D_800747C0);
+            D_80078DE2 = step[1];
+            D_80078DE3 = step[0];
             D_800747C5--;
         }
     }
 }
 
 /* Return the running rumble pattern (0 = none) */
-s32 GetRumbleScript(void) {
-    return g_RumbleScript;
+s32 func_80019198(void) {
+    return D_800747C0;
 }
 
 /* Mark no stage image as resident, so the next map load reads its stage from the disc */
-void ForgetStageImage(void)
+void func_800191A8(void)
 {
-    g_StageImageEntry = -1;
+    D_80078E30 = -1;
 }
 
 /* Record which LIST.CD entry's stage image is now in memory */
-void SetStageImage(s32 entry) {
-    g_StageImageEntry = ((s32)(entry << 16) >> 16);
+void func_800191BC(s32 entry) {
+    D_80078E30 = ((s32)(entry << 16) >> 16);
 }
 
 /* 1 when the stage image of this LIST.CD entry must be read (none resident, not reusable, or another one) */
-s32 StageImageNeedsLoad(s32 entry) {
-    register s32 *resident = &g_StageImageEntry;
+s32 func_800191D4(s32 entry) {
+    register s32 *resident = &D_80078E30;
     s32 need;
     if (*resident < 0) {
         need = 1;
-    } else if (StageAlwaysReloads(entry) != 0) {
+    } else if (func_8001923C(entry) != 0) {
         need = 1;
     } else {
         need = *resident != entry;
@@ -3442,7 +3442,7 @@ s32 StageImageNeedsLoad(s32 entry) {
 }
 
 /* 0 for the 26 stage entries that may stay resident across a re-entry, 1 for every other stage */
-s32 StageAlwaysReloads(s32 entry) {
+s32 func_8001923C(s32 entry) {
     if (entry == 0xB3) {
         return 0;
     }
@@ -3525,7 +3525,7 @@ s32 StageAlwaysReloads(s32 entry) {
 }
 
 /* Drop a queued .STR stream request (load queue state 5) and stop it if it already started */
-void CancelStreamLoad(void) {
+void func_8001931C(void) {
     if (D_800BA1B4 == 5) {
         if (D_800747E4 != 0) {
             func_8002D4C8(0x16, 0);
@@ -3537,12 +3537,12 @@ void CancelStreamLoad(void) {
 }
 
 /* Return 1 when DEBUG.BIN was found on the disc at boot */
-s32 IsDebugBinPresent(void) {
+s32 func_80019378(void) {
     return D_800747D0;
 }
 
 /* Set the DEBUG.BIN-present flag */
-void SetDebugBinPresent(s32 present) {
+void func_80019388(s32 present) {
     D_800747D0 = present;
 }
 
@@ -3555,13 +3555,13 @@ void func_800193A8(s32 a) {
 }
 
 typedef struct {
-    u8 d[0x88];
-} DiscHdr;
+    u8 field_0[0x88];
+} struct_88;
 
 /* Disc file init without ISO9660 lookups: read a header and file table from raw sectors after lba */
-void InitCdFilesAtLba(s32 lba) {
-    CdFileLoc loc;
-    DiscHdr header;
+void func_800193B8(s32 lba) {
+    struct_8_4 loc;
+    struct_88 header;
     s32 i;
     s32 n;
     s32 k;
@@ -3569,42 +3569,42 @@ void InitCdFilesAtLba(s32 lba) {
     s32 count;
     s32 base;
 
-    ResetLoader();
+    func_80019990();
     lba++;
     D_800747D0 = 0;
     D_80063074 = 0;
     D_800747D8 = 0;
-    CdIntToPos(lba, &loc.pos);
-    while (!LoadFileStep((CdlFILE *)&loc, LIST_BUF, 0x800, 0)) {
+    CdIntToPos(lba, &loc.field_0);
+    while (!func_80019A24((CdlFILE *)&loc, LIST_BUF, 0x800, 0)) {
         VSync(0);
     }
-    header = *(DiscHdr *)LIST_BUF;
-    lba += 1 + (s32)((*(u32 *)&header.d[0x1C] + 0x7FF) >> 11);
-    CdIntToPos(lba, &loc.pos);
-    while (!LoadFileStep((CdlFILE *)&loc, LIST_BUF, 0x800, 0)) {
+    header = *(struct_88 *)LIST_BUF;
+    lba += 1 + (s32)((*(u32 *)&header.field_0[0x1C] + 0x7FF) >> 11);
+    CdIntToPos(lba, &loc.field_0);
+    while (!func_80019A24((CdlFILE *)&loc, LIST_BUF, 0x800, 0)) {
         VSync(0);
     }
     lba++;
-    CdIntToPos(lba + LIST_BUF[0].sector, &g_FileTable[0].file.pos);
-    CdIntToPos(lba + LIST_BUF[1].sector, &g_FileTable[1].file.pos);
+    CdIntToPos(lba + LIST_BUF[0].field_0, &D_80062C24[0].field_14.pos);
+    CdIntToPos(lba + LIST_BUF[1].field_0, &D_80062C24[1].field_14.pos);
     for (i = 2; i < 9; i++) {
-        CdIntToPos(lba + LIST_BUF[2].sector, &g_FileTable[i].file.pos);
+        CdIntToPos(lba + LIST_BUF[2].field_0, &D_80062C24[i].field_14.pos);
     }
-    CdIntToPos(lba + LIST_BUF[3].sector, &g_FileTable[9].file.pos);
-    CdIntToPos(lba + LIST_BUF[4].sector, &g_FileTable[20].file.pos);
-    while (!LoadFileStep(&g_FileTable[0].file, LIST_BUF, 0xE40, 0)) {
+    CdIntToPos(lba + LIST_BUF[3].field_0, &D_80062C24[9].field_14.pos);
+    CdIntToPos(lba + LIST_BUF[4].field_0, &D_80062C24[20].field_14.pos);
+    while (!func_80019A24(&D_80062C24[0].field_14, LIST_BUF, 0xE40, 0)) {
         VSync(0);
     }
 
     k = 0;
     n = 0;
     for (i = 0; i < 8; i++) {
-        base = CdPosToInt(&g_FileTable[i + 1].file.pos);
-        count = LIST_BUF[n++].sector;
+        base = CdPosToInt(&D_80062C24[i + 1].field_14.pos);
+        count = LIST_BUF[n++].field_0;
         for (j = 0; j < count; n++, k++, j++) {
-            if (LIST_BUF[n].sector != 0) {
-                CdIntToPos(LIST_BUF[n].sector + base, &g_ArchiveFileLoc[k].pos);
-                g_ArchiveFileLoc[k].size = LIST_BUF[n].size;
+            if (LIST_BUF[n].field_0 != 0) {
+                CdIntToPos(LIST_BUF[n].field_0 + base, &D_800AE830[k].field_0);
+                D_800AE830[k].field_4 = LIST_BUF[n].field_4;
             }
         }
     }
@@ -3616,7 +3616,7 @@ void InitCdFilesAtLba(s32 lba) {
  * positions in g_ArchiveFileLoc. Archives are g_FileTable[1..8] (MAIN.CD and
  * SC01-SC07); g_FileTableExtra is optional and only recorded as present or not.
  */
-void InitCdFiles(void)
+void func_8001971C(void)
 {
     s32 i;
     CdlFILE *found;
@@ -3627,11 +3627,11 @@ void InitCdFiles(void)
     s32 base;
     s32 unused[2]; /* only reserves stack; the original frame is 0x58 */
 
-    ResetLoader();
+    func_80019990();
 
     i = 0;
     do {
-        found = CdSearchFile(&g_FileTableExtra.file, g_FileTableExtra.name);
+        found = CdSearchFile(&D_80063044.field_14, D_80063044.field_0);
         i++;
     } while (found == (CdlFILE *)-1 && i < 16);
 
@@ -3640,24 +3640,24 @@ void InitCdFiles(void)
     D_80063074 = 0;
     D_800747D8 = 0;
 
-    for (i = 0; i < sizeof(g_FileTable) / sizeof(g_FileTable[0]) - 1; i++) {
-        while ((u32)CdSearchFile(&g_FileTable[i].file, g_FileTable[i].name) + 1 < 2) {
+    for (i = 0; i < sizeof(D_80062C24) / sizeof(D_80062C24[0]) - 1; i++) {
+        while ((u32)CdSearchFile(&D_80062C24[i].field_14, D_80062C24[i].field_0) + 1 < 2) {
         }
     }
 
-    while (!LoadFileStep(&g_FileTable[0].file, LIST_BUF, 0xE40, 0)) {
+    while (!func_80019A24(&D_80062C24[0].field_14, LIST_BUF, 0xE40, 0)) {
         VSync(0);
     }
 
     k = 0;
     n = 0;
     for (i = 0; i < 8; i++) {
-        base = CdPosToInt(&g_FileTable[i + 1].file.pos);
-        count = LIST_BUF[n++].sector;
+        base = CdPosToInt(&D_80062C24[i + 1].field_14.pos);
+        count = LIST_BUF[n++].field_0;
         for (j = 0; j < count; n++, k++, j++) {
-            if (LIST_BUF[n].sector != 0) {
-                CdIntToPos(LIST_BUF[n].sector + base, &g_ArchiveFileLoc[k].pos);
-                g_ArchiveFileLoc[k].size = LIST_BUF[n].size;
+            if (LIST_BUF[n].field_0 != 0) {
+                CdIntToPos(LIST_BUF[n].field_0 + base, &D_800AE830[k].field_0);
+                D_800AE830[k].field_4 = LIST_BUF[n].field_4;
             }
         }
     }
@@ -3667,327 +3667,327 @@ void InitCdFiles(void)
    (the data-ready callback) parses PAC archives into it. One object in the original: its code keeps &g_CdStream (or
    a member's address) in a register and reaches the other members from it. */
 typedef struct {
-    /* 0x00 */ s32 state;          /* StreamStep's step (0-10) */
-    /* 0x04 */ s32 check;          /* DiscCheckStep's step (0-5) */
-    /* 0x08 */ s32 sub;            /* StreamReadyCallback: what the next sector holds */
-    /* 0x0C */ s32 unkC;
-    /* 0x10 */ s32 unk10;
-    /* 0x14 */ s32 texBuf;         /* texture sector buffer in use (0-3) */
-    /* 0x18 */ s32 request;        /* id (first word of the file) of the request in flight, 0 = none */
-    /* 0x1C */ s32 unk1C;
-    /* 0x20 */ RECT slot;          /* the 32x32 VRAM slot the next texture sector goes to */
-    /* 0x28 */ u8 *clut;           /* CLUT record cursor */
-    /* 0x2C */ s32 soundCount;     /* sound banks loaded */
-    /* 0x30 */ s32 noSound;        /* 1 = the request has no sound table */
-    /* 0x34 */ s32 soundTable;     /* (sound id, destination) pairs */
-    /* 0x38 */ s32 cursor;         /* copy destination cursor */
-    /* 0x3C */ s32 dest;           /* the request's destination */
-    /* 0x40 */ s32 unk40;
-    /* 0x44 */ void *prevCallback; /* CdReadyCallback before ours */
-    /* 0x48 */ u8 result[8];       /* CdControl's result */
-    /* 0x50 */ u8 param[8];        /* CdControl's parameter */
-    /* 0x58 */ s32 words;          /* words (or bytes) still to read */
-    /* 0x5C */ s32 done;           /* 1 = the read is done, 2 = an error */
-    /* 0x60 */ s32 counter;        /* wait / retry counter */
-    /* 0x64 */ s32 wait;           /* CdSync wait counter */
-    /* 0x68 */ u8 slots[64];       /* texture block: bitmap of the VRAM slots it fills */
-    /* 0xA8 */ u8 more;            /* PAC flag: more blocks follow */
-    /* 0xA9 */ u8 unkA9;
-    /* 0xAA */ u8 bit;             /* slot bitmap: bit mask */
-    /* 0xAB */ u8 byte;            /* slot bitmap: byte index */
-    /* 0xAC */ s32 unkAC;
-    /* 0xB0 */ s32 unkB0;
-    /* 0xB4 */ s32 *file;          /* the request's file (CdlFILE) */
-    /* 0xB8 */ s32 size;           /* the request's byte count, 0 = a PAC archive */
-    /* 0xBC */ s32 sector;         /* the sector expected next */
-    /* 0xC0 */ s32 complete;       /* 1 when a request completed */
-} CdStream;
-extern CdStream g_CdStream;
+    /* 0x00 */ s32 field_0;          /* StreamStep's step (0-10) */
+    /* 0x04 */ s32 field_4;          /* DiscCheckStep's step (0-5) */
+    /* 0x08 */ s32 field_8;            /* StreamReadyCallback: what the next sector holds */
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;         /* texture sector buffer in use (0-3) */
+    /* 0x18 */ s32 field_18;        /* id (first word of the file) of the request in flight, 0 = none */
+    /* 0x1C */ s32 field_1C;
+    /* 0x20 */ RECT field_20;          /* the 32x32 VRAM slot the next texture sector goes to */
+    /* 0x28 */ u8 *field_28;           /* CLUT record cursor */
+    /* 0x2C */ s32 field_2C;     /* sound banks loaded */
+    /* 0x30 */ s32 field_30;        /* 1 = the request has no sound table */
+    /* 0x34 */ s32 field_34;     /* (sound id, destination) pairs */
+    /* 0x38 */ s32 field_38;         /* copy destination cursor */
+    /* 0x3C */ s32 field_3C;           /* the request's destination */
+    /* 0x40 */ s32 field_40;
+    /* 0x44 */ void *field_44; /* CdReadyCallback before ours */
+    /* 0x48 */ u8 field_48[8];       /* CdControl's result */
+    /* 0x50 */ u8 field_50[8];        /* CdControl's parameter */
+    /* 0x58 */ s32 field_58;          /* words (or bytes) still to read */
+    /* 0x5C */ s32 field_5C;           /* 1 = the read is done, 2 = an error */
+    /* 0x60 */ s32 field_60;        /* wait / retry counter */
+    /* 0x64 */ s32 field_64;           /* CdSync wait counter */
+    /* 0x68 */ u8 field_68[64];       /* texture block: bitmap of the VRAM slots it fills */
+    /* 0xA8 */ u8 field_A8;            /* PAC flag: more blocks follow */
+    /* 0xA9 */ u8 field_A9;
+    /* 0xAA */ u8 field_AA;             /* slot bitmap: bit mask */
+    /* 0xAB */ u8 field_AB;            /* slot bitmap: byte index */
+    /* 0xAC */ s32 field_AC;
+    /* 0xB0 */ s32 field_B0;
+    /* 0xB4 */ s32 *field_B4;          /* the request's file (CdlFILE) */
+    /* 0xB8 */ s32 field_B8;           /* the request's byte count, 0 = a PAC archive */
+    /* 0xBC */ s32 field_BC;         /* the sector expected next */
+    /* 0xC0 */ s32 field_C0;       /* 1 when a request completed */
+} struct_C4;
+extern struct_C4 D_800AE6F0;
 
 /* Reset the CD streamer's step state after a request completes (keeps the request id) */
-inline void ResetStreamStep(void) {
-    g_CdStream.cursor = 0x80010000;
-    g_CdStream.state = 0;
-    g_CdStream.sub = 0;
-    g_CdStream.unkC = 0;
-    g_CdStream.unk10 = 0;
-    g_CdStream.words = 1;
-    g_CdStream.done = 0;
-    g_CdStream.more = 0;
-    g_CdStream.unkA9 = 0;
-    g_CdStream.unk1C = 0;
+inline void func_80019930(void) {
+    D_800AE6F0.field_38 = 0x80010000;
+    D_800AE6F0.field_0 = 0;
+    D_800AE6F0.field_8 = 0;
+    D_800AE6F0.field_C = 0;
+    D_800AE6F0.field_10 = 0;
+    D_800AE6F0.field_58 = 1;
+    D_800AE6F0.field_5C = 0;
+    D_800AE6F0.field_A8 = 0;
+    D_800AE6F0.field_A9 = 0;
+    D_800AE6F0.field_1C = 0;
 }
 
 /* Reset the file loader: no request in flight, empty load queue, streamer at state 0 */
-void ResetLoader(void) {
-    g_CdStream.cursor = 0x80010000;
-    g_CdStream.request = 0;
+void func_80019990(void) {
+    D_800AE6F0.field_38 = 0x80010000;
+    D_800AE6F0.field_18 = 0;
     D_800BA1B4 = 0;
     D_800747F0 = 0;
     D_800747F4 = 0;
-    g_CdStream.state = 0;
-    g_CdStream.sub = 0;
-    g_CdStream.unkC = 0;
-    g_CdStream.unk10 = 0;
-    g_CdStream.words = 1;
-    g_CdStream.done = 0;
-    g_CdStream.more = 0;
-    g_CdStream.unkA9 = 0;
-    g_CdStream.unk1C = 0;
+    D_800AE6F0.field_0 = 0;
+    D_800AE6F0.field_8 = 0;
+    D_800AE6F0.field_C = 0;
+    D_800AE6F0.field_10 = 0;
+    D_800AE6F0.field_58 = 1;
+    D_800AE6F0.field_5C = 0;
+    D_800AE6F0.field_A8 = 0;
+    D_800AE6F0.field_A9 = 0;
+    D_800AE6F0.field_1C = 0;
 }
 
 /* Same as ForgetStageImage: mark no stage image as resident (a second copy, no caller) */
-void ForgetStageImageAlt(void) {
-    g_StageImageEntry = -1;
+void func_80019A10(void) {
+    D_80078E30 = -1;
 }
 
 /* Ask for (or keep stepping) a read of a disc file to dest; returns 1 on the frame it completes */
-inline s32 LoadFileStep(CdlFILE *file, void *dest, s32 size, s32 soundTable) {
+inline s32 func_80019A24(CdlFILE *file, void *dest, s32 size, s32 soundTable) {
     s32 id;
     if (func_80034B98() != 0) {
         return 0;
     }
-    if (g_CdStream.request != 0 && *(s32 *)file != g_CdStream.request) {
+    if (D_800AE6F0.field_18 != 0 && *(s32 *)file != D_800AE6F0.field_18) {
         return 0;
     }
     id = *(s32 *)file;
-    g_CdStream.dest = (s32)dest;
-    g_CdStream.size = size;
-    g_CdStream.file = (s32 *)file;
-    g_CdStream.soundTable = soundTable;
-    g_CdStream.noSound = 0;
-    g_CdStream.request = id;
+    D_800AE6F0.field_3C = (s32)dest;
+    D_800AE6F0.field_B8 = size;
+    D_800AE6F0.field_B4 = (s32 *)file;
+    D_800AE6F0.field_34 = soundTable;
+    D_800AE6F0.field_30 = 0;
+    D_800AE6F0.field_18 = id;
     if (soundTable == 0) {
-        g_CdStream.noSound = 1;
+        D_800AE6F0.field_30 = 1;
     }
-    StreamStep(0);
-    return g_CdStream.complete;
+    func_80019AF8(0);
+    return D_800AE6F0.field_C0;
 }
 
 /* The CD streamer's step, run every frame while a request is in flight (state g_CdStream.state): set the mode,
    seek to the file, read it through the data-ready callback (StreamReadyCallback), load its sound banks, then wait for
    the drive. A lid opened sends it to the disc check (states 9 and 10). With `pause` set it only seeks. Sets
    g_CdStream.complete to 1 on the frame the request completes, 0 otherwise. */
-void StreamStep(s32 seekOnly) {
+void func_80019AF8(s32 seekOnly) {
     s32 r;
     s32 i;
-    switch (g_CdStream.state) {
+    switch (D_800AE6F0.field_0) {
     case 0:
-        g_CdStream.counter = 0;
-        g_CdStream.soundCount = 0;
-        g_CdStream.unk1C = 0;
-        g_CdStream.param[0] = 0xA0;
-        CdControl(CdlSetmode, g_CdStream.param, g_CdStream.result);
-        if (g_CdStream.result[0] & CdlStatShellOpen) {
+        D_800AE6F0.field_60 = 0;
+        D_800AE6F0.field_2C = 0;
+        D_800AE6F0.field_1C = 0;
+        D_800AE6F0.field_50[0] = 0xA0;
+        CdControl(CdlSetmode, D_800AE6F0.field_50, D_800AE6F0.field_48);
+        if (D_800AE6F0.field_48[0] & CdlStatShellOpen) {
         lid_open:
-            g_CdStream.state = 9;
+            D_800AE6F0.field_0 = 9;
             break;
         }
-        g_CdStream.state++;
+        D_800AE6F0.field_0++;
     case 1:
-        r = CdSync(1, g_CdStream.result);
-        g_CdSyncResult = r;
+        r = CdSync(1, D_800AE6F0.field_48);
+        D_800AE6E8 = r;
         if (r == 0) {
             break;
         }
         if (r == CdlDiskError) {
-            g_CdStream.state = 0;
+            D_800AE6F0.field_0 = 0;
             break;
         }
         if (r != CdlComplete) {
             break;
         }
-        g_CdStream.counter = 0;
-        g_CdStream.state++;
+        D_800AE6F0.field_60 = 0;
+        D_800AE6F0.field_0++;
     case 2:
-        if (++g_CdStream.counter < 3) {
+        if (++D_800AE6F0.field_60 < 3) {
             break;
         }
-        g_CdStream.counter = 0;
-        g_CdStream.state++;
+        D_800AE6F0.field_60 = 0;
+        D_800AE6F0.field_0++;
         break;
     case 3:
-        CdControl(CdlSeekL, (u8 *)g_CdStream.file, g_CdStream.result);
-        if (g_CdStream.result[0] & CdlStatShellOpen) {
+        CdControl(CdlSeekL, (u8 *)D_800AE6F0.field_B4, D_800AE6F0.field_48);
+        if (D_800AE6F0.field_48[0] & CdlStatShellOpen) {
             goto lid_open;
         }
-        g_CdStream.wait = 0;
-        g_CdStream.sector = CdPosToInt((CdlLOC *)g_CdStream.file);
-        g_CdStream.state++;
+        D_800AE6F0.field_64 = 0;
+        D_800AE6F0.field_BC = CdPosToInt((CdlLOC *)D_800AE6F0.field_B4);
+        D_800AE6F0.field_0++;
     case 4:
-        r = CdSync(1, g_CdStream.result);
-        g_CdSyncResult = r;
+        r = CdSync(1, D_800AE6F0.field_48);
+        D_800AE6E8 = r;
         if (r == CdlDiskError) {
-            g_CdStream.counter++;
+            D_800AE6F0.field_60++;
         retry:
             CdFlush();
-            g_CdStream.state = 3;
+            D_800AE6F0.field_0 = 3;
             break;
         }
         if (r == 0) {
             break;
         }
         if (r != CdlComplete) {
-            g_CdStream.complete = 0;
-            if (++g_CdStream.wait >= 0xB5) {
+            D_800AE6F0.field_C0 = 0;
+            if (++D_800AE6F0.field_64 >= 0xB5) {
                 goto retry;
             }
             return;
         }
         if (seekOnly != 0) {
-            CdControl(CdlPause, NULL, g_CdStream.result);
-            if (g_CdStream.result[0] & CdlStatShellOpen) {
+            CdControl(CdlPause, NULL, D_800AE6F0.field_48);
+            if (D_800AE6F0.field_48[0] & CdlStatShellOpen) {
                 goto lid_open;
             }
-            g_CdStream.state = 8;
-            g_CdStream.unk1C = *g_CdStream.file;
+            D_800AE6F0.field_0 = 8;
+            D_800AE6F0.field_1C = *D_800AE6F0.field_B4;
             break;
         }
-        g_CdStream.state++;
+        D_800AE6F0.field_0++;
     case 5:
-        g_CdStream.done = 0;
-        if (g_CdStream.size <= 0) {
-            g_CdStream.sub = 0;
+        D_800AE6F0.field_5C = 0;
+        if (D_800AE6F0.field_B8 <= 0) {
+            D_800AE6F0.field_8 = 0;
         } else {
-            g_CdStream.sub = 3;
-            g_CdStream.words = (g_CdStream.size + 3) / 4;
-            g_CdStream.more = 1;
-            g_CdStream.cursor = g_CdStream.dest;
+            D_800AE6F0.field_8 = 3;
+            D_800AE6F0.field_58 = (D_800AE6F0.field_B8 + 3) / 4;
+            D_800AE6F0.field_A8 = 1;
+            D_800AE6F0.field_38 = D_800AE6F0.field_3C;
         }
-        g_CdStream.prevCallback = (void *)CdReadyCallback(PS1_FN_ADDR(StreamReadyCallback));
-        CdControl(CdlReadN, NULL, g_CdStream.result);
-        if (g_CdStream.result[0] & CdlStatShellOpen) {
+        D_800AE6F0.field_44 = (void *)CdReadyCallback(PS1_FN_ADDR(func_8001A338));
+        CdControl(CdlReadN, NULL, D_800AE6F0.field_48);
+        if (D_800AE6F0.field_48[0] & CdlStatShellOpen) {
             goto lid_open;
         }
-        g_CdStream.counter = 0;
-        g_CdStream.state++;
+        D_800AE6F0.field_60 = 0;
+        D_800AE6F0.field_0++;
     case 6:
-        if (g_CdStream.done == 1) {
-            CdReadyCallback(g_CdStream.prevCallback);
-            CdControl(CdlPause, NULL, g_CdStream.result);
-            if (g_CdStream.result[0] & CdlStatShellOpen) {
+        if (D_800AE6F0.field_5C == 1) {
+            CdReadyCallback(D_800AE6F0.field_44);
+            CdControl(CdlPause, NULL, D_800AE6F0.field_48);
+            if (D_800AE6F0.field_48[0] & CdlStatShellOpen) {
                 goto lid_open;
             }
-            r = g_CdStream.soundCount;
-            g_CdStream.state++;
+            r = D_800AE6F0.field_2C;
+            D_800AE6F0.field_0++;
             if (r == 0) {
-                g_CdStream.state++;
+                D_800AE6F0.field_0++;
             }
-        } else if (g_CdStream.done == 2) {
-            CdReadyCallback(g_CdStream.prevCallback);
-            g_CdStream.state = 0;
-        } else if (++g_CdStream.counter >= 300) {
-            CdReadyCallback(g_CdStream.prevCallback);
-            g_CdStream.state = 0;
+        } else if (D_800AE6F0.field_5C == 2) {
+            CdReadyCallback(D_800AE6F0.field_44);
+            D_800AE6F0.field_0 = 0;
+        } else if (++D_800AE6F0.field_60 >= 300) {
+            CdReadyCallback(D_800AE6F0.field_44);
+            D_800AE6F0.field_0 = 0;
             CdFlush();
         }
         break;
     case 7:
-        for (i = 0; i < g_CdStream.soundCount; i++) {
-            while (func_8002FD14(((s32 *)g_CdStream.soundTable)[i * 2], ((s32 *)g_CdStream.soundTable)[i * 2 + 1]) == 0) {
+        for (i = 0; i < D_800AE6F0.field_2C; i++) {
+            while (func_8002FD14(((s32 *)D_800AE6F0.field_34)[i * 2], ((s32 *)D_800AE6F0.field_34)[i * 2 + 1]) == 0) {
             }
         }
-        g_CdStream.state++;
+        D_800AE6F0.field_0++;
         break;
     case 8:
-        r = CdSync(1, g_CdStream.result);
-        g_CdSyncResult = r;
+        r = CdSync(1, D_800AE6F0.field_48);
+        D_800AE6E8 = r;
         if (r == CdlComplete) {
-            ResetStreamStep();
-            g_CdStream.complete = 1;
-            g_CdStream.request = 0;
+            func_80019930();
+            D_800AE6F0.field_C0 = 1;
+            D_800AE6F0.field_18 = 0;
             return;
         }
         if (r == CdlDiskError) {
             CdFlush();
-            CdControl(CdlPause, NULL, g_CdStream.result);
-            if (!(g_CdStream.result[0] & CdlStatShellOpen)) {
+            CdControl(CdlPause, NULL, D_800AE6F0.field_48);
+            if (!(D_800AE6F0.field_48[0] & CdlStatShellOpen)) {
                 break;
             }
             goto lid_open;
         }
         break;
     case 9:
-        StartDiscCheck();
-        g_CdStream.state++;
+        func_8001A0FC();
+        D_800AE6F0.field_0++;
     case 10:
-        if ((g_CdSyncResult = DiscCheckStep()) != 0) {
-            g_CdStream.state = 0;
+        if ((D_800AE6E8 = func_8001A114()) != 0) {
+            D_800AE6F0.field_0 = 0;
         }
         break;
     }
-    g_CdStream.complete = 0;
+    D_800AE6F0.field_C0 = 0;
 }
 
 /* Start the disc check from its first step */
-void StartDiscCheck(void) {
-    g_CdStream.check = 0;
-    g_CdStream.unk1C = 0;
+void func_8001A0FC(void) {
+    D_800AE6F0.field_4 = 0;
+    D_800AE6F0.field_1C = 0;
 }
 
 /* The disc check after the lid opened or a read failed, one step per call (state g_CdStream.check): wait for a disc,
    set the mode, wait three calls, check the disc type, then look for this game's MUSA.ID (g_FileTable[21]).
    Returns 1 once the disc is this game's. */
-s32 DiscCheckStep(void) {
+s32 func_8001A114(void) {
     s32 ret = 0;
     s32 r;
     s32 i;
     CdlFILE *found;
-    switch (g_CdStream.check) {
+    switch (D_800AE6F0.field_4) {
     case 0:
         CdFlush();
-        CdControlB(CdlNop, NULL, g_CdStream.result);
-        if (g_CdStream.result[0] & CdlStatShellOpen) {
+        CdControlB(CdlNop, NULL, D_800AE6F0.field_48);
+        if (D_800AE6F0.field_48[0] & CdlStatShellOpen) {
             break;
         }
-        g_CdStream.check++;
+        D_800AE6F0.field_4++;
     case 1:
         r = CdDiskReady(0);
         if (r == CdlComplete) {
-            g_CdStream.check++;
+            D_800AE6F0.field_4++;
         } else if (r == CdlStatShellOpen) {
-            g_CdStream.check = 0;
+            D_800AE6F0.field_4 = 0;
         }
         break;
     case 2:
-        g_CdStream.param[0] = CdlModeSpeed;
-        if (CdControlB(CdlSetmode, g_CdStream.param, g_CdStream.result) == 0) {
+        D_800AE6F0.field_50[0] = CdlModeSpeed;
+        if (CdControlB(CdlSetmode, D_800AE6F0.field_50, D_800AE6F0.field_48) == 0) {
             break;
         }
-        if (g_CdStream.result[0] & CdlStatShellOpen) {
-            g_CdStream.check = 0;
+        if (D_800AE6F0.field_48[0] & CdlStatShellOpen) {
+            D_800AE6F0.field_4 = 0;
             break;
         }
-        g_CdStream.counter = 0;
-        g_CdStream.check++;
+        D_800AE6F0.field_60 = 0;
+        D_800AE6F0.field_4++;
         break;
     case 3:
-        if (++g_CdStream.counter < 3) {
+        if (++D_800AE6F0.field_60 < 3) {
             break;
         }
-        g_CdStream.counter = 0;
-        g_CdStream.check++;
+        D_800AE6F0.field_60 = 0;
+        D_800AE6F0.field_4++;
         break;
     case 4:
         r = CdGetDiskType();
         if (r == 1 || r == 0x10 || r == 0) {
-            g_CdStream.check = 0;
+            D_800AE6F0.field_4 = 0;
         }
         if (r == 2) {
-            g_CdStream.check++;
+            D_800AE6F0.field_4++;
         }
         break;
     case 5:
         i = 0;
         do {
-            found = CdSearchFile(&g_FileTable[21].file, g_FileTable[21].name);
+            found = CdSearchFile(&D_80062C24[21].field_14, D_80062C24[21].field_0);
             if (found != (CdlFILE *)-1) {
                 break;
             }
             i++;
         } while (i < 16);
         if ((u32)found + 1 < 2) {
-            g_CdStream.check = 0;
+            D_800AE6F0.field_4 = 0;
             break;
         }
         ret = 1;
@@ -4000,8 +4000,8 @@ s32 DiscCheckStep(void) {
    by g_CdStream.sub reads a PAC header and starts its block (texture tiles, CLUT list, code or data payload,
    sound bank, LZ data, skip), or takes the block's next sector. Sets g_CdStream.done to 1 when a request's last
    block is in, 2 on an error. */
-void StreamReadyCallback(u8 intr, u8 *result) {
-    CdStream *cd = &g_CdStream;
+void func_8001A338(u8 intr, u8 *result) {
+    struct_C4 *cd = &D_800AE6F0;
     s32 pos;
     s32 dst;
     s32 i;
@@ -4010,233 +4010,233 @@ void StreamReadyCallback(u8 intr, u8 *result) {
     if (intr == CdlDataReady) {
         CdGetSector(D_80078E40, 3);
         pos = CdPosToInt((CdlLOC *)D_80078E40);
-        if (pos != cd->sector) {
-            if (cd->sub == 4) {
+        if (pos != cd->field_BC) {
+            if (cd->field_8 == 4) {
                 func_8002FDC8();
             }
-            cd->done = 2;
+            cd->field_5C = 2;
             return;
         }
-        cd->sector = pos + 1;
-        switch (cd->sub) {
+        cd->field_BC = pos + 1;
+        switch (cd->field_8) {
         case 0:
             CdGetSector(D_80079A70, 4);
             if (*(u32 *)D_80079A70 != 0x434150) {
-                cd->done = 2;
+                cd->field_5C = 2;
                 return;
             }
-            cd->more = D_80079A75;
+            cd->field_A8 = D_80079A75;
             switch (D_80079A74) {
             case 6:
                 CdGetSector(D_8007A280, 0x1FC);
                 pixels = D_8007A280 + 0x90;
                 n = D_80079A78;
-                cd->clut = D_8007A280;
+                cd->field_28 = D_8007A280;
                 for (i = 0; i < n; i++) {
-                    LoadImage((RECT *)cd->clut, (u32 *)pixels);
-                    pixels += (((RECT *)cd->clut)->w / 2) * 4;
-                    cd->clut += 8;
+                    LoadImage((RECT *)cd->field_28, (u32 *)pixels);
+                    pixels += (((RECT *)cd->field_28)->w / 2) * 4;
+                    cd->field_28 += 8;
                 }
-                if (cd->more) {
-                    cd->sub = 2;
+                if (cd->field_A8) {
+                    cd->field_8 = 2;
                 } else {
-                    cd->sub = 0;
+                    cd->field_8 = 0;
                 }
                 break;
             case 0:
             case 5:
-                cd->texBuf = 0;
-                CdGetSector(cd->slots, 0x10);
-                cd->slot.h = 0x20;
-                cd->slot.w = 0x20;
-                cd->slot.y = 0;
-                cd->slot.x = 0;
-                cd->bit = 1;
-                cd->byte = 0;
+                cd->field_14 = 0;
+                CdGetSector(cd->field_68, 0x10);
+                cd->field_20.h = 0x20;
+                cd->field_20.w = 0x20;
+                cd->field_20.y = 0;
+                cd->field_20.x = 0;
+                cd->field_AA = 1;
+                cd->field_AB = 0;
                 while (1) {
-                    if (cd->byte >= 0x40) {
-                        if (cd->more) {
-                            cd->sub = 2;
+                    if (cd->field_AB >= 0x40) {
+                        if (cd->field_A8) {
+                            cd->field_8 = 2;
                         } else {
-                            cd->sub = 0;
+                            cd->field_8 = 0;
                         }
                         break;
                     }
-                    if (cd->slots[cd->byte] & cd->bit) {
+                    if (cd->field_68[cd->field_AB] & cd->field_AA) {
                         break;
                     }
-                    if (cd->bit == 0x80) {
-                        cd->bit = 1;
-                        cd->byte++;
+                    if (cd->field_AA == 0x80) {
+                        cd->field_AA = 1;
+                        cd->field_AB++;
                     } else {
-                        cd->bit <<= 1;
+                        cd->field_AA <<= 1;
                     }
-                    cd->slot.x += 0x20;
-                    if (cd->slot.x >= 0x400) {
-                        cd->slot.x = 0;
-                        cd->slot.y += 0x20;
+                    cd->field_20.x += 0x20;
+                    if (cd->field_20.x >= 0x400) {
+                        cd->field_20.x = 0;
+                        cd->field_20.y += 0x20;
                     }
                 }
-                cd->sub++;
+                cd->field_8++;
                 break;
             case 7:
-                if (cd->size < 0) {
-                    cd->sub = 2;
+                if (cd->field_B8 < 0) {
+                    cd->field_8 = 2;
                     break;
                 }
-                cd->sub = 3;
-                cd->words = (u32)(D_80079A7C - 0x7FD) >> 2;
-                cd->cursor = D_80072C80;
+                cd->field_8 = 3;
+                cd->field_58 = (u32)(D_80079A7C - 0x7FD) >> 2;
+                cd->field_38 = D_80072C80;
                 break;
             case 1:
-                cd->sub = 3;
-                cd->words = (u32)(D_80079A7C - 0x7FD) >> 2;
-                cd->cursor = cd->dest;
+                cd->field_8 = 3;
+                cd->field_58 = (u32)(D_80079A7C - 0x7FD) >> 2;
+                cd->field_38 = cd->field_3C;
                 break;
             case 8:
-                cd->sub = 6;
-                cd->words = (u32)(D_80079A7C - 0x7FD) >> 2;
+                cd->field_8 = 6;
+                cd->field_58 = (u32)(D_80079A7C - 0x7FD) >> 2;
                 break;
             case 2:
-                if (cd->noSound) {
-                    cd->sub = 2;
+                if (cd->field_30) {
+                    cd->field_8 = 2;
                     break;
                 }
-                cd->sub = 3;
-                dst = ((s32 *)cd->soundTable)[cd->soundCount * 2 + 1];
-                cd->words = (u32)(D_80079A7C - 0x7FD) >> 2;
-                cd->cursor = dst;
+                cd->field_8 = 3;
+                dst = ((s32 *)cd->field_34)[cd->field_2C * 2 + 1];
+                cd->field_58 = (u32)(D_80079A7C - 0x7FD) >> 2;
+                cd->field_38 = dst;
                 break;
             case 3:
-                if (cd->noSound) {
-                    cd->sub = 2;
+                if (cd->field_30) {
+                    cd->field_8 = 2;
                     break;
                 }
-                while (func_8002FB08(((s32 *)cd->soundTable)[cd->soundCount * 2]) == 0) {
+                while (func_8002FB08(((s32 *)cd->field_34)[cd->field_2C * 2]) == 0) {
                 }
-                cd->sub = 4;
-                cd->words = D_80079A7C - 0x800;
+                cd->field_8 = 4;
+                cd->field_58 = D_80079A7C - 0x800;
                 break;
             case 4:
-                cd->sub = 5;
-                cd->words = (u32)(D_80079A7C - 0x7FD) >> 2;
-                cd->cursor = cd->dest;
-                StartLzssDecode(cd->cursor);
+                cd->field_8 = 5;
+                cd->field_58 = (u32)(D_80079A7C - 0x7FD) >> 2;
+                cd->field_38 = cd->field_3C;
+                func_80018714(cd->field_38);
                 break;
             }
             break;
         case 1:
-            pixels = D_80079A70 + cd->texBuf * 0x800;
+            pixels = D_80079A70 + cd->field_14 * 0x800;
             CdGetSector(pixels, 0x200);
-            LoadImage(&cd->slot, (u32 *)pixels);
-            cd->texBuf = (cd->texBuf + 1) & 3;
+            LoadImage(&cd->field_20, (u32 *)pixels);
+            cd->field_14 = (cd->field_14 + 1) & 3;
             do {
-                if (cd->bit == 0x80) {
-                    cd->bit = 1;
-                    cd->byte++;
+                if (cd->field_AA == 0x80) {
+                    cd->field_AA = 1;
+                    cd->field_AB++;
                 } else {
-                    cd->bit <<= 1;
+                    cd->field_AA <<= 1;
                 }
-                if (cd->byte >= 0x40) {
-                    if (cd->more) {
-                        cd->sub = 2;
+                if (cd->field_AB >= 0x40) {
+                    if (cd->field_A8) {
+                        cd->field_8 = 2;
                     } else {
-                        cd->sub = 0;
+                        cd->field_8 = 0;
                     }
                     goto tail;
                 }
-                cd->slot.x += 0x20;
-                if (cd->slot.x >= 0x400) {
-                    cd->slot.x = 0;
-                    cd->slot.y += 0x20;
+                cd->field_20.x += 0x20;
+                if (cd->field_20.x >= 0x400) {
+                    cd->field_20.x = 0;
+                    cd->field_20.y += 0x20;
                 }
-            } while (!(cd->slots[cd->byte] & cd->bit));
+            } while (!(cd->field_68[cd->field_AB] & cd->field_AA));
             break;
         case 3:
-            if (cd->words <= 0x200) {
-                CdGetSector((void *)cd->cursor, cd->words);
-                if (cd->more) {
-                    cd->sub = 2;
+            if (cd->field_58 <= 0x200) {
+                CdGetSector((void *)cd->field_38, cd->field_58);
+                if (cd->field_A8) {
+                    cd->field_8 = 2;
                 } else {
-                    cd->sub = 0;
+                    cd->field_8 = 0;
                 }
                 break;
             }
-            CdGetSector((void *)cd->cursor, 0x200);
-            cd->cursor += 0x800;
-            cd->words -= 0x200;
+            CdGetSector((void *)cd->field_38, 0x200);
+            cd->field_38 += 0x800;
+            cd->field_58 -= 0x200;
             break;
         case 4:
-            if (cd->words <= 0x800) {
-                pos = (cd->words + 3) / 4;
+            if (cd->field_58 <= 0x800) {
+                pos = (cd->field_58 + 3) / 4;
                 CdGetSector(D_80079A70, pos);
-                if (func_8002FC64(cd->words, D_80079A70) == 0) {
+                if (func_8002FC64(cd->field_58, D_80079A70) == 0) {
                     func_8002FDC8();
-                    cd->sub = 7;
+                    cd->field_8 = 7;
                     break;
                 }
-                cd->soundCount++;
-                if (cd->more) {
-                    cd->sub = 2;
+                cd->field_2C++;
+                if (cd->field_A8) {
+                    cd->field_8 = 2;
                 } else {
-                    cd->sub = 0;
+                    cd->field_8 = 0;
                 }
                 break;
             }
             CdGetSector(D_80079A70, 0x200);
             n = func_8002FC64(0x800, D_80079A70);
-            cd->cursor += 0x800;
-            cd->words -= 0x800;
+            cd->field_38 += 0x800;
+            cd->field_58 -= 0x800;
             if (n == 0) {
                 func_8002FDC8();
-                cd->sub = 7;
+                cd->field_8 = 7;
             }
             break;
         case 5:
             CdGetSector(D_80079A70, 0x200);
-            if (LzssDecodeSector(D_80079A70) == 0) {
-                if (cd->more) {
-                    cd->sub = 2;
+            if (func_80018730(D_80079A70) == 0) {
+                if (cd->field_A8) {
+                    cd->field_8 = 2;
                 } else {
-                    cd->sub = 0;
+                    cd->field_8 = 0;
                 }
             }
             break;
         case 6:
-            cd->words -= 0x200;
-            if (cd->words > 0) {
+            cd->field_58 -= 0x200;
+            if (cd->field_58 > 0) {
                 break;
             }
-            if (cd->more) {
-                cd->sub = 2;
+            if (cd->field_A8) {
+                cd->field_8 = 2;
             } else {
-                cd->sub = 0;
+                cd->field_8 = 0;
             }
             break;
         }
     tail:
-        if (cd->sub == 2) {
-            cd->done = 1;
-        } else if (cd->sub == 7) {
-            cd->done = 2;
+        if (cd->field_8 == 2) {
+            cd->field_5C = 1;
+        } else if (cd->field_8 == 7) {
+            cd->field_5C = 2;
         }
     }
     if (intr == CdlDiskError) {
-        if (cd->sub == 4) {
+        if (cd->field_8 == 4) {
             func_8002FDC8();
         }
-        cd->done = 2;
+        cd->field_5C = 2;
     }
 }
 
 /* Return the stream driver's request state (0 idle; 1, 2, 4 busy; 8 finished) */
-s32 GetStreamState(void) {
+s32 func_8001A9D8(void) {
     return func_80034B98();
 }
 
 /* Link the two NOW LOADING sprites (texpage + SPRT pairs at 0x80063108/0x80063120) into OT entry 1 */
-void DrawNowLoading(void) {
-    u32 *ot = g_WorldOtTable[D_800B9A02];
+void func_8001A9F8(void) {
+    u32 *ot = D_800A6610[D_800B9A02];
     u32 *first = (u32 *)&D_80063108; u32 *second = (u32 *)&D_80063120;
     *first = (ot[1] & 0xFFFFFF) | 0x05000000;
     ot[1] = (ot[1] & 0xFF000000) | ((u32)first & 0xFFFFFF);
@@ -4246,17 +4246,17 @@ void DrawNowLoading(void) {
 }
 
 /* Return the id (first word of the file) of the CD request in flight, 0 = none */
-s32 GetLoadRequestId(void) {
-    return g_CdStream.request;
+s32 func_8001AA78(void) {
+    return D_800AE6F0.field_18;
 }
 
 /* Set the id of the CD request in flight */
-void SetLoadRequestId(s32 id) {
-    g_CdStream.request = id;
+void func_8001AA88(s32 id) {
+    D_800AE6F0.field_18 = id;
 }
 
 /* Development-only picture loader (C:\TIMPACK\*.PAT from the dev PC); empty in the retail EXE */
-void LoadPatPicture(void) {
+void func_8001AA98(void) {
 }
 
 void func_8001AAA0(s32 id) {
@@ -4285,7 +4285,7 @@ s32 func_8001AAD0(s32 n, s32 id) {
     if (D_800BA1B4 == 5) {
         D_800BA1B4 = 0;
     }
-    return func_8001ABBC(3, id, (s32 *)&g_FileTable[i].file, 0, 0);
+    return func_8001ABBC(3, id, (s32 *)&D_80062C24[i].field_14, 0, 0);
 }
 
 void func_8001ABB4(void) {
@@ -4299,9 +4299,9 @@ s32 func_8001ABBC(s32 kind, s32 id, s32 *file, s32 c, s32 d) {
         if (id == D_800A654C) {
             return 1;
         }
-        if (D_80063138[id].entry == D_800747F8) {
-            if (D_80063138[id].sound != 0) {
-                func_8002D4C8((u16)D_80063138[id].sound, 0);
+        if (D_80063138[id].field_0 == D_800747F8) {
+            if (D_80063138[id].field_4 != 0) {
+                func_8002D4C8((u16)D_80063138[id].field_4, 0);
                 D_800A654C = id;
             }
             return 1;
@@ -4341,9 +4341,9 @@ s32 func_8001ACF0(s32 kind, s32 id, s32 *file, s32 dest, s32 table) {
         if (id == D_800A654C) {
             return 1;
         }
-        if (D_80063138[id].entry == D_800747F8) {
-            if (D_80063138[id].sound != 0) {
-                func_8002D4C8((u16)D_80063138[id].sound, 0);
+        if (D_80063138[id].field_0 == D_800747F8) {
+            if (D_80063138[id].field_4 != 0) {
+                func_8002D4C8((u16)D_80063138[id].field_4, 0);
                 D_800A654C = id;
             }
             return 1;
@@ -4397,14 +4397,14 @@ s32 func_8001AF04(void) {
 
 /* The load pump, run every frame: works on the queued request (D_800BA1B4: 1 a file read, through the inlined
    LoadFileStep; 2 a sound package; 4 a header read; 5 a sound bank) and sets 3 when it is done. 0 and 3 idle. */
-void LoadQueueStep(void) {
+void func_8001AF34(void) {
     func_80034B98();
     switch (D_800BA1B4) {
     case 0:
     case 3:
         break;
     case 1:
-        if (LoadFileStep(D_800AE6E4, (void *)D_800BA318, D_800C6D2C, D_800A6550)) {
+        if (func_80019A24(D_800AE6E4, (void *)D_800BA318, D_800C6D2C, D_800A6550)) {
             D_800BA1B4 = 3;
         }
         break;
@@ -4472,7 +4472,7 @@ s32 func_8001B0D4(void *file, s16 b) {
         }
         break;
     case 3:
-        if (DiscCheckStep() != 0) {
+        if (func_8001A114() != 0) {
             D_800747E4 = 0;
         }
         break;
@@ -4555,7 +4555,7 @@ s32 func_8001B394(s32 a) {
     return D_800C6D10;
 }
 
-extern s32 func_800363CC(s32 a, CdFileLoc *loc, s32 c);
+extern s32 func_800363CC(s32 a, struct_8_4 *loc, s32 c);
 extern void func_80036D58(s32 n);
 void func_8001B710(void);
 s32 func_8001B788(s16 n);
@@ -4572,8 +4572,8 @@ void func_8001B3C4(void) {
             D_800C6D10 = 1;
             return;
         }
-        if (D_80063138[D_800C6D34].entry == D_800747F8 && D_80063138[D_800C6D34].sound != 0) {
-            func_8002D4C8((u16)D_80063138[D_800C6D34].sound, 0);
+        if (D_80063138[D_800C6D34].field_0 == D_800747F8 && D_80063138[D_800C6D34].field_4 != 0) {
+            func_8002D4C8((u16)D_80063138[D_800C6D34].field_4, 0);
             D_800C6D10 = 1;
             D_800A654C = D_800C6D34;
             return;
@@ -4581,8 +4581,8 @@ void func_8001B3C4(void) {
         if (func_80034B98() != 0) {
             break;
         }
-        if (D_80063138[D_800C6D34].entry < 0) {
-            func_80036D58(D_80063138[D_800C6D34].b);
+        if (D_80063138[D_800C6D34].field_0 < 0) {
+            func_80036D58(D_80063138[D_800C6D34].field_2);
             goto done;
         }
         if (func_8001B788(D_800C6D34) == 0) {
@@ -4590,33 +4590,33 @@ done:
             D_800C6D10 = 1;
             return;
         }
-        if (D_800AE708 != 0 && *(s32 *)&g_ArchiveFileLoc[D_80063138[D_800C6D34].entry].pos != D_800AE708) {
+        if (D_800AE708 != 0 && *(s32 *)&D_800AE830[D_80063138[D_800C6D34].field_0].field_0 != D_800AE708) {
             break;
         }
-        v = *(s32 *)&g_ArchiveFileLoc[D_80063138[D_800C6D34].entry].pos;
+        v = *(s32 *)&D_800AE830[D_80063138[D_800C6D34].field_0].field_0;
         D_800AE7EC++;
         D_800AE708 = v;
     case 1:
-        r = func_800363CC(D_80063138[D_800C6D34].b, &g_ArchiveFileLoc[D_80063138[D_800C6D34].entry], 0x10);
+        r = func_800363CC(D_80063138[D_800C6D34].field_2, &D_800AE830[D_80063138[D_800C6D34].field_0], 0x10);
         if (r == 2) {
             D_800AE7EC++;
             r = 0;
         }
         break;
     case 2:
-        g_CdStream.check = 0;
-        g_CdStream.unk1C = 0;
+        D_800AE6F0.field_4 = 0;
+        D_800AE6F0.field_1C = 0;
         D_800AE7EC = 3;
     case 3:
-        if (DiscCheckStep() != 0) {
+        if (func_8001A114() != 0) {
             D_800AE7EC = 0;
         }
         break;
     }
     if (r != 0) {
-        D_800747F8 = D_80063138[D_800C6D34].entry;
-        if (D_80063138[D_800C6D34].sound > 0) {
-            func_8002D4C8((u16)D_80063138[D_800C6D34].sound, 0);
+        D_800747F8 = D_80063138[D_800C6D34].field_0;
+        if (D_80063138[D_800C6D34].field_4 > 0) {
+            func_8002D4C8((u16)D_80063138[D_800C6D34].field_4, 0);
             D_800A654C = D_800C6D34;
             if (D_800C6D34 == 0x3D) {
                 func_8001B710();
@@ -4641,26 +4641,26 @@ void func_8001B710(void) {
 }
 
 s32 func_8001B788(s16 n) {
-    return *(s32 *)&g_ArchiveFileLoc[D_80063138[n].entry].pos;
+    return *(s32 *)&D_800AE830[D_80063138[n].field_0].field_0;
 }
 
 s32 func_8001B7C4(s32 *p) {
     if (func_80034B98() != 0) {
         return 0;
     }
-    if (g_CdStream.request != 0) {
-        if (g_CdStream.request != -1) {
+    if (D_800AE6F0.field_18 != 0) {
+        if (D_800AE6F0.field_18 != -1) {
             return 0;
         }
     }
-    g_CdStream.request = -1;
-    g_CdStream.file = p;
-    g_CdStream.unk1C = 0;
-    StreamStep(1);
-    if (g_CdStream.complete == 1) {
-        g_CdStream.unk1C = *p;
+    D_800AE6F0.field_18 = -1;
+    D_800AE6F0.field_B4 = p;
+    D_800AE6F0.field_1C = 0;
+    func_80019AF8(1);
+    if (D_800AE6F0.field_C0 == 1) {
+        D_800AE6F0.field_1C = *p;
     }
-    return g_CdStream.complete;
+    return D_800AE6F0.field_C0;
 }
 
 void func_8001B85C(void) {
@@ -4669,17 +4669,17 @@ void func_8001B85C(void) {
 
 extern s32 D_80074800;
 extern s32 D_80074804;
-extern u8 g_PrimBuf[2][0x13880];
+extern u8 D_8007BA70[2][0x13880];
 
 s32 func_8001B86C(s32 a) {
-    Work *w = &D_800AF630;
+    struct_A444 *w = &D_800AF630;
 
     switch ((u32)D_800747FC) {
     case 0:
-        g_PrimNext = (s32)g_PrimBuf[WORK->frame];
-        D_800A6518[WORK->frame].ot = g_WorldOtTable[WORK->frame];
-        D_800A6518[WORK->frame].e = (s32)(g_WorldOtTable[WORK->frame] + 1);
-        ClearOTagR(D_800A6518[WORK->frame].ot, 2);
+        D_800A5E60 = (s32)D_8007BA70[WORK->field_A3D2];
+        D_800A6518[WORK->field_A3D2].field_4 = D_800A6610[WORK->field_A3D2];
+        D_800A6518[WORK->field_A3D2].field_10 = (s32)(D_800A6610[WORK->field_A3D2] + 1);
+        ClearOTagR(D_800A6518[WORK->field_A3D2].field_4, 2);
         func_8001BA84();
         D_80074800 = 0x80;
         D_800747FC++;
@@ -4689,8 +4689,8 @@ s32 func_8001B86C(s32 a) {
         D_800747FC = 2;
         break;
     case 2:
-        PutDispEnv(&w->disp[1]);
-        ClearOTagR(D_800A6518[WORK->frame].ot, 2);
+        PutDispEnv(&w->field_14C[1]);
+        ClearOTagR(D_800A6518[WORK->field_A3D2].field_4, 2);
         func_8001BB60();
         D_800747FC++;
     case 3:
@@ -4737,7 +4737,7 @@ s32 func_8001BADC(s32 n, s32 flag) {
 
 void func_8001BB60(void) {
     s32 i = 0;
-    D_80074808 = g_PrimNext;
+    D_80074808 = D_800A5E60;
     do {
         func_8001BBBC(0, i * 8, 0);
         i++;
@@ -4747,8 +4747,8 @@ void func_8001BB60(void) {
 
 void func_8001BBBC(s32 x, s32 y, s32 c) {
     u32 *ot;
-    u8 *p = (u8 *)g_PrimNext;
-    ot = g_WorldOtTable[D_800B9A02];
+    u8 *p = (u8 *)D_800A5E60;
+    ot = D_800A6610[D_800B9A02];
     setlen(p, 4);
     *(u32 *)(p + 4) = 0xE1000040;
     p[0xB] = 0x62;
@@ -4758,7 +4758,7 @@ void func_8001BBBC(s32 x, s32 y, s32 c) {
     p[8] = p[9] = p[0xA] = c;
     *(s16 *)(p + 0xE) = y - 0x78;
     addPrim(ot + 1, p);
-    g_PrimNext = (s32)(p + 0x14);
+    D_800A5E60 = (s32)(p + 0x14);
 }
 
 void func_8001BC6C(void *a, s32 c) {
@@ -4778,14 +4778,14 @@ void func_8001BC6C(void *a, s32 c) {
     y = s[1];
     w = s[2];
     h = s[3];
-    p = (u32 *)g_PrimNext;
+    p = (u32 *)D_800A5E60;
     x0 = x - 0xA0;
     y0 = y - 0x78;
     u = x;
     cg = c << 8;
     code = 0x64000000;
     col = hi | (cg | code) | c;
-    ot = g_WorldOtTable[D_800B9A02];
+    ot = D_800A6610[D_800B9A02];
     if ((s16)u >= 0x80) {
         u -= 0x80;
         tp = 0x102;
@@ -4798,7 +4798,7 @@ void func_8001BC6C(void *a, s32 c) {
     p[4] = ((s32)(y << 16) >> 8) | (s16)u;
     p[5] = (h << 16) | (s16)w;
     addPrim(ot + 1, p);
-    g_PrimNext = (s32)(p + 6);
+    D_800A5E60 = (s32)(p + 6);
 }
 
 s32 func_8001BD80(void) {
@@ -4959,7 +4959,7 @@ void func_8001C1E4(u8 *o, u8 *c) {
 }
 
 void func_8001C214(u8 *o, s32 *p) {
-    Mtx m;
+    struct_20_3 m;
     func_8001C9D0(o);
     *(s16 *)o = 1;
     *(s16 *)(o + 2) = 0;
@@ -4990,7 +4990,7 @@ extern void GsLinkObject5(u32 data, void *obj, s32 n);
 extern u32 *GsPresetObject(void *obj, u32 *base);
 
 void func_8001C320(u8 *o, s32 *p) {
-    Mtx m;
+    struct_20_3 m;
     u8 *w = (u8 *)&D_800AF630;
     u32 *base;
     u32 d;
@@ -5028,7 +5028,7 @@ void func_8001C448(u8 *a) {
 }
 
 void func_8001C4A4(u8 *o, s32 *p) {
-    Mtx m;
+    struct_20_3 m;
     func_8001C9D0(o);
     *(s16 *)o = 1;
     *(s16 *)(o + 2) = 7;
@@ -5100,7 +5100,7 @@ void func_8001C6E4(u8 *a) {
 }
 
 void func_8001C744(u8 *o, void *p) {
-    Mtx m;
+    struct_20_3 m;
     func_8001C9D0(o);
     *(s16 *)o = 1;
     *(s16 *)(o + 2) = 2;
@@ -5120,7 +5120,7 @@ void func_8001C7B0(u8 *a) {
 }
 
 void func_8001C810(u8 *o, s32 *p) {
-    Mtx m;
+    struct_20_3 m;
     func_8001C9D0(o);
     *(s16 *)o = 1;
     *(s16 *)(o + 2) = 5;
@@ -5195,7 +5195,7 @@ void func_8001CA1C(u8 *a, s32 v) {
 }
 
 void func_8001CA88(u8 *o, void *p) {
-    Mtx m;
+    struct_20_3 m;
     func_8001C9D0(o);
     *(s16 *)o = 1;
     *(s16 *)(o + 2) = 4;
@@ -5495,16 +5495,16 @@ void func_8001D3FC(u8 *o) {
         s = *(u8 **)(o + 0x20);
         tp = (fl >> 24) & 3;
         sh = 2 - tp;
-        ot = g_WorldOtTable[D_800B9A02] + z;
+        ot = D_800A6610[D_800B9A02] + z;
         func_8001D70C(o);
         tb = tp << 7;
         do {
-            p = (u8 *)g_PrimNext;
+            p = (u8 *)D_800A5E60;
             f = *(u16 *)s;
             x = *(u16 *)(o + 0x28) + (*(s16 *)(s + 4) >> sh);
             yy = *(u16 *)(o + 0x2A) + *(u16 *)(s + 6);
             y = yy;
-            g_PrimNext = (s32)(p + 0x28);
+            D_800A5E60 = (s32)(p + 0x28);
             p[3] = 9;
             p[7] = 0x2C;
             if (fl & 0x40000000) {
@@ -5559,67 +5559,67 @@ void func_8001D3FC(u8 *o) {
 }
 
 void func_8001D70C(u8 *o) {
-    Mtx m;
-    Mtx s;
+    struct_20_3 m;
+    struct_20_3 s;
     s32 pad[2];
     RotMatrix(o + 0x10, &m);
-    s.m[0][0] = *(u16 *)(o + 0x18);
-    s.m[0][1] = 0;
-    s.m[0][2] = 0;
-    s.m[1][0] = 0;
-    s.m[1][1] = *(u16 *)(o + 0x1A);
-    s.m[1][2] = 0;
-    s.m[2][0] = 0;
-    s.m[2][1] = 0;
-    s.m[2][2] = 0x1000;
+    s.field_0[0][0] = *(u16 *)(o + 0x18);
+    s.field_0[0][1] = 0;
+    s.field_0[0][2] = 0;
+    s.field_0[1][0] = 0;
+    s.field_0[1][1] = *(u16 *)(o + 0x1A);
+    s.field_0[1][2] = 0;
+    s.field_0[2][0] = 0;
+    s.field_0[2][1] = 0;
+    s.field_0[2][2] = 0x1000;
     gte_SetRotMatrix(&m);
-    gte_ldclmv(&s.m[0][0]);
+    gte_ldclmv(&s.field_0[0][0]);
     gte_rtir();
-    gte_stclmv(&m.m[0][0]);
-    gte_ldclmv(&s.m[0][1]);
+    gte_stclmv(&m.field_0[0][0]);
+    gte_ldclmv(&s.field_0[0][1]);
     gte_rtir();
-    gte_stclmv(&m.m[0][1]);
-    gte_ldclmv(&s.m[0][2]);
+    gte_stclmv(&m.field_0[0][1]);
+    gte_ldclmv(&s.field_0[0][2]);
     gte_rtir();
-    gte_stclmv(&m.m[0][2]);
-    m.t[0] = *(s16 *)(o + 8);
-    m.t[1] = *(s16 *)(o + 0xA);
-    m.t[2] = *(s16 *)(o + 0xC);
+    gte_stclmv(&m.field_0[0][2]);
+    m.field_14[0] = *(s16 *)(o + 8);
+    m.field_14[1] = *(s16 *)(o + 0xA);
+    m.field_14[2] = *(s16 *)(o + 0xC);
     gte_SetRotMatrix(&m);
     gte_SetTransMatrix(&m);
 }
 
 void func_8001D8C4(u8 *o, u8 *s, u8 *prim) {
-    SVec v[4];
-    LVec r;
+    struct_8_7 v[4];
+    struct_10_3 r;
     s16 x0, y0, x1, y1;
     x0 = *(u16 *)(o + 0x2E) + *(u16 *)(s + 8);
     y0 = *(u16 *)(o + 0x30) + *(u16 *)(s + 0xA);
-    v[0].vx = v[2].vx = x0;
-    v[0].vy = v[1].vy = y0;
-    v[1].vx = v[3].vx = x1 = s[2] + x0;
-    v[2].vy = v[3].vy = y1 = s[3] + y0;
-    v[0].vz = v[1].vz = v[2].vz = v[3].vz = *(u16 *)(o + 0x32);
+    v[0].field_0 = v[2].field_0 = x0;
+    v[0].field_2 = v[1].field_2 = y0;
+    v[1].field_0 = v[3].field_0 = x1 = s[2] + x0;
+    v[2].field_2 = v[3].field_2 = y1 = s[3] + y0;
+    v[0].field_4 = v[1].field_4 = v[2].field_4 = v[3].field_4 = *(u16 *)(o + 0x32);
     gte_ldv0(&v[0]);
     gte_rtv0tr();
     gte_stlvnl(&r);
-    *(s16 *)(prim + 8) = r.vx;
-    *(s16 *)(prim + 0xA) = r.vy;
+    *(s16 *)(prim + 8) = r.field_0;
+    *(s16 *)(prim + 0xA) = r.field_4;
     gte_ldv0(&v[1]);
     gte_rtv0tr();
     gte_stlvnl(&r);
-    *(s16 *)(prim + 0x10) = r.vx;
-    *(s16 *)(prim + 0x12) = r.vy;
+    *(s16 *)(prim + 0x10) = r.field_0;
+    *(s16 *)(prim + 0x12) = r.field_4;
     gte_ldv0(&v[2]);
     gte_rtv0tr();
     gte_stlvnl(&r);
-    *(s16 *)(prim + 0x18) = r.vx;
-    *(s16 *)(prim + 0x1A) = r.vy;
+    *(s16 *)(prim + 0x18) = r.field_0;
+    *(s16 *)(prim + 0x1A) = r.field_4;
     gte_ldv0(&v[3]);
     gte_rtv0tr();
     gte_stlvnl(&r);
-    *(s16 *)(prim + 0x20) = r.vx;
-    *(s16 *)(prim + 0x22) = r.vy;
+    *(s16 *)(prim + 0x20) = r.field_0;
+    *(s16 *)(prim + 0x22) = r.field_4;
 }
 
 extern MATRIX D_800A63F0;
@@ -5651,7 +5651,7 @@ void func_8001DA34(u8 *o) {
     n.vz = -0x1000;
     tp = (attr >> 24) & 3;
     sh = 2 - tp;
-    ot = g_WorldOtTable[D_800B9A02];
+    ot = D_800A6610[D_800B9A02];
     if (!(attr & 0x1040)) {
         if (*(MATRIX **)(o + 0x34) != 0) {
             m = **(MATRIX **)(o + 0x34);
@@ -5687,11 +5687,11 @@ void func_8001DA34(u8 *o) {
         func_8001E378(o);
     }
     do {
-        prim = (u8 *)g_PrimNext;
+        prim = (u8 *)D_800A5E60;
         f = *(u16 *)s;
         x = *(u16 *)(o + 0x28) + (*(s16 *)(s + 4) >> sh);
         y = *(u16 *)(o + 0x2A) + *(u16 *)(s + 6);
-        g_PrimNext += 0x28;
+        D_800A5E60 += 0x28;
         prim[3] = 9;
         prim[7] = 0x2C;
         if (attr & 0x40000000) {
@@ -5767,119 +5767,119 @@ void func_8001DA34(u8 *o) {
 }
 
 void func_8001E094(u8 *o) {
-    Mtx s;
-    Mtx m;
-    Mtx *g = &D_800AF648;
-    s.m[0][0] = *(u16 *)(o + 0x18);
-    s.m[0][1] = 0;
-    s.m[0][2] = 0;
-    s.m[1][0] = 0;
-    s.m[1][1] = *(u16 *)(o + 0x1A);
-    s.m[1][2] = 0;
-    s.m[2][0] = 0;
-    s.m[2][1] = 0;
-    s.m[2][2] = *(u16 *)(o + 0x1C);
-    gte_SetRotMatrix(*(Mtx **)(o + 0x34));
-    gte_ldclmv(&s.m[0][0]);
+    struct_20_3 s;
+    struct_20_3 m;
+    struct_20_3 *g = &D_800AF648;
+    s.field_0[0][0] = *(u16 *)(o + 0x18);
+    s.field_0[0][1] = 0;
+    s.field_0[0][2] = 0;
+    s.field_0[1][0] = 0;
+    s.field_0[1][1] = *(u16 *)(o + 0x1A);
+    s.field_0[1][2] = 0;
+    s.field_0[2][0] = 0;
+    s.field_0[2][1] = 0;
+    s.field_0[2][2] = *(u16 *)(o + 0x1C);
+    gte_SetRotMatrix(*(struct_20_3 **)(o + 0x34));
+    gte_ldclmv(&s.field_0[0][0]);
     gte_rtir();
-    gte_stclmv(&m.m[0][0]);
-    gte_ldclmv(&s.m[0][1]);
+    gte_stclmv(&m.field_0[0][0]);
+    gte_ldclmv(&s.field_0[0][1]);
     gte_rtir();
-    gte_stclmv(&m.m[0][1]);
-    gte_ldclmv(&s.m[0][2]);
+    gte_stclmv(&m.field_0[0][1]);
+    gte_ldclmv(&s.field_0[0][2]);
     gte_rtir();
-    gte_stclmv(&m.m[0][2]);
-    m.t[0] = (*(Mtx **)(o + 0x34))->t[0];
-    m.t[1] = (*(Mtx **)(o + 0x34))->t[1];
-    m.t[2] = (*(Mtx **)(o + 0x34))->t[2];
+    gte_stclmv(&m.field_0[0][2]);
+    m.field_14[0] = (*(struct_20_3 **)(o + 0x34))->field_14[0];
+    m.field_14[1] = (*(struct_20_3 **)(o + 0x34))->field_14[1];
+    m.field_14[2] = (*(struct_20_3 **)(o + 0x34))->field_14[2];
     gte_SetRotMatrix(g);
-    gte_ldclmv(&m.m[0][0]);
+    gte_ldclmv(&m.field_0[0][0]);
     gte_rtir();
-    gte_stclmv(&m.m[0][0]);
-    gte_ldclmv(&m.m[0][1]);
+    gte_stclmv(&m.field_0[0][0]);
+    gte_ldclmv(&m.field_0[0][1]);
     gte_rtir();
-    gte_stclmv(&m.m[0][1]);
-    gte_ldclmv(&m.m[0][2]);
+    gte_stclmv(&m.field_0[0][1]);
+    gte_ldclmv(&m.field_0[0][2]);
     gte_rtir();
-    gte_stclmv(&m.m[0][2]);
+    gte_stclmv(&m.field_0[0][2]);
     gte_SetTransMatrix(g);
-    gte_ldlv0(m.t);
+    gte_ldlv0(m.field_14);
     gte_rtv0tr();
-    gte_stlvnl(m.t);
+    gte_stlvnl(m.field_14);
     gte_SetRotMatrix(&m);
     gte_SetTransMatrix(&m);
 }
 
 void func_8001E378(u8 *o) {
-    Mtx s;
-    Mtx m;
-    Mtx *d;
+    struct_20_3 s;
+    struct_20_3 m;
+    struct_20_3 *d;
     RotMatrix(o + 0x10, &m);
     d = &D_800AF648;
-    s.m[0][0] = *(u16 *)(o + 0x18);
-    s.m[0][1] = 0;
-    s.m[0][2] = 0;
-    s.m[1][0] = 0;
-    s.m[1][1] = *(u16 *)(o + 0x1A);
-    s.m[1][2] = 0;
-    s.m[2][0] = 0;
-    s.m[2][1] = 0;
-    s.m[2][2] = *(u16 *)(o + 0x1C);
+    s.field_0[0][0] = *(u16 *)(o + 0x18);
+    s.field_0[0][1] = 0;
+    s.field_0[0][2] = 0;
+    s.field_0[1][0] = 0;
+    s.field_0[1][1] = *(u16 *)(o + 0x1A);
+    s.field_0[1][2] = 0;
+    s.field_0[2][0] = 0;
+    s.field_0[2][1] = 0;
+    s.field_0[2][2] = *(u16 *)(o + 0x1C);
     gte_SetRotMatrix(&m);
-    gte_ldclmv(&s.m[0][0]);
+    gte_ldclmv(&s.field_0[0][0]);
     gte_rtir();
-    gte_stclmv(&m.m[0][0]);
-    gte_ldclmv(&s.m[0][1]);
+    gte_stclmv(&m.field_0[0][0]);
+    gte_ldclmv(&s.field_0[0][1]);
     gte_rtir();
-    gte_stclmv(&m.m[0][1]);
-    gte_ldclmv(&s.m[0][2]);
+    gte_stclmv(&m.field_0[0][1]);
+    gte_ldclmv(&s.field_0[0][2]);
     gte_rtir();
-    gte_stclmv(&m.m[0][2]);
-    m.t[0] = *(s16 *)(o + 8);
-    m.t[1] = *(s16 *)(o + 0xA);
-    m.t[2] = *(s16 *)(o + 0xC);
+    gte_stclmv(&m.field_0[0][2]);
+    m.field_14[0] = *(s16 *)(o + 8);
+    m.field_14[1] = *(s16 *)(o + 0xA);
+    m.field_14[2] = *(s16 *)(o + 0xC);
     gte_SetRotMatrix(d);
-    gte_ldclmv(&m.m[0][0]);
+    gte_ldclmv(&m.field_0[0][0]);
     gte_rtir();
-    gte_stclmv(&m.m[0][0]);
-    gte_ldclmv(&m.m[0][1]);
+    gte_stclmv(&m.field_0[0][0]);
+    gte_ldclmv(&m.field_0[0][1]);
     gte_rtir();
-    gte_stclmv(&m.m[0][1]);
-    gte_ldclmv(&m.m[0][2]);
+    gte_stclmv(&m.field_0[0][1]);
+    gte_ldclmv(&m.field_0[0][2]);
     gte_rtir();
-    gte_stclmv(&m.m[0][2]);
+    gte_stclmv(&m.field_0[0][2]);
     gte_SetTransMatrix(d);
-    gte_ldlv0(&m.t);
+    gte_ldlv0(&m.field_14);
     gte_rtv0tr();
-    gte_stlvnl(&m.t);
+    gte_stlvnl(&m.field_14);
     gte_SetRotMatrix(&m);
     gte_SetTransMatrix(&m);
 }
 
 s32 func_8001E668(u8 *o, u8 *s, u8 *prim, s32 *flag) {
-    SVec v[4];
-    struct { s32 flag2; s32 otz; } t;
-    v[0].vx = *(u16 *)(o + 0x2E) + *(u16 *)(s + 8);
-    v[0].vy = *(u16 *)(o + 0x30) + *(u16 *)(s + 0xA);
-    v[1].vx = s[2] + (*(u16 *)(o + 0x2E) + *(u16 *)(s + 8));
-    v[1].vy = *(u16 *)(o + 0x30) + *(u16 *)(s + 0xA);
-    v[2].vx = *(u16 *)(o + 0x2E) + *(u16 *)(s + 8);
-    v[2].vy = s[3] + (*(u16 *)(o + 0x30) + *(u16 *)(s + 0xA));
-    v[3].vx = s[2] + (*(u16 *)(o + 0x2E) + *(u16 *)(s + 8));
-    v[3].vy = s[3] + (*(u16 *)(o + 0x30) + *(u16 *)(s + 0xA));
-    v[0].vz = v[1].vz = v[2].vz = v[3].vz = *(u16 *)(o + 0x32);
+    struct_8_7 v[4];
+    struct { s32 field_0; s32 field_4; } t;
+    v[0].field_0 = *(u16 *)(o + 0x2E) + *(u16 *)(s + 8);
+    v[0].field_2 = *(u16 *)(o + 0x30) + *(u16 *)(s + 0xA);
+    v[1].field_0 = s[2] + (*(u16 *)(o + 0x2E) + *(u16 *)(s + 8));
+    v[1].field_2 = *(u16 *)(o + 0x30) + *(u16 *)(s + 0xA);
+    v[2].field_0 = *(u16 *)(o + 0x2E) + *(u16 *)(s + 8);
+    v[2].field_2 = s[3] + (*(u16 *)(o + 0x30) + *(u16 *)(s + 0xA));
+    v[3].field_0 = s[2] + (*(u16 *)(o + 0x2E) + *(u16 *)(s + 8));
+    v[3].field_2 = s[3] + (*(u16 *)(o + 0x30) + *(u16 *)(s + 0xA));
+    v[0].field_4 = v[1].field_4 = v[2].field_4 = v[3].field_4 = *(u16 *)(o + 0x32);
     gte_ldv3(&v[0], &v[1], &v[2]);
     gte_rtpt();
     gte_stflg(flag);
     gte_stsxy3(prim + 8, prim + 0x10, prim + 0x18);
     gte_ldv0(&v[3]);
     gte_rtps();
-    gte_stflg(&t.flag2);
-    *flag |= t.flag2;
+    gte_stflg(&t.field_0);
+    *flag |= t.field_0;
     gte_stsxy(prim + 0x20);
     gte_avsz4();
-    gte_stotz(&t.otz);
-    return t.otz;
+    gte_stotz(&t.field_4);
+    return t.field_4;
 }
 
 typedef struct {
@@ -5894,7 +5894,7 @@ typedef struct {
      s16 scalex, scaley;
      s32 rotate;
 } GsSPRITE;
-extern void GsSortFastSprite(GsSPRITE *s, OtEnt *ot, u16 pri);
+extern void GsSortFastSprite(GsSPRITE *s, struct_14_3 *ot, u16 pri);
 
 void func_8001E7E0(u8 *o) {
     GsSPRITE s;
@@ -5903,7 +5903,7 @@ void func_8001E7E0(u8 *o) {
     u32 attr;
     s32 tp, sh;
     u16 x, y, tpage, f, bx, by;
-    OtEnt *ot;
+    struct_14_3 *ot;
     s32 v, w;
 
     pri = *(u16 *)(o + 0x2C) & 0x3FFF;
@@ -5950,11 +5950,11 @@ void func_8001E7E0(u8 *o) {
 void func_8001F730(u8 *a, u8 *c, u8 *p);
 
 void func_8001EA14(u8 *o) {
-    Mtx m;
-    Mtx *mp;
+    struct_20_3 m;
+    struct_20_3 *mp;
     u16 sxy[2];
-    SVec v0, v1;
-    LVec r;
+    struct_8_7 v0, v1;
+    struct_10_3 r;
     s32 flag, sz, otz;
     s32 sxy0, sxy1;
     u8 *e;
@@ -5985,7 +5985,7 @@ void func_8001EA14(u8 *o) {
         return;
     }
     pri = otz + 1;
-    ot = g_WorldOtTable[D_800B9A02];
+    ot = D_800A6610[D_800B9A02];
     c = *(u16 *)(o + 0x2C);
     if (c & 0xC000) {
         if ((c & 0xC000) == 0xC000) {
@@ -5998,16 +5998,16 @@ void func_8001EA14(u8 *o) {
         }
     }
     if ((u32)pri < 0x1000) {
-        m.m[0][0] = *(u16 *)(o + 0x18);
-        m.m[0][1] = 0;
-        m.m[0][2] = 0;
-        m.m[1][0] = 0;
-        m.m[1][1] = *(u16 *)(o + 0x1A);
-        m.m[1][2] = 0;
-        m.m[2][0] = 0;
-        m.m[2][1] = 0;
-        m.m[2][2] = 0x1000;
-        m.t[0] = m.t[1] = m.t[2] = 0;
+        m.field_0[0][0] = *(u16 *)(o + 0x18);
+        m.field_0[0][1] = 0;
+        m.field_0[0][2] = 0;
+        m.field_0[1][0] = 0;
+        m.field_0[1][1] = *(u16 *)(o + 0x1A);
+        m.field_0[1][2] = 0;
+        m.field_0[2][0] = 0;
+        m.field_0[2][1] = 0;
+        m.field_0[2][2] = 0x1000;
+        m.field_14[0] = m.field_14[1] = m.field_14[2] = 0;
         abr = (attr >> 28) & 3;
         tp = (attr >> 24) & 3;
         sh = 2 - tp;
@@ -6015,10 +6015,10 @@ void func_8001EA14(u8 *o) {
         gte_SetTransMatrix(&m);
         do {
             if (*(u16 *)e != 8) {
-                prim = (u8 *)g_PrimNext;
+                prim = (u8 *)D_800A5E60;
                 x = *(u16 *)(o + 0x28) + (*(s16 *)(e + 4) >> sh);
                 y = *(u16 *)(o + 0x2A) + *(u16 *)(e + 6);
-                g_PrimNext += 0x28;
+                D_800A5E60 += 0x28;
                 prim[3] = 9;
                 prim[7] = 0x2C;
                 if (attr & 0x40000000) {
@@ -6046,12 +6046,12 @@ void func_8001EA14(u8 *o) {
                 prim[4] = o[0x24];
                 prim[5] = o[0x25];
                 prim[6] = o[0x26];
-                v0.vx = *(u16 *)(e + 8);
-                v0.vy = *(u16 *)(e + 0xA);
-                v0.vz = sz;
-                v1.vx = e[2];
-                v1.vy = e[3];
-                v1.vz = sz;
+                v0.field_0 = *(u16 *)(e + 8);
+                v0.field_2 = *(u16 *)(e + 0xA);
+                v0.field_4 = sz;
+                v1.field_0 = e[2];
+                v1.field_2 = e[3];
+                v1.field_4 = sz;
                 if (*(u16 *)(o + 2) == 3) {
                     gte_ldv3(&v0, &v1, &v1);
                     gte_rtpt();
@@ -6065,13 +6065,13 @@ void func_8001EA14(u8 *o) {
                     gte_ldv0(&v0);
                     gte_rtv0();
                     gte_stlvnl(&r);
-                    *(u16 *)(prim + 8) = sxy[0] + r.vx;
-                    *(u16 *)(prim + 0xA) = sxy[1] + r.vy;
+                    *(u16 *)(prim + 8) = sxy[0] + r.field_0;
+                    *(u16 *)(prim + 0xA) = sxy[1] + r.field_4;
                     gte_ldv0(&v1);
                     gte_rtv0();
                     gte_stlvnl(&r);
-                    *(u16 *)(prim + 0x10) = *(u16 *)(prim + 8) + r.vx;
-                    *(u16 *)(prim + 0x1A) = *(u16 *)(prim + 0xA) + r.vy;
+                    *(u16 *)(prim + 0x10) = *(u16 *)(prim + 8) + r.field_0;
+                    *(u16 *)(prim + 0x1A) = *(u16 *)(prim + 0xA) + r.field_4;
                 }
                 *(u16 *)(prim + 0x12) = *(u16 *)(prim + 0xA);
                 *(u16 *)(prim + 0x18) = *(u16 *)(prim + 8);
@@ -6099,11 +6099,11 @@ void func_8001EFE0(u8 *o) {
     SVECTOR c;
     VECTOR s;
     SVECTOR v[2];
-    struct { u32 flg; MATRIX coord; MATRIX workm; void *param; void *super; void *sub; } co;
+    struct { u32 field_0; MATRIX field_4; MATRIX field_24; void *field_44; void *field_48; void *field_4C; } co;
     MATRIX ls;
     SVECTOR col;
-    struct { s32 flag; s32 sz; s32 otz; s16 x0, y0; s16 x1, y1; } t;
-    Work *w = &D_800AF630;
+    struct { s32 field_0; s32 field_4; s32 field_8; s16 field_C, field_E; s16 field_10, field_12; } t;
+    struct_A444 *w = &D_800AF630;
     u32 attr;
     u8 *p;
     u8 *prim;
@@ -6121,29 +6121,29 @@ void func_8001EFE0(u8 *o) {
     u16 tpg;
 
     attr = *(u32 *)(o + 4);
-    co.super = *(void **)(o + 0x78);
-    co.flg = 0;
+    co.field_48 = *(void **)(o + 0x78);
+    co.field_0 = 0;
     if (*(u16 *)(o + 0x2C) & 1) {
         *(u16 *)(o + 0x2C) &= ~1;
-        co.coord = *(MATRIX *)(o + 0x34);
+        co.field_4 = *(MATRIX *)(o + 0x34);
     } else {
-        RotMatrixZYX(o + 0x10, &co.coord);
-        co.coord.t[0] = *(s16 *)(o + 8);
-        co.coord.t[1] = *(s16 *)(o + 0xA);
-        co.coord.t[2] = *(s16 *)(o + 0xC);
+        RotMatrixZYX(o + 0x10, &co.field_4);
+        co.field_4.t[0] = *(s16 *)(o + 8);
+        co.field_4.t[1] = *(s16 *)(o + 0xA);
+        co.field_4.t[2] = *(s16 *)(o + 0xC);
     }
     s.vx = *(s16 *)(o + 0x18);
     s.vy = *(s16 *)(o + 0x1A);
     s.vz = *(s16 *)(o + 0x1C);
-    ScaleMatrix(&co.coord, &s);
+    ScaleMatrix(&co.field_4, &s);
     GsGetLs(&co, &ls);
-    *(MATRIX *)(o + 0x34) = co.coord;
-    *(MATRIX *)(o + 0x54) = co.workm;
+    *(MATRIX *)(o + 0x34) = co.field_4;
+    *(MATRIX *)(o + 0x54) = co.field_24;
     p = *(u8 **)(o + 0x20);
     if (p == NULL) {
         return;
     }
-    if (func_80021174(*(s32 *)(o + 0x28), co.workm.t) == 0) {
+    if (func_80021174(*(s32 *)(o + 0x28), co.field_24.t) == 0) {
         return;
     }
     gte_SetRotMatrix(&ls);
@@ -6152,14 +6152,14 @@ void func_8001EFE0(u8 *o) {
     gte_ldv0(&c);
     gte_rtps();
     gte_stsxy(&c);
-    gte_stflg(&t.flag);
-    gte_stsz(&t.sz);
-    gte_stszotz(&t.otz);
-    if (t.flag & ~0x1000) {
+    gte_stflg(&t.field_0);
+    gte_stsz(&t.field_4);
+    gte_stszotz(&t.field_8);
+    if (t.field_0 & ~0x1000) {
         return;
     }
-    z = t.otz + 1;
-    ot = g_WorldOtTable[w->frame];
+    z = t.field_8 + 1;
+    ot = D_800A6610[w->field_A3D2];
     k = *(u16 *)(o + 0x2E);
     if (k & 0xC000) {
         if ((k & 0xC000) == 0xC000) {
@@ -6197,10 +6197,10 @@ void func_8001EFE0(u8 *o) {
     do {
         f = *(u32 *)p;
         if ((f & 0xFF) != 8) {
-            prim = (u8 *)g_PrimNext;
+            prim = (u8 *)D_800A5E60;
             x = *(u16 *)(p + 4);
             y = *(u16 *)(p + 6);
-            g_PrimNext += 0x28;
+            D_800A5E60 += 0x28;
             prim[3] = 9;
             prim[7] = 0x2C;
             if (attr & 0x40000000) {
@@ -6246,21 +6246,21 @@ void func_8001EFE0(u8 *o) {
             prim[6] = col.vz;
             v[0].vx = *(u16 *)(p + 8);
             v[0].vy = *(u16 *)(p + 0xA);
-            v[0].vz = t.sz;
+            v[0].vz = t.field_4;
             v[1].vx = (f >> 16) & 0xFF;
             hh = f >> 24;
             v[1].vy = hh;
-            v[1].vz = t.sz;
+            v[1].vz = t.field_4;
             gte_ldv3(&v[0], &v[1], &v[1]);
             gte_rtpt();
-            gte_stsxy0(&t.x0);
-            gte_stsxy1(&t.x1);
-            *(u16 *)(prim + 8) = t.x0 + c.vx;
-            *(u16 *)(prim + 0xA) = t.y0 + c.vy;
-            *(u16 *)(prim + 0x10) = *(u16 *)(prim + 8) + t.x1;
+            gte_stsxy0(&t.field_C);
+            gte_stsxy1(&t.field_10);
+            *(u16 *)(prim + 8) = t.field_C + c.vx;
+            *(u16 *)(prim + 0xA) = t.field_E + c.vy;
+            *(u16 *)(prim + 0x10) = *(u16 *)(prim + 8) + t.field_10;
             *(u16 *)(prim + 0x18) = *(u16 *)(prim + 8);
             *(u16 *)(prim + 0x12) = *(u16 *)(prim + 0xA);
-            *(u16 *)(prim + 0x1A) = *(u16 *)(prim + 0xA) + t.y1;
+            *(u16 *)(prim + 0x1A) = *(u16 *)(prim + 0xA) + t.field_12;
             *(u16 *)(prim + 0x20) = *(u16 *)(prim + 0x10);
             *(u16 *)(prim + 0x22) = *(u16 *)(prim + 0x1A);
             if (*(u32 *)(o + 4) & 0x8000000) {
@@ -6274,22 +6274,22 @@ void func_8001EFE0(u8 *o) {
 
 void func_8001F730(u8 *a, u8 *c, u8 *p) {
     MATRIX m;
-    SVec v[4];
-    LVec r[4];
+    struct_8_7 v[4];
+    struct_10_3 r[4];
     func_80020DA4(a, (u8 *)&m);
     gte_SetRotMatrix(&m);
-    v[0].vx = *(u16 *)(p + 8) - *(u16 *)c;
-    v[0].vy = *(u16 *)(p + 0xA) - *(u16 *)(c + 2);
-    v[0].vz = 0;
-    v[1].vx = *(u16 *)(p + 0x10) - *(u16 *)c;
-    v[1].vy = *(u16 *)(p + 0x12) - *(u16 *)(c + 2);
-    v[1].vz = 0;
-    v[2].vx = *(u16 *)(p + 0x18) - *(u16 *)c;
-    v[2].vy = *(u16 *)(p + 0x1A) - *(u16 *)(c + 2);
-    v[2].vz = 0;
-    v[3].vx = *(u16 *)(p + 0x20) - *(u16 *)c;
-    v[3].vy = *(u16 *)(p + 0x22) - *(u16 *)(c + 2);
-    v[3].vz = 0;
+    v[0].field_0 = *(u16 *)(p + 8) - *(u16 *)c;
+    v[0].field_2 = *(u16 *)(p + 0xA) - *(u16 *)(c + 2);
+    v[0].field_4 = 0;
+    v[1].field_0 = *(u16 *)(p + 0x10) - *(u16 *)c;
+    v[1].field_2 = *(u16 *)(p + 0x12) - *(u16 *)(c + 2);
+    v[1].field_4 = 0;
+    v[2].field_0 = *(u16 *)(p + 0x18) - *(u16 *)c;
+    v[2].field_2 = *(u16 *)(p + 0x1A) - *(u16 *)(c + 2);
+    v[2].field_4 = 0;
+    v[3].field_0 = *(u16 *)(p + 0x20) - *(u16 *)c;
+    v[3].field_2 = *(u16 *)(p + 0x22) - *(u16 *)(c + 2);
+    v[3].field_4 = 0;
     gte_ldv0(&v[0]);
     gte_rtv0();
     gte_stlvnl(&r[0]);
@@ -6302,14 +6302,14 @@ void func_8001F730(u8 *a, u8 *c, u8 *p) {
     gte_ldv0(&v[3]);
     gte_rtv0();
     gte_stlvnl(&r[3]);
-    *(u16 *)(p + 8) = *(u16 *)c + r[0].vx;
-    *(u16 *)(p + 0xA) = *(u16 *)(c + 2) + r[0].vy;
-    *(u16 *)(p + 0x10) = *(u16 *)c + r[1].vx;
-    *(u16 *)(p + 0x12) = *(u16 *)(c + 2) + r[1].vy;
-    *(u16 *)(p + 0x18) = *(u16 *)c + r[2].vx;
-    *(u16 *)(p + 0x1A) = *(u16 *)(c + 2) + r[2].vy;
-    *(u16 *)(p + 0x20) = *(u16 *)c + r[3].vx;
-    *(u16 *)(p + 0x22) = *(u16 *)(c + 2) + r[3].vy;
+    *(u16 *)(p + 8) = *(u16 *)c + r[0].field_0;
+    *(u16 *)(p + 0xA) = *(u16 *)(c + 2) + r[0].field_4;
+    *(u16 *)(p + 0x10) = *(u16 *)c + r[1].field_0;
+    *(u16 *)(p + 0x12) = *(u16 *)(c + 2) + r[1].field_4;
+    *(u16 *)(p + 0x18) = *(u16 *)c + r[2].field_0;
+    *(u16 *)(p + 0x1A) = *(u16 *)(c + 2) + r[2].field_4;
+    *(u16 *)(p + 0x20) = *(u16 *)c + r[3].field_0;
+    *(u16 *)(p + 0x22) = *(u16 *)(c + 2) + r[3].field_4;
 }
 
 void func_8001F974(void) {
@@ -6390,8 +6390,8 @@ extern void GsGetLws(void *coord, MATRIX *lw, MATRIX *ls);
 extern void GsLinkObject4(u32 tmd, void *obj, s32 n);
 extern void GsSetLightMatrix2(MATRIX *m);
 extern void GsSetLsMatrix(MATRIX *m);
-extern void GsSortObject4(void *obj, OtEnt *ot, s32 shift, s32 scratch);
-extern void GsSortObject5(void *obj, OtEnt *ot, s32 shift, s32 scratch);
+extern void GsSortObject4(void *obj, struct_14_3 *ot, s32 shift, s32 scratch);
+extern void GsSortObject5(void *obj, struct_14_3 *ot, s32 shift, s32 scratch);
 extern s32 func_80020248();
 extern void func_80020598(u32 *parts, u32 pose, MATRIX *lw, MATRIX *ls);
 extern s32 func_80020A28();
@@ -6405,15 +6405,15 @@ void func_800243EC();
 void func_80027BF0();
 
 void func_8001FC08(u8 *o) {
-    struct { u32 attr; void *coord2; u32 tmd; u32 packet; u32 id; } obj;
+    struct { u32 field_0; void *field_4; u32 field_8; u32 field_C; u32 field_10; } obj;
     MATRIX lw;
     MATRIX ls;
-    struct { u32 flg; MATRIX coord; MATRIX workm; void *param; void *super; void *sub; } c;
-    struct { s16 *p; s32 n; } bg;
+    struct { u32 field_0; MATRIX field_4; MATRIX field_24; void *field_44; void *field_48; void *field_4C; } c;
+    struct { s16 *field_0; s32 field_4; } bg;
     u32 attr;
     s32 kind;
     u16 flags;
-    OtEnt *ot;
+    struct_14_3 *ot;
     s32 scratch;
     u8 *d;
     u32 cnt;
@@ -6430,17 +6430,17 @@ void func_8001FC08(u8 *o) {
     attr = *(u32 *)(o + 4);
     kind = *(u16 *)(o + 2);
     flags = *(u16 *)(o + 0x2C);
-    c.super = *(void **)(o + 0x78);
+    c.field_48 = *(void **)(o + 0x78);
     scratch = D_80062BA8;
-    c.flg = 0;
+    c.field_0 = 0;
     if (flags & 1) {
         *(u16 *)(o + 0x2C) &= 0xFFFE;
-        c.coord = *(MATRIX *)(o + 0x34);
+        c.field_4 = *(MATRIX *)(o + 0x34);
     } else {
-        func_80020DA4(o + 0x10, (u8 *)&c.coord);
-        c.coord.t[0] = *(s16 *)(o + 8);
-        c.coord.t[1] = *(s16 *)(o + 0xA);
-        c.coord.t[2] = *(s16 *)(o + 0xC);
+        func_80020DA4(o + 0x10, (u8 *)&c.field_4);
+        c.field_4.t[0] = *(s16 *)(o + 8);
+        c.field_4.t[1] = *(s16 *)(o + 0xA);
+        c.field_4.t[2] = *(s16 *)(o + 0xC);
     }
     d = 0;
     if (flags & 0x20) {
@@ -6448,21 +6448,21 @@ void func_8001FC08(u8 *o) {
     }
     if (flags & 0x80) {
         if (d != 0) {
-            bg.p = (s16 *)(*(u8 **)(o + 0x80) + 0x30);
+            bg.field_0 = (s16 *)(*(u8 **)(o + 0x80) + 0x30);
         } else {
-            bg.p = *(s16 **)(o + 0x80);
+            bg.field_0 = *(s16 **)(o + 0x80);
         }
     } else {
-        bg.p = 0;
+        bg.field_0 = 0;
     }
-    bg.n = 0;
+    bg.field_4 = 0;
     cnt = 0;
     if (flags & 0x10) {
-        func_80020F34((u8 *)&c.coord, o + 0x18);
+        func_80020F34((u8 *)&c.field_4, o + 0x18);
     }
     GsGetLws(&c, &lw, &ls);
-    *(MATRIX *)(o + 0x34) = c.coord;
-    *(MATRIX *)(o + 0x54) = c.workm;
+    *(MATRIX *)(o + 0x34) = c.field_4;
+    *(MATRIX *)(o + 0x54) = c.field_24;
     parts = *(u32 **)(o + 0x24);
     if (parts == 0) {
         return;
@@ -6471,15 +6471,15 @@ void func_8001FC08(u8 *o) {
     if (pose == 0) {
         return;
     }
-    if (func_80021174(*(s32 *)(o + 0x28), c.workm.t) == 0) {
+    if (func_80021174(*(s32 *)(o + 0x28), c.field_24.t) == 0) {
         return;
     }
     if (kind == 1 || kind == 6) {
         h = D_800A5BD0 + *(u16 *)(o + 0x2E) * 0x14;
-        obj.attr = attr;
-        obj.id = 0;
+        obj.field_0 = attr;
+        obj.field_10 = 0;
     } else {
-        obj.attr = attr;
+        obj.field_0 = attr;
     }
     if (d != 0) {
         func_80021008(d);
@@ -6501,8 +6501,8 @@ void func_8001FC08(u8 *o) {
                     GsSetLightMatrix2(lp);
                 }
                 GsSetLsMatrix(sp);
-                if (bg.p != 0) {
-                    func_8002109C(bg.n, &bg.p);
+                if (bg.field_0 != 0) {
+                    func_8002109C(bg.field_4, &bg.field_0);
                 }
                 if (kind == 0) {
                     GsSortObject4(&obj, ot, 0, scratch);
@@ -6510,8 +6510,8 @@ void func_8001FC08(u8 *o) {
                     func_800243EC(&obj, ot, 0);
                 }
             }
-            if (bg.p != 0) {
-                func_80021120(&bg.n, bg.p);
+            if (bg.field_0 != 0) {
+                func_80021120(&bg.field_4, bg.field_0);
             }
         }
     } else {
@@ -6538,18 +6538,18 @@ void func_8001FC08(u8 *o) {
                 if (kind == 0 || kind == 5) {
                     GsLinkObject4(w + 0xC, &obj, 0);
                 } else if (kind == 1 || kind == 6) {
-                    obj.tmd = *(u32 *)(h + 8);
-                    obj.packet = *(u32 *)(h + 0xC);
+                    obj.field_8 = *(u32 *)(h + 8);
+                    obj.field_C = *(u32 *)(h + 0xC);
                     h += 0x14;
                 } else {
-                    obj.tmd = w;
+                    obj.field_8 = w;
                 }
                 if (!(attr & 0x40)) {
                     GsSetLightMatrix2(lp);
                 }
                 GsSetLsMatrix(sp);
-                if (!(flags & 0x40) && bg.p != 0) {
-                    func_8002109C(bg.n, &bg.p);
+                if (!(flags & 0x40) && bg.field_0 != 0) {
+                    func_8002109C(bg.field_4, &bg.field_0);
                 }
                 if (kind == 0) {
                     GsSortObject4(&obj, ot, 0, scratch);
@@ -6566,8 +6566,8 @@ void func_8001FC08(u8 *o) {
                     func_800243EC(&obj, ot, 0);
                 }
             }
-            if (!(flags & 0x40) && bg.p != 0) {
-                func_80021120(&bg.n, bg.p);
+            if (!(flags & 0x40) && bg.field_0 != 0) {
+                func_80021120(&bg.field_4, bg.field_0);
             }
         }
     }
@@ -6642,7 +6642,7 @@ extern u16 D_80126D12;
 
 void func_80020598(u32 *list, u32 pose, MATRIX *a, MATRIX *b) {
     MATRIX m;
-    SVec v;
+    struct_8_7 v;
     MATRIX *o;
     s32 i;
     u32 w;
@@ -6653,10 +6653,10 @@ void func_80020598(u32 *list, u32 pose, MATRIX *a, MATRIX *b) {
     while (*list != 0) {
         switch (i) {
         case 0:
-            v.vx = *(u16 *)((u8 *)pose + 0x1E);
+            v.field_0 = *(u16 *)((u8 *)pose + 0x1E);
             w = *(u32 *)((u8 *)pose + 0x18);
-            v.vy = ((w >> 8) & 0xFF) | (w & 0xF) << 8;
-            v.vz = ((w >> 16) & 0xFF) | (w & 0xF0) << 4;
+            v.field_2 = ((w >> 8) & 0xFF) | (w & 0xF) << 8;
+            v.field_4 = ((w >> 16) & 0xFF) | (w & 0xF0) << 4;
             func_80020DA4((u8 *)&v, (u8 *)&m);
             ((void (*)())func_80012558)(&m, 0x800); /* MATCH-TRICK: the original calls it out of line (its caller sat in another source file); the cast stops GCC inlining it */
             m.t[0] = (s8)((u8 *)pose)[0];
@@ -6664,10 +6664,10 @@ void func_80020598(u32 *list, u32 pose, MATRIX *a, MATRIX *b) {
             m.t[2] = (s8)((u8 *)pose)[2];
             break;
         case 1:
-            v.vx = *(u16 *)((u8 *)pose + 0x1E);
+            v.field_0 = *(u16 *)((u8 *)pose + 0x1E);
             w = *(u32 *)((u8 *)pose + 0x18);
-            v.vy = ((w >> 8) & 0xFF) | (w & 0xF) << 8;
-            v.vz = ((w >> 16) & 0xFF) | (w & 0xF0) << 4;
+            v.field_2 = ((w >> 8) & 0xFF) | (w & 0xF) << 8;
+            v.field_4 = ((w >> 16) & 0xFF) | (w & 0xF0) << 4;
             func_80020DA4((u8 *)&v, (u8 *)&m);
             m.t[0] = (s8)((u8 *)pose)[3];
             m.t[1] = (s8)((u8 *)pose)[4];
@@ -6675,10 +6675,10 @@ void func_80020598(u32 *list, u32 pose, MATRIX *a, MATRIX *b) {
             pose += 8;
             break;
         default:
-            v.vx = *(u16 *)((u8 *)pose + 6);
+            v.field_0 = *(u16 *)((u8 *)pose + 6);
             w = *(u32 *)pose;
-            v.vy = ((w >> 8) & 0xFF) | (w & 0xF) << 8;
-            v.vz = ((w >> 16) & 0xFF) | (w & 0xF0) << 4;
+            v.field_2 = ((w >> 8) & 0xFF) | (w & 0xF) << 8;
+            v.field_4 = ((w >> 16) & 0xFF) | (w & 0xF0) << 4;
             func_80020DA4((u8 *)&v, (u8 *)&m);
             m.t[0] = (s8)((u8 *)pose)[3];
             m.t[1] = (s8)((u8 *)pose)[4];
@@ -6686,15 +6686,15 @@ void func_80020598(u32 *list, u32 pose, MATRIX *a, MATRIX *b) {
             pose += 8;
             if (i == 0x19) {
                 s = D_80126C4E;
-                v.vx = v.vy = v.vz = s;
+                v.field_0 = v.field_2 = v.field_4 = s;
                 func_80020F34((u8 *)&m, (u8 *)&v);
             } else if (i == 0x16) {
                 s = D_80126D10;
-                v.vx = v.vy = v.vz = s;
+                v.field_0 = v.field_2 = v.field_4 = s;
                 func_80020F34((u8 *)&m, (u8 *)&v);
             } else if (i == 8) {
                 s = D_80126D12;
-                v.vx = v.vy = v.vz = s;
+                v.field_0 = v.field_2 = v.field_4 = s;
                 func_80020F34((u8 *)&m, (u8 *)&v);
             }
             break;
@@ -6831,9 +6831,9 @@ void func_80020DA4(u8 *p0, u8 *p1) {
 INCLUDE_ASM("asm/nonmatchings/code_800123F0", func_80020F34);
 
 void func_80021008(u8 *a) {
-    func_80028620(0, (LightDir *)a);
-    func_80028620(1, (LightDir *)(a + 0x10));
-    func_80028620(2, (LightDir *)(a + 0x20));
+    func_80028620(0, (struct_10 *)a);
+    func_80028620(1, (struct_10 *)(a + 0x10));
+    func_80028620(2, (struct_10 *)(a + 0x20));
 }
 
 void func_80021050(void) {
@@ -6858,7 +6858,7 @@ void func_80021120(s32 *p) {
 }
 
 s32 func_80021174(s32 wh, s32 *v, s32 unused) {
-    struct { s16 sx, sy; s32 flag; s32 z; } t;
+    struct { s16 field_0, field_2; s32 field_4; s32 field_8; } t;
     s32 w, h;
     if (wh == 0x7FFF7FFF) {
         return 1;
@@ -6867,50 +6867,50 @@ s32 func_80021174(s32 wh, s32 *v, s32 unused) {
     gte_SetTransMatrix(&D_800AE688);
     gte_ldlv0(v);
     gte_rtps();
-    gte_stsxy(&t.sx);
-    gte_stflg(&t.flag);
-    gte_stszotz(&t.z);
-    if (t.flag < 0) { return 0; }
-    w = (s16)wh; if (-w < t.sx) { if (t.sx <= w) { h = wh >> 16; if (-h < t.sy) { if (t.sy <= h) { return 1; } } } } return 0;
+    gte_stsxy(&t.field_0);
+    gte_stflg(&t.field_4);
+    gte_stszotz(&t.field_8);
+    if (t.field_4 < 0) { return 0; }
+    w = (s16)wh; if (-w < t.field_0) { if (t.field_0 <= w) { h = wh >> 16; if (-h < t.field_2) { if (t.field_2 <= h) { return 1; } } } } return 0;
 }
 
 typedef struct {
-    u32 tag;
-    u8 r0, g0, b0, code;
-    s16 x0, y0;
-    u8 r1, g1, b1, p1;
-    s16 x1, y1;
-    u8 r2, g2, b2, p2;
-    s16 x2, y2;
-    u8 r3, g3, b3, p3;
-    s16 x3, y3;
-} G4_21284;
+    u32 field_0;
+    u8 field_4, field_5, field_6, field_7;
+    s16 field_8, field_A;
+    u8 field_C, field_D, field_E, field_F;
+    s16 field_10, field_12;
+    u8 field_14, field_15, field_16, field_17;
+    s16 field_18, field_1A;
+    u8 field_1C, field_1D, field_1E, field_1F;
+    s16 field_20, field_22;
+} struct_24_2;
 typedef struct {
-    u8 pad00[4];
-    u32 f;
-    u8 pad08[0x18];
-    u8 *c;
-    u8 pad24[8];
-    u16 z;
-    s16 x, y, zz;
-} Obj21284;
+    u8 field_0[4];
+    u32 field_4;
+    u8 field_8[0x18];
+    u8 *field_20;
+    u8 field_24[8];
+    u16 field_2C;
+    s16 field_2E, field_30, field_32;
+} struct_34_3;
 
-void func_80021284(Obj21284 *o) {
+void func_80021284(struct_34_3 *o) {
     SVECTOR a;
     SVECTOR b;
     VECTOR v[13];
     s32 flag;
-    G4_21284 *p = (G4_21284 *)g_PrimNext;
-    u8 *c = o->c;
-    u32 f = o->f;
-    u32 *ot = &g_WorldOtTable[D_800B9A02][o->z & 0xFFF];
+    struct_24_2 *p = (struct_24_2 *)D_800A5E60;
+    u8 *c = o->field_20;
+    u32 f = o->field_4;
+    u32 *ot = &D_800A6610[D_800B9A02][o->field_2C & 0xFFF];
     s32 i;
     u8 code;
-    g_PrimNext = (s32)(p + 6);
+    D_800A5E60 = (s32)(p + 6);
     func_8001D70C((u8 *)o);
-    a.vx = o->x;
-    a.vy = o->y;
-    a.vz = o->zz;
+    a.vx = o->field_2E;
+    a.vy = o->field_30;
+    a.vz = o->field_32;
     gte_ldv0(&a);
     gte_rtv0tr();
     gte_stlvnl(&v[0]);
@@ -6930,36 +6930,36 @@ void func_80021284(Obj21284 *o) {
     }
     for (i = 1; i < 13; i += 2) {
         setlen(p, 8);
-        p->code = code;
-        p->r0 = c[4];
-        p->g0 = c[5];
-        p->b0 = c[6];
-        p->r1 = c[4];
-        p->g1 = c[5];
-        p->b1 = c[6];
-        p->r2 = c[0];
-        p->g2 = c[1];
-        p->b2 = c[2];
-        p->r3 = c[4];
-        p->g3 = c[5];
-        p->b3 = c[6];
-        p->x0 = v[i].vx;
-        p->y0 = v[i].vy;
-        p->x1 = v[i + 1].vx;
-        p->y1 = v[i + 1].vy;
-        p->x2 = v[0].vx;
-        p->y2 = v[0].vy;
-        p->x3 = v[i + 2].vx;
-        p->y3 = v[i + 2].vy;
+        p->field_7 = code;
+        p->field_4 = c[4];
+        p->field_5 = c[5];
+        p->field_6 = c[6];
+        p->field_C = c[4];
+        p->field_D = c[5];
+        p->field_E = c[6];
+        p->field_14 = c[0];
+        p->field_15 = c[1];
+        p->field_16 = c[2];
+        p->field_1C = c[4];
+        p->field_1D = c[5];
+        p->field_1E = c[6];
+        p->field_8 = v[i].vx;
+        p->field_A = v[i].vy;
+        p->field_10 = v[i + 1].vx;
+        p->field_12 = v[i + 1].vy;
+        p->field_18 = v[0].vx;
+        p->field_1A = v[0].vy;
+        p->field_20 = v[i + 2].vx;
+        p->field_22 = v[i + 2].vy;
         addPrim(ot, p);
         p++;
     }
     /* the last quad's x3/y3 read v[13] (one past the array, the flag word) in the loop, as the original; closed here */
-    p[-1].x3 = v[1].vx;
-    p[-1].y3 = v[1].vy;
+    p[-1].field_20 = v[1].vx;
+    p[-1].field_22 = v[1].vy;
     if (f & 0x40000000) {
         ((u32 *)p)[1] = 0xE1000000 | ((f >> 23) & 0x60);
-        g_PrimNext += 8;
+        D_800A5E60 += 8;
         setlen(p, 1);
         addPrim(ot, p);
     }
@@ -6972,37 +6972,37 @@ extern void func_800226C0();
 static u32 s2_800226C0;
 #endif
 extern void func_80023138();
-typedef struct { u8 pad[0x10]; struct { s16 x, y; } pt[12]; } PtSet;
+typedef struct { u8 field_0[0x10]; struct { s16 field_0, field_2; } field_10[12]; } struct_40;
 
 void func_800215F4(u8 *o) {
-    SVec p;
-    SVec v[3];
+    struct_8_7 p;
+    struct_8_7 v[3];
     s32 out[36];
     s32 flag;
     s32 z;
     s32 flag2;
     u32 *ot;
-    PtSet *d;
+    struct_40 *d;
     s32 i;
     s32 w;
     s32 zz;
     u16 m;
     u16 n;
 
-    ot = g_WorldOtTable[D_800B9A02];
-    d = *(PtSet **)(o + 0x20);
+    ot = D_800A6610[D_800B9A02];
+    d = *(struct_40 **)(o + 0x20);
     if (*(s32 *)(o + 0x34) != 0) {
         func_8001E094(o);
     } else {
         func_8001E378(o);
     }
     if (*(s32 *)(o + 4) & 0x100) {
-        v[1].vx = 16;
-        v[2].vx = -16;
-        v[0].vy = -19;
-        v[1].vy = v[2].vy = 8;
-        v[0].vx = 0;
-        v[0].vz = v[1].vz = v[2].vz = 0;
+        v[1].field_0 = 16;
+        v[2].field_0 = -16;
+        v[0].field_2 = -19;
+        v[1].field_2 = v[2].field_2 = 8;
+        v[0].field_0 = 0;
+        v[0].field_4 = v[1].field_4 = v[2].field_4 = 0;
         gte_ldv3(&v[0], &v[1], &v[2]);
         gte_rtpt();
         gte_stflg(&flag);
@@ -7015,9 +7015,9 @@ void func_800215F4(u8 *o) {
             return;
         }
     }
-    p.vx = *(u16 *)(o + 0x2E);
-    p.vy = *(u16 *)(o + 0x30);
-    p.vz = *(u16 *)(o + 0x32);
+    p.field_0 = *(u16 *)(o + 0x2E);
+    p.field_2 = *(u16 *)(o + 0x30);
+    p.field_4 = *(u16 *)(o + 0x32);
     gte_ldv0(&p);
     gte_rtps();
     gte_stsxy(&out[0]);
@@ -7044,23 +7044,23 @@ void func_800215F4(u8 *o) {
     i = 0;
     if ((*(s16 *)(o + 0x1E) & 0x8000) || *(s16 *)(o + 0xE) != 0) {
         for (i = 0; i < 12; i += 6) {
-            v[0].vx = p.vx + d->pt[i].x;
-            v[0].vy = p.vy + d->pt[i].y;
-            v[0].vz = p.vz;
-            v[1].vx = p.vx + d->pt[i + 2].x;
-            v[1].vy = p.vy + d->pt[i + 2].y;
-            v[1].vz = p.vz;
-            v[2].vx = p.vx + d->pt[i + 4].x;
-            v[2].vy = p.vy + d->pt[i + 4].y;
-            v[2].vz = p.vz;
+            v[0].field_0 = p.field_0 + d->field_10[i].field_0;
+            v[0].field_2 = p.field_2 + d->field_10[i].field_2;
+            v[0].field_4 = p.field_4;
+            v[1].field_0 = p.field_0 + d->field_10[i + 2].field_0;
+            v[1].field_2 = p.field_2 + d->field_10[i + 2].field_2;
+            v[1].field_4 = p.field_4;
+            v[2].field_0 = p.field_0 + d->field_10[i + 4].field_0;
+            v[2].field_2 = p.field_2 + d->field_10[i + 4].field_2;
+            v[2].field_4 = p.field_4;
             gte_ldv3(&v[0], &v[1], &v[2]);
             gte_rtpt();
             gte_stsxy3(&out[i + 1], &out[i + 3], &out[i + 5]);
         }
         for (i = 1; i < 12; i += 2) {
-            v[0].vx = p.vx + d->pt[i].x;
-            v[0].vy = p.vy + d->pt[i].y;
-            v[0].vz = p.vz;
+            v[0].field_0 = p.field_0 + d->field_10[i].field_0;
+            v[0].field_2 = p.field_2 + d->field_10[i].field_2;
+            v[0].field_4 = p.field_4;
             gte_ldv0(&v[0]);
             gte_rtps();
             gte_stsxy(&out[i + 1]);
@@ -7084,25 +7084,25 @@ void func_800215F4(u8 *o) {
             out[13 + (i >> 1)] = zz;
         }
         if (*(s16 *)(o + 0xE) != 0) {
-            p.vz += *(s16 *)(o + 0xE);
+            p.field_4 += *(s16 *)(o + 0xE);
             for (i = 0; i < 12; i += 6) {
-                v[0].vx = p.vx + d->pt[i].x;
-                v[0].vy = p.vy + d->pt[i].y;
-                v[0].vz = p.vz;
-                v[1].vx = p.vx + d->pt[i + 2].x;
-                v[1].vy = p.vy + d->pt[i + 2].y;
-                v[1].vz = p.vz;
-                v[2].vx = p.vx + d->pt[i + 4].x;
-                v[2].vy = p.vy + d->pt[i + 4].y;
-                v[2].vz = p.vz;
+                v[0].field_0 = p.field_0 + d->field_10[i].field_0;
+                v[0].field_2 = p.field_2 + d->field_10[i].field_2;
+                v[0].field_4 = p.field_4;
+                v[1].field_0 = p.field_0 + d->field_10[i + 2].field_0;
+                v[1].field_2 = p.field_2 + d->field_10[i + 2].field_2;
+                v[1].field_4 = p.field_4;
+                v[2].field_0 = p.field_0 + d->field_10[i + 4].field_0;
+                v[2].field_2 = p.field_2 + d->field_10[i + 4].field_2;
+                v[2].field_4 = p.field_4;
                 gte_ldv3(&v[0], &v[1], &v[2]);
                 gte_rtpt();
                 gte_stsxy3(&out[i + 19], &out[i + 21], &out[i + 23]);
             }
             for (i = 1; i < 12; i += 2) {
-                v[0].vx = p.vx + d->pt[i].x;
-                v[0].vy = p.vy + d->pt[i].y;
-                v[0].vz = p.vz;
+                v[0].field_0 = p.field_0 + d->field_10[i].field_0;
+                v[0].field_2 = p.field_2 + d->field_10[i].field_2;
+                v[0].field_4 = p.field_4;
                 gte_ldv0(&v[0]);
                 gte_rtps();
                 gte_stsxy(&out[i + 19]);
@@ -7136,15 +7136,15 @@ void func_800215F4(u8 *o) {
         }
     } else {
         for (i = 0; i < 12; i += 3) {
-            v[0].vx = p.vx + d->pt[i].x;
-            v[0].vy = p.vy + d->pt[i].y;
-            v[0].vz = p.vz;
-            v[1].vx = p.vx + d->pt[i + 1].x;
-            v[1].vy = p.vy + d->pt[i + 1].y;
-            v[1].vz = p.vz;
-            v[2].vx = p.vx + d->pt[i + 2].x;
-            v[2].vy = p.vy + d->pt[i + 2].y;
-            v[2].vz = p.vz;
+            v[0].field_0 = p.field_0 + d->field_10[i].field_0;
+            v[0].field_2 = p.field_2 + d->field_10[i].field_2;
+            v[0].field_4 = p.field_4;
+            v[1].field_0 = p.field_0 + d->field_10[i + 1].field_0;
+            v[1].field_2 = p.field_2 + d->field_10[i + 1].field_2;
+            v[1].field_4 = p.field_4;
+            v[2].field_0 = p.field_0 + d->field_10[i + 2].field_0;
+            v[2].field_2 = p.field_2 + d->field_10[i + 2].field_2;
+            v[2].field_4 = p.field_4;
             gte_ldv3(&v[0], &v[1], &v[2]);
             gte_rtpt();
             gte_stsxy3(&out[i + 1], &out[i + 2], &out[i + 3]);
@@ -7156,33 +7156,33 @@ void func_800215F4(u8 *o) {
     }
 }
 
-typedef struct { s16 vx, vy; } DVec;
-typedef struct { u8 pad[0x10]; DVec pt[12]; } Pts21D38;
+typedef struct { s16 field_0, field_2; } struct_4_2;
+typedef struct { u8 field_0[0x10]; struct_4_2 field_10[12]; } struct_40_2;
 
 void func_80021D38(u8 *o) {
     SVECTOR v[3];
-    DVec sxy[13];
+    struct_4_2 sxy[13];
     MATRIX mt;
     VECTOR r;
     s32 flag;
     s32 z;
     s32 sz;
-    Work *w = &D_800AF630;
-    u32 *ot = g_WorldOtTable[D_800B9A02];
+    struct_A444 *w = &D_800AF630;
+    u32 *ot = D_800A6610[D_800B9A02];
     s32 fl = *(s32 *)(o + 4);
-    Pts21D38 *m = *(Pts21D38 **)(o + 0x20);
+    struct_40_2 *m = *(struct_40_2 **)(o + 0x20);
     s32 n;
     u16 d;
     s32 k;
     s32 i;
 
     if (fl & 0x40000) {
-        sxy[0] = *(DVec *)(o + 8);
+        sxy[0] = *(struct_4_2 *)(o + 8);
         z = ((SVECTOR *)(o + 8))->vz;
         sz = ((SVECTOR *)(o + 8))->vz << 2;
     } else {
-        gte_SetRotMatrix(&w->wsm);
-        gte_SetTransMatrix(&w->wsm);
+        gte_SetRotMatrix(&w->field_18);
+        gte_SetTransMatrix(&w->field_18);
         gte_ldv0(o + 8);
         gte_rtps();
         gte_stsxy(&sxy[0]);
@@ -7226,45 +7226,45 @@ void func_80021D38(u8 *o) {
     gte_SetRotMatrix(&mt);
     gte_SetTransMatrix(&mt);
     for (i = 0; i < 12; i += 3) {
-        v[0].vx = m->pt[i].vx;
-        v[0].vy = m->pt[i].vy;
+        v[0].vx = m->field_10[i].field_0;
+        v[0].vy = m->field_10[i].field_2;
         v[0].vz = sz;
-        v[1].vx = m->pt[i + 1].vx;
-        v[1].vy = m->pt[i + 1].vy;
+        v[1].vx = m->field_10[i + 1].field_0;
+        v[1].vy = m->field_10[i + 1].field_2;
         v[1].vz = sz;
-        v[2].vx = m->pt[i + 2].vx;
-        v[2].vy = m->pt[i + 2].vy;
+        v[2].vx = m->field_10[i + 2].field_0;
+        v[2].vy = m->field_10[i + 2].field_2;
         v[2].vz = sz;
         if (fl & 0x40000) {
             gte_ldv0(&v[0]);
             gte_rtv0tr();
             gte_stlvnl(&r);
             gte_stflg(&flag);
-            sxy[i + 1].vx = r.vx;
-            sxy[i + 1].vy = r.vy;
+            sxy[i + 1].field_0 = r.vx;
+            sxy[i + 1].field_2 = r.vy;
             gte_ldv0(&v[1]);
             gte_rtv0tr();
             gte_stlvnl(&r);
             gte_stflg(&flag);
-            sxy[i + 2].vx = r.vx;
-            sxy[i + 2].vy = r.vy;
+            sxy[i + 2].field_0 = r.vx;
+            sxy[i + 2].field_2 = r.vy;
             gte_ldv0(&v[2]);
             gte_rtv0tr();
             gte_stlvnl(&r);
             gte_stflg(&flag);
-            sxy[i + 3].vx = r.vx;
-            sxy[i + 3].vy = r.vy;
+            sxy[i + 3].field_0 = r.vx;
+            sxy[i + 3].field_2 = r.vy;
         } else {
             gte_ldv3(&v[0], &v[1], &v[2]);
             gte_rtpt();
             gte_stsxy3(&sxy[i + 1], &sxy[i + 2], &sxy[i + 3]);
         }
-        sxy[i + 1].vx += sxy[0].vx;
-        sxy[i + 1].vy += sxy[0].vy;
-        sxy[i + 2].vx += sxy[0].vx;
-        sxy[i + 2].vy += sxy[0].vy;
-        sxy[i + 3].vx += sxy[0].vx;
-        sxy[i + 3].vy += sxy[0].vy;
+        sxy[i + 1].field_0 += sxy[0].field_0;
+        sxy[i + 1].field_2 += sxy[0].field_2;
+        sxy[i + 2].field_0 += sxy[0].field_0;
+        sxy[i + 2].field_2 += sxy[0].field_2;
+        sxy[i + 3].field_0 += sxy[0].field_0;
+        sxy[i + 3].field_2 += sxy[0].field_2;
     }
 #ifdef PC
     s2_800226C0 = (u32)ot;
@@ -7274,56 +7274,56 @@ void func_80021D38(u8 *o) {
 
 extern void ScaleMatrix();
 extern void GsGetLs();
-typedef struct { s16 vx, vy; } DVec221A8;
-typedef struct { u8 pad[0x10]; DVec221A8 pt[12]; } Pose221A8;
-typedef struct { u32 flg; MATRIX coord; MATRIX workm; void *param; void *super; void *sub; } Coord221A8;
+typedef struct { s16 field_0, field_2; } struct_4_3;
+typedef struct { u8 field_0[0x10]; struct_4_3 field_10[12]; } struct_40_3;
+typedef struct { u32 field_0; MATRIX field_4; MATRIX field_24; void *field_44; void *field_48; void *field_4C; } struct_50_2;
 
 void func_800221A8(u8 *o) {
     SVECTOR v0;
     SVECTOR v1;
     SVECTOR v2;
-    DVec221A8 sxy[14];
+    struct_4_3 sxy[14];
     SVECTOR d;
     MATRIX m;
-    Coord221A8 c;
+    struct_50_2 c;
     MATRIX ls;
     VECTOR sc;
     s32 flag;
     s32 otz;
     s32 sz;
-    Work *w = &D_800AF630;
-    Pose221A8 *p;
+    struct_A444 *w = &D_800AF630;
+    struct_40_3 *p;
     u32 *ot;
     s32 z;
     s32 k;
     s32 i;
 
-    c.super = *(void **)(o + 0x78);
-    c.flg = 0;
+    c.field_48 = *(void **)(o + 0x78);
+    c.field_0 = 0;
     if (*(u16 *)(o + 0x2C) & 1) {
         *(u16 *)(o + 0x2C) &= ~1;
-        c.coord = *(MATRIX *)(o + 0x34);
+        c.field_4 = *(MATRIX *)(o + 0x34);
     } else {
-        RotMatrixZYX(o + 0x10, &c.coord);
-        c.coord.t[0] = *(s16 *)(o + 8);
-        c.coord.t[1] = *(s16 *)(o + 0xA);
-        c.coord.t[2] = *(s16 *)(o + 0xC);
+        RotMatrixZYX(o + 0x10, &c.field_4);
+        c.field_4.t[0] = *(s16 *)(o + 8);
+        c.field_4.t[1] = *(s16 *)(o + 0xA);
+        c.field_4.t[2] = *(s16 *)(o + 0xC);
     }
     sc.vx = *(s16 *)(o + 0x18);
     sc.vy = *(s16 *)(o + 0x1A);
     sc.vz = 0x1000;
-    ScaleMatrix(&c.coord, &sc);
+    ScaleMatrix(&c.field_4, &sc);
     GsGetLs(&c, &ls);
-    *(MATRIX *)(o + 0x34) = c.coord;
-    *(MATRIX *)(o + 0x54) = c.workm;
-    p = *(Pose221A8 **)(o + 0x20);
+    *(MATRIX *)(o + 0x34) = c.field_4;
+    *(MATRIX *)(o + 0x54) = c.field_24;
+    p = *(struct_40_3 **)(o + 0x20);
     if (p == 0) {
         return;
     }
-    if (((s32 (*)())func_80021174)(*(s32 *)(o + 0x28), c.workm.t) == 0) { /* MATCH-TRICK: the call passes no third argument */
+    if (((s32 (*)())func_80021174)(*(s32 *)(o + 0x28), c.field_24.t) == 0) { /* MATCH-TRICK: the call passes no third argument */
         return;
     }
-    ot = g_WorldOtTable[w->frame];
+    ot = D_800A6610[w->field_A3D2];
     gte_SetRotMatrix(&ls);
     gte_SetTransMatrix(&ls);
     v0.vx = v0.vy = v0.vz = 0;
@@ -7370,28 +7370,28 @@ void func_800221A8(u8 *o) {
         gte_ldv0(&v0);
         gte_rtps();
         gte_stsxy(&d);
-        sxy[0].vx += d.vx;
-        sxy[0].vy += d.vy;
+        sxy[0].field_0 += d.vx;
+        sxy[0].field_2 += d.vy;
     }
     for (i = 0; i < 12; i += 3) {
-        v0.vx = p->pt[i].vx;
-        v0.vy = p->pt[i].vy;
+        v0.vx = p->field_10[i].field_0;
+        v0.vy = p->field_10[i].field_2;
         v0.vz = sz;
-        v1.vx = p->pt[i + 1].vx;
-        v1.vy = p->pt[i + 1].vy;
+        v1.vx = p->field_10[i + 1].field_0;
+        v1.vy = p->field_10[i + 1].field_2;
         v1.vz = sz;
-        v2.vx = p->pt[i + 2].vx;
-        v2.vy = p->pt[i + 2].vy;
+        v2.vx = p->field_10[i + 2].field_0;
+        v2.vy = p->field_10[i + 2].field_2;
         v2.vz = sz;
         gte_ldv3(&v0, &v1, &v2);
         gte_rtpt();
         gte_stsxy3(&sxy[i + 1], &sxy[i + 2], &sxy[i + 3]);
-        sxy[i + 1].vx += sxy[0].vx;
-        sxy[i + 1].vy += sxy[0].vy;
-        sxy[i + 2].vx += sxy[0].vx;
-        sxy[i + 2].vy += sxy[0].vy;
-        sxy[i + 3].vx += sxy[0].vx;
-        sxy[i + 3].vy += sxy[0].vy;
+        sxy[i + 1].field_0 += sxy[0].field_0;
+        sxy[i + 1].field_2 += sxy[0].field_2;
+        sxy[i + 2].field_0 += sxy[0].field_0;
+        sxy[i + 2].field_2 += sxy[0].field_2;
+        sxy[i + 3].field_0 += sxy[0].field_0;
+        sxy[i + 3].field_2 += sxy[0].field_2;
     }
 #ifdef PC
     s2_800226C0 = (u32)p;
@@ -7399,10 +7399,10 @@ void func_800221A8(u8 *o) {
     func_800226C0(o, p, sxy, ot + z);
 }
 
-typedef struct { s16 x, y; } XY226C0;
+typedef struct { s16 field_0, field_2; } struct_4_4;
 
-void func_800226C0(u8 *a, u8 *c, XY226C0 *v, u32 *ot) {
-    XY226C0 b[12];
+void func_800226C0(u8 *a, u8 *c, struct_4_4 *v, u32 *ot) {
+    struct_4_4 b[12];
     u32 f;
     s32 sel;
     s32 dith;
@@ -7419,18 +7419,18 @@ void func_800226C0(u8 *a, u8 *c, XY226C0 *v, u32 *ot) {
     n = s2_800226C0; /* PORT NOTE: the console's value of n here (see s2_800226C0) */
 #endif
     if (f & 0x800000) {
-        p = (u8 *)g_PrimNext;
+        p = (u8 *)D_800A5E60;
         dith = 1;
         if (sel) {
             if (n) { /* PORT NOTE: read before set, as the original */
-                g_PrimNext = (s32)(p + 0x60);
+                D_800A5E60 = (s32)(p + 0x60);
                 for (i = 0; i < 12; i++, p += 8) {
                     p[3] = 1;
                     *(u32 *)(p + 4) = 0xE1000000;
                     addPrim(&ot[((s32 *)&v[13])[i >> 1]], p);
                 }
             } else {
-                g_PrimNext = (s32)(p + 0x30);
+                D_800A5E60 = (s32)(p + 0x30);
                 for (i = 0; i < 6; i++, p += 8) {
                     p[3] = 1;
                     *(u32 *)(p + 4) = 0xE1000000;
@@ -7438,18 +7438,18 @@ void func_800226C0(u8 *a, u8 *c, XY226C0 *v, u32 *ot) {
                 }
             }
         } else {
-            g_PrimNext = (s32)(p + 8);
+            D_800A5E60 = (s32)(p + 8);
             p[3] = 1;
             *(u32 *)(p + 4) = 0xE1000000;
             addPrim(ot, p);
         }
     }
     n = *(u16 *)(a + 0x1E) & 0x1FFF;
-    p = (u8 *)g_PrimNext;
+    p = (u8 *)D_800A5E60;
     if (n) {
-        g_PrimNext = (s32)(p + 0x1B0);
+        D_800A5E60 = (s32)(p + 0x1B0);
     } else {
-        g_PrimNext = (s32)(p + 0xD8);
+        D_800A5E60 = (s32)(p + 0xD8);
     }
     code = 0x38;
     if (f & 0x40000000) {
@@ -7457,8 +7457,8 @@ void func_800226C0(u8 *a, u8 *c, XY226C0 *v, u32 *ot) {
     }
     if (n) {
         for (i = 0; i < 12; i++) {
-            b[i].x = v[0].x + (((v[i + 1].x - v[0].x) * n) >> 12);
-            b[i].y = v[0].y + (((v[i + 1].y - v[0].y) * n) >> 12);
+            b[i].field_0 = v[0].field_0 + (((v[i + 1].field_0 - v[0].field_0) * n) >> 12);
+            b[i].field_2 = v[0].field_2 + (((v[i + 1].field_2 - v[0].field_2) * n) >> 12);
         }
         for (i = 0; i < 12; i++, p += 0x24) {
             p[3] = 8;
@@ -7475,27 +7475,27 @@ void func_800226C0(u8 *a, u8 *c, XY226C0 *v, u32 *ot) {
             p[0x1C] = c[0];
             p[0x1D] = c[1];
             p[0x1E] = c[2];
-            *(s16 *)(p + 0x8) = v[i + 1].x;
-            *(s16 *)(p + 0xA) = v[i + 1].y;
-            *(s16 *)(p + 0x10) = v[i + 2].x;
-            *(s16 *)(p + 0x12) = v[i + 2].y;
-            *(s16 *)(p + 0x18) = b[i].x;
-            *(s16 *)(p + 0x1A) = b[i].y;
-            *(s16 *)(p + 0x20) = b[i + 1].x;
-            *(s16 *)(p + 0x22) = b[i + 1].y;
+            *(s16 *)(p + 0x8) = v[i + 1].field_0;
+            *(s16 *)(p + 0xA) = v[i + 1].field_2;
+            *(s16 *)(p + 0x10) = v[i + 2].field_0;
+            *(s16 *)(p + 0x12) = v[i + 2].field_2;
+            *(s16 *)(p + 0x18) = b[i].field_0;
+            *(s16 *)(p + 0x1A) = b[i].field_2;
+            *(s16 *)(p + 0x20) = b[i + 1].field_0;
+            *(s16 *)(p + 0x22) = b[i + 1].field_2;
             if (sel) {
                 addPrim(&ot[((s32 *)&v[13])[i >> 1]], p);
             } else {
                 addPrim(ot, p);
             }
         }
-        *(s16 *)(p - 0x14) = v[1].x;
-        *(s16 *)(p - 0x12) = v[1].y;
-        *(s16 *)(p - 0x4) = b[0].x;
-        *(s16 *)(p - 0x2) = b[0].y;
+        *(s16 *)(p - 0x14) = v[1].field_0;
+        *(s16 *)(p - 0x12) = v[1].field_2;
+        *(s16 *)(p - 0x4) = b[0].field_0;
+        *(s16 *)(p - 0x2) = b[0].field_2;
         if (*(u16 *)(a + 0x1E) & 0x4000) {
-            p = (u8 *)g_PrimNext;
-            g_PrimNext = (s32)(p + 0xD8);
+            p = (u8 *)D_800A5E60;
+            D_800A5E60 = (s32)(p + 0xD8);
             for (i = 0; i < 12; i += 2, p += 0x24) {
                 p[3] = 8;
                 p[7] = code;
@@ -7511,22 +7511,22 @@ void func_800226C0(u8 *a, u8 *c, XY226C0 *v, u32 *ot) {
                 p[0x1C] = c[0xC];
                 p[0x1D] = c[0xD];
                 p[0x1E] = c[0xE];
-                *(s16 *)(p + 0x8) = b[i].x;
-                *(s16 *)(p + 0xA) = b[i].y;
-                *(s16 *)(p + 0x10) = b[i + 1].x;
-                *(s16 *)(p + 0x12) = b[i + 1].y;
-                *(s16 *)(p + 0x18) = v[0].x;
-                *(s16 *)(p + 0x1A) = v[0].y;
-                *(s16 *)(p + 0x20) = b[i + 2].x;
-                *(s16 *)(p + 0x22) = b[i + 2].y;
+                *(s16 *)(p + 0x8) = b[i].field_0;
+                *(s16 *)(p + 0xA) = b[i].field_2;
+                *(s16 *)(p + 0x10) = b[i + 1].field_0;
+                *(s16 *)(p + 0x12) = b[i + 1].field_2;
+                *(s16 *)(p + 0x18) = v[0].field_0;
+                *(s16 *)(p + 0x1A) = v[0].field_2;
+                *(s16 *)(p + 0x20) = b[i + 2].field_0;
+                *(s16 *)(p + 0x22) = b[i + 2].field_2;
                 if (sel) {
                     addPrim(&ot[((s32 *)&b[13])[i >> 1]], p);
                 } else {
                     addPrim(ot, p);
                 }
             }
-            *(s16 *)(p - 0x4) = b[0].x;
-            *(s16 *)(p - 0x2) = b[0].y;
+            *(s16 *)(p - 0x4) = b[0].field_0;
+            *(s16 *)(p - 0x2) = b[0].field_2;
         }
     } else {
         for (i = 1; i < 13; i += 2, p += 0x24) {
@@ -7544,28 +7544,28 @@ void func_800226C0(u8 *a, u8 *c, XY226C0 *v, u32 *ot) {
             p[0x1C] = c[4];
             p[0x1D] = c[5];
             p[0x1E] = c[6];
-            *(s16 *)(p + 0x8) = v[i].x;
-            *(s16 *)(p + 0xA) = v[i].y;
-            *(s16 *)(p + 0x10) = v[i + 1].x;
-            *(s16 *)(p + 0x12) = v[i + 1].y;
-            *(s16 *)(p + 0x18) = v[0].x;
-            *(s16 *)(p + 0x1A) = v[0].y;
-            *(s16 *)(p + 0x20) = v[i + 2].x;
-            *(s16 *)(p + 0x22) = v[i + 2].y;
+            *(s16 *)(p + 0x8) = v[i].field_0;
+            *(s16 *)(p + 0xA) = v[i].field_2;
+            *(s16 *)(p + 0x10) = v[i + 1].field_0;
+            *(s16 *)(p + 0x12) = v[i + 1].field_2;
+            *(s16 *)(p + 0x18) = v[0].field_0;
+            *(s16 *)(p + 0x1A) = v[0].field_2;
+            *(s16 *)(p + 0x20) = v[i + 2].field_0;
+            *(s16 *)(p + 0x22) = v[i + 2].field_2;
             if (sel) {
                 addPrim(&ot[((s32 *)&v[13])[i >> 1]], p);
             } else {
                 addPrim(ot, p);
             }
         }
-        *(s16 *)(p - 0x4) = v[1].x;
-        *(s16 *)(p - 0x2) = v[1].y;
+        *(s16 *)(p - 0x4) = v[1].field_0;
+        *(s16 *)(p - 0x2) = v[1].field_2;
     }
     if (f & 0x40000000) {
         m = (f >> 23) & 0x60;
         if (sel) {
             if (n) {
-                g_PrimNext += 0x60;
+                D_800A5E60 += 0x60;
                 for (i = 0; i < 12; i++, p += 8) {
                     p[3] = 1;
                     if (dith) {
@@ -7576,7 +7576,7 @@ void func_800226C0(u8 *a, u8 *c, XY226C0 *v, u32 *ot) {
                     addPrim(&ot[((s32 *)&v[13])[i >> 1]], p);
                 }
             } else {
-                g_PrimNext += 0x30;
+                D_800A5E60 += 0x30;
                 for (i = 0; i < 6; i++, p += 8) {
                     p[3] = 1;
                     if (dith) {
@@ -7588,7 +7588,7 @@ void func_800226C0(u8 *a, u8 *c, XY226C0 *v, u32 *ot) {
                 }
             }
         } else {
-            g_PrimNext += 8;
+            D_800A5E60 += 8;
             p[3] = 1;
             *(u32 *)(p + 4) = m | (dith ? 0xE1000200 : 0xE1000000);
             addPrim(ot, p);
@@ -7596,48 +7596,48 @@ void func_800226C0(u8 *a, u8 *c, XY226C0 *v, u32 *ot) {
     }
 }
 
-typedef struct { u32 tag; u8 r0, g0, b0, code; s16 x0, y0; u8 r1, g1, b1, p1; s16 x1, y1; u8 r2, g2, b2, p2; s16 x2, y2; u8 r3, g3, b3, p3; s16 x3, y3; } G4_23138;
-typedef struct { u32 tag; u32 code; } Mode23138;
+typedef struct { u32 field_0; u8 field_4, field_5, field_6, field_7; s16 field_8, field_A; u8 field_C, field_D, field_E, field_F; s16 field_10, field_12; u8 field_14, field_15, field_16, field_17; s16 field_18, field_1A; u8 field_1C, field_1D, field_1E, field_1F; s16 field_20, field_22; } struct_24_3;
+typedef struct { u32 field_0; u32 field_4; } struct_8_8;
 
 void func_80023138(u8 *a, u8 *c, u8 *v, u32 *ot) {
     u8 unused[0x30];
-    G4_23138 *p = (G4_23138 *)g_PrimNext;
+    struct_24_3 *p = (struct_24_3 *)D_800A5E60;
     u32 f = *(u32 *)(a + 4);
-    Mode23138 *m;
+    struct_8_8 *m;
     u8 code;
     s32 i;
-    g_PrimNext += 0x1B0;
+    D_800A5E60 += 0x1B0;
     code = 0x38;
     if (f & 0x40000000) {
         code = 0x3A;
     }
     for (i = 0; i < 12; i++, p++) {
         setlen(p, 8);
-        p->code = code;
-        p->r0 = c[4]; p->g0 = c[5]; p->b0 = c[6];
-        p->r1 = c[4]; p->g1 = c[5]; p->b1 = c[6];
-        p->r2 = c[0]; p->g2 = c[1]; p->b2 = c[2];
-        p->r3 = c[0]; p->g3 = c[1]; p->b3 = c[2];
-        p->x0 = *(s16 *)(v + i * 4 + 0x4C);
-        p->y0 = *(s16 *)(v + i * 4 + 0x4E);
-        p->x1 = *(s16 *)(v + i * 4 + 0x50);
-        p->y1 = *(s16 *)(v + i * 4 + 0x52);
-        p->x2 = *(s16 *)(v + i * 4 + 4);
-        p->y2 = *(s16 *)(v + i * 4 + 6);
-        p->x3 = *(s16 *)(v + i * 4 + 8);
-        p->y3 = *(s16 *)(v + i * 4 + 0xA);
+        p->field_7 = code;
+        p->field_4 = c[4]; p->field_5 = c[5]; p->field_6 = c[6];
+        p->field_C = c[4]; p->field_D = c[5]; p->field_E = c[6];
+        p->field_14 = c[0]; p->field_15 = c[1]; p->field_16 = c[2];
+        p->field_1C = c[0]; p->field_1D = c[1]; p->field_1E = c[2];
+        p->field_8 = *(s16 *)(v + i * 4 + 0x4C);
+        p->field_A = *(s16 *)(v + i * 4 + 0x4E);
+        p->field_10 = *(s16 *)(v + i * 4 + 0x50);
+        p->field_12 = *(s16 *)(v + i * 4 + 0x52);
+        p->field_18 = *(s16 *)(v + i * 4 + 4);
+        p->field_1A = *(s16 *)(v + i * 4 + 6);
+        p->field_20 = *(s16 *)(v + i * 4 + 8);
+        p->field_22 = *(s16 *)(v + i * 4 + 0xA);
         addPrim(ot + *(s32 *)(v + (i >> 1) * 4 + 0x34), p);
     }
-    p[-1].x1 = *(s16 *)(v + 0x4C);
-    p[-1].y1 = *(s16 *)(v + 0x4E);
-    p[-1].x3 = *(s16 *)(v + 4);
-    p[-1].y3 = *(s16 *)(v + 6);
+    p[-1].field_10 = *(s16 *)(v + 0x4C);
+    p[-1].field_12 = *(s16 *)(v + 0x4E);
+    p[-1].field_20 = *(s16 *)(v + 4);
+    p[-1].field_22 = *(s16 *)(v + 6);
     if (f & 0x40000000) {
-        m = (Mode23138 *)p;
-        g_PrimNext += 0x60;
+        m = (struct_8_8 *)p;
+        D_800A5E60 += 0x60;
         for (i = 0; i < 12; i++, m++) {
             setlen(m, 1);
-            m->code = 0xE1000000 | ((f >> 23) & 0x60);
+            m->field_4 = 0xE1000000 | ((f >> 23) & 0x60);
             addPrim(ot + *(s32 *)(v + (i >> 1) * 4 + 0x34), m);
         }
     }
@@ -7670,18 +7670,18 @@ void func_800234E4(u8 *o, u16 r, u16 a) {
     }
 }
 
-typedef struct { unsigned addr : 24; unsigned len : 8; } Tag23570;
-typedef struct { u32 tag; u8 r, g, b, code; s16 x, y, w, h; } Tile23570;
-typedef struct { u8 r, g, b, end; u16 x, y, w, h; } Rect23570;
+typedef struct { unsigned field_0_b0 : 24; unsigned field_3_b0 : 8; } struct_4_5;
+typedef struct { u32 field_0; u8 field_4, field_5, field_6, field_7; s16 field_8, field_A, field_C, field_E; } struct_10_6;
+typedef struct { u8 field_0, field_1, field_2, field_3; u16 field_4, field_6, field_8, field_A; } struct_C_3;
 
 void func_80023570(u8 *a) {
-    Rect23570 *s = *(Rect23570 **)(a + 0x20);
-    Tile23570 *p = (Tile23570 *)g_PrimNext;
+    struct_C_3 *s = *(struct_C_3 **)(a + 0x20);
+    struct_10_6 *p = (struct_10_6 *)D_800A5E60;
     u32 f = *(u32 *)(a + 4);
     u16 x = *(u16 *)(a + 8);
     u16 y = *(u16 *)(a + 0xA);
     u16 z = *(u16 *)(a + 0x2C);
-    u32 *ot = g_WorldOtTable[D_800B9A02];
+    u32 *ot = D_800A6610[D_800B9A02];
     u8 code;
     u8 *q;
     code = 0x60;
@@ -7689,30 +7689,30 @@ void func_80023570(u8 *a) {
         code = 0x62;
     }
     do {
-        p->code = code;
-        p->tag = 0x03000000;
-        p->r = s->r;
-        p->g = s->g;
-        p->b = s->b;
-        p->x = x + s->x;
-        p->y = y + s->y;
-        p->w = s->w;
-        p->h = s->h;
-        q = (u8 *)g_PrimNext + 0x10;
-        g_PrimNext = (s32)q;
-        ((Tag23570 *)p)->addr = ((Tag23570 *)&ot[z])->addr;
-        ((Tag23570 *)&ot[z])->addr = (u32)p;
+        p->field_7 = code;
+        p->field_0 = 0x03000000;
+        p->field_4 = s->field_0;
+        p->field_5 = s->field_1;
+        p->field_6 = s->field_2;
+        p->field_8 = x + s->field_4;
+        p->field_A = y + s->field_6;
+        p->field_C = s->field_8;
+        p->field_E = s->field_A;
+        q = (u8 *)D_800A5E60 + 0x10;
+        D_800A5E60 = (s32)q;
+        ((struct_4_5 *)p)->field_0_b0 = ((struct_4_5 *)&ot[z])->field_0_b0;
+        ((struct_4_5 *)&ot[z])->field_0_b0 = (u32)p;
         p++;
-    } while (!(s++)->end);
+    } while (!(s++)->field_3);
     if (f & 0x40000000) {
-        g_PrimNext = (s32)(q + 0xC);
+        D_800A5E60 = (s32)(q + 0xC);
         SetDrawMode(q, 0, 0, GetTPage(2, (f >> 28) & 3, 0x280, 0), 0);
-        ((Tag23570 *)q)->addr = ((Tag23570 *)&ot[z])->addr;
-        ((Tag23570 *)&ot[z])->addr = (u32)q;
+        ((struct_4_5 *)q)->field_0_b0 = ((struct_4_5 *)&ot[z])->field_0_b0;
+        ((struct_4_5 *)&ot[z])->field_0_b0 = (u32)q;
     }
 }
 
-typedef union { s32 w; struct { s16 x, y; } s; } Xy2374C;
+typedef union { s32 m0; struct { s16 field_0, field_2; } m1; } union_4_2;
 
 void func_8002374C(u8 *a) {
     u8 *e;
@@ -7722,19 +7722,19 @@ void func_8002374C(u8 *a) {
     u16 z;
     u32 f, code;
     u8 *p;
-    Xy2374C v;
+    union_4_2 v;
 
     if (*(s32 *)(a + 4) < 0) return;
     e = *(u8 **)(a + 0x20);
     dx = *(u16 *)(a + 8) - *(u16 *)(a + 0x2E);
     dy = *(u16 *)(a + 0xA) - *(u16 *)(a + 0x30);
-    t = g_WorldOtTable;
+    t = D_800A6610;
     ot = t[D_800B9A02];
     z = *(u16 *)(a + 0x2C);
     while ((code = f = *(u32 *)e) != 0) {
         code <<= 24;
         if (f & 0x40000000) code |= 0x02000000;
-        p = (u8 *)g_PrimNext;
+        p = (u8 *)D_800A5E60;
         if (f & 0x800000) {
             SetDrawMode(p, 0, 1, GetTPage(2, (f >> 28) & 3, 0x280, 0), 0);
         } else {
@@ -7742,103 +7742,103 @@ void func_8002374C(u8 *a) {
         }
         switch (f & 0xFF) {
         case 0x60:
-            g_PrimNext += 0x20;
-            SetDrawMode((u8 *)g_PrimNext - 0xC, 0, 0, GetTPage(2, (f >> 28) & 3, 0x280, 0), 0);
+            D_800A5E60 += 0x20;
+            SetDrawMode((u8 *)D_800A5E60 - 0xC, 0, 0, GetTPage(2, (f >> 28) & 3, 0x280, 0), 0);
             *(u32 *)p = 0x07000000;
             p += 8;
             *(u32 *)(p + 4) = code | (*(u32 *)(e + 0xC) & 0xFFFFFF);
-            v.w = *(s32 *)(e + 4);
-            v.s.x = dx + v.s.x;
-            v.s.y = dy + v.s.y;
-            *(s32 *)(p + 8) = v.w;
+            v.m0 = *(s32 *)(e + 4);
+            v.m1.field_0 = dx + v.m1.field_0;
+            v.m1.field_2 = dy + v.m1.field_2;
+            *(s32 *)(p + 8) = v.m0;
             *(u32 *)(p + 0xC) = *(u32 *)(e + 8);
             break;
         case 0x38:
-            g_PrimNext += 0x34;
-            SetDrawMode((u8 *)g_PrimNext - 0xC, 0, 0, GetTPage(2, (f >> 28) & 3, 0x280, 0), 0);
+            D_800A5E60 += 0x34;
+            SetDrawMode((u8 *)D_800A5E60 - 0xC, 0, 0, GetTPage(2, (f >> 28) & 3, 0x280, 0), 0);
             *(u32 *)p = 0x0C000000;
             p += 8;
             *(u32 *)(p + 4) = code | (*(u32 *)(e + 0xC) & 0xFFFFFF);
             *(u32 *)(p + 0xC) = *(u32 *)(e + 0x10);
             *(u32 *)(p + 0x14) = *(u32 *)(e + 0x14);
             *(u32 *)(p + 0x1C) = *(u32 *)(e + 0x18);
-            v.w = *(s32 *)(e + 4);
-            v.s.x = dx + v.s.x;
-            v.s.y = dy + v.s.y;
-            *(s32 *)(p + 8) = v.w;
-            v.s.x += *(u16 *)(e + 8);
-            *(s32 *)(p + 0x10) = v.w;
-            v.s.y += *(u16 *)(e + 0xA);
-            *(s32 *)(p + 0x20) = v.w;
-            v.s.x -= *(u16 *)(e + 8);
-            *(s32 *)(p + 0x18) = v.w;
+            v.m0 = *(s32 *)(e + 4);
+            v.m1.field_0 = dx + v.m1.field_0;
+            v.m1.field_2 = dy + v.m1.field_2;
+            *(s32 *)(p + 8) = v.m0;
+            v.m1.field_0 += *(u16 *)(e + 8);
+            *(s32 *)(p + 0x10) = v.m0;
+            v.m1.field_2 += *(u16 *)(e + 0xA);
+            *(s32 *)(p + 0x20) = v.m0;
+            v.m1.field_0 -= *(u16 *)(e + 8);
+            *(s32 *)(p + 0x18) = v.m0;
             break;
         case 0x30:
-            g_PrimNext += 0x2C;
-            SetDrawMode((u8 *)g_PrimNext - 0xC, 0, 0, GetTPage(2, (f >> 28) & 3, 0x280, 0), 0);
+            D_800A5E60 += 0x2C;
+            SetDrawMode((u8 *)D_800A5E60 - 0xC, 0, 0, GetTPage(2, (f >> 28) & 3, 0x280, 0), 0);
             *(u32 *)p = 0x0A000000;
             p += 8;
             *(u32 *)(p + 4) = code | (*(u32 *)(e + 0x10) & 0xFFFFFF);
             *(u32 *)(p + 0xC) = *(u32 *)(e + 0x14);
             *(u32 *)(p + 0x14) = *(u32 *)(e + 0x18);
-            v.w = *(s32 *)(e + 4);
-            v.s.x = dx + v.s.x;
-            v.s.y = dy + v.s.y;
-            *(s32 *)(p + 8) = v.w;
-            v.w = *(s32 *)(e + 8);
-            v.s.x = dx + v.s.x;
-            v.s.y = dy + v.s.y;
-            *(s32 *)(p + 0x10) = v.w;
-            v.w = *(s32 *)(e + 0xC);
-            v.s.x = dx + v.s.x;
-            v.s.y = dy + v.s.y;
-            *(s32 *)(p + 0x18) = v.w;
+            v.m0 = *(s32 *)(e + 4);
+            v.m1.field_0 = dx + v.m1.field_0;
+            v.m1.field_2 = dy + v.m1.field_2;
+            *(s32 *)(p + 8) = v.m0;
+            v.m0 = *(s32 *)(e + 8);
+            v.m1.field_0 = dx + v.m1.field_0;
+            v.m1.field_2 = dy + v.m1.field_2;
+            *(s32 *)(p + 0x10) = v.m0;
+            v.m0 = *(s32 *)(e + 0xC);
+            v.m1.field_0 = dx + v.m1.field_0;
+            v.m1.field_2 = dy + v.m1.field_2;
+            *(s32 *)(p + 0x18) = v.m0;
             break;
         }
-        ((Tag23570 *)(p - 8))->addr = ((Tag23570 *)&ot[z])->addr;
-        ((Tag23570 *)&ot[z])->addr = (u32)(p - 8);
+        ((struct_4_5 *)(p - 8))->field_0_b0 = ((struct_4_5 *)&ot[z])->field_0_b0;
+        ((struct_4_5 *)&ot[z])->field_0_b0 = (u32)(p - 8);
         e += 0x1C;
     }
 }
 
-typedef struct { u32 tag; u32 col; s16 x, y; u16 uv, clut; } Spr8_23BF0;
-typedef struct { u32 tag; u32 col; s16 x, y; u16 uv, clut; s32 wh; } Spr_23BF0;
+typedef struct { u32 field_0; u32 field_4; s16 field_8, field_A; u16 field_C, field_E; } struct_10_7;
+typedef struct { u32 field_0; u32 field_4; s16 field_8, field_A; u16 field_C, field_E; s32 field_10; } struct_14_4;
 
 void func_80023BF0(u8 *a) {
-    Work *w = &D_800AF630;
-    struct { SVECTOR v; s32 sxy; s32 p; s32 flag; s32 z; } t;
+    struct_A444 *w = &D_800AF630;
+    struct { SVECTOR field_0; s32 field_8; s32 field_C; s32 field_10; s32 field_14; } t;
     u16 *s = *(u16 **)(a + 0x20);
     u32 f = *(u32 *)(a + 4);
-    u32 *ot = g_WorldOtTable[D_800B9A02];
+    u32 *ot = D_800A6610[D_800B9A02];
     u16 x, y, z;
     u16 clut;
     u32 col;
     u8 *p;
     if (f & 0x04000000) {
-        gte_SetRotMatrix(&w->wsm);
-        gte_SetTransMatrix(&w->wsm);
-        t.v.vx = *(u16 *)(a + 8) + *(u16 *)(a + 0x2E);
-        t.v.vy = *(u16 *)(a + 0xA) + *(u16 *)(a + 0x30);
-        t.v.vz = *(u16 *)(a + 0xC) + *(u16 *)(a + 0x32);
-        gte_ldv0(&t.v);
+        gte_SetRotMatrix(&w->field_18);
+        gte_SetTransMatrix(&w->field_18);
+        t.field_0.vx = *(u16 *)(a + 8) + *(u16 *)(a + 0x2E);
+        t.field_0.vy = *(u16 *)(a + 0xA) + *(u16 *)(a + 0x30);
+        t.field_0.vz = *(u16 *)(a + 0xC) + *(u16 *)(a + 0x32);
+        gte_ldv0(&t.field_0);
         gte_rtps();
-        gte_stsxy(&t.sxy);
-        gte_stdp(&t.p);
-        gte_stflg(&t.flag);
-        gte_stszotz(&t.z);
-        if (t.z <= 0) {
+        gte_stsxy(&t.field_8);
+        gte_stdp(&t.field_C);
+        gte_stflg(&t.field_10);
+        gte_stszotz(&t.field_14);
+        if (t.field_14 <= 0) {
             return;
         }
-        z = t.z + 1;
-        x = *(u16 *)(a + 0xE) + t.sxy;
-        y = t.sxy >> 16;
+        z = t.field_14 + 1;
+        x = *(u16 *)(a + 0xE) + t.field_8;
+        y = t.field_8 >> 16;
     } else {
         x = *(u16 *)(a + 0xE) + (*(u16 *)(a + 8) + *(u16 *)(a + 0x2E));
         y = *(u16 *)(a + 0xA) + *(u16 *)(a + 0x30);
         z = *(u16 *)(a + 0x2C);
     }
     clut = ((a[0x27] + 0x100) << 6) | ((a[0x27] < 0xE0 ? 0x160 : 0x100) >> 4);
-    p = (u8 *)g_PrimNext;
+    p = (u8 *)D_800A5E60;
     if (!(f & 0x400000)) {
         u16 ch;
         if (f & 0x40000000) {
@@ -7856,8 +7856,8 @@ void func_80023BF0(u8 *a) {
             switch (ch) {
             case 0x1850:
             case 0x1858:
-                ((Spr8_23BF0 *)p)->x = x + 4;
-                ((Spr8_23BF0 *)p)->y = y - 7;
+                ((struct_10_7 *)p)->field_8 = x + 4;
+                ((struct_10_7 *)p)->field_A = y - 7;
                 break;
             case 0x3870:
                 x += 7;
@@ -7872,18 +7872,18 @@ void func_80023BF0(u8 *a) {
                 s++;
                 continue;
             default:
-                ((Spr8_23BF0 *)p)->x = x;
+                ((struct_10_7 *)p)->field_8 = x;
                 x += 7;
-                ((Spr8_23BF0 *)p)->y = y;
+                ((struct_10_7 *)p)->field_A = y;
                 break;
             }
-            ((Spr8_23BF0 *)p)->tag = 0x03000000;
-            ((Spr8_23BF0 *)p)->col = col;
-            ((Spr8_23BF0 *)p)->uv = *s++;
-            ((Spr8_23BF0 *)p)->clut = clut;
-            ((Tag23570 *)p)->addr = ((Tag23570 *)&ot[z])->addr;
-            ((Tag23570 *)&ot[z])->addr = (u32)p;
-            p += sizeof(Spr8_23BF0);
+            ((struct_10_7 *)p)->field_0 = 0x03000000;
+            ((struct_10_7 *)p)->field_4 = col;
+            ((struct_10_7 *)p)->field_C = *s++;
+            ((struct_10_7 *)p)->field_E = clut;
+            ((struct_4_5 *)p)->field_0_b0 = ((struct_4_5 *)&ot[z])->field_0_b0;
+            ((struct_4_5 *)&ot[z])->field_0_b0 = (u32)p;
+            p += sizeof(struct_10_7);
         }
     } else {
         u16 ch;
@@ -7904,24 +7904,24 @@ void func_80023BF0(u8 *a) {
                 s++;
                 continue;
             }
-            ((Spr_23BF0 *)p)->x = x;
+            ((struct_14_4 *)p)->field_8 = x;
             x += 0x10;
-            ((Spr_23BF0 *)p)->y = y;
-            ((Spr_23BF0 *)p)->tag = 0x04000000;
-            ((Spr_23BF0 *)p)->col = col;
-            ((Spr_23BF0 *)p)->uv = *s++;
-            ((Spr_23BF0 *)p)->clut = clut;
-            ((Spr_23BF0 *)p)->wh = 0x00180010;
-            ((Tag23570 *)p)->addr = ((Tag23570 *)&ot[z])->addr;
-            ((Tag23570 *)&ot[z])->addr = (u32)p;
-            p += sizeof(Spr_23BF0);
+            ((struct_14_4 *)p)->field_A = y;
+            ((struct_14_4 *)p)->field_0 = 0x04000000;
+            ((struct_14_4 *)p)->field_4 = col;
+            ((struct_14_4 *)p)->field_C = *s++;
+            ((struct_14_4 *)p)->field_E = clut;
+            ((struct_14_4 *)p)->field_10 = 0x00180010;
+            ((struct_4_5 *)p)->field_0_b0 = ((struct_4_5 *)&ot[z])->field_0_b0;
+            ((struct_4_5 *)&ot[z])->field_0_b0 = (u32)p;
+            p += sizeof(struct_14_4);
         }
     }
     setlen(p, 1);
     ((u32 *)p)[1] = ((f >> 23) & 0x60) | 0xE1000015;
-    ((Tag23570 *)p)->addr = ((Tag23570 *)&ot[z])->addr;
-    g_PrimNext = (s32)(p + 0x40);
-    ((Tag23570 *)&ot[z])->addr = (u32)p;
+    ((struct_4_5 *)p)->field_0_b0 = ((struct_4_5 *)&ot[z])->field_0_b0;
+    D_800A5E60 = (s32)(p + 0x40);
+    ((struct_4_5 *)&ot[z])->field_0_b0 = (u32)p;
 }
 
 extern u16 D_800636D8[];
@@ -8097,12 +8097,12 @@ void func_80024448(u8 *obj, u8 *cam, s32 shift) {
         switch ((w >> 24) & 0xFC) {
         case 0x20:
             if (flag) {
-                g_PrimNext = (s32)func_80024DE8(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+                D_800A5E60 = (s32)func_80024DE8(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 24;
             } else {
-                g_PrimNext = (s32)func_800249F0(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+                D_800A5E60 = (s32)func_800249F0(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 16;
@@ -8110,47 +8110,47 @@ void func_80024448(u8 *obj, u8 *cam, s32 shift) {
             break;
         case 0x28:
             if (flag) {
-                g_PrimNext = (s32)func_80025000(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+                D_800A5E60 = (s32)func_80025000(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 32;
             } else {
-                g_PrimNext = (s32)func_80024BC0(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+                D_800A5E60 = (s32)func_80024BC0(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 20;
             }
             break;
         case 0x24:
-            g_PrimNext = (s32)func_80025CBC(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+            D_800A5E60 = (s32)func_80025CBC(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
             n = *(u16 *)p;
             cnt -= n;
             p += n * 24;
             break;
         case 0x2C:
-            g_PrimNext = (s32)func_80025EB8(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+            D_800A5E60 = (s32)func_80025EB8(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
             n = *(u16 *)p;
             cnt -= n;
             p += n * 32;
             break;
         case 0x30:
             if (flag) {
-                g_PrimNext = (s32)func_80025818(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+                D_800A5E60 = (s32)func_80025818(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 28;
             } else if (D_80078D88 & 0x10000) {
-                g_PrimNext = (s32)func_80026514(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4), 0);
+                D_800A5E60 = (s32)func_80026514(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4), 0);
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 20;
             } else if (D_80078D88 & 0x20000) {
-                g_PrimNext = (s32)func_80026514(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4), 1);
+                D_800A5E60 = (s32)func_80026514(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4), 1);
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 20;
             } else {
-                g_PrimNext = (s32)func_8002528C(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+                D_800A5E60 = (s32)func_8002528C(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 20;
@@ -8158,35 +8158,35 @@ void func_80024448(u8 *obj, u8 *cam, s32 shift) {
             break;
         case 0x38:
             if (flag) {
-                g_PrimNext = (s32)func_80025A30(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+                D_800A5E60 = (s32)func_80025A30(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 36;
             } else if (D_80078D88 & 0x10000) {
-                g_PrimNext = (s32)func_800268D0(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4), 0);
+                D_800A5E60 = (s32)func_800268D0(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4), 0);
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 24;
             } else if (D_80078D88 & 0x20000) {
-                g_PrimNext = (s32)func_800268D0(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4), 1);
+                D_800A5E60 = (s32)func_800268D0(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4), 1);
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 24;
             } else {
-                g_PrimNext = (s32)func_80025504(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+                D_800A5E60 = (s32)func_80025504(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
                 n = *(u16 *)p;
                 cnt -= n;
                 p += n * 24;
             }
             break;
         case 0x34:
-            g_PrimNext = (s32)func_80026128(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+            D_800A5E60 = (s32)func_80026128(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
             n = *(u16 *)p;
             cnt -= n;
             p += n * 28;
             break;
         case 0x3C:
-            g_PrimNext = (s32)func_800262D8(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(cam + 4));
+            D_800A5E60 = (s32)func_800262D8(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(cam + 4));
             n = *(u16 *)p;
             cnt -= n;
             p += n * 36;
@@ -8196,7 +8196,7 @@ void func_80024448(u8 *obj, u8 *cam, s32 shift) {
 }
 
 u8 *func_800249F0(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -8204,24 +8204,24 @@ u8 *func_800249F0(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0xA) * 8, verts + *(u16 *)(prim + 0xC) * 8, verts + *(u16 *)(prim + 0xE) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_f3(pk);
                 gte_avsz3();
-                gte_stotz(&t.z);
+                gte_stotz(&t.field_4);
                 gte_ldrgb(prim + 4);
                 gte_ldv0(norms + *(u16 *)(prim + 8) * 8);
                 gte_nccs();
                 gte_strgb(pk + 4);
-                e = ot + (t.z >> shift);
+                e = ot + (t.field_4 >> shift);
                 *(u32 *)pk = (*e & 0xFFFFFF) | 0x04000000;
                 *e = (u32)pk & 0xFFFFFF;
                 pk += 0x14;
                 if (D_800A2B78 != 0 && (pk[-0xD] & 2)) {
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     pk[3] = 1;
                     *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -8238,7 +8238,7 @@ u8 *func_800249F0(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_80024BC0(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -8246,29 +8246,29 @@ u8 *func_80024BC0(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0xA) * 8, verts + *(u16 *)(prim + 0xC) * 8, verts + *(u16 *)(prim + 0xE) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_f4(pk);
                 gte_ldv0(verts + *(u16 *)(prim + 0x10) * 8);
                 gte_rtps();
-                gte_stflg(&t.flag);
-                if (!(t.flag & ~0x1000)) {
+                gte_stflg(&t.field_0);
+                if (!(t.field_0 & ~0x1000)) {
                     gte_stsxy(pk + 0x14);
                     gte_avsz4();
-                    gte_stotz(&t.z);
+                    gte_stotz(&t.field_4);
                     gte_ldrgb(prim + 4);
                     gte_ldv0(norms + *(u16 *)(prim + 8) * 8);
                     gte_nccs();
                     gte_strgb(pk + 4);
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x05000000;
                     *e = (u32)pk & 0xFFFFFF;
                     pk += 0x18;
                     if (D_800A2B78 != 0 && (pk[-0x11] & 2)) {
-                        e = ot + (t.z >> shift);
+                        e = ot + (t.field_4 >> shift);
                         pk[3] = 1;
                         *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                         *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -8286,7 +8286,7 @@ u8 *func_80024BC0(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_80024DE8(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -8294,14 +8294,14 @@ u8 *func_80024DE8(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0x12) * 8, verts + *(u16 *)(prim + 0x14) * 8, verts + *(u16 *)(prim + 0x16) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_g3(pk);
                 gte_avsz3();
-                gte_stotz(&t.z);
+                gte_stotz(&t.field_4);
                 gte_ldv0(norms + *(u16 *)(prim + 0x10) * 8);
                 gte_ldrgb(prim + 4);
                 gte_nccs();
@@ -8313,12 +8313,12 @@ u8 *func_80024DE8(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
                 gte_nccs();
                 gte_strgb(pk + 0x14);
                 pk[7] = (pk[7] & 2) | 0x30;
-                e = ot + (t.z >> shift);
+                e = ot + (t.field_4 >> shift);
                 *(u32 *)pk = (*e & 0xFFFFFF) | 0x06000000;
                 *e = (u32)pk & 0xFFFFFF;
                 pk += 0x1C;
                 if (D_800A2B78 != 0 && (pk[-0x15] & 2)) {
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     pk[3] = 1;
                     *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -8335,7 +8335,7 @@ u8 *func_80024DE8(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_80025000(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -8343,19 +8343,19 @@ u8 *func_80025000(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0x16) * 8, verts + *(u16 *)(prim + 0x18) * 8, verts + *(u16 *)(prim + 0x1A) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_g4(pk);
                 gte_ldv0(verts + *(u16 *)(prim + 0x1C) * 8);
                 gte_rtps();
-                gte_stflg(&t.flag);
-                if (!(t.flag & ~0x1000)) {
+                gte_stflg(&t.field_0);
+                if (!(t.field_0 & ~0x1000)) {
                     gte_stsxy(pk + 0x20);
                     gte_avsz4();
-                    gte_stotz(&t.z);
+                    gte_stotz(&t.field_4);
                     gte_ldv0(norms + *(u16 *)(prim + 0x14) * 8);
                     gte_ldrgb(prim + 4);
                     gte_nccs();
@@ -8370,12 +8370,12 @@ u8 *func_80025000(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
                     gte_nccs();
                     gte_strgb(pk + 0x1C);
                     pk[7] = (pk[7] & 2) | 0x38;
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x08000000;
                     *e = (u32)pk & 0xFFFFFF;
                     pk += 0x24;
                     if (D_800A2B78 != 0 && (pk[-0x1D] & 2)) {
-                        e = ot + (t.z >> shift);
+                        e = ot + (t.field_4 >> shift);
                         pk[3] = 1;
                         *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                         *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -8393,7 +8393,7 @@ u8 *func_80025000(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_8002528C(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; s32 sz[3]; } t;
+    struct { s32 field_0; s32 field_4; s32 field_8[3]; } t;
     u32 *e;
     u8 *pk;
     s32 m;
@@ -8402,40 +8402,40 @@ u8 *func_8002528C(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0xA) * 8, verts + *(u16 *)(prim + 0xE) * 8, verts + *(u16 *)(prim + 0x12) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_g3(pk);
                 if (D_80078D88 & 0x8000) {
-                    gte_stsz3(&t.sz[0], &t.sz[1], &t.sz[2]);
-                    if (t.sz[0] > t.sz[1]) {
-                        m = t.sz[0];
-                        if (m < t.sz[2]) {
-                            m = t.sz[2];
+                    gte_stsz3(&t.field_8[0], &t.field_8[1], &t.field_8[2]);
+                    if (t.field_8[0] > t.field_8[1]) {
+                        m = t.field_8[0];
+                        if (m < t.field_8[2]) {
+                            m = t.field_8[2];
                         }
                     } else {
-                        m = t.sz[1];
-                        if (m < t.sz[2]) {
-                            m = t.sz[2];
+                        m = t.field_8[1];
+                        if (m < t.field_8[2]) {
+                            m = t.field_8[2];
                         }
                     }
-                    t.z = m >> 2;
+                    t.field_4 = m >> 2;
                 } else {
                     gte_avsz3();
-                    gte_stotz(&t.z);
+                    gte_stotz(&t.field_4);
                 }
                 gte_ldrgb(prim + 4);
                 gte_ldv3(norms + *(u16 *)(prim + 8) * 8, norms + *(u16 *)(prim + 0xC) * 8, norms + *(u16 *)(prim + 0x10) * 8);
                 gte_ncct();
                 gte_strgb3_g3(pk);
-                e = ot + (t.z >> shift);
+                e = ot + (t.field_4 >> shift);
                 *(u32 *)pk = (*e & 0xFFFFFF) | 0x06000000;
                 *e = (u32)pk & 0xFFFFFF;
                 pk += 0x1C;
                 if (D_800A2B78 != 0 && (pk[-0x15] & 2)) {
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     pk[3] = 1;
                     *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -8452,7 +8452,7 @@ u8 *func_8002528C(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_80025504(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; s32 sz[4]; } t;
+    struct { s32 field_0; s32 field_4; s32 field_8[4]; } t;
     u32 *e;
     u8 *pk;
     s32 m;
@@ -8462,34 +8462,34 @@ u8 *func_80025504(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0xA) * 8, verts + *(u16 *)(prim + 0xE) * 8, verts + *(u16 *)(prim + 0x12) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_g4(pk);
                 gte_ldv0(verts + *(u16 *)(prim + 0x16) * 8);
                 gte_rtps();
-                gte_stflg(&t.flag);
-                if (!(t.flag & ~0x1000)) {
+                gte_stflg(&t.field_0);
+                if (!(t.field_0 & ~0x1000)) {
                     gte_stsxy(pk + 0x20);
                     if (D_80078D88 & 0x8000) {
-                        gte_stsz4(&t.sz[0], &t.sz[1], &t.sz[2], &t.sz[3]);
-                        m2 = t.sz[2];
-                        if (m2 < t.sz[3]) {
-                            m2 = t.sz[3];
+                        gte_stsz4(&t.field_8[0], &t.field_8[1], &t.field_8[2], &t.field_8[3]);
+                        m2 = t.field_8[2];
+                        if (m2 < t.field_8[3]) {
+                            m2 = t.field_8[3];
                         }
-                        m = t.sz[0];
-                        if (m < t.sz[1]) {
-                            m = t.sz[1];
+                        m = t.field_8[0];
+                        if (m < t.field_8[1]) {
+                            m = t.field_8[1];
                         }
                         if (m < m2) {
                             m = m2;
                         }
-                        t.z = m >> 2;
+                        t.field_4 = m >> 2;
                     } else {
                         gte_avsz4();
-                        gte_stotz(&t.z);
+                        gte_stotz(&t.field_4);
                     }
                     gte_ldrgb(prim + 4);
                     gte_ldv3(norms + *(u16 *)(prim + 8) * 8, norms + *(u16 *)(prim + 0xC) * 8, norms + *(u16 *)(prim + 0x10) * 8);
@@ -8498,12 +8498,12 @@ u8 *func_80025504(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
                     gte_ldv0(norms + *(u16 *)(prim + 0x14) * 8);
                     gte_nccs();
                     gte_strgb(pk + 0x1C);
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x08000000;
                     *e = (u32)pk & 0xFFFFFF;
                     pk += 0x24;
                     if (D_800A2B78 != 0 && (pk[-0x1D] & 2)) {
-                        e = ot + (t.z >> shift);
+                        e = ot + (t.field_4 >> shift);
                         pk[3] = 1;
                         *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                         *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -8521,7 +8521,7 @@ u8 *func_80025504(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_80025818(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -8529,14 +8529,14 @@ u8 *func_80025818(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0x12) * 8, verts + *(u16 *)(prim + 0x16) * 8, verts + *(u16 *)(prim + 0x1A) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_g3(pk);
                 gte_avsz3();
-                gte_stotz(&t.z);
+                gte_stotz(&t.field_4);
                 gte_ldv0(norms + *(u16 *)(prim + 0x10) * 8);
                 gte_ldrgb(prim + 4);
                 gte_nccs();
@@ -8548,12 +8548,12 @@ u8 *func_80025818(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
                 gte_nccs();
                 gte_strgb(pk + 0x14);
                 pk[7] = (pk[7] & 2) | 0x30;
-                e = ot + (t.z >> shift);
+                e = ot + (t.field_4 >> shift);
                 *(u32 *)pk = (*e & 0xFFFFFF) | 0x06000000;
                 *e = (u32)pk & 0xFFFFFF;
                 pk += 0x1C;
                 if (D_800A2B78 != 0 && (pk[-0x15] & 2)) {
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     pk[3] = 1;
                     *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -8570,7 +8570,7 @@ u8 *func_80025818(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_80025A30(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -8578,19 +8578,19 @@ u8 *func_80025A30(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0x16) * 8, verts + *(u16 *)(prim + 0x1A) * 8, verts + *(u16 *)(prim + 0x1E) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_g4(pk);
                 gte_ldv0(verts + *(u16 *)(prim + 0x22) * 8);
                 gte_rtps();
-                gte_stflg(&t.flag);
-                if (!(t.flag & ~0x1000)) {
+                gte_stflg(&t.field_0);
+                if (!(t.field_0 & ~0x1000)) {
                     gte_stsxy(pk + 0x20);
                     gte_avsz4();
-                    gte_stotz(&t.z);
+                    gte_stotz(&t.field_4);
                     gte_ldv0(norms + *(u16 *)(prim + 0x14) * 8);
                     gte_ldrgb(prim + 4);
                     gte_nccs();
@@ -8605,12 +8605,12 @@ u8 *func_80025A30(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
                     gte_nccs();
                     gte_strgb(pk + 0x1C);
                     pk[7] = (pk[7] & 2) | 0x38;
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x08000000;
                     *e = (u32)pk & 0xFFFFFF;
                     pk += 0x24;
                     if (D_800A2B78 != 0 && (pk[-0x1D] & 2)) {
-                        e = ot + (t.z >> shift);
+                        e = ot + (t.field_4 >> shift);
                         pk[3] = 1;
                         *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                         *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -8628,7 +8628,7 @@ u8 *func_80025A30(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_80025CBC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; s32 sz0; s32 sz1; s32 sz2; } t;
+    struct { s32 field_0; s32 field_4; s32 field_8; s32 field_C; s32 field_10; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -8640,23 +8640,23 @@ u8 *func_80025CBC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
         *(u32 *)(pk + 0xC) = *(u32 *)(prim + 4);
         *(u32 *)(pk + 0x14) = *(u32 *)(prim + 8);
         *(u32 *)(pk + 0x1C) = *(u32 *)(prim + 0xC);
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_ft3(pk);
                 if (D_80078D88 & 0x8000) {
-                    gte_stsz3(&t.sz0, &t.sz1, &t.sz2);
-                    t.z = ((t.sz0 > t.sz1) ? ((t.sz0 > t.sz2) ? t.sz0 : t.sz2) : ((t.sz1 > t.sz2) ? t.sz1 : t.sz2)) >> 2;
+                    gte_stsz3(&t.field_8, &t.field_C, &t.field_10);
+                    t.field_4 = ((t.field_8 > t.field_C) ? ((t.field_8 > t.field_10) ? t.field_8 : t.field_10) : ((t.field_C > t.field_10) ? t.field_C : t.field_10)) >> 2;
                 } else {
                     gte_avsz3();
-                    gte_stotz(&t.z);
+                    gte_stotz(&t.field_4);
                 }
                 gte_ldv0(norms + *(u16 *)(prim + 0x10) * 8);
                 gte_nccs();
                 gte_strgb(pk + 4);
-                e = ot + (t.z >> shift);
+                e = ot + (t.field_4 >> shift);
                 *(u32 *)pk = (*e & 0xFFFFFF) | 0x07000000;
                 *e = (u32)pk & 0xFFFFFF;
                 pk += 0x20;
@@ -8670,7 +8670,7 @@ u8 *func_80025CBC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_80025EB8(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; s32 sz0; s32 sz1; s32 sz2; s32 sz3; } t;
+    struct { s32 field_0; s32 field_4; s32 field_8; s32 field_C; s32 field_10; s32 field_14; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -8682,29 +8682,29 @@ u8 *func_80025EB8(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
         *(u32 *)(pk + 0xC) = *(u32 *)(prim + 4);
         *(u32 *)(pk + 0x14) = *(u32 *)(prim + 8);
         *(u32 *)(pk + 0x1C) = *(u32 *)(prim + 0xC);
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_ft4(pk);
                 gte_ldv0(verts + *(u16 *)(prim + 0x1C) * 8);
                 gte_rtps();
-                gte_stflg(&t.flag);
-                if (!(t.flag & ~0x1000)) {
+                gte_stflg(&t.field_0);
+                if (!(t.field_0 & ~0x1000)) {
                     gte_stsxy(pk + 0x20);
                     *(u32 *)(pk + 0x24) = *(u32 *)(prim + 0x10);
                     if (D_80078D88 & 0x8000) {
-                        gte_stsz4(&t.sz0, &t.sz1, &t.sz2, &t.sz3);
-                        t.z = MAX(MAX(t.sz0, t.sz1), MAX(t.sz2, t.sz3)) >> 2;
+                        gte_stsz4(&t.field_8, &t.field_C, &t.field_10, &t.field_14);
+                        t.field_4 = MAX(MAX(t.field_8, t.field_C), MAX(t.field_10, t.field_14)) >> 2;
                     } else {
                         gte_avsz4();
-                        gte_stotz(&t.z);
+                        gte_stotz(&t.field_4);
                     }
                     gte_ldv0(norms + *(u16 *)(prim + 0x14) * 8);
                     gte_nccs();
                     gte_strgb(pk + 4);
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x09000000;
                     *e = (u32)pk & 0xFFFFFF;
                     pk += 0x28;
@@ -8719,7 +8719,7 @@ u8 *func_80025EB8(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_80026128(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -8731,17 +8731,17 @@ u8 *func_80026128(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
         *(u32 *)(pk + 0xC) = *(u32 *)(prim + 4);
         *(u32 *)(pk + 0x18) = *(u32 *)(prim + 8);
         *(u32 *)(pk + 0x24) = *(u32 *)(prim + 0xC);
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_gt3(pk);
                 gte_avsz3();
-                gte_stotz(&t.z);
+                gte_stotz(&t.field_4);
                 gte_ldv3(norms + *(u16 *)(prim + 0x10) * 8, norms + *(u16 *)(prim + 0x14) * 8, norms + *(u16 *)(prim + 0x18) * 8);
                 gte_ncct();
-                e = ot + (t.z >> shift);
+                e = ot + (t.field_4 >> shift);
                 *(u32 *)pk = (*e & 0xFFFFFF) | 0x09000000;
                 gte_strgb3(pk + 4, pk + 0x10, pk + 0x1C);
                 *e = (u32)pk & 0xFFFFFF;
@@ -8756,7 +8756,7 @@ u8 *func_80026128(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_800262D8(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -8768,23 +8768,23 @@ u8 *func_800262D8(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
         *(u32 *)(pk + 0xC) = *(u32 *)(prim + 4);
         *(u32 *)(pk + 0x18) = *(u32 *)(prim + 8);
         *(u32 *)(pk + 0x24) = *(u32 *)(prim + 0xC);
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_gt4(pk);
                 gte_ldv0(verts + *(u16 *)(prim + 0x22) * 8);
                 gte_rtps();
                 *(u32 *)(pk + 0x30) = *(u32 *)(prim + 0x10);
-                gte_stflg(&t.flag);
-                if (!(t.flag & ~0x1000)) {
+                gte_stflg(&t.field_0);
+                if (!(t.field_0 & ~0x1000)) {
                     gte_stsxy(pk + 0x2C);
                     gte_avsz4();
-                    gte_stotz(&t.z);
+                    gte_stotz(&t.field_4);
                     gte_ldv3(norms + *(u16 *)(prim + 0x14) * 8, norms + *(u16 *)(prim + 0x18) * 8, norms + *(u16 *)(prim + 0x1C) * 8);
                     gte_ncct();
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x0C000000;
                     gte_strgb3(pk + 4, pk + 0x10, pk + 0x1C);
                     gte_ldv0(norms + *(u16 *)(prim + 0x20) * 8);
@@ -8857,10 +8857,10 @@ u8 *func_80026514(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
                 }
                 pk[0xC] = u0;
                 pk[0xD] = v0;
-                ((GT3 *)pk)->clut = clut;
+                ((struct_28 *)pk)->field_E = clut;
                 pk[0x18] = u1;
                 pk[0x19] = v1;
-                ((GT3 *)pk)->tpage = tpage;
+                ((struct_28 *)pk)->field_1A = tpage;
                 pk[0x24] = u2;
                 pk[0x25] = v2;
                 e = ot + (z >> shift);
@@ -8941,10 +8941,10 @@ u8 *func_800268D0(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
                     }
                     pk[0xC] = u0;
                     pk[0xD] = v0;
-                    ((GT4 *)pk)->clut = clut;
+                    ((struct_34_2 *)pk)->field_E = clut;
                     pk[0x18] = u1;
                     pk[0x19] = v1;
-                    ((GT4 *)pk)->tpage = tpage;
+                    ((struct_34_2 *)pk)->field_1A = tpage;
                     pk[0x24] = u2;
                     pk[0x25] = v2;
                     pk[0x30] = u3;
@@ -8982,22 +8982,22 @@ void func_80026D64(u8 *o, u8 *a1, s32 shift) {
         switch ((w >> 24) & 0xFD) {
         case 0x20:
             if (f) {
-                g_PrimNext = (s32)func_800273F4(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(a1 + 4));
+                D_800A5E60 = (s32)func_800273F4(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(a1 + 4));
                 n -= *(u16 *)p;
                 p += *(u16 *)p * 24;
             } else {
-                g_PrimNext = (s32)func_80027058(p, verts, (u32 *)norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(a1 + 4));
+                D_800A5E60 = (s32)func_80027058(p, verts, (u32 *)norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(a1 + 4));
                 n -= *(u16 *)p;
                 p += *(u16 *)p * 16;
             }
             break;
         case 0x28:
             if (f) {
-                g_PrimNext = (s32)func_800275BC(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(a1 + 4));
+                D_800A5E60 = (s32)func_800275BC(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(a1 + 4));
                 n -= *(u16 *)p;
                 p += *(u16 *)p * 32;
             } else {
-                g_PrimNext = (s32)func_80027200(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(a1 + 4));
+                D_800A5E60 = (s32)func_80027200(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(a1 + 4));
                 n -= *(u16 *)p;
                 p += *(u16 *)p * 20;
             }
@@ -9023,12 +9023,12 @@ void func_80026D64(u8 *o, u8 *a1, s32 shift) {
             p += *(u16 *)p * 36;
             break;
         case 0x25:
-            g_PrimNext = (s32)func_800277DC(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(a1 + 4));
+            D_800A5E60 = (s32)func_800277DC(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(a1 + 4));
             n -= *(u16 *)p;
             p += *(u16 *)p * 28;
             break;
         case 0x2D:
-            g_PrimNext = (s32)func_800279AC(p, verts, norms, (u8 *)g_PrimNext, *(u16 *)p, shift, *(u32 **)(a1 + 4));
+            D_800A5E60 = (s32)func_800279AC(p, verts, norms, (u8 *)D_800A5E60, *(u16 *)p, shift, *(u32 **)(a1 + 4));
             n -= *(u16 *)p;
             p += *(u16 *)p * 32;
             break;
@@ -9041,26 +9041,26 @@ void func_80026D64(u8 *o, u8 *a1, s32 shift) {
 }
 
 u8 *func_80027058(u8 *p, u8 *verts, u32 *e, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     if (n == 0) { return pkt; }
     do {
         gte_ldv3(verts + *(u16 *)(p + 0xA) * 8, verts + *(u16 *)(p + 0xC) * 8, verts + *(u16 *)(p + 0xE) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_f3(pkt);
                 gte_avsz3();
-                gte_stotz(&t.z);
+                gte_stotz(&t.field_4);
                 *(u32 *)(pkt + 4) = *(u32 *)(p + 4);
-                e = ot + (t.z >> shift);
+                e = ot + (t.field_4 >> shift);
                 *(u32 *)pkt = (*e & 0xFFFFFF) | 0x04000000;
                 *e = (u32)pkt & 0xFFFFFF;
                 pkt += 0x14;
                 if (D_800A2B78 != 0 && (pkt[-0xD] & 2)) {
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     pkt[3] = 1;
                     *(u32 *)(pkt + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                     *(u32 *)pkt = (*e & 0xFFFFFF) | 0x01000000;
@@ -9075,7 +9075,7 @@ u8 *func_80027058(u8 *p, u8 *verts, u32 *e, u8 *pkt, s32 n, s32 shift, u32 *ot) 
 }
 
 u8 *func_80027200(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -9083,26 +9083,26 @@ u8 *func_80027200(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0xA) * 8, verts + *(u16 *)(prim + 0xC) * 8, verts + *(u16 *)(prim + 0xE) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_f4(pk);
                 gte_ldv0(verts + *(u16 *)(prim + 0x10) * 8);
                 gte_rtps();
-                gte_stflg(&t.flag);
-                if (!(t.flag & ~0x1000)) {
+                gte_stflg(&t.field_0);
+                if (!(t.field_0 & ~0x1000)) {
                     gte_stsxy(pk + 0x14);
                     gte_avsz4();
-                    gte_stotz(&t.z);
+                    gte_stotz(&t.field_4);
                     *(u32 *)(pk + 4) = *(u32 *)(prim + 4);
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x05000000;
                     *e = (u32)pk & 0xFFFFFF;
                     pk += 0x18;
                     if (D_800A2B78 != 0 && (pk[-0x11] & 2)) {
-                        e = ot + (t.z >> shift);
+                        e = ot + (t.field_4 >> shift);
                         pk[3] = 1;
                         *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                         *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -9120,7 +9120,7 @@ u8 *func_80027200(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_800273F4(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -9128,24 +9128,24 @@ u8 *func_800273F4(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0x12) * 8, verts + *(u16 *)(prim + 0x14) * 8, verts + *(u16 *)(prim + 0x16) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_g3(pk);
                 gte_avsz3();
-                gte_stotz(&t.z);
+                gte_stotz(&t.field_4);
                 *(u32 *)(pk + 4) = *(u32 *)(prim + 4);
                 *(u32 *)(pk + 0xC) = *(u32 *)(prim + 8);
                 *(u32 *)(pk + 0x14) = *(u32 *)(prim + 0xC);
                 pk[7] = (pk[7] & 2) | 0x30;
-                e = ot + (t.z >> shift);
+                e = ot + (t.field_4 >> shift);
                 *(u32 *)pk = (*e & 0xFFFFFF) | 0x06000000;
                 *e = (u32)pk & 0xFFFFFF;
                 pk += 0x1C;
                 if (D_800A2B78 != 0 && (pk[-0x15] & 2)) {
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     pk[3] = 1;
                     *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -9162,7 +9162,7 @@ u8 *func_800273F4(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_800275BC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; } t;
+    struct { s32 field_0; s32 field_4; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -9170,30 +9170,30 @@ u8 *func_800275BC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
     do {
         gte_ldv3(verts + *(u16 *)(prim + 0x16) * 8, verts + *(u16 *)(prim + 0x18) * 8, verts + *(u16 *)(prim + 0x1A) * 8);
         gte_rtpt();
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_g4(pk);
                 gte_ldv0(verts + *(u16 *)(prim + 0x1C) * 8);
                 gte_rtps();
-                gte_stflg(&t.flag);
-                if (!(t.flag & ~0x1000)) {
+                gte_stflg(&t.field_0);
+                if (!(t.field_0 & ~0x1000)) {
                     gte_stsxy(pk + 0x20);
                     gte_avsz4();
-                    gte_stotz(&t.z);
+                    gte_stotz(&t.field_4);
                     *(u32 *)(pk + 4) = *(u32 *)(prim + 4);
                     *(u32 *)(pk + 0xC) = *(u32 *)(prim + 8);
                     *(u32 *)(pk + 0x14) = *(u32 *)(prim + 0xC);
                     *(u32 *)(pk + 0x1C) = *(u32 *)(prim + 0x10);
                     pk[7] = (pk[7] & 2) | 0x38;
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x08000000;
                     *e = (u32)pk & 0xFFFFFF;
                     pk += 0x24;
                     if (D_800A2B78 != 0 && (pk[-0x1D] & 2)) {
-                        e = ot + (t.z >> shift);
+                        e = ot + (t.field_4 >> shift);
                         pk[3] = 1;
                         *(u32 *)(pk + 4) = ((D_800A2B78 & 3) << 5) | 0xE100000A;
                         *(u32 *)pk = (*e & 0xFFFFFF) | 0x01000000;
@@ -9211,7 +9211,7 @@ u8 *func_800275BC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_800277DC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; s32 sz0; s32 sz1; s32 sz2; } t;
+    struct { s32 field_0; s32 field_4; s32 field_8; s32 field_C; s32 field_10; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -9222,21 +9222,21 @@ u8 *func_800277DC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
         *(u32 *)(pk + 0xC) = *(u32 *)(prim + 4);
         *(u32 *)(pk + 0x14) = *(u32 *)(prim + 8);
         *(u32 *)(pk + 0x1C) = *(u32 *)(prim + 0xC);
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_ft3(pk);
                 if (D_80078D88 & 0x8000) {
-                    gte_stsz3(&t.sz0, &t.sz1, &t.sz2);
-                    t.z = ((t.sz0 > t.sz1) ? ((t.sz0 > t.sz2) ? t.sz0 : t.sz2) : ((t.sz1 > t.sz2) ? t.sz1 : t.sz2)) >> 2;
+                    gte_stsz3(&t.field_8, &t.field_C, &t.field_10);
+                    t.field_4 = ((t.field_8 > t.field_C) ? ((t.field_8 > t.field_10) ? t.field_8 : t.field_10) : ((t.field_C > t.field_10) ? t.field_C : t.field_10)) >> 2;
                 } else {
                     gte_avsz3();
-                    gte_stotz(&t.z);
+                    gte_stotz(&t.field_4);
                 }
                 *(u32 *)(pk + 4) = (*(u32 *)(prim + 0x10) & 0xFFFFFF) | (prim[3] << 24);
-                e = ot + (t.z >> shift);
+                e = ot + (t.field_4 >> shift);
                 *(u32 *)pk = (*e & 0xFFFFFF) | 0x07000000;
                 *e = (u32)pk & 0xFFFFFF;
                 pk += 0x20;
@@ -9250,7 +9250,7 @@ u8 *func_800277DC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
 }
 
 u8 *func_800279AC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32 *ot) {
-    struct { s32 flag; s32 z; s32 sz0; s32 sz1; s32 sz2; s32 sz3; } t;
+    struct { s32 field_0; s32 field_4; s32 field_8; s32 field_C; s32 field_10; s32 field_14; } t;
     u32 *e;
     u8 *pk;
     pk = pkt;
@@ -9261,27 +9261,27 @@ u8 *func_800279AC(u8 *prim, u8 *verts, u8 *norms, u8 *pkt, s32 n, s32 shift, u32
         *(u32 *)(pk + 0xC) = *(u32 *)(prim + 4);
         *(u32 *)(pk + 0x14) = *(u32 *)(prim + 8);
         *(u32 *)(pk + 0x1C) = *(u32 *)(prim + 0xC);
-        gte_stflg(&t.flag);
-        if (!(t.flag & ~0x1000)) {
+        gte_stflg(&t.field_0);
+        if (!(t.field_0 & ~0x1000)) {
             gte_nclip();
-            gte_stopz(&t.z);
-            if (t.z > 0) {
+            gte_stopz(&t.field_4);
+            if (t.field_4 > 0) {
                 gte_stsxy3_ft4(pk);
                 gte_ldv0(verts + *(u16 *)(prim + 0x1E) * 8);
                 gte_rtps();
-                gte_stflg(&t.flag);
-                if (!(t.flag & ~0x1000)) {
+                gte_stflg(&t.field_0);
+                if (!(t.field_0 & ~0x1000)) {
                     gte_stsxy(pk + 0x20);
                     *(u32 *)(pk + 0x24) = *(u32 *)(prim + 0x10);
                     if (D_80078D88 & 0x8000) {
-                        gte_stsz4(&t.sz0, &t.sz1, &t.sz2, &t.sz3);
-                        t.z = MAX(MAX(t.sz0, t.sz1), MAX(t.sz2, t.sz3)) >> 2;
+                        gte_stsz4(&t.field_8, &t.field_C, &t.field_10, &t.field_14);
+                        t.field_4 = MAX(MAX(t.field_8, t.field_C), MAX(t.field_10, t.field_14)) >> 2;
                     } else {
                         gte_avsz4();
-                        gte_stotz(&t.z);
+                        gte_stotz(&t.field_4);
                     }
                     *(u32 *)(pk + 4) = (*(u32 *)(prim + 0x14) & 0xFFFFFF) | (prim[3] << 24);
-                    e = ot + (t.z >> shift);
+                    e = ot + (t.field_4 >> shift);
                     *(u32 *)pk = (*e & 0xFFFFFF) | 0x09000000;
                     *e = (u32)pk & 0xFFFFFF;
                     pk += 0x28;
@@ -9449,12 +9449,12 @@ void func_80028234(void) {
 void func_8002823C(void) {
     s32 i;
     for (i = 0; i < 3; i++) {
-        D_800A5E88[i].vx = 0x800;
-        D_800A5E88[i].vy = 0x800;
-        D_800A5E88[i].vz = 0;
-        D_800A5E88[i].r = 0x20;
-        D_800A5E88[i].g = 0x20;
-        D_800A5E88[i].b = 0x20;
+        D_800A5E88[i].field_0 = 0x800;
+        D_800A5E88[i].field_4 = 0x800;
+        D_800A5E88[i].field_8 = 0;
+        D_800A5E88[i].field_C = 0x20;
+        D_800A5E88[i].field_D = 0x20;
+        D_800A5E88[i].field_E = 0x20;
         func_80028620(i, &D_800A5E88[i]);
     }
 }
@@ -9465,21 +9465,21 @@ void func_800282FC(void) {
 void func_80028304(s32 id, s32 x, s32 y, s32 z, u8 r, u8 g, u8 b) {
     u32 a = id & 0xFFFF;
     if (a < 3) {
-        D_800A5E88[a].vx = x;
-        D_800A5E88[a].vy = y;
-        D_800A5E88[a].vz = z;
-        D_800A5E88[a].r = r;
-        D_800A5E88[a].g = g;
-        D_800A5E88[a].b = b;
+        D_800A5E88[a].field_0 = x;
+        D_800A5E88[a].field_4 = y;
+        D_800A5E88[a].field_8 = z;
+        D_800A5E88[a].field_C = r;
+        D_800A5E88[a].field_D = g;
+        D_800A5E88[a].field_E = b;
         func_80028620(a, &D_800A5E88[a]);
     }
 }
 
 void func_80028394(u16 id, s32 dx, s32 dy, s32 dz) {
     if (id < 3) {
-        D_800A5E88[id].vx += dx;
-        D_800A5E88[id].vy += dy;
-        D_800A5E88[id].vz += dz;
+        D_800A5E88[id].field_0 += dx;
+        D_800A5E88[id].field_4 += dy;
+        D_800A5E88[id].field_8 += dz;
         func_80028620(id, &D_800A5E88[id]);
     }
 }
@@ -9487,21 +9487,21 @@ void func_80028394(u16 id, s32 dx, s32 dy, s32 dz) {
 void func_80028428(s32 id, s8 r, s8 g, s8 b) {
     u32 a = id & 0xFFFF;
     if (a < 3) {
-        D_800A5E88[a].r = r;
-        D_800A5E88[a].g = g;
-        D_800A5E88[a].b = b;
+        D_800A5E88[a].field_C = r;
+        D_800A5E88[a].field_D = g;
+        D_800A5E88[a].field_E = b;
         func_80028620(a, &D_800A5E88[a]);
     }
 }
 
 void func_80028488(u16 id) {
     if (id < 3) {
-        D_800A5E88[id].vz = 0x64;
-        D_800A5E88[id].vx = 0;
-        D_800A5E88[id].vy = 0;
-        D_800A5E88[id].r = 0;
-        D_800A5E88[id].g = 0;
-        D_800A5E88[id].b = 0;
+        D_800A5E88[id].field_8 = 0x64;
+        D_800A5E88[id].field_0 = 0;
+        D_800A5E88[id].field_4 = 0;
+        D_800A5E88[id].field_C = 0;
+        D_800A5E88[id].field_D = 0;
+        D_800A5E88[id].field_E = 0;
         func_80028620(id, &D_800A5E88[id]);
     }
 }
@@ -9515,9 +9515,9 @@ void func_8002850C(s16 r, s16 g, s16 b) {
 
 void func_80028558(s32 id, s8 r, s8 g, s8 b) {
     s32 a = id & 0xFFFF;
-    D_800A5E88[a].r = r;
-    D_800A5E88[a].g = g;
-    D_800A5E88[a].b = b;
+    D_800A5E88[a].field_C = r;
+    D_800A5E88[a].field_D = g;
+    D_800A5E88[a].field_E = b;
     func_80028620(a, &D_800A5E88[a]);
 }
 
@@ -9538,15 +9538,15 @@ void func_800285CC(void) {
 /* PORT NOTE (r254): the stage code calls this from its scratchpad stack and then builds func_80017758's colour records
    over the dead frame without setting their pad bytes, so this frame's saved ra becomes a POLY_G4 pad byte in game
    RAM. The PC runs it in its console frame with the console's ra (pc/frames.txt `ra`). */
-void func_80028620(s32 id, LightDir *src) {
-    LightDir light;
+void func_80028620(s32 id, struct_10 *src) {
+    struct_10 light;
 
     light = *src;
-    if ((light.vx | light.vy | light.vz) == 0) {
-        light.vx = 0x1000;
-        light.b = 0;
-        light.g = 0;
-        light.r = 0;
+    if ((light.field_0 | light.field_4 | light.field_8) == 0) {
+        light.field_0 = 0x1000;
+        light.field_E = 0;
+        light.field_D = 0;
+        light.field_C = 0;
     }
     GsSetFlatLight(id, &light);
 }
@@ -9564,10 +9564,10 @@ extern RECT D_80075828;
 extern RECT D_80075830;
 
 void func_80028694(void) {
-    Work *w = &D_800AF630;
+    struct_A444 *w = &D_800AF630;
 
     if (D_800B9A15 == 0) {
-        if ((s16)TestPadAll(1, 0, 2)) {
+        if ((s16)func_80014C54(1, 0, 2)) {
             D_800AF67F = D_800AF6DB = D_800AF737 = 1;
             D_80075818 = D_8007581C = 0;
             D_80075820.x = D_800AF77C.x;
@@ -9582,7 +9582,7 @@ void func_80028694(void) {
             D_80075830.y = D_800AF7A4.y;
             D_80075830.w = D_800AF7A4.w;
             D_80075830.h = D_800AF7A4.h;
-        } else if ((GetPadPrevHeld(1) & 2) && !(GetPadHeldDir(1) & 2)) {
+        } else if ((func_80014BFC(1) & 2) && !(func_80014B10(1) & 2)) {
             D_800AF67F = D_800AF6DB = D_800AF737 = 0;
             D_800AF77C.x = D_80075820.x;
             D_800AF77C.y = D_80075820.y;
@@ -9597,27 +9597,27 @@ void func_80028694(void) {
             D_800AF7A4.w = D_80075830.w;
             D_800AF7A4.h = D_80075830.h;
         }
-        if ((s16)TestPadAll(1, 1, 2)) {
-            switch (GetPadHeldDir(1) & 0x5000) {
+        if ((s16)func_80014C54(1, 1, 2)) {
+            switch (func_80014B10(1) & 0x5000) {
             case 0x1000:
-                D_8007581C -= w->vsyncMode * 2;
+                D_8007581C -= w->field_A3E8 * 2;
                 break;
             case 0x4000:
-                D_8007581C += w->vsyncMode * 2;
+                D_8007581C += w->field_A3E8 * 2;
                 break;
             }
-            switch (GetPadHeldDir(1) & 0xA000) {
+            switch (func_80014B10(1) & 0xA000) {
             case 0x8000:
-                D_80075818 -= w->vsyncMode * 2;
+                D_80075818 -= w->field_A3E8 * 2;
                 break;
             case 0x2000:
-                D_80075818 += w->vsyncMode * 2;
+                D_80075818 += w->field_A3E8 * 2;
                 break;
             }
-            if ((s16)TestPadAll(1, 1, 8)) {
-                SetDefDispEnv(&w->disp[w->dispIdx], D_80075818, D_8007581C, 0x140, 0xF0);
+            if ((s16)func_80014C54(1, 1, 8)) {
+                SetDefDispEnv(&w->field_14C[w->field_188], D_80075818, D_8007581C, 0x140, 0xF0);
             } else {
-                SetDefDispEnv(&w->disp[w->dispIdx], D_80075818, D_8007581C, 0x280, 0x1E0);
+                SetDefDispEnv(&w->field_14C[w->field_188], D_80075818, D_8007581C, 0x280, 0x1E0);
             }
         }
     }
@@ -9961,7 +9961,7 @@ s32 func_80029264(void) {
 }
 
 void func_80029274(void) {
-    Blk98 t = D_80072C84;
+    struct_98 t = D_80072C84;
     D_80078E78 = t;
 }
 
@@ -10089,19 +10089,19 @@ void func_80029690(void) {
     } while (i < 2);
 }
 
-void func_800296F8(Blk24 *src) {
+void func_800296F8(struct_24 *src) {
     func_80029774(1);
     D_80079204 = *src;
     D_800A5E5C = 1;
 }
 
-typedef struct { u8 b[4]; } B4;
+typedef struct { u8 field_0[4]; } struct_4_6;
 
 void func_80029774(s32 a) {
     u8 *p = D_80078F28 + a * 0x2DC;
     s32 i;
 
-    *(Blk98 *)(p + 0x24) = D_80078E78;
+    *(struct_98 *)(p + 0x24) = D_80078E78;
     for (i = 0; i < 0x40; i++) {
         ((u16 *)(p + 0xBC))[i] = ((u16 *)D_800A6588)[i];
     }
@@ -10112,12 +10112,12 @@ void func_80029774(s32 a) {
         (p + i)[0x17C] = D_800BA1B8[i];
     }
     for (i = 0; i < 0x18; i++) {
-        ((B4 *)(p + 0x27C))[i] = ((B4 *)D_800BA2B8)[i];
+        ((struct_4_6 *)(p + 0x27C))[i] = ((struct_4_6 *)D_800BA2B8)[i];
     }
     D_800A5E58[a] = 1;
 }
 
-void func_800298BC(Blk24 *dst) {
+void func_800298BC(struct_24 *dst) {
     func_8002992C(1);
     *dst = D_80079204;
 }
@@ -10125,7 +10125,7 @@ void func_800298BC(Blk24 *dst) {
 void func_8002992C(s32 a) {
     u8 *p = D_80078F28 + a * 0x2DC;
     s32 i;
-    D_80078E78 = *(Blk98 *)(p + 0x24);
+    D_80078E78 = *(struct_98 *)(p + 0x24);
     for (i = 0; i < 0x40; i++) {
         ((u16 *)D_800A6588)[i] = *(u16 *)(p + 0xBC + i * 2);
     }
@@ -10136,7 +10136,7 @@ void func_8002992C(s32 a) {
         D_800BA1B8[i] = (p + i)[0x17C];
     }
     for (i = 0; i < 0x18; i++) {
-        ((B4 *)D_800BA2B8)[i] = ((B4 *)(p + 0x27C))[i];
+        ((struct_4_6 *)D_800BA2B8)[i] = ((struct_4_6 *)(p + 0x27C))[i];
     }
 }
 
@@ -10705,13 +10705,13 @@ s32 func_8002AF60(void) {
     return D_80075A40;
 }
 
-void func_8002AF70(Blob2DC *src, s32 v) {
+void func_8002AF70(struct_2DC *src, s32 v) {
     func_80016714(&D_80075CC0, 0x300);
     D_80075CC0 = *src;
     D_80076040 = v;
 }
 
-void func_8002B00C(Blob2DC *dst) {
+void func_8002B00C(struct_2DC *dst) {
     *dst = D_80075CC0;
 }
 
@@ -10733,9 +10733,9 @@ s32 func_8002B08C(u8 *p) {
     return sum & 0xFFFF;
 }
 
-typedef struct { u8 b[0x20]; } B20;
-typedef struct { u8 b[0x29]; } B29;
-typedef struct { u8 b[0x80]; } B80;
+typedef struct { u8 field_0[0x20]; } struct_20_4;
+typedef struct { u8 field_0[0x29]; } struct_29;
+typedef struct { u8 field_0[0x80]; } struct_80;
 extern s32 MemCardExist(s32 chan);
 extern s32 MemCardAccept(s32 chan);
 extern s32 MemCardSync(s32 mode, s32 *cmds, s32 *rslt);
@@ -10761,7 +10761,7 @@ extern s32 D_800760B8;
 extern u16 D_800760BC;
 extern u16 D_800760C0;
 extern u32 D_800760C4;
-typedef struct { s32 status; s32 info; } CardSlot;
+typedef struct { s32 field_0; s32 field_4; } struct_8_9;
 s32 func_8002C320(void);
 s32 func_8002C3B0(s32 n, u8 *p);
 
@@ -10822,15 +10822,15 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
         case 6:
             switch (D_800760C4) {
             case 0:
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 8;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->info = func_8002C320();
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 8;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_4 = func_8002C320();
                 MemCardClose();
                 D_800760AC = 0;
                 break;
             case 1:
                 MemCardClose();
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
                 break;
             case 3:
                 MemCardClose();
@@ -10840,7 +10840,7 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
             default:
                 MemCardClose();
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 0;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 0;
                 break;
             }
             break;
@@ -10856,17 +10856,17 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 case 1:
                     ret = 2;
                     D_800760AC = 0;
-                    ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
+                    ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
                     break;
                 case 2:
                     ret = 2;
                     D_800760AC = 0;
-                    ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 4;
+                    ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 4;
                     break;
                 case 4:
                     ret = 2;
                     D_800760AC = 0;
-                    ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 3;
+                    ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 3;
                     break;
                 case 5:
                     MemCardClose();
@@ -10887,16 +10887,16 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 D_80075840[1] = 'C';
                 D_80075840[2] = 0x13;
                 D_80075840[3] = 1;
-                *(B29 *)(D_80075840 + 4) = *(B29 *)D_80072E10;
+                *(struct_29 *)(D_80075840 + 4) = *(struct_29 *)D_80072E10;
                 k = 0x1B;
                 q = D_80075840 + 0x5F;
                 do {
                     *q-- = 0;
                 } while (--k >= 0);
-                *(B20 *)(D_80075840 + 0x60) = *(B20 *)D_80063AEC;
-                *(B80 *)(D_80075840 + 0x80) = *(B80 *)(D_80063AEC + 0x2C);
-                *(B80 *)(D_80075840 + 0x100) = *(B80 *)(D_80063AEC + 0xEC);
-                *(B80 *)(D_80075840 + 0x180) = *(B80 *)(D_80063AEC + 0x1AC);
+                *(struct_20_4 *)(D_80075840 + 0x60) = *(struct_20_4 *)D_80063AEC;
+                *(struct_80 *)(D_80075840 + 0x80) = *(struct_80 *)(D_80063AEC + 0x2C);
+                *(struct_80 *)(D_80075840 + 0x100) = *(struct_80 *)(D_80063AEC + 0xEC);
+                *(struct_80 *)(D_80075840 + 0x180) = *(struct_80 *)(D_80063AEC + 0x1AC);
                 MemCardWriteFile(D_800760B0, D_80072DFC, (u32 *)D_80075840, 0, 0x200);
                 func_80016714(&D_80075A40, 0x280);
                 D_800760AC++;
@@ -10906,19 +10906,19 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 MemCardClose();
                 ret = 2;
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
                 break;
             case 2:
                 MemCardClose();
                 ret = 2;
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 4;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 4;
                 break;
             case 4:
                 MemCardClose();
                 ret = 2;
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 3;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 3;
                 break;
             case 6:
                 MemCardClose();
@@ -10928,7 +10928,7 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 MemCardClose();
                 ret = 2;
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 5;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 5;
                 break;
             }
             break;
@@ -10939,8 +10939,8 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
         case 10:
             switch (D_800760C4) {
             case 0:
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 8;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->info = 0;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 8;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_4 = 0;
                 MemCardClose();
                 D_800760AC = 7;
                 break;
@@ -10948,19 +10948,19 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 MemCardClose();
                 ret = 2;
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
                 break;
             case 2:
                 MemCardClose();
                 ret = 2;
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 4;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 4;
                 break;
             case 3:
                 MemCardClose();
                 ret = 2;
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 0;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 0;
                 break;
             }
             break;
@@ -10979,7 +10979,7 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
             func_80016714(D_80075840 + 0x780, 0x80);
             D_80075FC0[0] = 0xFF;
             p = D_80075FC0 + 0x10;
-            *(Blk98 *)p = *(Blk98 *)&D_80075CC0.w[9];
+            *(struct_98 *)p = *(struct_98 *)&D_80075CC0.field_0[9];
             D_800760BC = func_8002B064(p);
             D_800760C0 = func_8002B08C(D_80075840 + 0x480);
             *(u16 *)(D_80075FC0 + 4) = D_800760C0;
@@ -11005,9 +11005,9 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 sum += *p++;
             } while ((s32)p < end);
             if ((sum & 0xFFFF) != D_800760C0) {
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 8;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 8;
                 ret = 2;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->info = func_8002C320();
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_4 = func_8002C320();
                 D_800760AC = 0;
             } else {
                 D_800760C4 = MemCardOpen(D_800760B0, D_80072DFC, 2);
@@ -11055,8 +11055,8 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 }
                 ret = 1;
             }
-            ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 8;
-            ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->info = func_8002C320();
+            ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 8;
+            ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_4 = func_8002C320();
             D_800760AC = 0;
             break;
         }
@@ -11070,25 +11070,25 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 break;
             case 1:
                 ret = 2;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
                 MemCardClose();
                 D_800760AC = 0;
                 break;
             case 2:
                 ret = 2;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 4;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 4;
                 MemCardClose();
                 D_800760AC = 0;
                 break;
             case 4:
                 ret = 2;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 3;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 3;
                 MemCardClose();
                 D_800760AC = 0;
                 break;
             case 5:
                 ret = 2;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 6;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 6;
                 MemCardClose();
                 D_800760AC = 0;
                 break;
@@ -11106,19 +11106,19 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 MemCardClose();
                 ret = 2;
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
                 break;
             case 2:
                 MemCardClose();
                 ret = 2;
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 4;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 4;
                 break;
             case 3:
                 MemCardClose();
                 ret = 2;
                 D_800760AC = 0;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 0;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 0;
                 break;
             }
             break;
@@ -11131,19 +11131,19 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 break;
             case 1:
                 ret = 2;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
                 MemCardClose();
                 D_800760AC = 0;
                 break;
             case 3:
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 0;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 0;
                 ret = 2;
                 MemCardClose();
                 D_800760AC = 0;
                 break;
             case 2:
                 ret = 2;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 4;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 4;
                 MemCardClose();
                 D_800760AC = 0;
                 break;
@@ -11195,18 +11195,18 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 case 0:
                     ret = 1;
                     D_800760AC = 0;
-                    ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 6;
+                    ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 6;
                     break;
                 case 1:
                     ret = 2;
                     D_800760AC = 0;
-                    ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
+                    ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
                     break;
                 case 3:
                 default:
                     ret = 2;
                     D_800760AC = 0;
-                    ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 0;
+                    ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 0;
                     break;
                 }
             }
@@ -11218,20 +11218,20 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
         case 1:
             switch (rslt) {
             case 0:
-                if ((u32)((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status < 3) {
+                if ((u32)((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 < 3) {
                     MemCardAccept(D_800760B0);
-                    ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 1;
-                    ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->info = 0;
+                    ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 1;
+                    ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_4 = 0;
                 }
                 break;
             case 3:
                 MemCardAccept(D_800760B0);
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 1;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->info = 0;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 1;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_4 = 0;
                 break;
             default:
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->info = 0;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_4 = 0;
                 break;
             }
             break;
@@ -11244,40 +11244,40 @@ u8 func_8002B0B4(s32 mode, s32 slot, u8 *out) {
                 switch (rslt) {
                 case 0:
                     if (D_80076094[D_800760B0 >> 4] != 0) {
-                        ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 7;
+                        ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 7;
                     } else {
-                        ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 6;
+                        ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 6;
                         switch (MemCardGetDirentry(D_800760B0, D_80072E3C, D_80079A70, &n, 0, 15)) {
                         case 0:
                             if (func_8002C3B0(n, D_80079A70) >= 15) {
-                                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 5;
+                                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 5;
                             }
                             break;
                         case 1:
-                            ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
+                            ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
                             break;
                         default:
-                            ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 4;
+                            ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 4;
                             break;
                         }
                     }
                     break;
                 case 1:
-                    ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 2;
+                    ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 2;
                     break;
                 default:
-                    ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 4;
+                    ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 4;
                     break;
                 }
                 break;
             case 4:
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 3;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 3;
                 break;
             case 1:
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 1;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 1;
                 break;
             default:
-                ((CardSlot *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->status = 4;
+                ((struct_8_9 *)((u8 *)&D_8007609C + ((D_800760B0 >> 4) << 3)))->field_0 = 4;
                 break;
             }
             break;

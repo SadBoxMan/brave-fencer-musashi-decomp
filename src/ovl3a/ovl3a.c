@@ -1,15 +1,15 @@
 #include "common.h"
 #include "work.h"
 
-extern void NextStep(void);
-extern u16 GetPadPressedDir(s32 a);
-extern s16 TestPadsAny(s32 a, s32 b);
+extern void func_800118AC(void);
+extern u16 func_800149E0(s32 a);
+extern s16 func_80014CAC(s32 a, s32 b);
 extern void func_80015310(void);
 extern void func_8001534C(s16 n, s32 x, s16 a, s16 b, u8 c, u8 d);
 extern void func_800167B8(s32 a);
 extern s32 func_800167F0(s32 arg0);
 extern void func_800183E0(void *p);
-extern void LoadPatPicture(char *name);
+extern void func_8001AA98(char *name);
 extern void func_8001C044(void);
 extern s32 func_800CF3B0(void);
 extern void func_800CF408(s32 a, s32 b);
@@ -34,7 +34,7 @@ extern s32 D_800D1370;
 extern s32 D_800D1374;
 
 void func_800CEE2C(void) {
-    register Work *w = &D_800AF630;
+    register struct_A444 *w = &D_800AF630;
 
     D_800CFAB4[11] = D_800B99E4 + '0';
     func_8001534C(1, (s32)D_800CFAB4, 0x60, 0x64, 0, 0);
@@ -43,8 +43,8 @@ void func_800CEE2C(void) {
     } else {
         func_8001534C(3, (s32)D_800CFAD4, 0x60, 0x70, 0, 0);
     }
-    if (w->step < 4) {
-        D_800CFADC[w->step]();
+    if (w->field_A3B4 < 4) {
+        D_800CFADC[w->field_A3B4]();
     }
 }
 
@@ -56,19 +56,19 @@ void func_800CEEFC(void) {
     func_800183E0(D_800D130C);
     func_800167B8(0);
     D_800B99E8 = 0;
-    NextStep();
+    func_800118AC();
 }
 
 void func_800CEF60(void) {
     if (func_800167F0(0) & 0xFFFF) {
-        NextStep();
+        func_800118AC();
     }
 }
 
 void func_800CEF94(void) {
-    if (++D_800B99E8 > 0x80 || TestPadsAny(0, 0x800) != 0) {
+    if (++D_800B99E8 > 0x80 || func_80014CAC(0, 0x800) != 0) {
         func_800167B8(4);
-        NextStep();
+        func_800118AC();
     }
 }
 
@@ -83,12 +83,12 @@ void func_800CF02C(void) {
 }
 
 void func_800CF068(void) {
-    LoadPatPicture(D_800CEDFC);
+    func_8001AA98(D_800CEDFC);
     D_800D1368 = 0;
     D_800D1370 = 0;
     D_800D1374 = 0;
     func_800167B8(0);
-    NextStep();
+    func_800118AC();
 }
 
 void func_800CF0B8(void) {
@@ -121,7 +121,7 @@ void func_800CF1CC(void) {
 }
 
 void func_800CF220(void) {
-    LoadPatPicture(D_800CEE14);
+    func_8001AA98(D_800CEE14);
     func_800167B8(0);
     D_800D1374++;
 }
@@ -156,7 +156,7 @@ void func_800CF390(void) {
 }
 
 s32 func_800CF3B0(void) {
-    if ((GetPadPressedDir(0) | GetPadPressedDir(1)) & 0x800) {
+    if ((func_800149E0(0) | func_800149E0(1)) & 0x800) {
         D_800B99E6 = 1;
         return 1;
     }
@@ -164,165 +164,165 @@ s32 func_800CF3B0(void) {
 }
 
 typedef struct {
-    u32 tag;
-    u32 tpage;
-    u8 r0, g0, b0, code;
-    s16 x0, y0;
-    u8 u0, v0;
-    u16 clut;
-    s16 w, h;
-} CutSprt;
-extern CutSprt *g_PrimNext;
+    u32 field_0;
+    u32 field_4;
+    u8 field_8, field_9, field_A, field_B;
+    s16 field_C, field_E;
+    u8 field_10, field_11;
+    u16 field_12;
+    s16 field_14, field_16;
+} struct_18;
+extern struct_18 *D_800A5E60;
 extern u32 D_800AA60C[][0x1000];
 
 void func_800CF408(s32 a, s32 b) {
-    register Work *w = &D_800AF630;
-    CutSprt *p;
+    register struct_A444 *w = &D_800AF630;
+    struct_18 *p;
 
     a -= 160;
     b -= 120;
 
-    p = g_PrimNext;
+    p = D_800A5E60;
     setlen(p, 5);
-    p->tpage = 0xE1000086;
-    p->code = 0x64;
-    p->clut = 0x7980;
-    p->r0 = p->g0 = p->b0 = 0x80;
-    p->x0 = a;
-    p->y0 = b;
-    p->u0 = 0x20;
-    p->v0 = 0;
-    p->w = 160;
-    p->h = 256;
-    addPrim(D_800AA60C[w->frame], p);
+    p->field_4 = 0xE1000086;
+    p->field_B = 0x64;
+    p->field_12 = 0x7980;
+    p->field_8 = p->field_9 = p->field_A = 0x80;
+    p->field_C = a;
+    p->field_E = b;
+    p->field_10 = 0x20;
+    p->field_11 = 0;
+    p->field_14 = 160;
+    p->field_16 = 256;
+    addPrim(D_800AA60C[w->field_A3D2], p);
     p++;
     setlen(p, 5);
-    p->tpage = 0xE1000087;
-    p->code = 0x64;
-    p->clut = 0x7980;
-    p->r0 = p->g0 = p->b0 = 0x80;
-    p->x0 = a + 160;
-    p->y0 = b;
-    p->u0 = 0x40;
-    p->v0 = 0;
-    p->w = 160;
-    p->h = 256;
-    addPrim(D_800AA60C[w->frame], p);
+    p->field_4 = 0xE1000087;
+    p->field_B = 0x64;
+    p->field_12 = 0x7980;
+    p->field_8 = p->field_9 = p->field_A = 0x80;
+    p->field_C = a + 160;
+    p->field_E = b;
+    p->field_10 = 0x40;
+    p->field_11 = 0;
+    p->field_14 = 160;
+    p->field_16 = 256;
+    addPrim(D_800AA60C[w->field_A3D2], p);
     p++;
     setlen(p, 5);
-    p->tpage = 0xE1000096;
-    p->code = 0x64;
-    p->clut = 0x7980;
-    p->r0 = p->g0 = p->b0 = 0x80;
-    p->x0 = a;
-    p->y0 = b + 256;
-    p->u0 = 0x20;
-    p->v0 = 0;
-    p->w = 160;
-    p->h = 256;
-    addPrim(D_800AA60C[w->frame], p);
+    p->field_4 = 0xE1000096;
+    p->field_B = 0x64;
+    p->field_12 = 0x7980;
+    p->field_8 = p->field_9 = p->field_A = 0x80;
+    p->field_C = a;
+    p->field_E = b + 256;
+    p->field_10 = 0x20;
+    p->field_11 = 0;
+    p->field_14 = 160;
+    p->field_16 = 256;
+    addPrim(D_800AA60C[w->field_A3D2], p);
     p++;
     setlen(p, 5);
-    p->tpage = 0xE1000097;
-    p->code = 0x64;
-    p->clut = 0x7980;
-    p->r0 = p->g0 = p->b0 = 0x80;
-    p->x0 = a + 160;
-    p->y0 = b + 256;
-    p->u0 = 0x40;
-    p->v0 = 0;
-    p->w = 160;
-    p->h = 256;
-    addPrim(D_800AA60C[w->frame], p);
+    p->field_4 = 0xE1000097;
+    p->field_B = 0x64;
+    p->field_12 = 0x7980;
+    p->field_8 = p->field_9 = p->field_A = 0x80;
+    p->field_C = a + 160;
+    p->field_E = b + 256;
+    p->field_10 = 0x40;
+    p->field_11 = 0;
+    p->field_14 = 160;
+    p->field_16 = 256;
+    addPrim(D_800AA60C[w->field_A3D2], p);
     p++;
-    g_PrimNext = p;
+    D_800A5E60 = p;
 }
 
 void func_800CF6D0(s32 a, s32 b) {
-    register Work *w = &D_800AF630;
-    CutSprt *p;
+    register struct_A444 *w = &D_800AF630;
+    struct_18 *p;
 
     a -= 160;
     b -= 120;
 
-    p = g_PrimNext;
+    p = D_800A5E60;
     setlen(p, 5);
-    p->tpage = 0xE1000089;
-    p->code = 0x64;
-    p->clut = 0x7940;
-    p->r0 = p->g0 = p->b0 = 0x80;
-    p->x0 = a;
-    p->y0 = b;
-    p->u0 = 0;
-    p->v0 = 0;
-    p->w = 256;
-    p->h = 256;
-    addPrim(D_800AA60C[w->frame], p);
+    p->field_4 = 0xE1000089;
+    p->field_B = 0x64;
+    p->field_12 = 0x7940;
+    p->field_8 = p->field_9 = p->field_A = 0x80;
+    p->field_C = a;
+    p->field_E = b;
+    p->field_10 = 0;
+    p->field_11 = 0;
+    p->field_14 = 256;
+    p->field_16 = 256;
+    addPrim(D_800AA60C[w->field_A3D2], p);
     p++;
     setlen(p, 5);
-    p->tpage = 0xE100008B;
-    p->code = 0x64;
-    p->clut = 0x7940;
-    p->r0 = p->g0 = p->b0 = 0x80;
-    p->x0 = a + 256;
-    p->y0 = b;
-    p->u0 = 0;
-    p->v0 = 0;
-    p->w = 256;
-    p->h = 256;
-    addPrim(D_800AA60C[w->frame], p);
+    p->field_4 = 0xE100008B;
+    p->field_B = 0x64;
+    p->field_12 = 0x7940;
+    p->field_8 = p->field_9 = p->field_A = 0x80;
+    p->field_C = a + 256;
+    p->field_E = b;
+    p->field_10 = 0;
+    p->field_11 = 0;
+    p->field_14 = 256;
+    p->field_16 = 256;
+    addPrim(D_800AA60C[w->field_A3D2], p);
     p++;
     setlen(p, 5);
-    p->tpage = 0xE100008D;
-    p->code = 0x64;
-    p->clut = 0x7940;
-    p->r0 = p->g0 = p->b0 = 0x80;
-    p->x0 = a + 512;
-    p->y0 = b;
-    p->u0 = 0;
-    p->v0 = 0;
-    p->w = 256;
-    p->h = 256;
-    addPrim(D_800AA60C[w->frame], p);
+    p->field_4 = 0xE100008D;
+    p->field_B = 0x64;
+    p->field_12 = 0x7940;
+    p->field_8 = p->field_9 = p->field_A = 0x80;
+    p->field_C = a + 512;
+    p->field_E = b;
+    p->field_10 = 0;
+    p->field_11 = 0;
+    p->field_14 = 256;
+    p->field_16 = 256;
+    addPrim(D_800AA60C[w->field_A3D2], p);
     p++;
     setlen(p, 5);
-    p->tpage = 0xE100008F;
-    p->code = 0x64;
-    p->clut = 0x7940;
-    p->r0 = p->g0 = p->b0 = 0x80;
-    p->x0 = a + 768;
-    p->y0 = b;
-    p->u0 = 0;
-    p->v0 = 0;
-    p->w = 64;
-    p->h = 256;
-    addPrim(D_800AA60C[w->frame], p);
+    p->field_4 = 0xE100008F;
+    p->field_B = 0x64;
+    p->field_12 = 0x7940;
+    p->field_8 = p->field_9 = p->field_A = 0x80;
+    p->field_C = a + 768;
+    p->field_E = b;
+    p->field_10 = 0;
+    p->field_11 = 0;
+    p->field_14 = 64;
+    p->field_16 = 256;
+    addPrim(D_800AA60C[w->field_A3D2], p);
     p++;
     setlen(p, 5);
-    p->tpage = 0xE1000086;
-    p->code = 0x64;
-    p->clut = 0x7880;
-    p->r0 = p->g0 = p->b0 = 0x80;
-    p->x0 = -160;
-    p->y0 = -120;
-    p->u0 = 0x20;
-    p->v0 = 0;
-    p->w = 160;
-    p->h = 256;
-    addPrim(D_800AA60C[w->frame], p);
+    p->field_4 = 0xE1000086;
+    p->field_B = 0x64;
+    p->field_12 = 0x7880;
+    p->field_8 = p->field_9 = p->field_A = 0x80;
+    p->field_C = -160;
+    p->field_E = -120;
+    p->field_10 = 0x20;
+    p->field_11 = 0;
+    p->field_14 = 160;
+    p->field_16 = 256;
+    addPrim(D_800AA60C[w->field_A3D2], p);
     p++;
     setlen(p, 5);
-    p->tpage = 0xE1000087;
-    p->code = 0x64;
-    p->clut = 0x7880;
-    p->r0 = p->g0 = p->b0 = 0x80;
-    p->x0 = 0;
-    p->y0 = -120;
-    p->u0 = 0x40;
-    p->v0 = 0;
-    p->w = 160;
-    p->h = 256;
-    addPrim(D_800AA60C[w->frame], p);
+    p->field_4 = 0xE1000087;
+    p->field_B = 0x64;
+    p->field_12 = 0x7880;
+    p->field_8 = p->field_9 = p->field_A = 0x80;
+    p->field_C = 0;
+    p->field_E = -120;
+    p->field_10 = 0x40;
+    p->field_11 = 0;
+    p->field_14 = 160;
+    p->field_16 = 256;
+    addPrim(D_800AA60C[w->field_A3D2], p);
     p++;
-    g_PrimNext = p;
+    D_800A5E60 = p;
 }

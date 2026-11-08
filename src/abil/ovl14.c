@@ -3,8 +3,8 @@
 
 extern void func_800183E0();
 extern u8 D_ovl14_800CB610[];
-extern AbilStep D_ovl14_800CB5BC[];
-extern AbilStep D_ovl14_800CB5DC[];
+extern type_1 D_ovl14_800CB5BC[];
+extern type_1 D_ovl14_800CB5DC[];
 void func_ovl14_800CAEB0(u8 *a);
 extern void func_80165A20();
 extern s32 D_80078EC8;
@@ -68,39 +68,39 @@ extern void func_80017758();
 s32 func_ovl14_800CAF90(arg0) u8 *arg0; {
     s8 *p;
     s16 i;
-    AVec v;
-    AVec r;
-    APrim s;
-    AMtx a;
-    AMtx b;
+    struct_8 v;
+    struct_8 r;
+    struct_34 s;
+    struct_20 a;
+    struct_20 b;
 
-    v.vx = v.vy = v.vz = AF(arg0, u16, 0x28);
+    v.field_0 = v.field_2 = v.field_4 = AF(arg0, u16, 0x28);
     func_80017DC4(&v, &a);
-    v.vx = v.vz = 0;
-    v.vy = -0x2C;
+    v.field_0 = v.field_4 = 0;
+    v.field_2 = -0x2C;
     func_8012F14C(arg0 + 0x38, &v, &v);
     func_800D20C0(&v, &r, 5);
     func_800D23D0(&r);
-    s.v[1].vx = s.v[1].vy = s.v[1].vz = 0;
-    s.v[0].vz = s.v[2].vz = s.v[3].vz = 0;
-    s.c[1].r = s.c[1].b = (AF(arg0, s16, 0x28) >> 6) + 0x70;
-    s.c[1].g = 0;
-    s.c[0].r = s.c[0].g = s.c[0].b = 0;
-    s.c[2].r = s.c[2].g = s.c[2].b = 0;
-    s.c[3].r = s.c[3].g = s.c[3].b = 0;
-    s.code = 0x50000000;
+    s.field_0[1].field_0 = s.field_0[1].field_2 = s.field_0[1].field_4 = 0;
+    s.field_0[0].field_4 = s.field_0[2].field_4 = s.field_0[3].field_4 = 0;
+    s.field_20[1].field_0 = s.field_20[1].field_2 = (AF(arg0, s16, 0x28) >> 6) + 0x70;
+    s.field_20[1].field_1 = 0;
+    s.field_20[0].field_0 = s.field_20[0].field_1 = s.field_20[0].field_2 = 0;
+    s.field_20[2].field_0 = s.field_20[2].field_1 = s.field_20[2].field_2 = 0;
+    s.field_20[3].field_0 = s.field_20[3].field_1 = s.field_20[3].field_2 = 0;
+    s.field_30 = 0x50000000;
     func_80017E68(&v, &a);
     RotMatrixYXZ(&r, &b);
     MulMatrix(&a, &b);
     p = D_ovl14_800CB5C8;
     i = 0;
     do {
-        s.v[0].vx = *p++;
-        s.v[0].vy = *p++;
-        s.v[2].vx = *p++;
-        s.v[2].vy = *p++;
-        s.v[3].vx = *p++;
-        s.v[3].vy = *p--;
+        s.field_0[0].field_0 = *p++;
+        s.field_0[0].field_2 = *p++;
+        s.field_0[2].field_0 = *p++;
+        s.field_0[2].field_2 = *p++;
+        s.field_0[3].field_0 = *p++;
+        s.field_0[3].field_2 = *p--;
         func_80017758(&s, &a);
         i++;
     } while (i < 4);
@@ -121,7 +121,7 @@ void func_ovl14_800CB164(u8 *arg0) {
                 AF(arg0, s32, 0x1C) = 0;
                 AF(arg0, u16, 2) = 4;
             }
-            AF(arg0, AMtx, 0x38) = AF(AF(s, u8 *, 0x20), AMtx, 0x34);
+            AF(arg0, struct_20, 0x38) = AF(AF(s, u8 *, 0x20), struct_20, 0x34);
             func_ovl14_800CAF90(arg0);
             return;
         }
@@ -149,7 +149,7 @@ void func_ovl14_800CB254(u8 *arg0) {
             AF(arg0, s16, 0x2A) = 0x500;
             AF(arg0, u16, 2)++;
         }
-        AF(arg0, AMtx, 0x38) = AF(AF(s, u8 *, 0x20), AMtx, 0x34);        func_ovl14_800CAF90(arg0);
+        AF(arg0, struct_20, 0x38) = AF(AF(s, u8 *, 0x20), struct_20, 0x34);        func_ovl14_800CAF90(arg0);
         return;
     }
     func_80146C3C(arg0);
@@ -212,7 +212,7 @@ void func_ovl14_800CB4D8(u8 *arg0) {
 
     temp_s1 = AF(arg0, void *, 0x34);
     temp_v0 = AF(temp_s1, void *, 0x20);
-    AF(arg0, AMtx, 0x38) = AF(temp_v0, AMtx, 0x34);
+    AF(arg0, struct_20, 0x38) = AF(temp_v0, struct_20, 0x34);
     func_ovl14_800CAF90((s32) arg0);
     if (D_80078EC1 == 5) {
         temp_v0_2 = AF(arg0, s32, 0x1C) - 1;

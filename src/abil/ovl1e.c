@@ -7,7 +7,7 @@ void func_ovl1e_800CAE0C(void) {
     func_800183E0(&D_ovl1e_800CAF34);
 }
 
-extern AbilStep D_ovl1e_800CAF08[];
+extern type_1 D_ovl1e_800CAF08[];
 void func_ovl1e_800CAEB0(u8 *a);
 
 void func_ovl1e_800CAE34(u8 *a) {

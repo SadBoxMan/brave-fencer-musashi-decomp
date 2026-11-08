@@ -7,7 +7,7 @@ extern void func_800183E0();
 extern u8 D_ovl1f_800CC6A4[];
 extern u8 D_ovl1f_800CC6E4[];
 extern u8 D_ovl1f_800CBF64[];
-extern AbilStep D_ovl1f_800CBE7C[];
+extern type_1 D_ovl1f_800CBE7C[];
 void func_ovl1f_800CAED8(u8 *arg0);
 
 void func_ovl1f_800CAE14(void) {
@@ -37,7 +37,7 @@ extern void func_801599A4();
 extern void func_80159B3C();
 extern void func_80147324();
 extern u8 D_80078EC1;
-extern AbilStep D_ovl1f_800CBF2C[];
+extern type_1 D_ovl1f_800CBF2C[];
 extern void func_801466F0();
 extern void func_8001CB00();
 extern void func_ovl1f_800CBB50();
@@ -152,7 +152,7 @@ void func_ovl1f_800CB180(void) {
     func_ovl1f_800CBBF8();
 }
 
-extern AbilStep D_ovl1f_800CBEBC[];
+extern type_1 D_ovl1f_800CBEBC[];
 extern s32 func_ovl1f_800CB7B0();
 
 void func_ovl1f_800CB1A0(u8 *arg0) {
@@ -196,7 +196,7 @@ void func_ovl1f_800CB23C(u8 *arg0) {
 extern void func_80015978();
 extern s32 func_8012EFB8();
 
-extern AVec D_ovl1f_800CAE0C;
+extern struct_8 D_ovl1f_800CAE0C;
 extern s16 D_ovl1f_800CBEA0;
 extern s16 D_ovl1f_800CBEA2;
 extern u8 D_ovl1f_800CBEB0;
@@ -217,7 +217,7 @@ extern s32 func_80163950();
 extern void func_8016345C();
 extern void func_80163328();
 extern s32 func_801633A8();
-extern void StartRumbleScript();
+extern void func_80019064();
 extern void func_80013E94();
 extern s32 func_80146A6C();
 extern s32 func_801632E0();
@@ -225,12 +225,12 @@ extern void func_ovl1f_800CB760();
 extern s32 func_8016380C();
 
 void func_ovl1f_800CB300(u8 *arg0) {
-    AMtx m;
-    AVec k;
-    AVec b;
+    struct_20 m;
+    struct_8 k;
+    struct_8 b;
     s32 w;
     u8 *mo;
-    AVec *pk;
+    struct_8 *pk;
     u16 *o;
     u16 t;
     s32 r;
@@ -247,7 +247,7 @@ void func_ovl1f_800CB300(u8 *arg0) {
     func_800126C4(&m, AF(mo, s16, 0x10));
     func_800123F0(&m, AF(mo, s16, 0x14));
     func_80012558(&m, AF(mo, s16, 0x12));
-    AF(mo, AMtx, 0x34) = m;
+    AF(mo, struct_20, 0x34) = m;
     AF(mo, u16, 0x2C) |= 1;
     func_80163194(arg0, -(((AF(arg0, s32, 0x50) - 0x28) << 14) / 40), 0, 0, &m);
     func_80162FC0(arg0);
@@ -266,7 +266,7 @@ void func_ovl1f_800CB300(u8 *arg0) {
     u = func_801633A8(arg0);
     switch (u) {
     case 1:
-        StartRumbleScript(&D_ovl1f_800CBEB0);
+        func_80019064(&D_ovl1f_800CBEB0);
         func_80013E94(&D_80114EB0, &w);
         w |= 0x80000000;
         func_80146A6C(0x1F, arg0, D_80126B18, D_80126B1A, D_80126B1C, w, 0);

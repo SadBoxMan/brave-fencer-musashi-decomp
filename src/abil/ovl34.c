@@ -6,7 +6,7 @@ void func_ovl34_800CCB20(void) {
 
 extern void func_ovl34_800CCD50();
 extern void func_80162CCC();
-extern AbilStep D_ovl34_800CE044[];
+extern type_1 D_ovl34_800CE044[];
 
 extern void func_ovl34_800CDBF4();
 extern s32 func_ovl34_800CDCA8();
@@ -16,9 +16,9 @@ extern void func_801553A8();
 extern void func_801553C0();
 extern s32 func_80161A30();
 extern void func_ovl34_800CDBD4();
-extern AbilStep D_ovl34_800CE0AC[];
+extern type_1 D_ovl34_800CE0AC[];
 extern void func_ovl34_800CDF64();
-extern AbilStep D_ovl34_800CE0C0[];
+extern type_1 D_ovl34_800CE0C0[];
 extern s32 rand();
 extern void func_800123F0();
 extern void func_80012558();
@@ -65,7 +65,7 @@ extern void func_80146E90();
 extern s32 func_8014C088();
 extern void func_ovl34_800CDA14();
 
-extern AbilStep D_ovl34_800CE080[];
+extern type_1 D_ovl34_800CE080[];
 extern s32 func_80012ABC();
 extern void func_8014ACC0();
 
@@ -78,7 +78,7 @@ extern void func_8001CC3C();
 extern s32 func_80146DE8();
 extern void func_80149374();
 
-extern AbilStep D_ovl34_800CE040[];
+extern type_1 D_ovl34_800CE040[];
 extern void func_80149020();
 
 void func_ovl34_800CCB28(u8 *arg0) {
@@ -209,16 +209,16 @@ extern u8 D_ovl34_800CE058;
 extern void func_8001382C();
 extern s32 func_8014C59C();
 
-extern AVec D_ovl34_800CE08C[];
+extern struct_8 D_ovl34_800CE08C[];
 
-extern AVec D_801152B0;
-typedef struct { u16 id; s16 state; u8 pad4[0x230]; s32 v[3]; } Act;
+extern struct_8 D_801152B0;
+typedef struct { u16 field_0; s16 field_2; u8 field_4[0x230]; s32 field_234[3]; } struct_240;
 
-void func_ovl34_800CCFA8(Act *arg0) {
-    arg0->v[0] = D_801152B0.vx << 6;
-    arg0->v[1] = 0x80000;
-    arg0->v[2] = D_801152B0.vz << 6;
-    arg0->state = 3;
+void func_ovl34_800CCFA8(struct_240 *arg0) {
+    arg0->field_234[0] = D_801152B0.field_0 << 6;
+    arg0->field_234[1] = 0x80000;
+    arg0->field_234[2] = D_801152B0.field_4 << 6;
+    arg0->field_2 = 3;
 }
 
 extern void func_80147F50();
@@ -242,9 +242,9 @@ void func_ovl34_800CCFDC(u8 *arg0) {
     func_ovl34_800CD5CC(arg0);
     v = func_8016151C(arg0);
     if (v & 0x4000) {
-        AF(arg0, s32, 0x234) = D_801152B0.vx << 6;
+        AF(arg0, s32, 0x234) = D_801152B0.field_0 << 6;
         AF(arg0, s32, 0x238) = 0x80000;
-        AF(arg0, s32, 0x23C) = D_801152B0.vz << 6;
+        AF(arg0, s32, 0x23C) = D_801152B0.field_4 << 6;
         AF(arg0, s16, 2) = 3;
     } else if (v != 0) {
         func_80146E90(arg0, 8);
@@ -270,9 +270,9 @@ void func_ovl34_800CD0DC(u8 *arg0) {
     v = func_801612B8(arg0, 0);
     if (func_80146E98(arg0) != 0) {
         if (v & 0x4000) {
-            AF(arg0, s32, 0x234) = D_801152B0.vx << 6;
+            AF(arg0, s32, 0x234) = D_801152B0.field_0 << 6;
             AF(arg0, s32, 0x238) = 0x80000;
-            AF(arg0, s32, 0x23C) = D_801152B0.vz << 6;
+            AF(arg0, s32, 0x23C) = D_801152B0.field_4 << 6;
             AF(arg0, s16, 2) = 3;
         } else if (v == 0 || v == 0x8000) {
             func_801477E8(arg0, -0x160000);
@@ -453,7 +453,7 @@ s32 func_ovl34_800CD494(s32 arg0) {
 }
 
 u8 *func_ovl34_800CD5CC(u8 *arg0) {
-    AVec v;
+    struct_8 v;
     u8 *p;
     u8 *found;
     s32 k;
@@ -464,7 +464,7 @@ u8 *func_ovl34_800CD5CC(u8 *arg0) {
     for (p = D_801202A0; p < D_801202A0 + 0x6480; p += 0x10C) {
         if (func_8014C308(arg0, p, k, 0x10) != 0 && func_8014C278(arg0, p, 0x40) != 0) {
             func_80015978(p + 4, &v);
-            v.pad = 0;
+            v.field_6 = 0;
             func_8014C3A4(arg0, p, k, &v);
             found = p;
         }
@@ -610,7 +610,7 @@ void func_ovl34_800CDAB4(u8 *arg0) {
         AF(temp_v0, s16, 0x1A) = 0x2000;
         AF(temp_v0, s16, 0x18) = 0x2000;
         AF(temp_v0, s32, 4) |= 0x08000000;
-        AF(arg0, AVec, 0x60) = D_ovl34_800CE08C[AF(arg0, s32, 0x50)];
+        AF(arg0, struct_8, 0x60) = D_ovl34_800CE08C[AF(arg0, s32, 0x50)];
         func_80146E90(arg0, 0);
         func_ovl34_800CDBF4(arg0);
         func_80146CA0(arg0);
@@ -629,8 +629,8 @@ void func_ovl34_800CDBD4(void) {
 }
 
 void func_ovl34_800CDBF4(u8 *arg0) {
-    AVec v;
-    AMtx m;
+    struct_8 v;
+    struct_20 m;
     u8 *s;
     u8 *o;
 
@@ -639,9 +639,9 @@ void func_ovl34_800CDBF4(u8 *arg0) {
     RotMatrixZYX(arg0 + 0x60, &m);
     ApplyMatrixSV(&m, &D_ovl34_800CE0B8, &v);
     o = AF(s, u8 *, 0x20);
-    v.vx += AF(o, s32, 0x48);
-    v.vy += AF(o, s32, 0x4C) - 0x20;
-    v.vz += AF(o, s32, 0x50);
+    v.field_0 += AF(o, s32, 0x48);
+    v.field_2 += AF(o, s32, 0x4C) - 0x20;
+    v.field_4 += AF(o, s32, 0x50);
     func_80015954(&v, arg0 + 4);
 }
 
@@ -676,24 +676,24 @@ void func_ovl34_800CDD34(u8 *arg0) {
 
 void func_ovl34_800CDD9C(u8 *arg0, s32 arg1) {
     s32 temp_s2;
-    AModel *temp_v0;
+    struct_30 *temp_v0;
 
     temp_s2 = AF(arg0, s32, 0x4C);
-    temp_v0 = (AModel *) func_80146578((s32) arg0, arg1);
-    AF(arg0, AModel *, 0x20) = temp_v0;
+    temp_v0 = (struct_30 *) func_80146578((s32) arg0, arg1);
+    AF(arg0, struct_30 *, 0x20) = temp_v0;
     if (temp_v0 != 0) {
         func_8001CC3C(temp_v0, (s32) &D_ovl34_800CE068, 0x200, 0x100);
         AF(temp_v0, u8, 0x27) = 8;
         AF(temp_v0, s32, 4) = (s32) (AF(temp_v0, s32, 4) | 0x50000000);
         func_80149374(temp_s2, (s32) (arg0 + 4));
-        temp_v0->rot.vx = AF(AF(temp_s2, void *, 0x20), u16, 0x10);
-        temp_v0->rot.vy = D_ovl34_800CE8D4;
-        temp_v0->rot.vz = AF(AF(temp_s2, void *, 0x20), u16, 0x14);
+        temp_v0->field_10.field_0 = AF(AF(temp_s2, void *, 0x20), u16, 0x10);
+        temp_v0->field_10.field_2 = D_ovl34_800CE8D4;
+        temp_v0->field_10.field_4 = AF(AF(temp_s2, void *, 0x20), u16, 0x14);
         AF(arg0, u16, 0x60) = (u16) AF(temp_s2, u16, 0x100);
         AF(arg0, u16, 0x62) = (u16) AF(temp_s2, u16, 0x102);
         AF(arg0, u16, 0x64) = (u16) AF(temp_s2, u16, 0x104);
-        temp_v0->scale.vy = 0x1000;
-        temp_v0->scale.vx = 0x1000;
+        temp_v0->field_18.field_2 = 0x1000;
+        temp_v0->field_18.field_0 = 0x1000;
         func_80146DE8((s32) arg0, 0, 0, -0x200000);
         func_80146E90((s32) arg0, 8);
         func_80146CA0((s32) arg0);

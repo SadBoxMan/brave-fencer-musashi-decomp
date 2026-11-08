@@ -1,15 +1,15 @@
 #include "common.h"
 #include "work.h"
 
-typedef struct { void (*fn)(void); } MenuFn;
-extern void NextStep(void);
-extern void SetGameState(u16 n);
+typedef struct { void (*field_0)(void); } struct_4_2;
+extern void func_800118AC(void);
+extern void func_80011B7C(u16 n);
 extern void func_80015310(void);
 extern s32 func_800167F0(s32 arg0);
 extern void func_8001C044(void);
 extern void func_8001534C(s16 n, s32 x, s16 a, s16 b, u8 c, u8 d);
-extern s16 GetPadPressedDir(s32 a);
-extern u16 GetPadHeldDir(s32 a);
+extern s16 func_800149E0(s32 a);
+extern u16 func_80014B10(s32 a);
 extern void func_80136EC4(void);
 extern void func_800D0964(void);
 extern void func_800D0BDC(void);
@@ -17,8 +17,8 @@ extern void func_800D1254(void);
 extern void func_800D1B00(void);
 extern void func_800D235C(void);
 extern void func_800D2BC4(void);
-extern MenuFn D_800D4C54[];
-extern MenuFn D_800D4C68[];
+extern struct_4_2 D_800D4C54[];
+extern struct_4_2 D_800D4C68[];
 extern s16 D_800D4C80;
 extern s32 D_800D32F8[];
 extern s32 D_800D3314[];
@@ -30,69 +30,69 @@ extern u16 D_800D4CA0;
 extern u16 D_800D4CA4;
 
 void func_800CEE74(void) {
-    register Work *w = &D_800AF630;
-    if (w->step < 5) {
-        D_800D4C54[w->step].fn();
+    register struct_A444 *w = &D_800AF630;
+    if (w->field_A3B4 < 5) {
+        D_800D4C54[w->field_A3B4].field_0();
     }
 }
 
 typedef struct {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
-    s32 unkC;
-    s32 unk10;
-    s32 unk14;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
-    s32 unk28;
-    s32 unk2C;
-    s32 unk30;
-    s16 unk34;
-    u8 unk36;
-    u8 unk37;
-    s16 unk38;
-    s16 unk3A;
-    s16 unk3C;
-    s16 unk3E;
-    s16 unk40;
-    u8 unk42;
-    u8 unk43;
-    u8 unk44;
-    u8 unk45;
-    u8 unk46;
-    u8 unk47;
-    u8 unk48;
-    u8 unk49;
-    u8 unk4A;
-    u8 unk4B;
-    u8 unk4C;
-    u8 pad4D[3];
-    s32 unk50;
-    s32 unk54;
-    s32 unk58;
-    s32 unk5C;
-    s32 unk60;
-    s32 unk64;
-    u8 unk68;
-    u8 pad69[3];
-    s32 unk6C;
-    s32 unk70;
-    s32 unk74;
-    s32 unk78;
-    s32 unk7C;
-    s32 unk80;
-    s32 unk84;
-    s32 unk88;
-    s32 unk8C;
-    s32 unk90;
-    s32 unk94;
-} DbgStats;
-extern DbgStats D_80078E78;
+    s32 field_0;
+    s32 field_4;
+    s32 field_8;
+    s32 field_C;
+    s32 field_10;
+    s32 field_14;
+    s32 field_18;
+    s32 field_1C;
+    s32 field_20;
+    s32 field_24;
+    s32 field_28;
+    s32 field_2C;
+    s32 field_30;
+    s16 field_34;
+    u8 field_36;
+    u8 field_37;
+    s16 field_38;
+    s16 field_3A;
+    s16 field_3C;
+    s16 field_3E;
+    s16 field_40;
+    u8 field_42;
+    u8 field_43;
+    u8 field_44;
+    u8 field_45;
+    u8 field_46;
+    u8 field_47;
+    u8 field_48;
+    u8 field_49;
+    u8 field_4A;
+    u8 field_4B;
+    u8 field_4C;
+    u8 field_4D[3];
+    s32 field_50;
+    s32 field_54;
+    s32 field_58;
+    s32 field_5C;
+    s32 field_60;
+    s32 field_64;
+    u8 field_68;
+    u8 field_69[3];
+    s32 field_6C;
+    s32 field_70;
+    s32 field_74;
+    s32 field_78;
+    s32 field_7C;
+    s32 field_80;
+    s32 field_84;
+    s32 field_88;
+    s32 field_8C;
+    s32 field_90;
+    s32 field_94;
+} struct_98;
+extern struct_98 D_80078E78;
 
-typedef struct { char name[4]; s16 flag; } DbgEnt;
+typedef struct { char field_0[4]; s16 field_4; } struct_6;
 extern void func_800153CC(s16 n, s32 x, s16 a, s16 b, u8 c, u8 d);
 extern s32 func_80029178(s32 n);
 extern u32 func_80029504(void);
@@ -105,10 +105,10 @@ extern char D_800CEE60[];
 extern s32 D_800D3344;
 extern s16 D_800D3348;
 extern s16 D_800D334A;
-extern DbgEnt D_800D4A5C[];
+extern struct_6 D_800D4A5C[];
 
-typedef struct { char name[0x20]; s32 id; } DbgItem;
-typedef struct { char name[12]; DbgItem *items; s32 count; } DbgCat;
+typedef struct { char field_0[0x20]; s32 field_20; } struct_24;
+typedef struct { char field_0[12]; struct_24 *field_C; s32 field_10; } struct_14_2;
 extern void func_80029514(s32 a);
 extern char D_800D31F8[];
 extern char D_800D31FC[];
@@ -124,18 +124,18 @@ extern char D_800D3258[];
 extern char D_800D3264[];
 extern char D_800D3278[];
 extern char D_800D3284[];
-extern DbgCat D_800D4B64[];
+extern struct_14_2 D_800D4B64[];
 extern s16 D_800D4C84;
 extern s32 D_800D4C88;
 extern s32 D_800D4C8C;
 
 void func_800CEF00(void) {
-    register Work *w = &D_800AF630;
+    register struct_A444 *w = &D_800AF630;
 
-    w->unkA3E1 = 1;
+    w->field_A3E1 = 1;
     func_8001C044();
     func_80015310();
-    SetGameState(0);
+    func_80011B7C(0);
     func_8001534C(0, (s32)D_800D31FC, 0x40, 0x1E, 0, 0);
     func_8001534C(1, (s32)D_800D31F8, 0x34, 0x46, 0, 0);
     func_8001534C(9, (s32)D_800D3248, 0x40, 0x46, 0, 0);
@@ -154,9 +154,9 @@ void func_800CEF00(void) {
     D_800D4C8C = 0;
     D_800D4C90 = 0;
     D_800D4C94 = 0;
-    w->unkA3DE = 0;
-    func_8001534C(0xC, (s32)D_800D4B64[D_800D4C88].name, 0xA4, 0x46, 0x44, 0);
-    func_8001534C(0xD, (s32)D_800D4B64[D_800D4C88].items[D_800D4C8C].name, 0xA4, 0x52, 0x44, 0);
+    w->field_A3DE = 0;
+    func_8001534C(0xC, (s32)D_800D4B64[D_800D4C88].field_0, 0xA4, 0x46, 0x44, 0);
+    func_8001534C(0xD, (s32)D_800D4B64[D_800D4C88].field_C[D_800D4C8C].field_0, 0xA4, 0x52, 0x44, 0);
     D_800D4C80 = 0;
     D_800D4C84 = 0;
     D_800D4CA4 = 0;
@@ -164,7 +164,7 @@ void func_800CEF00(void) {
     D_800D4C9C = 0;
     D_800D4C98 = 0;
     func_80029514(D_800D3344);
-    NextStep();
+    func_800118AC();
 }
 
 extern s32 func_80029124(u32 bit, s32 on);
@@ -251,8 +251,8 @@ extern u16 D_800A65B8;
 extern u16 D_8010F534;
 extern u8 D_8010F536;
 
-typedef struct { s32 unk0[6]; s16 unk18; s16 unk1A; } DbgClock;
-extern void SetStep(u16 step);
+typedef struct { s32 field_0[6]; s16 field_18; s16 field_1A; } struct_1C;
+extern void func_80011928(u16 step);
 extern void func_800152F4(s32 a);
 extern void func_800167B8(s32 a);
 extern void func_800CFCBC(void);
@@ -266,12 +266,12 @@ extern void func_800D04F4(void);
 extern u8 D_800D3334[];
 
 void func_800CF28C(void) {
-    register Work *w = &D_800AF630;
-    DbgClock *c;
+    register struct_A444 *w = &D_800AF630;
+    struct_1C *c;
     s32 id;
 
-    c = (DbgClock *)&D_80078E78;
-    w->unkA3E1 = 0;
+    c = (struct_1C *)&D_80078E78;
+    w->field_A3E1 = 0;
     func_800D0858();
     if (D_800D4C9C & 0x4000) {
         D_800D4C80++;
@@ -288,7 +288,7 @@ void func_800CF28C(void) {
     switch (D_800D4C80) {
     case 0:
         if (D_800D4C9C & 0x820) {
-            SetStep(4);
+            func_80011928(4);
         }
         break;
     case 1:
@@ -296,7 +296,7 @@ void func_800CF28C(void) {
     case 3:
     case 5:
         if (D_800D4C9C & 0x820) {
-            SetStep(2);
+            func_80011928(2);
             func_800167B8(4);
         }
         break;
@@ -373,7 +373,7 @@ void func_800CF28C(void) {
             }
         }
         if (D_800D4C9C & 0x20) {
-            id = D_800D4A5C[D_800D3348].flag;
+            id = D_800D4A5C[D_800D3348].field_4;
             func_80029124(id, (func_80029178(id) & 0xFF) == 0);
         }
         break;
@@ -396,7 +396,7 @@ void func_800CF28C(void) {
         if (D_800D334A >= 0x5A0) {
             D_800D334A = 0;
         }
-        c->unk1A = D_800D334A;
+        c->field_1A = D_800D334A;
         break;
     case 10:
         if (D_800D4C9C & 0x2000) {
@@ -416,9 +416,9 @@ void func_800CF28C(void) {
     }
     if (D_800D4C80 >= 6 && (D_800D4C9C & 0x800)) {
         D_800D4C80 = 0;
-        SetStep(4);
+        func_80011928(4);
     }
-    c->unk1A = D_800D334A;
+    c->field_1A = D_800D334A;
     func_800D04F4();
     func_800CFBF0();
     func_800CFB88();
@@ -434,8 +434,8 @@ void func_800CFBF0(void) {
 
 void func_800CFC58(void) {
     if (func_800167F0(4) & 0xFFFF) {
-        NextStep();
-        SetGameState(0);
+        func_800118AC();
+        func_80011B7C(0);
         func_8001C044();
         func_80015310();
     }
@@ -465,29 +465,29 @@ void func_800CFCBC(void) {
 }
 
 void func_800CFDB4(void) {
-    register Work *w = &D_800AF630;
-    DbgClock *c;
+    register struct_A444 *w = &D_800AF630;
+    struct_1C *c;
     u8 ok;
 
-    c = (DbgClock *)&D_80078E78;
-    ok = func_800D0828(D_800D4B64[D_800D4C88].items[D_800D4C8C].id);
+    c = (struct_1C *)&D_80078E78;
+    ok = func_800D0828(D_800D4B64[D_800D4C88].field_C[D_800D4C8C].field_20);
     func_800D0858();
     func_800152F4(0x11);
     if (D_800D4C9C & 0x820) {
         func_800167B8(4);
-        w->mapId = D_800D4B64[D_800D4C88].items[D_800D4C8C].id;
-        w->mapGroup = w->mapId & 0xF000;
+        w->field_A3D8 = D_800D4B64[D_800D4C88].field_C[D_800D4C8C].field_20;
+        w->field_A3DA = w->field_A3D8 & 0xF000;
         if (ok) {
             func_800CFCBC();
-            if (GetPadHeldDir(0) & 0x10) {
+            if (func_80014B10(0) & 0x10) {
                 func_80029514(D_800D3344);
-                c->unk1A = D_800D334A;
+                c->field_1A = D_800D334A;
             }
-            SetStep(2);
+            func_80011928(2);
         }
     }
     if (D_800D4C9C & 0x40) {
-        SetStep(1);
+        func_80011928(1);
     }
     if (D_800D4C9C & 0x5000) {
         D_800D4C84 = (D_800D4C84 + 1) & 1;
@@ -507,8 +507,8 @@ void func_800CFDB4(void) {
             }
             D_800D4C8C = 0;
         }
-        func_8001534C(0xC, (s32)D_800D4B64[D_800D4C88].name, 0xA4, 0x46, 0x44, 0);
-        func_8001534C(0xD, (s32)D_800D4B64[D_800D4C88].items[D_800D4C8C].name, 0xA4, 0x52, 0x44, 0);
+        func_8001534C(0xC, (s32)D_800D4B64[D_800D4C88].field_0, 0xA4, 0x46, 0x44, 0);
+        func_8001534C(0xD, (s32)D_800D4B64[D_800D4C88].field_C[D_800D4C8C].field_0, 0xA4, 0x52, 0x44, 0);
         if (!ok) {
             func_8001534C(0x11, (s32)D_800CEE30, 0xA4, 0x5E, 0x44, 0);
         }
@@ -516,18 +516,18 @@ void func_800CFDB4(void) {
     if (D_800D4C84 == 1) {
         if (D_800D4C9C & 0x2000) {
             D_800D4C8C++;
-            if (D_800D4C8C >= D_800D4B64[D_800D4C88].count) {
+            if (D_800D4C8C >= D_800D4B64[D_800D4C88].field_10) {
                 D_800D4C8C = 0;
             }
         }
         if (D_800D4C9C & 0x8000) {
             D_800D4C8C--;
             if (D_800D4C8C < 0) {
-                D_800D4C8C = D_800D4B64[D_800D4C88].count - 1;
+                D_800D4C8C = D_800D4B64[D_800D4C88].field_10 - 1;
             }
         }
-        func_8001534C(0xC, (s32)D_800D4B64[D_800D4C88].name, 0xA4, 0x46, 0x44, 0);
-        func_8001534C(0xD, (s32)D_800D4B64[D_800D4C88].items[D_800D4C8C].name, 0xA4, 0x52, 0x44, 0);
+        func_8001534C(0xC, (s32)D_800D4B64[D_800D4C88].field_0, 0xA4, 0x46, 0x44, 0);
+        func_8001534C(0xD, (s32)D_800D4B64[D_800D4C88].field_C[D_800D4C8C].field_0, 0xA4, 0x52, 0x44, 0);
         if (!ok) {
             func_8001534C(0x11, (s32)D_800CEE30, 0xA4, 0x5E, 0x44, 0);
         }
@@ -536,8 +536,8 @@ void func_800CFDB4(void) {
 }
 
 void func_800D03F8(void) {
-    register Work *w = &D_800AF630;
-    w->done = 1;
+    register struct_A444 *w = &D_800AF630;
+    w->field_A3B6 = 1;
 }
 
 void func_800D0430(void) {
@@ -545,7 +545,7 @@ void func_800D0430(void) {
 
 void func_800D0450(void) {
     if (D_800D4C80 < 5) {
-        D_800D4C68[D_800D4C80].fn();
+        D_800D4C68[D_800D4C80].field_0();
     }
 }
 
@@ -554,13 +554,13 @@ void func_800D04C4(void) {
 }
 
 void func_800D04F4(void) {
-    DbgEnt *e;
+    struct_6 *e;
 
     D_800D3344 = func_80029504();
     func_800153CC(0x11, D_800D3344, 0xC8, 0xA6, 0x44, 0);
     e = &D_800D4A5C[D_800D3348];
     func_8001534C(0x12, (s32)e, 0x98, 0xB2, 0x43, 0);
-    func_8001534C(0x13, (func_80029178(e->flag) & 0xFF) ? (s32)D_800CEE3C : (s32)D_800CEE40, 0xC8, 0xB2, 0, 0);
+    func_8001534C(0x13, (func_80029178(e->field_4) & 0xFF) ? (s32)D_800CEE3C : (s32)D_800CEE40, 0xC8, 0xB2, 0, 0);
     func_800153CC(0x14, (s16)(D_800D334A / 60), 0x68, 0xBE, 0x42, 0);
     func_800153CC(0x15, (s16)(D_800D334A % 60), 0x80, 0xBE, 0x42, 0);
     func_8001534C(0x16, (s32)D_800CEE44, 0x40, 0xCA, 0x43, 0);
@@ -576,8 +576,8 @@ s32 func_800D0828(s32 a) {
 }
 
 void func_800D0858(void) {
-    D_800D4C9C = GetPadPressedDir(0);
-    D_800D4C98 = GetPadHeldDir(0);
+    D_800D4C9C = func_800149E0(0);
+    D_800D4C98 = func_80014B10(0);
     if (D_800D4C98 != 0) {
         if (D_800D4C98 == D_800D4CA0) {
             if (--D_800D4CA4 == 0) {
@@ -595,111 +595,111 @@ void func_800D0858(void) {
 }
 
 void func_800D0964(void) {
-    DbgStats *s = &D_80078E78;
-    s->unk4 = 0x0;
-    s->unk8 = 0x0;
-    s->unkC = 0x0;
-    s->unk10 = 0x0;
-    s->unk14 = 0x64;
-    s->unk18 = 0x1FE0000;
-    s->unk1C = 0x0;
-    s->unk20 = 0x0;
-    s->unk24 = 0x640000;
-    s->unk28 = 0x0;
-    s->unk2C = 0x640000;
-    s->unk30 = 0x0;
-    s->unk34 = 0x1;
-    s->unk36 = 0x1;
-    s->unk37 = 0x1;
-    s->unk38 = 0x81E;
-    s->unk3A = 0x96;
-    s->unk3C = 0x96;
-    s->unk3E = 0x96;
-    s->unk40 = 0x96;
-    s->unk42 = 0x0;
-    s->unk43 = 0x0;
-    s->unk44 = 0x3;
-    s->unk45 = 0x0;
-    s->unk46 = 0x0;
-    s->unk47 = 0x0;
-    s->unk48 = 0x0;
-    s->unk49 = 0x0;
-    s->unk4A = 0x0;
-    s->unk4B = 0x0;
-    s->unk4C = 0x0;
-    s->unk50 = 0x0;
-    s->unk54 = 0x0;
-    s->unk58 = 0x0;
-    s->unk5C = 0x0;
-    s->unk60 = 0x0;
-    s->unk64 = 0x0;
-    s->unk68 = 0x0;
-    s->unk6C = 0x0;
-    s->unk70 = 0x0;
-    s->unk74 = 0x0;
-    s->unk78 = 0x0;
-    s->unk7C = 0x0;
-    s->unk80 = 0x0;
-    s->unk84 = 0x0;
-    s->unk88 = 0x0;
-    s->unk8C = 0x0;
-    s->unk90 = 0x0;
-    s->unk94 = 0x0;
+    struct_98 *s = &D_80078E78;
+    s->field_4 = 0x0;
+    s->field_8 = 0x0;
+    s->field_C = 0x0;
+    s->field_10 = 0x0;
+    s->field_14 = 0x64;
+    s->field_18 = 0x1FE0000;
+    s->field_1C = 0x0;
+    s->field_20 = 0x0;
+    s->field_24 = 0x640000;
+    s->field_28 = 0x0;
+    s->field_2C = 0x640000;
+    s->field_30 = 0x0;
+    s->field_34 = 0x1;
+    s->field_36 = 0x1;
+    s->field_37 = 0x1;
+    s->field_38 = 0x81E;
+    s->field_3A = 0x96;
+    s->field_3C = 0x96;
+    s->field_3E = 0x96;
+    s->field_40 = 0x96;
+    s->field_42 = 0x0;
+    s->field_43 = 0x0;
+    s->field_44 = 0x3;
+    s->field_45 = 0x0;
+    s->field_46 = 0x0;
+    s->field_47 = 0x0;
+    s->field_48 = 0x0;
+    s->field_49 = 0x0;
+    s->field_4A = 0x0;
+    s->field_4B = 0x0;
+    s->field_4C = 0x0;
+    s->field_50 = 0x0;
+    s->field_54 = 0x0;
+    s->field_58 = 0x0;
+    s->field_5C = 0x0;
+    s->field_60 = 0x0;
+    s->field_64 = 0x0;
+    s->field_68 = 0x0;
+    s->field_6C = 0x0;
+    s->field_70 = 0x0;
+    s->field_74 = 0x0;
+    s->field_78 = 0x0;
+    s->field_7C = 0x0;
+    s->field_80 = 0x0;
+    s->field_84 = 0x0;
+    s->field_88 = 0x0;
+    s->field_8C = 0x0;
+    s->field_90 = 0x0;
+    s->field_94 = 0x0;
 }
 
 void func_800D0BDC(void) {
-    DbgStats *s;
+    struct_98 *s;
 
     s = &D_80078E78;
-    s->unk4 = 0;
-    s->unk8 = 0xA;
-    s->unkC = 0;
-    s->unk10 = 0;
-    s->unk14 = 0x64;
-    s->unk18 = 0x01FE0000;
-    s->unk1C = 0;
-    s->unk20 = 0;
-    s->unk24 = 0x640000;
-    s->unk28 = 0;
-    s->unk2C = 0x640000;
-    s->unk30 = 0;
-    s->unk34 = 1;
-    s->unk36 = 1;
-    s->unk37 = 1;
-    s->unk38 = 0x81E;
-    s->unk3A = 0x96;
-    s->unk3C = 0x96;
-    s->unk3E = 0x96;
-    s->unk40 = 0x96;
-    s->unk42 = 0;
-    s->unk43 = 0;
-    s->unk44 = 3;
-    s->unk45 = 0;
-    s->unk46 = 0;
-    s->unk47 = 0;
-    s->unk48 = 1;
-    s->unk49 = 0;
-    s->unk4A = 0;
-    s->unk4B = 0;
-    s->unk4C = 0;
-    s->unk50 = 0;
-    s->unk54 = 0;
-    s->unk58 = 0;
-    s->unk5C = 0;
-    s->unk60 = 0;
-    s->unk64 = 0;
-    s->unk68 = 0;
-    s->unk6C = 3;
-    s->unk70 = 0;
-    s->unk74 = 3;
-    s->unk78 = 0;
-    s->unk7C = 3;
-    s->unk80 = 0;
-    s->unk84 = 3;
-    s->unk88 = 0;
-    s->unk8C = 0;
-    s->unk90 = 0x6D6;
-    s->unk94 = 0x6D6;
+    s->field_4 = 0;
+    s->field_8 = 0xA;
+    s->field_C = 0;
+    s->field_10 = 0;
+    s->field_14 = 0x64;
+    s->field_18 = 0x01FE0000;
+    s->field_1C = 0;
+    s->field_20 = 0;
+    s->field_24 = 0x640000;
+    s->field_28 = 0;
+    s->field_2C = 0x640000;
+    s->field_30 = 0;
+    s->field_34 = 1;
+    s->field_36 = 1;
+    s->field_37 = 1;
+    s->field_38 = 0x81E;
+    s->field_3A = 0x96;
+    s->field_3C = 0x96;
+    s->field_3E = 0x96;
+    s->field_40 = 0x96;
+    s->field_42 = 0;
+    s->field_43 = 0;
+    s->field_44 = 3;
+    s->field_45 = 0;
+    s->field_46 = 0;
+    s->field_47 = 0;
+    s->field_48 = 1;
+    s->field_49 = 0;
+    s->field_4A = 0;
+    s->field_4B = 0;
+    s->field_4C = 0;
+    s->field_50 = 0;
+    s->field_54 = 0;
+    s->field_58 = 0;
+    s->field_5C = 0;
+    s->field_60 = 0;
+    s->field_64 = 0;
+    s->field_68 = 0;
+    s->field_6C = 3;
+    s->field_70 = 0;
+    s->field_74 = 3;
+    s->field_78 = 0;
+    s->field_7C = 3;
+    s->field_80 = 0;
+    s->field_84 = 3;
+    s->field_88 = 0;
+    s->field_8C = 0;
+    s->field_90 = 0x6D6;
+    s->field_94 = 0x6D6;
     func_80029124(0x7F, 1);
     func_80029124(0x80, 1);
     func_80029124(0x84, 1);
@@ -759,58 +759,58 @@ void func_800D0BDC(void) {
 }
 
 void func_800D1254(void) {
-    DbgStats *s;
+    struct_98 *s;
 
     s = &D_80078E78;
-    s->unk4 = 0;
-    s->unk8 = 0xC8;
-    s->unkC = 0xD;
-    s->unk10 = 1;
-    s->unk14 = 0x64;
-    s->unk18 = 0x01FE0000;
-    s->unk1C = 0;
-    s->unk20 = 0;
-    s->unk24 = 0x640000;
-    s->unk28 = 0;
-    s->unk2C = 0x640000;
-    s->unk30 = 0;
-    s->unk34 = 1;
-    s->unk36 = 1;
-    s->unk37 = 1;
-    s->unk38 = 0x81E;
-    s->unk3A = 0xFA;
-    s->unk3C = 0xFA;
-    s->unk3E = 0x177;
-    s->unk40 = 0x177;
-    s->unk42 = 0;
-    s->unk43 = 0;
-    s->unk44 = 3;
-    s->unk45 = 0;
-    s->unk46 = 0;
-    s->unk47 = 0;
-    s->unk48 = 1;
-    s->unk49 = 0;
-    s->unk4A = 0;
-    s->unk4B = 0;
-    s->unk4C = 0;
-    s->unk50 = 0;
-    s->unk54 = 0;
-    s->unk58 = 0;
-    s->unk5C = 0;
-    s->unk60 = 0;
-    s->unk64 = 0;
-    s->unk68 = 0;
-    s->unk6C = 0xC;
-    s->unk70 = 0;
-    s->unk74 = 0xC;
-    s->unk78 = 0;
-    s->unk7C = 0xC;
-    s->unk80 = 0;
-    s->unk84 = 0xC;
-    s->unk88 = 0;
-    s->unk8C = 0;
-    s->unk90 = 0x31C4;
-    s->unk94 = 0x31C4;
+    s->field_4 = 0;
+    s->field_8 = 0xC8;
+    s->field_C = 0xD;
+    s->field_10 = 1;
+    s->field_14 = 0x64;
+    s->field_18 = 0x01FE0000;
+    s->field_1C = 0;
+    s->field_20 = 0;
+    s->field_24 = 0x640000;
+    s->field_28 = 0;
+    s->field_2C = 0x640000;
+    s->field_30 = 0;
+    s->field_34 = 1;
+    s->field_36 = 1;
+    s->field_37 = 1;
+    s->field_38 = 0x81E;
+    s->field_3A = 0xFA;
+    s->field_3C = 0xFA;
+    s->field_3E = 0x177;
+    s->field_40 = 0x177;
+    s->field_42 = 0;
+    s->field_43 = 0;
+    s->field_44 = 3;
+    s->field_45 = 0;
+    s->field_46 = 0;
+    s->field_47 = 0;
+    s->field_48 = 1;
+    s->field_49 = 0;
+    s->field_4A = 0;
+    s->field_4B = 0;
+    s->field_4C = 0;
+    s->field_50 = 0;
+    s->field_54 = 0;
+    s->field_58 = 0;
+    s->field_5C = 0;
+    s->field_60 = 0;
+    s->field_64 = 0;
+    s->field_68 = 0;
+    s->field_6C = 0xC;
+    s->field_70 = 0;
+    s->field_74 = 0xC;
+    s->field_78 = 0;
+    s->field_7C = 0xC;
+    s->field_80 = 0;
+    s->field_84 = 0xC;
+    s->field_88 = 0;
+    s->field_8C = 0;
+    s->field_90 = 0x31C4;
+    s->field_94 = 0x31C4;
     func_80029124(0x96, 1);
     func_80029124(0xE5, 1);
     func_80029124(0xE7, 1);
@@ -904,58 +904,58 @@ void func_800D1254(void) {
 }
 
 void func_800D1B00(void) {
-    DbgStats *s;
+    struct_98 *s;
 
     s = &D_80078E78;
-    s->unk4 = 0;
-    s->unk8 = 0x258;
-    s->unkC = 0x1A;
-    s->unk10 = 2;
-    s->unk14 = 0x64;
-    s->unk18 = 0x01FE0000;
-    s->unk1C = 0;
-    s->unk20 = 0;
-    s->unk24 = 0x640000;
-    s->unk28 = 0;
-    s->unk2C = 0x640000;
-    s->unk30 = 0;
-    s->unk34 = 1;
-    s->unk36 = 1;
-    s->unk37 = 1;
-    s->unk38 = 0x81E;
-    s->unk3A = 0x15E;
-    s->unk3C = 0x15E;
-    s->unk3E = 0x1C2;
-    s->unk40 = 0x1C2;
-    s->unk42 = 0;
-    s->unk43 = 0;
-    s->unk44 = 3;
-    s->unk45 = 0;
-    s->unk46 = 0;
-    s->unk47 = 0;
-    s->unk48 = 1;
-    s->unk49 = 0;
-    s->unk4A = 0;
-    s->unk4B = 0;
-    s->unk4C = 0;
-    s->unk50 = 0;
-    s->unk54 = 0;
-    s->unk58 = 0;
-    s->unk5C = 0;
-    s->unk60 = 0;
-    s->unk64 = 0;
-    s->unk68 = 0;
-    s->unk6C = 0x13;
-    s->unk70 = 0;
-    s->unk74 = 0x13;
-    s->unk78 = 0;
-    s->unk7C = 0x13;
-    s->unk80 = 0;
-    s->unk84 = 0x13;
-    s->unk88 = 0;
-    s->unk8C = 0;
-    s->unk90 = 0x5C44;
-    s->unk94 = 0x5C44;
+    s->field_4 = 0;
+    s->field_8 = 0x258;
+    s->field_C = 0x1A;
+    s->field_10 = 2;
+    s->field_14 = 0x64;
+    s->field_18 = 0x01FE0000;
+    s->field_1C = 0;
+    s->field_20 = 0;
+    s->field_24 = 0x640000;
+    s->field_28 = 0;
+    s->field_2C = 0x640000;
+    s->field_30 = 0;
+    s->field_34 = 1;
+    s->field_36 = 1;
+    s->field_37 = 1;
+    s->field_38 = 0x81E;
+    s->field_3A = 0x15E;
+    s->field_3C = 0x15E;
+    s->field_3E = 0x1C2;
+    s->field_40 = 0x1C2;
+    s->field_42 = 0;
+    s->field_43 = 0;
+    s->field_44 = 3;
+    s->field_45 = 0;
+    s->field_46 = 0;
+    s->field_47 = 0;
+    s->field_48 = 1;
+    s->field_49 = 0;
+    s->field_4A = 0;
+    s->field_4B = 0;
+    s->field_4C = 0;
+    s->field_50 = 0;
+    s->field_54 = 0;
+    s->field_58 = 0;
+    s->field_5C = 0;
+    s->field_60 = 0;
+    s->field_64 = 0;
+    s->field_68 = 0;
+    s->field_6C = 0x13;
+    s->field_70 = 0;
+    s->field_74 = 0x13;
+    s->field_78 = 0;
+    s->field_7C = 0x13;
+    s->field_80 = 0;
+    s->field_84 = 0x13;
+    s->field_88 = 0;
+    s->field_8C = 0;
+    s->field_90 = 0x5C44;
+    s->field_94 = 0x5C44;
     func_80029124(0xF5, 1);
     func_80029124(0x106, 1);
     func_80029124(0xF8, 1);
@@ -1044,58 +1044,58 @@ void func_800D1B00(void) {
 }
 
 void func_800D235C(void) {
-    DbgStats *s;
+    struct_98 *s;
 
     s = &D_80078E78;
-    s->unk4 = 0;
-    s->unk8 = 0x384;
-    s->unkC = 0x20;
-    s->unk10 = 3;
-    s->unk14 = 0x64;
-    s->unk18 = 0x01FE0000;
-    s->unk1C = 0;
-    s->unk20 = 0;
-    s->unk24 = 0x640000;
-    s->unk28 = 0;
-    s->unk2C = 0x640000;
-    s->unk30 = 0;
-    s->unk34 = 1;
-    s->unk36 = 1;
-    s->unk37 = 1;
-    s->unk38 = 0x81E;
-    s->unk3A = 0x19F;
-    s->unk3C = 0x19F;
-    s->unk3E = 0x1F4;
-    s->unk40 = 0x1F4;
-    s->unk42 = 0;
-    s->unk43 = 0;
-    s->unk44 = 3;
-    s->unk45 = 0;
-    s->unk46 = 0;
-    s->unk47 = 0;
-    s->unk48 = 1;
-    s->unk49 = 0;
-    s->unk4A = 0;
-    s->unk4B = 0;
-    s->unk4C = 0;
-    s->unk6C = 0x18;
-    s->unk70 = 0;
-    s->unk74 = 0x18;
-    s->unk78 = 0;
-    s->unk7C = 0x18;
-    s->unk80 = 0;
-    s->unk84 = 0x18;
-    s->unk88 = 0;
-    s->unk8C = 0;
-    s->unk90 = 0x7E90;
-    s->unk94 = 0x7E90;
-    s->unk50 = 0;
-    s->unk54 = 0;
-    s->unk58 = 0;
-    s->unk5C = 0;
-    s->unk60 = 0;
-    s->unk64 = 0;
-    s->unk68 = 0;
+    s->field_4 = 0;
+    s->field_8 = 0x384;
+    s->field_C = 0x20;
+    s->field_10 = 3;
+    s->field_14 = 0x64;
+    s->field_18 = 0x01FE0000;
+    s->field_1C = 0;
+    s->field_20 = 0;
+    s->field_24 = 0x640000;
+    s->field_28 = 0;
+    s->field_2C = 0x640000;
+    s->field_30 = 0;
+    s->field_34 = 1;
+    s->field_36 = 1;
+    s->field_37 = 1;
+    s->field_38 = 0x81E;
+    s->field_3A = 0x19F;
+    s->field_3C = 0x19F;
+    s->field_3E = 0x1F4;
+    s->field_40 = 0x1F4;
+    s->field_42 = 0;
+    s->field_43 = 0;
+    s->field_44 = 3;
+    s->field_45 = 0;
+    s->field_46 = 0;
+    s->field_47 = 0;
+    s->field_48 = 1;
+    s->field_49 = 0;
+    s->field_4A = 0;
+    s->field_4B = 0;
+    s->field_4C = 0;
+    s->field_6C = 0x18;
+    s->field_70 = 0;
+    s->field_74 = 0x18;
+    s->field_78 = 0;
+    s->field_7C = 0x18;
+    s->field_80 = 0;
+    s->field_84 = 0x18;
+    s->field_88 = 0;
+    s->field_8C = 0;
+    s->field_90 = 0x7E90;
+    s->field_94 = 0x7E90;
+    s->field_50 = 0;
+    s->field_54 = 0;
+    s->field_58 = 0;
+    s->field_5C = 0;
+    s->field_60 = 0;
+    s->field_64 = 0;
+    s->field_68 = 0;
     func_80029124(0x10D, 1);
     func_80029124(0x107, 1);
     func_80029124(0x18, 1);
@@ -1186,58 +1186,58 @@ void func_800D235C(void) {
 }
 
 void func_800D2BC4(void) {
-    DbgStats *s;
+    struct_98 *s;
 
     s = &D_80078E78;
-    s->unk4 = 0;
-    s->unk8 = 0x4B0;
-    s->unkC = 0x23;
-    s->unk10 = 7;
-    s->unk14 = 0x64;
-    s->unk18 = 0x01FE0000;
-    s->unk1C = 0;
-    s->unk20 = 0;
-    s->unk24 = 0x640000;
-    s->unk28 = 0;
-    s->unk2C = 0x640000;
-    s->unk30 = 0;
-    s->unk34 = 1;
-    s->unk36 = 1;
-    s->unk37 = 1;
-    s->unk38 = 0x81E;
-    s->unk3A = 0x1D1;
-    s->unk3C = 0x1D1;
-    s->unk3E = 0x1F4;
-    s->unk40 = 0x1F4;
-    s->unk42 = 0;
-    s->unk43 = 0;
-    s->unk44 = 3;
-    s->unk45 = 0;
-    s->unk46 = 0;
-    s->unk47 = 0;
-    s->unk48 = 1;
-    s->unk49 = 0;
-    s->unk4A = 0;
-    s->unk4B = 0;
-    s->unk4C = 0;
-    s->unk50 = 0;
-    s->unk54 = 0;
-    s->unk58 = 0;
-    s->unk5C = 0;
-    s->unk60 = 0;
-    s->unk64 = 0;
-    s->unk68 = 0;
-    s->unk6C = 0x1C;
-    s->unk70 = 0;
-    s->unk74 = 0x1C;
-    s->unk78 = 0;
-    s->unk7C = 0x1C;
-    s->unk80 = 0;
-    s->unk84 = 0x1C;
-    s->unk88 = 0;
-    s->unk8C = 0;
-    s->unk90 = 0x9C72;
-    s->unk94 = 0x9C72;
+    s->field_4 = 0;
+    s->field_8 = 0x4B0;
+    s->field_C = 0x23;
+    s->field_10 = 7;
+    s->field_14 = 0x64;
+    s->field_18 = 0x01FE0000;
+    s->field_1C = 0;
+    s->field_20 = 0;
+    s->field_24 = 0x640000;
+    s->field_28 = 0;
+    s->field_2C = 0x640000;
+    s->field_30 = 0;
+    s->field_34 = 1;
+    s->field_36 = 1;
+    s->field_37 = 1;
+    s->field_38 = 0x81E;
+    s->field_3A = 0x1D1;
+    s->field_3C = 0x1D1;
+    s->field_3E = 0x1F4;
+    s->field_40 = 0x1F4;
+    s->field_42 = 0;
+    s->field_43 = 0;
+    s->field_44 = 3;
+    s->field_45 = 0;
+    s->field_46 = 0;
+    s->field_47 = 0;
+    s->field_48 = 1;
+    s->field_49 = 0;
+    s->field_4A = 0;
+    s->field_4B = 0;
+    s->field_4C = 0;
+    s->field_50 = 0;
+    s->field_54 = 0;
+    s->field_58 = 0;
+    s->field_5C = 0;
+    s->field_60 = 0;
+    s->field_64 = 0;
+    s->field_68 = 0;
+    s->field_6C = 0x1C;
+    s->field_70 = 0;
+    s->field_74 = 0x1C;
+    s->field_78 = 0;
+    s->field_7C = 0x1C;
+    s->field_80 = 0;
+    s->field_84 = 0x1C;
+    s->field_88 = 0;
+    s->field_8C = 0;
+    s->field_90 = 0x9C72;
+    s->field_94 = 0x9C72;
     func_80029124(0x19, 1);
     func_80029124(0x1D, 1);
     func_80029124(0x21, 1);

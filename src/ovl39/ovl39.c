@@ -2,16 +2,16 @@
 #include "psyq.h"
 #include "work.h"
 
-typedef struct { char *name; s32 rest[7]; } TitleMovie;
+typedef struct { char *field_0; s32 field_4[7]; } struct_20_3;
 extern CdlFILE *CdSearchFile(CdlFILE *fp, char *name);
 extern int ResetCallback(void);
 extern void *DMACallback(s32 ch, void (*cb)(void));
-extern void NextStep(void);
-extern void SetScreenMode2(s32 mode);
+extern void func_800118AC(void);
+extern void func_800146B0(s32 mode);
 extern void func_800183E0(void *p);
 extern s32 func_8001BFA0(void);
 extern void func_8001BFB0(void);
-extern void func_800D1E9C(TitleMovie *m);
+extern void func_800D1E9C(struct_20_3 *m);
 extern void func_800D2D68(s32 a);
 extern void func_800D2EF8(void);
 extern s32 func_800D2F88(void);
@@ -23,7 +23,7 @@ extern u16 D_800B99E8;
 extern s32 D_800B9A18;
 extern void (*D_800D3598[])(void);
 extern u8 D_800D52BC[];
-extern TitleMovie D_800D942C[];
+extern struct_20_3 D_800D942C[];
 extern u32 *D_800DB670;
 extern s32 D_800EC680;
 extern s32 D_800EC9E0;
@@ -39,8 +39,8 @@ extern int CdRead2(s32 mode);
 extern void StSetRing(u32 *ring, u32 size);
 extern void StSetStream(u32 mode, u32 start, u32 end, void (*f1)(), void (*f2)());
 extern void func_80015310(void);
-extern s32 LoadFileStep(CdlFILE *file, void *dest, s32 arg2, s32 arg3);
-extern void DrawNowLoading(s32 n);
+extern s32 func_80019A24(CdlFILE *file, void *dest, s32 arg2, s32 arg3);
+extern void func_8001A9F8(s32 n);
 extern void func_800CF3E8(void);
 extern void func_800CFB3C(void *p);
 extern void func_800CFFEC(void);
@@ -64,10 +64,10 @@ extern u32 D_800DB570[];
 extern u32 D_800DB5B4[];
 extern s32 D_800EC690;
 
-typedef struct { u16 type; u16 pad; RECT r; u16 *pix; } TitleImg;
+typedef struct { u16 field_0; u16 field_2; RECT field_4; u16 *field_C; } struct_10;
 extern void func_8001C044(void);
 extern void func_8002D858(void);
-extern void InitDrawDispEnvs(void);
+extern void func_800147B8(void);
 extern s32 func_800D1E18(void);
 extern void GsInitGraph2(s32 w, s32 h, s32 a, s32 b, s32 c);
 extern void GsDefDispBuff2(s32 a, s32 b, s32 c, s32 d);
@@ -100,15 +100,15 @@ void func_800CEF04(void) {
     D_800EC688 = 0xFF;
     D_800EC684 = func_800D1E18();
     func_800CFB3C(D_800DA48C);
-    NextStep();
-    NextStep();
+    func_800118AC();
+    func_800118AC();
 }
 
 void func_800CEFBC(void) {
-    DrawNowLoading(0);
-    if (LoadFileStep(&D_800AE858, (void *)0x80164E20, 0, 0) != 0) {
+    func_8001A9F8(0);
+    if (func_80019A24(&D_800AE858, (void *)0x80164E20, 0, 0) != 0) {
         func_80015310();
-        NextStep();
+        func_800118AC();
     }
 }
 
@@ -121,7 +121,7 @@ void func_800CF010(void) {
     D_800EC6A0 = 0;
     func_800CFB3C(D_800DA48C);
     D_800EC6A4 = 1;
-    NextStep();
+    func_800118AC();
 }
 
 void func_800CF078(void) {
@@ -133,19 +133,19 @@ void func_800CF078(void) {
     }
     if (D_800EC6A0 != 0 && D_800EC6A4 != 0) {
         D_800EC690 = 1;
-        NextStep();
+        func_800118AC();
     }
 }
 
-extern s32 GetPadPressedDir(s32 a);
-extern s32 GetPadHeldDir(s32 a);
+extern s32 func_800149E0(s32 a);
+extern s32 func_80014B10(s32 a);
 extern void func_8002D4C8(s32 a, s32 b);
 extern void func_800CFE00(void);
 
 void func_800CF104(void) {
     s32 pad;
-    pad = GetPadPressedDir(0);
-    GetPadHeldDir(0);
+    pad = func_800149E0(0);
+    func_80014B10(0);
     switch (D_800EC690) {
     case 0:
         break;
@@ -179,14 +179,14 @@ void func_800CF104(void) {
         } else if (pad & 0x840) {
             func_8002D4C8(0x9C0, 0);
             D_800EC680 = D_800EC678;
-            NextStep();
+            func_800118AC();
         }
         break;
     }
     func_800CF3E8();
     if (D_800EC67C >= 0x1C3) {
         D_800EC680 = 4;
-        NextStep();
+        func_800118AC();
     }
 }
 
@@ -200,14 +200,14 @@ void func_800CF300(void) {
         r.w = 0x280;
         r.h = 0x1E0;
         ClearImage(&r, 0, 0, 0);
-        NextStep();
+        func_800118AC();
     }
 }
 
 void func_800CF370(void) {
-    SetScreenMode2(1);
+    func_800146B0(1);
     D_800B9A18 = 2;
-    NextStep();
+    func_800118AC();
 }
 
 void func_800CF3A4(void) {
@@ -217,32 +217,32 @@ void func_800CF3A4(void) {
 }
 
 typedef struct {
-    u32 tag;
-    u32 tpage;
-    u8 r0, g0, b0, code;
-    s16 x0, y0;
-    u8 u0, v0;
-    u16 clut;
-    s16 w, h;
-} TitleSprt;
+    u32 field_0;
+    u32 field_4;
+    u8 field_8, field_9, field_A, field_B;
+    s16 field_C, field_E;
+    u8 field_10, field_11;
+    u16 field_12;
+    s16 field_14, field_16;
+} struct_18;
 extern u32 D_800AA60C[][0x1000];
-extern TitleSprt D_800EC6A8[2];
-extern TitleSprt D_800EC6D8[2];
-extern TitleSprt D_800EC708[2];
-extern TitleSprt D_800EC738[2];
-extern TitleSprt D_800EC768[2];
-extern TitleSprt D_800EC798[2];
-extern TitleSprt D_800EC7C8[2];
-extern TitleSprt D_800EC7F8[2];
-extern TitleSprt D_800EC828[2];
-extern TitleSprt D_800EC858[2];
+extern struct_18 D_800EC6A8[2];
+extern struct_18 D_800EC6D8[2];
+extern struct_18 D_800EC708[2];
+extern struct_18 D_800EC738[2];
+extern struct_18 D_800EC768[2];
+extern struct_18 D_800EC798[2];
+extern struct_18 D_800EC7C8[2];
+extern struct_18 D_800EC7F8[2];
+extern struct_18 D_800EC828[2];
+extern struct_18 D_800EC858[2];
 
 void func_800CF3E8(void) {
-    Work *w = &D_800AF630;
-    TitleSprt *p;
-    TitleSprt *q;
-    TitleSprt *p1, *p2, *p3, *p4, *p5, *p6;
-    s32 f = w->frame;
+    struct_A444 *w = &D_800AF630;
+    struct_18 *p;
+    struct_18 *q;
+    struct_18 *p1, *p2, *p3, *p4, *p5, *p6;
+    s32 f = w->field_A3D2;
     switch (D_800EC690) {
     case 0: break;
     case 1:
@@ -250,136 +250,136 @@ void func_800CF3E8(void) {
             setlen(&D_800EC7C8[f], 5);
             p = &D_800EC7C8[f];
             ((u32 *)&D_800EC7C8[f])[1] = 0xE100008A;
-            p->code = 0x64;
-            p->r0 = p->g0 = p->b0 = D_800EC68C;
-            p->x0 = -0xB0;
-            p->y0 = 0x54;
-            p->u0 = 0;
-            p->v0 = 0;
-            p->clut = 0x7800;
-            p->w = 0x100;
-            p->h = 0x20;
-            D_800EC7C8[f].clut = 0x7880;
-            addPrim(D_800AA60C[w->frame], p);
+            p->field_B = 0x64;
+            p->field_8 = p->field_9 = p->field_A = D_800EC68C;
+            p->field_C = -0xB0;
+            p->field_E = 0x54;
+            p->field_10 = 0;
+            p->field_11 = 0;
+            p->field_12 = 0x7800;
+            p->field_14 = 0x100;
+            p->field_16 = 0x20;
+            D_800EC7C8[f].field_12 = 0x7880;
+            addPrim(D_800AA60C[w->field_A3D2], p);
             setlen(&D_800EC7F8[f], 5);
             p = &D_800EC7F8[f];
             ((u32 *)&D_800EC7F8[f])[1] = 0xE100008C;
-            p->code = 0x64;
-            p->r0 = p->g0 = p->b0 = D_800EC68C;
-            p->x0 = 0x50;
-            p->y0 = 0x54;
-            p->u0 = 0;
-            p->v0 = 0;
-            p->clut = 0x7800;
-            p->w = 0x60;
-            p->h = 0x20;
-            D_800EC7F8[f].clut = 0x7880;
-            addPrim(D_800AA60C[w->frame], p);
+            p->field_B = 0x64;
+            p->field_8 = p->field_9 = p->field_A = D_800EC68C;
+            p->field_C = 0x50;
+            p->field_E = 0x54;
+            p->field_10 = 0;
+            p->field_11 = 0;
+            p->field_12 = 0x7800;
+            p->field_14 = 0x60;
+            p->field_16 = 0x20;
+            D_800EC7F8[f].field_12 = 0x7880;
+            addPrim(D_800AA60C[w->field_A3D2], p);
         }
         break;
     case 2:
         setlen(&D_800EC828[f], 5);
         q = &D_800EC828[f];
         ((u32 *)&D_800EC828[f])[1] = 0xE100008F;
-        q->code = 0x64;
-        q->r0 = q->g0 = q->b0 = D_800EC68C;
-        q->x0 = -0x40;
-        q->y0 = 0x44;
-        q->u0 = 0;
-        q->v0 = 0;
-        q->clut = 0x7800;
-        q->w = 0x80;
-        q->h = 0x40;
-        D_800EC828[f].clut = 0x7A80;
-        addPrim(D_800AA60C[w->frame], q);
+        q->field_B = 0x64;
+        q->field_8 = q->field_9 = q->field_A = D_800EC68C;
+        q->field_C = -0x40;
+        q->field_E = 0x44;
+        q->field_10 = 0;
+        q->field_11 = 0;
+        q->field_12 = 0x7800;
+        q->field_14 = 0x80;
+        q->field_16 = 0x40;
+        D_800EC828[f].field_12 = 0x7A80;
+        addPrim(D_800AA60C[w->field_A3D2], q);
         setlen(&D_800EC858[f], 5);
         q = &D_800EC858[f];
         ((u32 *)&D_800EC858[f])[1] = 0xE100008D;
-        q->code = 0x64;
-        q->r0 = q->g0 = q->b0 = D_800EC68C;
-        q->x0 = -0x70;
-        q->y0 = D_800EC678 * 32 + 0x44;
-        q->u0 = 0;
-        q->v0 = 0;
-        q->clut = 0x7800;
-        q->w = 0xE0;
-        q->h = 0x20;
-        D_800EC858[f].clut = 0x7800;
-        addPrim(D_800AA60C[w->frame], q);
+        q->field_B = 0x64;
+        q->field_8 = q->field_9 = q->field_A = D_800EC68C;
+        q->field_C = -0x70;
+        q->field_E = D_800EC678 * 32 + 0x44;
+        q->field_10 = 0;
+        q->field_11 = 0;
+        q->field_12 = 0x7800;
+        q->field_14 = 0xE0;
+        q->field_16 = 0x20;
+        D_800EC858[f].field_12 = 0x7800;
+        addPrim(D_800AA60C[w->field_A3D2], q);
         break;
     }
     setlen(&D_800EC6A8[f], 5);
     p1 = &D_800EC6A8[f];
     ((u32 *)&D_800EC6A8[f])[1] = 0xE100008A;
-    p1->code = 0x64;
-    p1->r0 = p1->g0 = p1->b0 = D_800EC68C;
-    p1->x0 = -0x140;
-    p1->y0 = -0xDC;
-    p1->u0 = 0;
-    p1->v0 = 0x24;
-    p1->clut = 0x78C0;
-    p1->w = 0x100;
-    p1->h = 0xDC;
+    p1->field_B = 0x64;
+    p1->field_8 = p1->field_9 = p1->field_A = D_800EC68C;
+    p1->field_C = -0x140;
+    p1->field_E = -0xDC;
+    p1->field_10 = 0;
+    p1->field_11 = 0x24;
+    p1->field_12 = 0x78C0;
+    p1->field_14 = 0x100;
+    p1->field_16 = 0xDC;
     setlen(&D_800EC6D8[f], 5);
     p2 = &D_800EC6D8[f];
     ((u32 *)&D_800EC6D8[f])[1] = 0xE100008C;
-    p2->code = 0x64;
-    p2->r0 = p2->g0 = p2->b0 = D_800EC68C;
-    p2->x0 = -0x40;
-    p2->y0 = -0xDC;
-    p2->u0 = 0;
-    p2->v0 = 0x24;
-    p2->clut = 0x78C0;
-    p2->w = 0x100;
-    p2->h = 0xDC;
+    p2->field_B = 0x64;
+    p2->field_8 = p2->field_9 = p2->field_A = D_800EC68C;
+    p2->field_C = -0x40;
+    p2->field_E = -0xDC;
+    p2->field_10 = 0;
+    p2->field_11 = 0x24;
+    p2->field_12 = 0x78C0;
+    p2->field_14 = 0x100;
+    p2->field_16 = 0xDC;
     setlen(&D_800EC708[f], 5);
     p3 = &D_800EC708[f];
     ((u32 *)&D_800EC708[f])[1] = 0xE100008E;
-    p3->code = 0x64;
-    p3->r0 = p3->g0 = p3->b0 = D_800EC68C;
-    p3->x0 = 0xC0;
-    p3->y0 = -0xDC;
-    p3->u0 = 0;
-    p3->v0 = 0x24;
-    p3->clut = 0x78C0;
-    p3->w = 0x80;
-    p3->h = 0xDC;
+    p3->field_B = 0x64;
+    p3->field_8 = p3->field_9 = p3->field_A = D_800EC68C;
+    p3->field_C = 0xC0;
+    p3->field_E = -0xDC;
+    p3->field_10 = 0;
+    p3->field_11 = 0x24;
+    p3->field_12 = 0x78C0;
+    p3->field_14 = 0x80;
+    p3->field_16 = 0xDC;
     setlen(&D_800EC738[f], 5);
     p4 = &D_800EC738[f];
     ((u32 *)&D_800EC738[f])[1] = 0xE100009A;
-    p4->code = 0x64;
-    p4->r0 = p4->g0 = p4->b0 = D_800EC68C;
-    p4->x0 = -0x140;
-    p4->y0 = 0;
-    p4->u0 = 0;
-    p4->v0 = 0;
-    p4->clut = 0x78C0;
-    p4->w = 0x100;
-    p4->h = 0xDC;
+    p4->field_B = 0x64;
+    p4->field_8 = p4->field_9 = p4->field_A = D_800EC68C;
+    p4->field_C = -0x140;
+    p4->field_E = 0;
+    p4->field_10 = 0;
+    p4->field_11 = 0;
+    p4->field_12 = 0x78C0;
+    p4->field_14 = 0x100;
+    p4->field_16 = 0xDC;
     setlen(&D_800EC768[f], 5);
     p5 = &D_800EC768[f];
     ((u32 *)&D_800EC768[f])[1] = 0xE100009C;
-    p5->code = 0x64;
-    p5->r0 = p5->g0 = p5->b0 = D_800EC68C;
-    p5->x0 = -0x40;
-    p5->y0 = 0;
-    p5->u0 = 0;
-    p5->v0 = 0;
-    p5->clut = 0x78C0;
-    p5->w = 0x100;
-    p5->h = 0xDC;
+    p5->field_B = 0x64;
+    p5->field_8 = p5->field_9 = p5->field_A = D_800EC68C;
+    p5->field_C = -0x40;
+    p5->field_E = 0;
+    p5->field_10 = 0;
+    p5->field_11 = 0;
+    p5->field_12 = 0x78C0;
+    p5->field_14 = 0x100;
+    p5->field_16 = 0xDC;
     setlen(&D_800EC798[f], 5);
     p6 = &D_800EC798[f];
     ((u32 *)&D_800EC798[f])[1] = 0xE100009E;
-    p6->code = 0x64;
-    p6->r0 = p6->g0 = p6->b0 = D_800EC68C;
-    p6->x0 = 0xC0;
-    p6->y0 = 0;
-    p6->u0 = 0;
-    p6->v0 = 0;
-    p6->clut = 0x78C0;
-    p6->w = 0x80;
-    p6->h = 0xDC;
+    p6->field_B = 0x64;
+    p6->field_8 = p6->field_9 = p6->field_A = D_800EC68C;
+    p6->field_C = 0xC0;
+    p6->field_E = 0;
+    p6->field_10 = 0;
+    p6->field_11 = 0;
+    p6->field_12 = 0x78C0;
+    p6->field_14 = 0x80;
+    p6->field_16 = 0xDC;
     addPrim(D_800AA60C[f], p6);
     addPrim(D_800AA60C[f], p5);
     addPrim(D_800AA60C[f], p4);
@@ -389,22 +389,22 @@ void func_800CF3E8(void) {
 }
 
 void func_800CFB3C(void *arg) {
-    TitleImg *p = arg;
+    struct_10 *p = arg;
     RECT r;
     u16 *d;
     s32 i;
     D_800EC69C = 0;
-    while (p->type != 0xFF) {
-        if (p->type == 9) {
-            d = p->pix + p->r.w;
-            for (i = 0; i < p->r.w; i++) {
+    while (p->field_0 != 0xFF) {
+        if (p->field_0 == 9) {
+            d = p->field_C + p->field_4.w;
+            for (i = 0; i < p->field_4.w; i++) {
                 *d++ = 0x7FFF;
             }
-            d = p->pix + p->r.w;
-            r.x = p->r.x;
-            r.y = p->r.y;
-            r.w = p->r.w;
-            r.h = p->r.h;
+            d = p->field_C + p->field_4.w;
+            r.x = p->field_4.x;
+            r.y = p->field_4.y;
+            r.w = p->field_4.w;
+            r.h = p->field_4.h;
             LoadImage(&r, (u32 *)d);
         }
         p++;
@@ -412,7 +412,7 @@ void func_800CFB3C(void *arg) {
 }
 
 s32 func_800CFC1C(void *arg) {
-    TitleImg *p = arg;
+    struct_10 *p = arg;
     RECT r;
     u16 *d;
     u16 *s;
@@ -428,13 +428,13 @@ s32 func_800CFC1C(void *arg) {
     /* PORT NOTE: no return while the counter is below 2, as the original (it returns the slti result, 1) */
     if (++D_800EC69C >= 2) {
         D_800EC69C = 0;
-        while (p->type != 0xFF) {
-            if (p->type == 9) {
+        while (p->field_0 != 0xFF) {
+            if (p->field_0 == 9) {
                 ch = 0;
-                src = p->pix;
-                s = src + p->r.w;
+                src = p->field_C;
+                s = src + p->field_4.w;
                 d = s;
-                for (i = 0; i < p->r.w; i++, src++) {
+                for (i = 0; i < p->field_4.w; i++, src++) {
                     t = *src;
                     cr = *d & 0x1F;
                     cg = *d & 0x3E0;
@@ -464,10 +464,10 @@ s32 func_800CFC1C(void *arg) {
                     *d++ = c;
                 }
                 if (ch) {
-                    r.x = p->r.x;
-                    r.y = p->r.y;
-                    r.w = p->r.w;
-                    r.h = p->r.h;
+                    r.x = p->field_4.x;
+                    r.y = p->field_4.y;
+                    r.w = p->field_4.w;
+                    r.h = p->field_4.h;
                     LoadImage(&r, (u32 *)s);
                 }
                 any |= ch;
@@ -499,7 +499,7 @@ void func_800CFE00(void) {
 }
 
 s32 func_800CFEB4(void *arg) {
-    TitleImg *p = arg;
+    struct_10 *p = arg;
     RECT r;
     u16 *d;
     u16 *s;
@@ -510,12 +510,12 @@ s32 func_800CFEB4(void *arg) {
     u16 c;
     u16 n;
     any = 0;
-    while (p->type != 0xFF) {
-        if (p->type == 9) {
+    while (p->field_0 != 0xFF) {
+        if (p->field_0 == 9) {
             ch = 0;
-            s = p->pix + p->r.w;
+            s = p->field_C + p->field_4.w;
             d = s;
-            for (i = 0; i < p->r.w; i++) {
+            for (i = 0; i < p->field_4.w; i++) {
                 c = *d;
                 cr = c & 0x1F;
                 cg = c & 0x3E0;
@@ -530,10 +530,10 @@ s32 func_800CFEB4(void *arg) {
                 *d++ = n;
             }
             if (ch) {
-                r.x = p->r.x;
-                r.y = p->r.y;
-                r.w = p->r.w;
-                r.h = p->r.h;
+                r.x = p->field_4.x;
+                r.y = p->field_4.y;
+                r.w = p->field_4.w;
+                r.h = p->field_4.h;
                 LoadImage(&r, (u32 *)s);
             }
             any |= ch;
@@ -552,7 +552,7 @@ void func_800CFFEC(void) {
     GsDefDispBuff2(0, 0, 0, 0);
     ResetGraph(1);
     GsInit3D();
-    InitDrawDispEnvs();
+    func_800147B8();
     r[0].x = 0;
     r[0].y = 0;
     r[0].w = 0x280;

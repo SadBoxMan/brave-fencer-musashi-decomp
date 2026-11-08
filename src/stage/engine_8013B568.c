@@ -8,31 +8,31 @@
 
 /* 0x1C-byte records at D_801EF328 */
 typedef struct {
-    /* 0x00 */ s32 active;
-    /* 0x04 */ u16 x;
-    /* 0x06 */ u16 y;
-    /* 0x08 */ u16 z;
-    /* 0x0A */ u16 padA;
-    /* 0x0C */ s32 unkC;
-    /* 0x10 */ s32 unk10;
-    /* 0x14 */ s32 unk14;
-    /* 0x18 */ s32 unk18;
-} Rec1C;
-extern Rec1C D_801EF328[];
-typedef struct { u16 x, y, z; } Pos3;
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ u16 field_4;
+    /* 0x06 */ u16 field_6;
+    /* 0x08 */ u16 field_8;
+    /* 0x0A */ u16 field_A;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ s32 field_10;
+    /* 0x14 */ s32 field_14;
+    /* 0x18 */ s32 field_18;
+} struct_1C;
+extern struct_1C D_801EF328[];
+typedef struct { u16 field_0, field_2, field_4; } struct_6;
 /* D_801EF3F8: a sequence player (engine.c's frame step runs it while active) */
 typedef struct {
-    /* 0x00 */ s32 active;
-    /* 0x04 */ s32 unk4;
-    /* 0x08 */ s32 unk8;
-    /* 0x0C */ s32 unkC;
-    /* 0x10 */ u8 pad10[0x58];
-    /* 0x68 */ s32 state;
-} SeqPlayer;
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ s32 field_C;
+    /* 0x10 */ u8 field_10[0x58];
+    /* 0x68 */ s32 field_68;
+} struct_6C;
 extern void (*D_8018DC60)(void);
 extern s32 D_801EF45C;
-extern SeqPlayer D_801EF3F8;
-extern void (*D_8018D4BC[])(SeqPlayer *p);
+extern struct_6C D_801EF3F8;
+extern void (*D_8018D4BC[])(struct_6C *p);
 extern s32 D_801EF3DC;
 extern s32 D_801EF3E0;
 extern s32 D_801EF3E4;
@@ -42,32 +42,32 @@ extern s32 D_801EF460;      /* the loaded block's mode ('B' 0, 'C' to 'N' 1 to 0
 extern s16 D_800B9A0E;
 extern void GsInitCoordinate2(void *super, void *c);
 void func_8013B83C(u8 *a, u8 *b, s32 c);
-void func_8013C08C(SeqPlayer *p, s32 n);
-void func_8013BD74(SeqPlayer *p, u8 *a);
+void func_8013C08C(struct_6C *p, s32 n);
+void func_8013BD74(struct_6C *p, u8 *a);
 void func_8013C0F8(s32 *h);
 
 void func_8013B568(void (*f)(void)) {
     D_8018DC60 = f;
 }
 
-void func_8013B598(s32 i, Pos3 *v) {
-    D_801EF328[i].active = 1;
-    D_801EF328[i].x = v->x;
-    D_801EF328[i].y = v->y;
-    D_801EF328[i].z = v->z;
-    D_801EF328[i].unkC = 0x100;
+void func_8013B598(s32 i, struct_6 *v) {
+    D_801EF328[i].field_0 = 1;
+    D_801EF328[i].field_4 = v->field_0;
+    D_801EF328[i].field_6 = v->field_2;
+    D_801EF328[i].field_8 = v->field_4;
+    D_801EF328[i].field_C = 0x100;
 }
 
-void func_8013B6A0(s32 i, Pos3 *v, s32 n) {
-    D_801EF328[i].active = 1;
-    D_801EF328[i].x = v->x;
-    D_801EF328[i].y = v->y;
-    D_801EF328[i].z = v->z;
-    D_801EF328[i].unkC = n;
+void func_8013B6A0(s32 i, struct_6 *v, s32 n) {
+    D_801EF328[i].field_0 = 1;
+    D_801EF328[i].field_4 = v->field_0;
+    D_801EF328[i].field_6 = v->field_2;
+    D_801EF328[i].field_8 = v->field_4;
+    D_801EF328[i].field_C = n;
 }
 
 void func_8013B7AC(s32 i) {
-    D_801EF328[i].active = 0;
+    D_801EF328[i].field_0 = 0;
 }
 
 void func_8013B7F4(u8 *a, u8 *b) {
@@ -77,24 +77,24 @@ void func_8013B7F4(u8 *a, u8 *b) {
 extern RECT D_801EF2D0;
 /* a loaded block's relocation record (12 bytes): the word to patch, its type in the top byte */
 typedef struct {
-    /* 0x00 */ u8 lo, mid, hi;      /* the word to patch (24 bits) */
-    /* 0x03 */ u8 type;
-    /* 0x04 */ s32 unk4;
-    /* 0x08 */ s32 unk8;
-} RelocRec;
+    /* 0x00 */ u8 field_0, field_1, field_2;      /* the word to patch (24 bits) */
+    /* 0x03 */ u8 field_3;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+} struct_C_3;
 /* a section of a loaded block (0x14 bytes) */
 typedef struct {
-    /* 0x00 */ s32 unk0;
-    /* 0x04 */ s32 unk4;
-    /* 0x08 */ s32 unk8;
-    /* 0x0C */ u32 count;
-    /* 0x10 */ RelocRec *recs;
-} RelocSec;
+    /* 0x00 */ s32 field_0;
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ s32 field_8;
+    /* 0x0C */ u32 field_C;
+    /* 0x10 */ struct_C_3 *field_10;
+} struct_14_2;
 
 void func_8013B83C(u8 *a, u8 *b, s32 c) {
     s32 i;
 
-    D_801EF3F8.active = 0;
+    D_801EF3F8.field_0 = 0;
     D_801EF3E4 = 0;
     D_801EF3E0 = 0;
     D_801EF3DC = 0;
@@ -105,10 +105,10 @@ void func_8013B83C(u8 *a, u8 *b, s32 c) {
     D_801EF458 = c + 500;
     D_801EF45C = c;
     for (i = 0; i < 4; i++) {
-        D_801EF328[i].active = 0;
-        D_801EF328[i].x = D_801EF328[i].y = D_801EF328[i].z = 0x6000;
-        D_801EF328[i].unkC = 0x100;
-        D_801EF328[i].unk18 = 0;
+        D_801EF328[i].field_0 = 0;
+        D_801EF328[i].field_4 = D_801EF328[i].field_6 = D_801EF328[i].field_8 = 0x6000;
+        D_801EF328[i].field_C = 0x100;
+        D_801EF328[i].field_18 = 0;
     }
     switch (a[0]) {
     case 'B':
@@ -170,8 +170,8 @@ void func_8013B83C(u8 *a, u8 *b, s32 c) {
     }
 }
 
-void func_8013BC7C(SeqPlayer *p) {
-    D_8018D4BC[p->state](p);
+void func_8013BC7C(struct_6C *p) {
+    D_8018D4BC[p->field_68](p);
 }
 
 void func_8013BCDC(void) {
@@ -186,14 +186,14 @@ void func_8013BD34(u8 *a) {
     func_8013BD74(&D_801EF3F8, a);
 }
 
-void func_8013BD74(SeqPlayer *p, u8 *a) {
+void func_8013BD74(struct_6C *p, u8 *a) {
     s32 *m;
     s32 *e;
     s32 i;
     s32 unusedC;
     s32 unused10;
-    RelocRec *r;
-    RelocRec *end;
+    struct_C_3 *r;
+    struct_C_3 *end;
     s32 unused1C;
     s32 k;
 
@@ -201,21 +201,21 @@ void func_8013BD74(SeqPlayer *p, u8 *a) {
     D_801EF2D0.y = -0x78;
     D_801EF2D0.w = 0x140;
     D_801EF2D0.h = 0xF0;
-    p->unk8 = (s32)a;
-    p->unkC = (s32)(a + 8);
+    p->field_8 = (s32)a;
+    p->field_C = (s32)(a + 8);
     k = (s32)(a + 0x4008);
     if (a[4] == 0) {
-        for (e = (s32 *)p->unkC, i = 0; i < 0x1000; e++, i++) {
+        for (e = (s32 *)p->field_C, i = 0; i < 0x1000; e++, i++) {
             if (*e != 0) {
-                *e = *e + p->unkC;
+                *e = *e + p->field_C;
                 m = (s32 *)*e;
                 m[0] = m[0] + (s32)m;
                 m[5] = m[5] + (s32)m;
-                r = (RelocRec *)m[5];
+                r = (struct_C_3 *)m[5];
                 m[6] = m[6] * 12 + m[5];
-                end = (RelocRec *)m[6];
+                end = (struct_C_3 *)m[6];
                 for (; r < end; r++) {
-                    switch (r->type) {
+                    switch (r->field_3) {
                     case 0x24: case 0x2C: case 0x34: case 0x3C:
                         *(u32 *)r = (*(u32 *)r & 0xFFFFFF) + k;
                         break;
@@ -230,10 +230,10 @@ void func_8013BD74(SeqPlayer *p, u8 *a) {
     }
 }
 
-void func_8013C08C(SeqPlayer *p, s32 n) {
+void func_8013C08C(struct_6C *p, s32 n) {
     s32 q = n;
-    p->unk8 = n;
-    p->unkC = q + 0x14;
+    p->field_8 = n;
+    p->field_C = q + 0x14;
     func_8013C0F8((s32 *)n);
 }
 
@@ -242,18 +242,18 @@ void func_8013C0F8(s32 *h) {
     s32 t;
     u32 i;
     u32 j;
-    RelocRec *r;
-    RelocSec *s;
+    struct_C_3 *r;
+    struct_14_2 *s;
 
     base = h + 5;
     if (*(u8 *)(h + 1) == 0) {
         t = (s32)base + h[3];
         h[3] = t;
         h[4] = h[4] + (s32)base;
-        for (s = (RelocSec *)base, i = 0; i < h[2]; i++, s++) {
-            s->recs = (RelocRec *)((s32)s->recs + (s32)base);
-            for (r = s->recs, j = 0; j < s->count; j++, r++) {
-                switch (r->type) {
+        for (s = (struct_14_2 *)base, i = 0; i < h[2]; i++, s++) {
+            s->field_10 = (struct_C_3 *)((s32)s->field_10 + (s32)base);
+            for (r = s->field_10, j = 0; j < s->field_C; j++, r++) {
+                switch (r->field_3) {
                 case 0x24: case 0x2C: case 0x34: case 0x3C:
                     *(u32 *)r = (*(u32 *)r & 0xFFFFFF) + t;
                     break;
@@ -285,8 +285,8 @@ void func_8013C414(u8 *a, s32 *b) {
     u32 i;
     s32 unused;
     s32 k2;
-    RelocRec *r;
-    RelocRec *end;
+    struct_C_3 *r;
+    struct_C_3 *end;
 
     if (b[1] == 0) {
         base = (s32)(b + 4);
@@ -300,11 +300,11 @@ void func_8013C414(u8 *a, s32 *b) {
                 m = (s32 *)e[1];
                 m[0] = m[0] + (s32)m;
                 m[5] = m[5] + (s32)m;
-                r = (RelocRec *)m[5];
+                r = (struct_C_3 *)m[5];
                 m[6] = m[6] * 12 + m[5];
-                end = (RelocRec *)m[6];
+                end = (struct_C_3 *)m[6];
                 for (; r < end; r++) {
-                    switch (r->type) {
+                    switch (r->field_3) {
                     case 0x24: case 0x2C: case 0x34: case 0x3C:
                         if (*(u32 *)r & 0x800000) {
                             *(u32 *)r = (*(u32 *)r & 0x7FFFFF) + k1;
@@ -337,9 +337,9 @@ void func_8013C414(u8 *a, s32 *b) {
 }
 
 void func_8013C938(void) {
-    D_801EF3F8.active = 1;
+    D_801EF3F8.field_0 = 1;
 }
 
 void func_8013C964(void) {
-    D_801EF3F8.active = 0;
+    D_801EF3F8.field_0 = 0;
 }

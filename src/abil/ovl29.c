@@ -3,8 +3,8 @@
 
 extern void func_800183E0();
 extern u8 D_ovl29_800CB2C8[];
-extern AbilStep D_ovl29_800CB278[];
-extern AbilStep D_ovl29_800CB284[];
+extern type_1 D_ovl29_800CB278[];
+extern type_1 D_ovl29_800CB284[];
 void func_ovl29_800CAEB0(u8 *a);
 
 void func_ovl29_800CAE0C(void) {
@@ -90,11 +90,11 @@ extern void func_801553A8();
 extern u8 *D_801151D4;
 
 void func_ovl29_800CAFEC(s32 arg0) {
-    AVec v;
+    struct_8 v;
 
-    v.vx = AF(D_801151D4, s32, 0x3C);
-    v.vy = AF(D_801151D4, s32, 0x40);
-    v.vz = AF(D_801151D4, s32, 0x44);
+    v.field_0 = AF(D_801151D4, s32, 0x3C);
+    v.field_2 = AF(D_801151D4, s32, 0x40);
+    v.field_4 = AF(D_801151D4, s32, 0x44);
     if ((s16) func_80171AB0(arg0, &v) == 0) {
         func_80154150(arg0, 0x1C);
         func_80154A74(arg0, 0x19);
@@ -146,14 +146,14 @@ s32 func_ovl29_800CB13C(s32 arg0, s32 arg1) {
 }
 
 void func_ovl29_800CB1F8(u8 *arg0) {
-    AVec sp18;
+    struct_8 sp18;
     s32 temp_s0;
 
     temp_s0 = AF(arg0, s32, 0x178);
     if (temp_s0 != 0) {
         func_8014C1A0(arg0, temp_s0);
         func_80015978(temp_s0 + 4, &sp18);
-        sp18.pad = 0;
+        sp18.field_6 = 0;
         func_8014C4AC(temp_s0, 0x29, func_80156370(0x29) & 0xFFFF, &sp18, AF(AF(arg0, void *, 0x20), s16, 0x12));
         AF(arg0, s32, 0x178) = 0;
     }

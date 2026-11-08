@@ -1,16 +1,16 @@
 #include "common.h"
 #include "psyq.h"
 
-typedef struct { char *name; s32 rest[7]; } TitleMovie;
+typedef struct { char *field_0; s32 field_4[7]; } struct_20_3;
 extern CdlFILE *CdSearchFile(CdlFILE *fp, char *name);
 extern int ResetCallback(void);
 extern void *DMACallback(s32 ch, void (*cb)(void));
-extern void NextStep(void);
-extern void SetScreenMode2(s32 mode);
+extern void func_800118AC(void);
+extern void func_800146B0(s32 mode);
 extern void func_800183E0(void *p);
 extern s32 func_8001BFA0(void);
 extern void func_8001BFB0(void);
-extern s32 func_800D1E9C(TitleMovie *m);
+extern s32 func_800D1E9C(struct_20_3 *m);
 extern void func_800D2D68(s32 a);
 extern void func_800D2EF8();
 extern s32 func_800D2F88(void);
@@ -22,14 +22,14 @@ extern u16 D_800B99E8;
 extern s32 D_800B9A18;
 extern void (*D_800D3598[])(void);
 extern u8 D_800D52BC[];
-extern TitleMovie D_800D942C[];
+extern struct_20_3 D_800D942C[];
 extern volatile u32 *D_800DB670;
 extern s32 D_800EC680;
 extern s32 D_800EC9E0;
 extern CdlFILE D_800EC9FC;
 
 s32 func_800D1E18(void) {
-    return CdSearchFile(&D_800EC9FC, D_800D942C[func_8001BFA0()].name) != 0;
+    return CdSearchFile(&D_800EC9FC, D_800D942C[func_8001BFA0()].field_0) != 0;
 }
 
 void func_800D1E58(void) {
@@ -44,8 +44,8 @@ extern int CdRead2(s32 mode);
 extern void StSetRing(u32 *ring, u32 size);
 extern void StSetStream(u32 mode, u32 start, u32 end, void (*f1)(), void (*f2)());
 extern void func_80015310(void);
-extern s32 LoadFileStep(CdlFILE *file, void *dest, s32 arg2, s32 arg3);
-extern void DrawNowLoading(s32 n);
+extern s32 func_80019A24(CdlFILE *file, void *dest, s32 arg2, s32 arg3);
+extern void func_8001A9F8(s32 n);
 extern void func_800CF3E8(void);
 extern void func_800CFB3C(void *p);
 extern void func_800CFFEC(void);
@@ -70,15 +70,15 @@ extern u32 D_800DB5B4[];
 extern s32 D_800EC690;
 
 typedef struct {
-    u32 *vlcbuf[2];
-    s32 vlcid;
-    u16 *imgbuf[2];
-    s32 imgid;
-    RECT rect[2];
-    s32 rectid;
-    RECT slice;
-    s32 isdone;
-} DECENV;
+    u32 *field_0[2];
+    s32 field_8;
+    u16 *field_C[2];
+    s32 field_14;
+    RECT field_18[2];
+    s32 field_28;
+    RECT field_2C;
+    s32 field_34;
+} struct_38;
 extern s32 func_800D30D0(char *s);
 extern int printf(char *fmt, ...);
 extern volatile u32 *D_800DB63C;
@@ -98,8 +98,8 @@ extern char D_800CEEB8[];
 extern u32 D_800DB52C[];
 extern u32 D_800DB5B0[];
 
-typedef struct { DECENV d; s32 mode; } DECENV2;
-extern u32 *func_800D27A0(DECENV *dec, TitleMovie *m);
+typedef struct { struct_38 field_0; s32 field_38; } struct_3C;
+extern u32 *func_800D27A0(struct_38 *dec, struct_20_3 *m);
 extern void DecDCTvlc(u32 *bs, u32 *buf);
 extern void StFreeRing(u32 *p);
 extern s32 D_800D9480;
@@ -117,46 +117,46 @@ extern s32 D_800EC9F8;
 
 extern void SetDefDispEnv(DISPENV *env, s32 x, s32 y, s32 w, s32 h);
 extern void StUnSetRing(void);
-extern void SetFrameCallbacks(void);
-extern s32 TestPadsAny(s32 a, s32 b);
-extern void UpdatePads(void);
+extern void func_80010A98(void);
+extern s32 func_80014CAC(s32 a, s32 b);
+extern void func_800189A8(void);
 extern void func_8002D034(void);
 extern void func_8002D8A8(void);
 extern void func_8002D8D4(void);
-extern void func_800D2394(DECENV2 *e, s32 x0, s32 y0, s32 x1, s32 y1, TitleMovie *m);
+extern void func_800D2394(struct_3C *e, s32 x0, s32 y0, s32 x1, s32 y1, struct_20_3 *m);
 extern s32 func_800D2454();
-extern s32 func_800D2704(DECENV *dec, TitleMovie *a);
+extern s32 func_800D2704(struct_38 *dec, struct_20_3 *a);
 extern void func_800D298C();
 extern void func_800D2C0C(u32 *p, s32 f);
 extern void func_800D2C88();
 extern void func_800D24D0(void);
-extern DECENV2 D_800EC9A4;
+extern struct_3C D_800EC9A4;
 extern s32 D_800EC9E4;
 extern s32 D_800EC9F0;
-#define MW(m, v) ((m)->rest[0] ? (v) * 3 / 2 : (v))
+#define MW(m, v) ((m)->field_4[0] ? (v) * 3 / 2 : (v))
 
-s32 func_800D1E9C(TitleMovie *m) {
+s32 func_800D1E9C(struct_20_3 *m) {
     DISPENV disp;
     DRAWENV draw;
     RECT r[2];
     s32 id;
     s32 pad[2];
     D_800EC9F0 = 1;
-    func_800D2394(&D_800EC9A4, MW(m, m->rest[3]), m->rest[4], MW(m, m->rest[3]), m->rest[4] + m->rest[6], m);
+    func_800D2394(&D_800EC9A4, MW(m, m->field_4[3]), m->field_4[4], MW(m, m->field_4[3]), m->field_4[4] + m->field_4[6], m);
     if (func_800D2454((u8 *)&D_800EC9FC, func_800D24D0, m) != 0) {
         func_800D2D44(0);
         StUnSetRing();
         func_8002D8D4();
         func_800D2AA0(0);
-        SetFrameCallbacks();
+        func_80010A98();
         return 1;
     }
-    if (func_800D2704(&D_800EC9A4.d, m) != 0) {
+    if (func_800D2704(&D_800EC9A4.field_0, m) != 0) {
         func_800D2D44(0);
         StUnSetRing();
         func_8002D8D4();
         func_800D2AA0(0);
-        SetFrameCallbacks();
+        func_80010A98();
         return 1;
     }
     D_800EC9F4 = 0;
@@ -165,9 +165,9 @@ s32 func_800D1E9C(TitleMovie *m) {
     VSync(0);
     r[0].x = 0;
     r[0].y = 0;
-    r[0].w = MW(m, m->rest[5]);
-    r[0].h = m->rest[6] * 2;
-    if (m->rest[0]) {
+    r[0].w = MW(m, m->field_4[5]);
+    r[0].h = m->field_4[6] * 2;
+    if (m->field_4[0]) {
         ClearImage(&r[0], 0, 0, 0);
         r[1].x = 0x1E0;
         r[1].y = 0;
@@ -183,22 +183,22 @@ s32 func_800D1E9C(TitleMovie *m) {
         ClearImage(&r[1], 0xFF, 0xFF, 0xFF);
     }
     while (1) {
-        func_800D2C0C(D_800EC9A4.d.vlcbuf[D_800EC9A4.d.vlcid], m->rest[0] ? 3 : 2);
-        func_800D2C88(D_800EC9A4.d.imgbuf[D_800EC9A4.d.imgid],
-                      ((D_800EC9A4.d.slice.w << 4) * ((D_800EC9A4.d.slice.h - 1) / 16 + 1)) >> 1);
-        if (func_800D2704(&D_800EC9A4.d, m) != 0) {
+        func_800D2C0C(D_800EC9A4.field_0.field_0[D_800EC9A4.field_0.field_8], m->field_4[0] ? 3 : 2);
+        func_800D2C88(D_800EC9A4.field_0.field_C[D_800EC9A4.field_0.field_14],
+                      ((D_800EC9A4.field_0.field_2C.w << 4) * ((D_800EC9A4.field_0.field_2C.h - 1) / 16 + 1)) >> 1);
+        if (func_800D2704(&D_800EC9A4.field_0, m) != 0) {
             func_800D2D44(0);
             StUnSetRing();
             func_8002D8D4();
             break;
         }
-        func_800D298C(&D_800EC9A4.d, 0);
+        func_800D298C(&D_800EC9A4.field_0, 0);
         VSync(0);
-        id = D_800EC9A4.d.rectid ? 0 : 1;
-        SetDefDispEnv(&disp, D_800EC9A4.d.rect[id].x - MW(m, m->rest[3]), D_800EC9A4.d.rect[id].y - m->rest[4],
-                      MW(m, m->rest[5]), m->rest[6]);
-        if (m->rest[0]) {
-            disp.isrgb24 = m->rest[0];
+        id = D_800EC9A4.field_0.field_28 ? 0 : 1;
+        SetDefDispEnv(&disp, D_800EC9A4.field_0.field_18[id].x - MW(m, m->field_4[3]), D_800EC9A4.field_0.field_18[id].y - m->field_4[4],
+                      MW(m, m->field_4[5]), m->field_4[6]);
+        if (m->field_4[0]) {
+            disp.isrgb24 = m->field_4[0];
             disp.disp.w = disp.disp.w * 2 / 3;
         }
         PutDispEnv(&disp);
@@ -206,10 +206,10 @@ s32 func_800D1E9C(TitleMovie *m) {
         if (D_800EC9F4 == 1) {
             goto end;
         }
-        UpdatePads();
+        func_800189A8();
         if (D_800EC9F8 == 0) {
             if (D_800EC9E0 == 0) {
-                if (TestPadsAny(0, 0x800) != 0) {
+                if (func_80014CAC(0, 0x800) != 0) {
                     D_800EC9E0 = 1;
                     D_800EC9E4 = 0x10;
                     func_8002D8A8();
@@ -229,35 +229,35 @@ s32 func_800D1E9C(TitleMovie *m) {
     }
     func_800D2AA0(0);
     SetDispMask(1);
-    SetFrameCallbacks();
+    func_80010A98();
     return 1;
 }
 
-void func_800D2394(DECENV2 *e, s32 x0, s32 y0, s32 x1, s32 y1, TitleMovie *m) {
-    DECENV *dec = &e->d;
+void func_800D2394(struct_3C *e, s32 x0, s32 y0, s32 x1, s32 y1, struct_20_3 *m) {
+    struct_38 *dec = &e->field_0;
     if (D_800D9480 == 1) {
-        dec->vlcbuf[0] = D_800D9470;
-        dec->vlcbuf[1] = D_800D9474;
-        dec->vlcid = 0;
-        dec->imgbuf[0] = D_800D9478;
-        dec->imgbuf[1] = D_800D947C;
-        dec->imgid = 0;
-        dec->rectid = 0;
-        dec->isdone = 0;
+        dec->field_0[0] = D_800D9470;
+        dec->field_0[1] = D_800D9474;
+        dec->field_8 = 0;
+        dec->field_C[0] = D_800D9478;
+        dec->field_C[1] = D_800D947C;
+        dec->field_14 = 0;
+        dec->field_28 = 0;
+        dec->field_34 = 0;
         D_800D9480 = 0;
     }
-    dec->rect[0].x = x0;
-    dec->rect[0].y = y0;
-    dec->rect[1].x = x1;
-    dec->rect[1].y = y1;
-    dec->slice.w = m->rest[0] ? 24 : 16;
-    e->mode = m->rest[0];
-    if (dec->rectid == 0) {
-        dec->slice.x = x0;
-        dec->slice.y = y0;
+    dec->field_18[0].x = x0;
+    dec->field_18[0].y = y0;
+    dec->field_18[1].x = x1;
+    dec->field_18[1].y = y1;
+    dec->field_2C.w = m->field_4[0] ? 24 : 16;
+    e->field_38 = m->field_4[0];
+    if (dec->field_28 == 0) {
+        dec->field_2C.x = x0;
+        dec->field_2C.y = y0;
     } else {
-        dec->slice.x = x1;
-        dec->slice.y = y1;
+        dec->field_2C.x = x1;
+        dec->field_2C.y = y1;
     }
 }
 
@@ -277,33 +277,33 @@ void func_800D24D0(void) {
     s32 id;
     s32 rem;
     s32 pad[2];
-    if (D_800EC9A4.mode != 0 && D_800A5F1C != 0) {
+    if (D_800EC9A4.field_38 != 0 && D_800A5F1C != 0) {
         StCdInterrupt();
         D_800A5F1C = 0;
     }
-    id = D_800EC9A4.d.imgid;
-    snap = D_800EC9A4.d.slice;
-    D_800EC9A4.d.imgid = D_800EC9A4.d.imgid ? 0 : 1;
-    if (D_800EC9F0 != 0 && (rem = D_800EC9A4.d.rect[D_800EC9A4.d.rectid].w % D_800EC9A4.d.slice.w) != 0) {
+    id = D_800EC9A4.field_0.field_14;
+    snap = D_800EC9A4.field_0.field_2C;
+    D_800EC9A4.field_0.field_14 = D_800EC9A4.field_0.field_14 ? 0 : 1;
+    if (D_800EC9F0 != 0 && (rem = D_800EC9A4.field_0.field_18[D_800EC9A4.field_0.field_28].w % D_800EC9A4.field_0.field_2C.w) != 0) {
         D_800EC9F0 = 0;
-        D_800EC9A4.d.slice.x += rem;
+        D_800EC9A4.field_0.field_2C.x += rem;
     } else {
-        D_800EC9A4.d.slice.x += D_800EC9A4.d.slice.w;
+        D_800EC9A4.field_0.field_2C.x += D_800EC9A4.field_0.field_2C.w;
     }
-    if (D_800EC9A4.d.slice.x < D_800EC9A4.d.rect[D_800EC9A4.d.rectid].x + D_800EC9A4.d.rect[D_800EC9A4.d.rectid].w) {
-        func_800D2C88(D_800EC9A4.d.imgbuf[D_800EC9A4.d.imgid],
-                      ((D_800EC9A4.d.slice.w << 4) * ((D_800EC9A4.d.slice.h - 1) / 16 + 1)) >> 1);
+    if (D_800EC9A4.field_0.field_2C.x < D_800EC9A4.field_0.field_18[D_800EC9A4.field_0.field_28].x + D_800EC9A4.field_0.field_18[D_800EC9A4.field_0.field_28].w) {
+        func_800D2C88(D_800EC9A4.field_0.field_C[D_800EC9A4.field_0.field_14],
+                      ((D_800EC9A4.field_0.field_2C.w << 4) * ((D_800EC9A4.field_0.field_2C.h - 1) / 16 + 1)) >> 1);
     } else {
-        D_800EC9A4.d.isdone = 1;
-        D_800EC9A4.d.rectid = D_800EC9A4.d.rectid ? 0 : 1;
-        D_800EC9A4.d.slice.x = D_800EC9A4.d.rect[D_800EC9A4.d.rectid].x;
-        D_800EC9A4.d.slice.y = D_800EC9A4.d.rect[D_800EC9A4.d.rectid].y;
+        D_800EC9A4.field_0.field_34 = 1;
+        D_800EC9A4.field_0.field_28 = D_800EC9A4.field_0.field_28 ? 0 : 1;
+        D_800EC9A4.field_0.field_2C.x = D_800EC9A4.field_0.field_18[D_800EC9A4.field_0.field_28].x;
+        D_800EC9A4.field_0.field_2C.y = D_800EC9A4.field_0.field_18[D_800EC9A4.field_0.field_28].y;
         D_800EC9F0 = 1;
     }
-    LoadImage(&snap, (u32 *)D_800EC9A4.d.imgbuf[id]);
+    LoadImage(&snap, (u32 *)D_800EC9A4.field_0.field_C[id]);
 }
 
-s32 func_800D2704(DECENV *dec, TitleMovie *a) {
+s32 func_800D2704(struct_38 *dec, struct_20_3 *a) {
     s32 cnt = 0x20;
     u32 *next;
     while ((next = func_800D27A0(dec, a)) == 0) {
@@ -311,13 +311,13 @@ s32 func_800D2704(DECENV *dec, TitleMovie *a) {
             return 1;
         }
     }
-    dec->vlcid = dec->vlcid ? 0 : 1;
-    DecDCTvlc(next, dec->vlcbuf[dec->vlcid]);
+    dec->field_8 = dec->field_8 ? 0 : 1;
+    DecDCTvlc(next, dec->field_0[dec->field_8]);
     StFreeRing(next);
     return 0;
 }
 
-u32 *func_800D27A0(DECENV *dec, TitleMovie *m) {
+u32 *func_800D27A0(struct_38 *dec, struct_20_3 *m) {
     u32 *addr;
     StHEADER *sector;
     s32 cnt = 0x8000;
@@ -326,10 +326,10 @@ u32 *func_800D27A0(DECENV *dec, TitleMovie *m) {
             return 0;
         }
     }
-    if (sector->frameCount >= (u32)m->rest[2]) {
+    if (sector->frameCount >= (u32)m->field_4[2]) {
         D_800EC9F4 = 1;
     }
-    if (sector->frameCount >= (u32)(m->rest[2] - 15)) {
+    if (sector->frameCount >= (u32)(m->field_4[2] - 15)) {
         D_800EC9F8 = 1;
     } else {
         D_800EC9F8 = 0;
@@ -338,9 +338,9 @@ u32 *func_800D27A0(DECENV *dec, TitleMovie *m) {
         RECT rect;
         rect.x = 0;
         rect.y = 0;
-        rect.w = m->rest[0] ? m->rest[5] * 3 / 2 : m->rest[5];
-        rect.h = m->rest[6] * 2;
-        if (m->rest[0]) {
+        rect.w = m->field_4[0] ? m->field_4[5] * 3 / 2 : m->field_4[5];
+        rect.h = m->field_4[6] * 2;
+        if (m->field_4[0]) {
             ClearImage(&rect, 0, 0, 0);
         } else {
             ClearImage(&rect, 0x40, 0x40, 0x40);
@@ -348,23 +348,23 @@ u32 *func_800D27A0(DECENV *dec, TitleMovie *m) {
         D_800D9484 = sector->width;
         D_800D9488 = sector->height;
     }
-    dec->rect[0].w = dec->rect[1].w = m->rest[0] ? D_800D9484 * 3 / 2 : D_800D9484;
-    dec->rect[0].h = dec->rect[1].h = D_800D9488;
-    dec->slice.h = D_800D9488;
+    dec->field_18[0].w = dec->field_18[1].w = m->field_4[0] ? D_800D9484 * 3 / 2 : D_800D9484;
+    dec->field_18[0].h = dec->field_18[1].h = D_800D9488;
+    dec->field_2C.h = D_800D9488;
     return addr;
 }
 
-void func_800D298C(DECENV *dec) {
+void func_800D298C(struct_38 *dec) {
     volatile s32 cnt = 0x8000;
-    while (dec->isdone == 0) {
+    while (dec->field_34 == 0) {
         if (--cnt == 0) {
-            dec->isdone = 1;
-            dec->rectid = dec->rectid ? 0 : 1;
-            dec->slice.x = dec->rect[dec->rectid].x;
-            dec->slice.y = dec->rect[dec->rectid].y;
+            dec->field_34 = 1;
+            dec->field_28 = dec->field_28 ? 0 : 1;
+            dec->field_2C.x = dec->field_18[dec->field_28].x;
+            dec->field_2C.y = dec->field_18[dec->field_28].y;
         }
     }
-    dec->isdone = 0;
+    dec->field_34 = 0;
 }
 
 s32 func_800D2A24(u8 *loc) {

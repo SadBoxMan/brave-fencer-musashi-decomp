@@ -6,7 +6,7 @@ extern void func_800183E0();
 extern u8 D_ovl13_800CC57C[];
 extern u8 D_ovl13_800CC5BC[];
 extern u8 D_ovl13_800CB93C[];
-extern AbilStep D_ovl13_800CB880[];
+extern type_1 D_ovl13_800CB880[];
 extern s32 func_80161104();
 void func_ovl13_800CAEE0(s32 arg0);
 
@@ -32,8 +32,8 @@ extern s32 func_80128ED8();
 extern void func_80146C3C();
 extern s32 func_80146994();
 extern u8 D_80078EC1;
-extern AbilStep D_ovl13_800CB908[];
-extern AbilStep D_ovl13_800CB914[];
+extern type_1 D_ovl13_800CB908[];
+extern type_1 D_ovl13_800CB914[];
 extern void func_80155FD4();
 extern void func_801599A4();
 extern void func_80159B3C();
@@ -54,7 +54,7 @@ extern void func_80154274();
 extern void func_80147324();
 extern void func_801655E4();
 extern void func_80156648();
-extern void StartRumbleScript();
+extern void func_80019064();
 
 void func_ovl13_800CAEE0(s32 arg0) {
     func_80154274(arg0, (s32) &D_ovl13_800CB830);
@@ -66,7 +66,7 @@ void func_ovl13_800CAEE0(s32 arg0) {
     func_80156648(arg0);
     AF(arg0, u8, 0x1AA) = 0;
     func_ovl13_800CB054(arg0);
-    StartRumbleScript((s32) &D_80062BD0);
+    func_80019064((s32) &D_80062BD0);
     AF(arg0, u8, 0x197) = (u8) (AF(arg0, u8, 0x197) + 1);
 }
 
@@ -143,50 +143,50 @@ extern void func_800D1FC8();
 extern s32 func_800D21C4();
 extern void func_80128EA8();
 
-extern AMtx D_800AE620;
+extern struct_20 D_800AE620;
 extern u8 D_ovl13_800CB88C;
 extern void func_800D20C0();
 extern void func_800D23D0();
 extern s32 func_800D222C();
 extern void func_8012F14C();
 
-static inline void ovl13_place(u8 *arg0, u8 *q) {
+static inline void func_ovl13_800CB138_inline(u8 *arg0, u8 *q) {
     /* the placement step, likely shared with func_ovl13_800CB56C: as an inline helper each identity copy keeps its own
        `la` inside the block move and &m is rebuilt per call (integrate substitutes the frame addresses) */
-    AVec v;
-    AVec w; /* unused: frame pad */
-    AMtx m;
+    struct_8 v;
+    struct_8 w; /* unused: frame pad */
+    struct_20 m;
     s16 ang;
 
     m = D_800AE620;
     ang = AF(arg0, s16, 0x10);
     RotMatrixZ(ang, &m);
-    v.vx = AF(arg0, s32, 0x30) << 2;
-    v.vy = 0;
-    v.vz = 0x30;
+    v.field_0 = AF(arg0, s32, 0x30) << 2;
+    v.field_2 = 0;
+    v.field_4 = 0x30;
     ApplyMatrixSV(&m, &v, &v);
     q += 0x38;
     func_8012F14C(q, &v, &v);
-    AF(arg0, u16, 6) = v.vx;
-    AF(arg0, u16, 0xA) = v.vy;
-    AF(arg0, u16, 0xE) = v.vz;
+    AF(arg0, u16, 6) = v.field_0;
+    AF(arg0, u16, 0xA) = v.field_2;
+    AF(arg0, u16, 0xE) = v.field_4;
     m = D_800AE620;
     RotMatrixZ(ang + 0x200, &m);
     MulMatrix0(q, &m, arg0 + 0x38);
 }
 
 void func_ovl13_800CB138(u8 *arg0) {
-    AVec a;
-    AVec b;
-    AMtx x; /* unused: frame pad */
+    struct_8 a;
+    struct_8 b;
+    struct_20 x; /* unused: frame pad */
     u8 *p;
     u8 *o;
 
     p = AF(arg0, u8 *, 0x34);
     if (!(AF(arg0, s32, 0x2C) & 0x8000)) {
-        a.vx = AF(p, u16, 6);
-        a.vy = AF(p, u16, 0xA);
-        a.vz = AF(p, u16, 0xE);
+        a.field_0 = AF(p, u16, 6);
+        a.field_2 = AF(p, u16, 0xA);
+        a.field_4 = AF(p, u16, 0xE);
         func_800D20C0(&a, &b, 0);
         func_800D23D0(&b);
         RotMatrixYXZ(&b, arg0 + 0x38);
@@ -198,7 +198,7 @@ void func_ovl13_800CB138(u8 *arg0) {
         goto fail;
     }
     AF(arg0, s16, 0x10) = rand() & 0xFFF;
-    ovl13_place(arg0, AF(arg0, u8 *, 0x34));
+    func_ovl13_800CB138_inline(arg0, AF(arg0, u8 *, 0x34));
     AF(arg0, u8 *, 0x20) = o;
     AF(o, u8 *, 0x34) = arg0 + 0x38;
     AF(o, s16, 0x18) = AF(o, s16, 0x1A) = 0x2000;
@@ -218,28 +218,28 @@ void func_ovl13_800CB370(u8 *arg0) {
 }
 
 void func_ovl13_800CB3CC(u8 *arg0) {
-    AVec v;
-    AVec w;
-    AMtx m;
+    struct_8 v;
+    struct_8 w;
+    struct_20 m;
     u8 *o;
     u16 t;
 
     func_800D2318();
-    v.vx = AF(arg0, u16, 0x12);
-    v.vy = AF(arg0, u16, 0x16);
-    v.vz = 0;
+    v.field_0 = AF(arg0, u16, 0x12);
+    v.field_2 = AF(arg0, u16, 0x16);
+    v.field_4 = 0;
     RotMatrixYXZ(&v, &m);
-    v.vy = -8;
-    v.vx = 0;
-    v.vz = -0x10;
+    v.field_2 = -8;
+    v.field_0 = 0;
+    v.field_4 = -0x10;
     ApplyMatrixSV(&m, &v, &v);
-    t = AF(arg0, u16, 6) + v.vx;
+    t = AF(arg0, u16, 6) + v.field_0;
     AF(arg0, u16, 6) = t;
     AF(arg0, s32, 0x4C) = (s16) t;
-    t = AF(arg0, u16, 0xA) + v.vy;
+    t = AF(arg0, u16, 0xA) + v.field_2;
     AF(arg0, u16, 0xA) = t;
     AF(arg0, s32, 0x50) = (s16) t;
-    t = AF(arg0, u16, 0xE) + v.vz;
+    t = AF(arg0, u16, 0xE) + v.field_4;
     AF(arg0, u16, 0xE) = t;
     AF(arg0, s32, 0x54) = (s16) t;
     func_800D1FC8(arg0, 6);
@@ -264,12 +264,12 @@ void func_ovl13_800CB510(u8 *arg0) {
     func_80146C3C();
 }
 
-static inline void func_ovl13_800CB56C_body(u8 *arg0) {
+static inline void func_ovl13_800CB56C_inline(u8 *arg0) {
     /* the whole body is an inlined helper: its locals' addresses (&m, &v) and the identity matrix's address reach the
        calls and block moves as constants, so each `la D_800AE620` folds into its copy and &m is recomputed per call */
-    AVec v;
-    AVec w;
-    AMtx m;
+    struct_8 v;
+    struct_8 w;
+    struct_20 m;
     u8 *o;
     u8 *s;
     s16 r;
@@ -279,14 +279,14 @@ static inline void func_ovl13_800CB56C_body(u8 *arg0) {
     m = D_800AE620;
     r = AF(arg0, s16, 0x10);
     RotMatrixZ(r, &m);
-    v.vx = AF(arg0, s32, 0x30) * 4;
-    v.vy = 0;
-    v.vz = 0x30;
+    v.field_0 = AF(arg0, s32, 0x30) * 4;
+    v.field_2 = 0;
+    v.field_4 = 0x30;
     ApplyMatrixSV(&m, &v, &v);
     func_8012F14C(s + 0x38, &v, &v);
-    AF(arg0, u16, 6) = v.vx;
-    AF(arg0, u16, 0xA) = v.vy;
-    AF(arg0, u16, 0xE) = v.vz;
+    AF(arg0, u16, 6) = v.field_0;
+    AF(arg0, u16, 0xA) = v.field_2;
+    AF(arg0, u16, 0xE) = v.field_4;
     m = D_800AE620;
     RotMatrixZ(r + 0x200, &m);
     MulMatrix0(s + 0x38, &m, arg0 + 0x38);
@@ -296,7 +296,7 @@ static inline void func_ovl13_800CB56C_body(u8 *arg0) {
 }
 
 void func_ovl13_800CB56C(u8 *arg0) {
-    func_ovl13_800CB56C_body(arg0);
+    func_ovl13_800CB56C_inline(arg0);
 }
 
 void func_ovl13_800CB6E4(u8 *arg0) {

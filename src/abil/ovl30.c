@@ -3,7 +3,7 @@
 
 extern void func_ovl30_800CCD60();
 
-extern AbilStep D_ovl30_800CCD94[];
+extern type_1 D_ovl30_800CCD94[];
 extern void func_80149020();
 
 extern u8 D_800D5360;

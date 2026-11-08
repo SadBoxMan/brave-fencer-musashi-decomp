@@ -1,16 +1,16 @@
 #include "common.h"
 #include "work.h"
 
-extern void SetOtDepthLimit(s32 a);
-extern void NextGameState(void);
-extern void SetGameState(u16 n);
-extern void NextGameStateStep(void);
-extern void NextGameStateSubStep(void);
-extern void SetGameStateSubStep(s32 a);
-extern void DemoClearEndRequest(void);
-extern void ResetMallocHeap(void);
+extern void func_80010AE0(s32 a);
+extern void func_80011A3C(void);
+extern void func_80011B7C(u16 n);
+extern void func_80011C10(void);
+extern void func_80011CFC(void);
+extern void func_80011D54(s32 a);
+extern void func_80011DCC(void);
+extern void func_80014928(void);
 extern void func_80015310(void);
-extern void DrawNowLoading(s32 a);
+extern void func_8001A9F8(s32 a);
 extern s32 func_8001ABBC(s32 a, s32 b, void *c, s32 d, s32 e);
 extern void func_8001B324(void);
 extern void func_8001B384(void);
@@ -63,20 +63,20 @@ void func_800CEE84(void) {
     func_8002AEF8();
     func_80029254();
     func_800CFBBC();
-    DemoClearEndRequest();
-    SetOtDepthLimit(0x3E0);
-    NextGameStateStep();
+    func_80011DCC();
+    func_80010AE0(0x3E0);
+    func_80011C10();
 }
 
 void func_800CEF04(void) {
     if (func_800D0488(1) != 0) {
-        NextGameState();
+        func_80011A3C();
     }
 }
 
 void func_800CEF34(void) {
     func_8001B324();
-    NextGameState();
+    func_80011A3C();
 }
 
 void func_800CEF5C(void) {
@@ -88,17 +88,17 @@ void func_800CEF5C(void) {
     D_800B9A17 = 0;
     func_8001C0C8();
     D_800B9A0E = 0;
-    NextGameState();
+    func_80011A3C();
 }
 
 void func_800CEFB0(void) {
-    NextGameState();
+    func_80011A3C();
 }
 
-extern void ForgetStageImage(void);
-extern void SetStageImage(s32 a);
-extern s32 StageImageNeedsLoad(s32 a);
-extern s32 LoadFileStep(void *a, s32 b, s32 c, s32 d);
+extern void func_800191A8(void);
+extern void func_800191BC(s32 a);
+extern s32 func_800191D4(s32 a);
+extern s32 func_80019A24(void *a, s32 b, s32 c, s32 d);
 extern s32 func_8001AF04(void);
 extern s32 func_80128218(void);
 extern s32 func_800CF8B4(void);
@@ -111,19 +111,19 @@ extern s32 func_800D0214(s32 a);
 extern s32 func_800D1714(void);
 extern s32 D_80072C74;
 extern u8 D_800AE6BF;
-extern u8 g_FileLocStageEngine[];
-extern s32 g_ArchiveFileLoc[][2];
+extern u8 D_800AE890[];
+extern s32 D_800AE830[][2];
 extern s16 D_800B9A08;
 /* the field map table: archive file (12 bits), load mode (4) and slot (16) per map */
-typedef struct { unsigned file : 12; unsigned mode : 4; signed slot : 16; } FieldMapEnt;
-extern FieldMapEnt D_800D34AC[];
+typedef struct { unsigned field_0_b0 : 12; unsigned field_1_b4 : 4; signed field_2_b0 : 16; } struct_4_2;
+extern struct_4_2 D_800D34AC[];
 extern s16 D_80114E70;
 extern s16 D_80114E74;
 extern s32 D_80114E94;
 extern s32 D_80114E98;
 extern u16 D_80126B58;
 
-typedef struct { s32 unk0; s16 unk4; s16 unk6; s32 unk8; } FieldItem;
+typedef struct { s32 field_0; s16 field_4; s16 field_6; s32 field_8; } struct_C_3;
 extern void func_8001B34C(void);
 extern s32 func_800291A0(s32 i, s32 v);
 extern s32 func_800291B4();
@@ -140,7 +140,7 @@ extern s16 func_800D10C8(u8 a);
 extern s16 D_80078EAC;
 extern s32 D_800A654C;
 extern s32 (*D_800D375C)(s32);
-extern FieldItem D_8010EDE8[];
+extern struct_C_3 D_8010EDE8[];
 extern s32 D_801151F8;
 extern s32 D_8011529C;
 extern s32 D_801201F0;
@@ -149,31 +149,31 @@ extern s32 D_8012704C;
 extern s32 D_80127050;
 extern s32 D_80127500;
 
-typedef struct FieldTask {
-    u8 pad0[0xC];
-    s32 (*fn)(struct FieldTask *p);
-    s32 unk10;
-    u8 step;
-    u8 unk15;
-} FieldTask;
-typedef struct { s32 unk0; s32 x, y, z; s32 vx, vy, vz; } FieldMover;
+typedef struct struct_18 {
+    u8 field_0[0xC];
+    s32 (*field_C)(struct struct_18 *p);
+    s32 field_10;
+    u8 field_14;
+    u8 field_15;
+} struct_18;
+typedef struct { s32 field_0; s32 field_4, field_8, field_C; s32 field_10, field_14, field_18; } struct_1C;
 extern void func_80016714(void *p, s32 n);
 extern s32 func_80029124(u32 bit, s32 on);
 extern void func_80129258(void);
 extern void func_801285D4(void);
 extern void func_801378F0(void);
 extern s32 func_800D17B8(s32 a);
-extern s32 func_800D1984(FieldTask *p);
-extern s32 func_800D19DC(FieldTask *p);
-extern s32 func_800D1BD8(FieldTask *p);
+extern s32 func_800D1984(struct_18 *p);
+extern s32 func_800D19DC(struct_18 *p);
+extern s32 func_800D1BD8(struct_18 *p);
 extern void func_800D1BF8(void);
 extern void func_800D1F58(void);
 extern u16 D_80078E50;
 extern s32 D_80078E8C;
 extern u16 D_80078EB4;
 extern u16 D_80078EB8;
-typedef struct { s32 next; s32 unk4; s32 cur; } FieldMap;
-extern FieldMap D_800AE6A8;
+typedef struct { s32 field_0; s32 field_4; s32 field_8; } struct_C_4;
+extern struct_C_4 D_800AE6A8;
 extern s32 D_800AE6AC;
 extern s32 D_800AE6B0;
 extern u16 D_800B9A0A;
@@ -188,15 +188,15 @@ extern s32 D_8012751C;
 extern s32 D_80128150;
 
 typedef struct {
-    u8 pad0[0x15];
-    u8 step;
-    u8 pad16[3];
-    u8 cnt;
-    u8 pad1A[0xE];
-    s32 timer;
-} FieldStep;
-typedef struct { s16 vx, vy, vz; } FieldAngle;
-typedef struct { u8 pad0[0x27]; s8 unk27; } FieldObj;
+    u8 field_0[0x15];
+    u8 field_15;
+    u8 field_16[3];
+    u8 field_19;
+    u8 field_1A[0xE];
+    s32 field_28;
+} struct_2C;
+typedef struct { s16 field_0, field_2, field_4; } struct_6;
+typedef struct { u8 field_0[0x27]; s8 field_27; } struct_28;
 extern s32 SquareRoot0(s32 a);
 extern s32 ratan2(s32 y, s32 x);
 extern void func_800167B8(s32 a);
@@ -205,7 +205,7 @@ extern void func_8001BFD0(void);
 extern void func_8001CB6C(void *p, s32 a, s32 b, s32 c);
 extern void func_8001CC3C(void *p, s32 a, s32 b, s32 c);
 extern void func_8001CD9C(void *p, s32 a);
-extern FieldObj *func_801465C0(s32 a);
+extern struct_28 *func_801465C0(s32 a);
 extern void func_8016EDEC(void *fn, s32 flags);
 extern void func_800D0C48(u16 a);
 extern void func_800D1E28(void);
@@ -214,47 +214,47 @@ extern void func_800D3238();
 extern void func_800D3348();
 extern void func_800D33B8(void);
 extern void func_800D33E0(void);
-extern s32 (*D_800D3920[])(FieldStep *p);
-extern s32 (*D_800D3928[])(FieldStep *p);
-extern s32 (*D_800D39C4[])(FieldStep *p);
-extern s32 (*D_800D39F0[])(FieldStep *p);
-extern s32 (*D_800D3A8C[])(FieldStep *p);
+extern s32 (*D_800D3920[])(struct_2C *p);
+extern s32 (*D_800D3928[])(struct_2C *p);
+extern s32 (*D_800D39C4[])(struct_2C *p);
+extern s32 (*D_800D39F0[])(struct_2C *p);
+extern s32 (*D_800D3A8C[])(struct_2C *p);
 
 typedef struct {
-    u8 pad0[0x198];
-    s32 unk198;
-    u8 pad19C[0x78];
-    u8 step;
-} FieldSeq;
+    u8 field_0[0x198];
+    s32 field_198;
+    u8 field_19C[0x78];
+    u8 field_214;
+} struct_218;
 extern s32 func_8013767C(s32 a);
 extern s32 func_801399F0(s32 a);
 extern void func_80139914(s32 a);
 extern void func_8016F0E4(void);
 extern void func_8016EE40(void *a, s32 b);
-extern void (*D_800D3A98[])(FieldSeq *p);
-extern void (*D_800D3AA4[])(FieldSeq *p);
+extern void (*D_800D3A98[])(struct_218 *p);
+extern void (*D_800D3AA4[])(struct_218 *p);
 extern s32 D_800D3AAC;
 extern s32 D_800D3AB0;
 
 typedef struct {
-    u32 *ot;
-    u8 pad4[8];
-    u32 *otLast;
-    u8 pad10[4];
-} OtInfo;
+    u32 *field_0;
+    u8 field_4[8];
+    u32 *field_C;
+    u8 field_10[4];
+} struct_14_2;
 extern int DrawSync(int mode);
 extern int VSync(int mode);
 extern void DrawOTag(u32 *p);
-extern void LoadQueueStep(void);
+extern void func_8001AF34(void);
 extern void func_8001B85C(void);
 extern s32 func_8001B86C(s32 a);
 extern void func_80128158(void);
-extern OtInfo D_800A651C[];
+extern struct_14_2 D_800A651C[];
 extern void (*D_800D3488[])(void);
 extern s32 D_80114E9C;
 
 void func_800CEFD0(void) {
-    register Work *w = &D_800AF630;
+    register struct_A444 *w = &D_800AF630;
 
     D_80114E98 = 0;
     D_80114E9C = 0;
@@ -267,18 +267,18 @@ loop:
         D_80114E9C = func_8001B86C(0);
     }
     if (D_80114E98 != 0 && D_80114E9C != 0) {
-        SetGameState(7);
+        func_80011B7C(7);
         return;
     }
     DrawSync(0);
-    VSync(w->vsyncMode);
-    DrawOTag(D_800A651C[w->frame].ot + 1);
-    LoadQueueStep();
+    VSync(w->field_A3E8);
+    DrawOTag(D_800A651C[w->field_A3D2].field_0 + 1);
+    func_8001AF34();
     goto loop;
 }
 
 void func_800CF104(void) {
-    register Work *w = &D_800AF630;
+    register struct_A444 *w = &D_800AF630;
 
     D_80114E98 = 0;
     D_80114E9C = 0;
@@ -291,18 +291,18 @@ loop:
         D_80114E9C = func_8001B86C(1);
     }
     if (D_80114E98 != 0 && D_80114E9C != 0) {
-        SetGameState(7);
+        func_80011B7C(7);
         return;
     }
     DrawSync(0);
-    VSync(w->vsyncMode);
-    DrawOTag(D_800A651C[w->frame].ot + 1);
-    LoadQueueStep();
+    VSync(w->field_A3E8);
+    DrawOTag(D_800A651C[w->field_A3D2].field_0 + 1);
+    func_8001AF34();
     goto loop;
 }
 
 void func_800CF238(void) {
-    register Work *w = &D_800AF630;
+    register struct_A444 *w = &D_800AF630;
 
     D_80114E98 = 0;
     func_8001B85C();
@@ -315,34 +315,34 @@ loop:
     }
 wait:
     func_80128158();
-    if ((u16)w->stateFlag == 0) {
-        VSync(w->vsyncMode);
-        LoadQueueStep();
+    if ((u16)w->field_A3C2 == 0) {
+        VSync(w->field_A3E8);
+        func_8001AF34();
         goto wait;
     }
-    SetGameState(8);
+    func_80011B7C(8);
     return;
 draw:
     DrawSync(0);
-    VSync(w->vsyncMode);
-    DrawOTag(D_800A651C[w->frame].ot + 1);
-    LoadQueueStep();
+    VSync(w->field_A3E8);
+    DrawOTag(D_800A651C[w->field_A3D2].field_0 + 1);
+    func_8001AF34();
     goto loop;
 }
 
 void func_800CF370(void) {
-    DrawNowLoading(0);
-    SetGameState(0xF);
+    func_8001A9F8(0);
+    func_80011B7C(0xF);
 }
 
 void func_800CF398(void) {
-    NextGameState();
+    func_80011A3C();
 }
 
 extern s32 func_800CFBF8(void);
 
 void func_800CF3B8(void) {
-    register Work *w = &D_800AF630;
+    register struct_A444 *w = &D_800AF630;
 
     D_80114E98 = 0;
     D_80114E9C = 0;
@@ -351,13 +351,13 @@ loop:
     if (D_80114E98 == 0) {
         D_800D3488[D_800B99F6]();
         if (D_80114E98 == 0) {
-            VSync(w->vsyncMode);
-            LoadQueueStep();
+            VSync(w->field_A3E8);
+            func_8001AF34();
             goto loop;
         }
     }
     func_80015310();
-    SetGameState(7);
+    func_80011B7C(7);
 }
 
 void func_800CF47C(void) {
@@ -367,7 +367,7 @@ void func_800CF47C(void) {
         }
         D_80114E78 = 0;
     }
-    NextGameStateStep();
+    func_80011C10();
 }
 
 void func_800CF4D4(void) {
@@ -375,22 +375,22 @@ void func_800CF4D4(void) {
 }
 
 void func_800CF510(void) {
-    ResetMallocHeap();
+    func_80014928();
     D_800B9A11 = 1;
     func_8001C0C8();
     func_80015310();
     func_8001B384();
     D_801152BA = 0;
     if (D_80127084 != 0) {
-        NextGameStateSubStep();
+        func_80011CFC();
     } else {
-        SetGameStateSubStep(3);
+        func_80011D54(3);
     }
 }
 
 void func_800CF584(void) {
     if (D_80127084 != 0 && (D_80078EC1 == 0 || func_800D02D0(D_80078EC1) != 0)) {
-        NextGameStateSubStep();
+        func_80011CFC();
     }
 }
 
@@ -398,7 +398,7 @@ void func_800CF5D4(void) {
     s32 t;
 
     if (D_80127084 != 0 && ((t = D_80078EC0 & 0x7F) == 0 || func_800D0488(t) != 0)) {
-        NextGameStateSubStep();
+        func_80011CFC();
     }
 }
 
@@ -410,7 +410,7 @@ void func_800CF628(void) {
             D_80114E94 = *m;
             *m = func_800CFBF8();
         cfc:
-            NextGameStateSubStep();
+            func_80011CFC();
             return;
         }
         D_80114E94 = *m;
@@ -418,7 +418,7 @@ void func_800CF628(void) {
             goto cfc;
         }
         *m = D_80114E94;
-        SetGameStateSubStep(5);
+        func_80011D54(5);
         return;
     }
     D_80127084 = 0;
@@ -426,15 +426,15 @@ void func_800CF628(void) {
         D_80114E98 = 1;
         return;
     }
-    SetGameStateSubStep(6);
+    func_80011D54(6);
 }
 
 void func_800CF714(void) {
-    ForgetStageImage();
+    func_800191A8();
     if (func_800CFE60() != 0) {
         func_800CFDA4();
         D_800B9A08 = D_80114E94;
-        NextGameStateSubStep();
+        func_80011CFC();
     }
 }
 
@@ -446,7 +446,7 @@ void func_800CF764(void) {
 }
 
 void func_800CF7A4(void) {
-    ForgetStageImage();
+    func_800191A8();
     if (func_8001AF04() != 2 && func_800CFE60() != 0) {
         func_800CFDA4();
         D_80127084 = 0;
@@ -501,8 +501,8 @@ void func_800CF8E4(void) {
 }
 
 void func_800CF94C(void) {
-    if (LoadFileStep(g_FileLocStageEngine, D_80072C74, 0, 0) != 0) {
-        NextGameState();
+    if (func_80019A24(D_800AE890, D_80072C74, 0, 0) != 0) {
+        func_80011A3C();
     }
 }
 
@@ -517,21 +517,21 @@ void func_800CF990(void) {
     case 0:
         func_8001C0C8();
         func_80015310();
-        if (func_8001ABBC(0, 0, g_ArchiveFileLoc[D_800D3408[D_80114E74]], 0, 0) != 0) {
+        if (func_8001ABBC(0, 0, D_800AE830[D_800D3408[D_80114E74]], 0, 0) != 0) {
             func_800167B8(0);
-            NextGameStateStep();
+            func_80011C10();
         }
         break;
     case 1:
         func_800CFAD0();
         if (func_800167F0(0) & 0xFFFF) {
-            NextGameStateStep();
+            func_80011C10();
         }
         break;
     case 2:
         func_800CFAD0();
-        if (++D_800B9A00 >= 0x5B && D_800AF630.dispIdx != 0) {
-            SetGameState(6);
+        if (++D_800B9A00 >= 0x5B && D_800AF630.field_188 != 0) {
+            func_80011B7C(6);
         }
         break;
     }
@@ -540,17 +540,17 @@ void func_800CF990(void) {
 extern s32 func_8001AAA0(s32 a);
 extern void func_8002F5C8(void *p);
 extern s32 D_80072C7C;
-typedef struct { s32 file; s32 arg; } FieldLoad;
-extern FieldLoad D_800D384C[];
+typedef struct { s32 field_0; s32 field_4; } struct_8_4;
+extern struct_8_4 D_800D384C[];
 extern u8 D_800CA23C[], D_800C8448[], D_800CA84C[], D_800CA3E4[], D_800CA344[], D_800C83AC[], D_800C9A30[];
 extern u8 D_800C9158[], D_800C9310[], D_800C83A0[], D_800C8058[], D_800CADE8[], D_800C8500[], D_800C8514[];
 extern u8 D_800C9140[];
 
 extern s16 func_800D128C(s32 k, s16 v);
-typedef struct { u8 pad0[0x34]; s16 unk34; u8 unk36; u8 unk37; } FieldStats;
-extern FieldStats D_80078E78;
-typedef struct { u8 unk0; u8 unk1; u8 pad2[10]; } FieldItemDef;
-extern FieldItemDef D_8010EDF0[];
+typedef struct { u8 field_0[0x34]; s16 field_34; u8 field_36; u8 field_37; } struct_38;
+extern struct_38 D_80078E78;
+typedef struct { u8 field_0; u8 field_1; u8 field_2[10]; } struct_C_5;
+extern struct_C_5 D_8010EDF0[];
 
 extern void func_800168B4(s32 a);
 extern s32 func_800168C4(s32 a);
@@ -560,37 +560,37 @@ extern u8 D_800AE6BC;
 extern s32 D_80114EA8;
 extern s32 D_80159698;
 extern u16 *D_800D38D8[];
-typedef struct { s32 unk0; s32 unk4; } FieldDest;
+typedef struct { s32 field_0; s32 field_4; } struct_8_5;
 
-typedef struct { void (*fn[3])(FieldMap *m); } FieldFn3;
-extern FieldFn3 D_801141BC;
-typedef struct { u8 pad0[0x12]; s16 unk12; s16 pad14; s16 unk16; s16 pad18; s16 unk1A; u8 pad1C[0x10]; s32 unk2C; } FieldDir;
+typedef struct { void (*field_0[3])(struct_C_4 *m); } struct_C_6;
+extern struct_C_6 D_801141BC;
+typedef struct { u8 field_0[0x12]; s16 field_12; s16 field_14; s16 field_16; s16 field_18; s16 field_1A; u8 field_1C[0x10]; s32 field_2C; } struct_30_2;
 
 extern void VectorNormalSS(SVECTOR *v0, SVECTOR *v1);
-typedef struct { u8 pad0[0x5C]; s32 x, y, z; } FieldCam;
-extern FieldCam *D_801151D4;
-typedef struct { s16 pad0[3]; s16 x; s16 pad8; s16 y; s16 padC; s16 z; } FieldPos;
+typedef struct { u8 field_0[0x5C]; s32 field_5C, field_60, field_64; } struct_68_2;
+extern struct_68_2 *D_801151D4;
+typedef struct { s16 field_0[3]; s16 field_6; s16 field_8; s16 field_A; s16 field_C; s16 field_E; } struct_10;
 
 extern s16 func_800CFBE8(void);
 extern void func_800CF8E4(void);
 extern void func_800D1D24(void);
 extern s32 func_800D1DB0(void);
-extern s32 DemoEndRequested();
-extern void SetMode(s32 a);
+extern s32 func_80011DF4();
+extern void func_80011818(s32 a);
 extern s32 func_8002AF08();
 extern s32 func_80029264();
 extern void func_8001BE20();
 extern s32 func_8001BE30();
-typedef struct { s32 next, unk4, cur; u8 padC[8]; u8 step; u8 pad15[2]; u8 unk17; } FieldMapS;
-typedef struct { u8 pad0[0x1C]; void (*fn)(void); } FieldDestFn;
-typedef struct { s32 (*fn[3])(FieldMapS *m); } FieldFn3S;
-extern FieldFn3S D_801141C8;
+typedef struct { s32 field_0, field_4, field_8; u8 field_C[8]; u8 field_14; u8 field_15[2]; u8 field_17; } struct_18_2;
+typedef struct { u8 field_0[0x1C]; void (*field_1C)(void); } struct_20_3;
+typedef struct { s32 (*field_0[3])(struct_18_2 *m); } struct_C_7;
+extern struct_C_7 D_801141C8;
 extern u8 D_80126BA6;
 
-typedef struct { s32 w[9]; } FieldBlk24;
-typedef struct { s32 next, unk4, cur; u8 padC[0xA]; u8 unk16; u8 pad17[2]; u8 unk19; } FieldMapX;
+typedef struct { s32 field_0[9]; } struct_24;
+typedef struct { s32 field_0, field_4, field_8; u8 field_C[0xA]; u8 field_16; u8 field_17[2]; u8 field_19; } struct_1C_2;
 
-extern void StopPadRumble(void);
+extern void func_80018FC8(void);
 extern u16 D_800B9A02;
 extern u16 D_80115114;
 extern s16 D_80115124;
@@ -598,90 +598,90 @@ extern s16 D_8011512A;
 extern u8 *D_801151C8;
 extern u8 *D_801151CC;
 extern GsOT D_800A6518[];
-extern u8 g_PrimBuf[];
+extern u8 D_8007BA70[];
 extern u8 D_800856B0[];
-typedef struct { s32 v; } S32R;
-extern S32R D_80115168[];
+typedef struct { s32 field_0; } struct_4_3;
+extern struct_4_3 D_80115168[];
 
 extern s32 D_80072C78;
 /* the field's package table: the archive file and a word per package */
-typedef struct { s32 file; s32 unk4; } FieldPkg;
-extern FieldPkg D_800D3764[];
+typedef struct { s32 field_0; s32 field_4; } struct_8_6;
+extern struct_8_6 D_800D3764[];
 
-extern OtInfo D_800AE7BC[];
-typedef struct { unsigned addr : 24; unsigned len : 8; } OtTag;
+extern struct_14_2 D_800AE7BC[];
+typedef struct { unsigned field_0_b0 : 24; unsigned field_3_b0 : 8; } struct_4_4;
 typedef struct {
-    u32 tag;
-    u32 code;
-    s16 x, y;
-    u8 u, v;
-    u16 clut;
-    s16 w, h;
-} FieldSprt;
-
-typedef struct {
-    u32 tag;
-    u32 code;
-    s16 x0, y0;
-    u8 u0, v0;
-    u16 clut;
-    s16 x1, y1;
-    u8 u1, v1;
-    u16 tpage;
-    s16 x2, y2;
-    u8 u2, v2;
-    u16 pad1E;
-    s16 x3, y3;
-    u8 u3, v3;
-    u16 pad26;
-} FieldFt4;
+    u32 field_0;
+    u32 field_4;
+    s16 field_8, field_A;
+    u8 field_C, field_D;
+    u16 field_E;
+    s16 field_10, field_12;
+} struct_14_3;
 
 typedef struct {
-    u32 tag;
-    u32 c0;
-    s16 x0, y0;
-    u32 c1;
-    s16 x1, y1;
-    u32 c2;
-    s16 x2, y2;
-    u32 c3;
-    s16 x3, y3;
-} FieldG4;
-typedef struct { u32 tag; u32 code; } FieldTPage;
+    u32 field_0;
+    u32 field_4;
+    s16 field_8, field_A;
+    u8 field_C, field_D;
+    u16 field_E;
+    s16 field_10, field_12;
+    u8 field_14, field_15;
+    u16 field_16;
+    s16 field_18, field_1A;
+    u8 field_1C, field_1D;
+    u16 field_1E;
+    s16 field_20, field_22;
+    u8 field_24, field_25;
+    u16 field_26;
+} struct_28_2;
+
+typedef struct {
+    u32 field_0;
+    u32 field_4;
+    s16 field_8, field_A;
+    u32 field_C;
+    s16 field_10, field_12;
+    u32 field_14;
+    s16 field_18, field_1A;
+    u32 field_1C;
+    s16 field_20, field_22;
+} struct_24_2;
+typedef struct { u32 field_0; u32 field_4; } struct_8_7;
 #define ADDPRIM2(p) \
-    ((OtTag *)(p))->addr = ((OtTag *)(D_800AE7BC[D_800AF630.frame].ot + 2))->addr; \
-    ((OtTag *)(D_800AE7BC[D_800AF630.frame].ot + 2))->addr = (u32)(p)
+    ((struct_4_4 *)(p))->field_0_b0 = ((struct_4_4 *)(D_800AE7BC[D_800AF630.field_A3D2].field_0 + 2))->field_0_b0; \
+    ((struct_4_4 *)(D_800AE7BC[D_800AF630.field_A3D2].field_0 + 2))->field_0_b0 = (u32)(p)
 
 extern s32 D_800A2B70;
 extern u32 D_800BA0FC;
 extern s32 D_80114EA0;
 
 typedef struct {
-    u32 tag;
-    u32 tpage;
-    u8 r0, g0, b0, code;
-    s16 x0, y0;
-    u8 u0, v0;
-    u16 clut;
-    s16 w, h;
-} FieldSprtTp;
+    u32 field_0;
+    u32 field_4;
+    u8 field_8, field_9, field_A, field_B;
+    s16 field_C, field_E;
+    u8 field_10, field_11;
+    u16 field_12;
+    s16 field_14, field_16;
+} struct_18_3;
 extern u32 D_800AA60C[][0x1000];
-extern FieldSprtTp D_80114E7C;
+extern struct_18_3 D_80114E7C;
 
 /* Build the field's 256x144 sprite (texture page 0xE1000085, neutral colour) and link it into this frame's ordering
  * table */
 void func_800CFAD0(void) {
     setlen(&D_80114E7C, 5);
-    D_80114E7C.tpage = 0xE1000085;
-    D_80114E7C.code = 0x64;
-    D_80114E7C.r0 = D_80114E7C.g0 = D_80114E7C.b0 = 0x80;
-    D_80114E7C.x0 = -0x80;
-    D_80114E7C.y0 = -0x48;
-    D_80114E7C.clut = 0x7800;
-    D_80114E7C.w = 0x100;
-    D_80114E7C.h = 0x90;
-    D_80114E7C.u0 = 0;
-    D_80114E7C.v0 = 0;
+    D_80114E7C.field_4 = 0xE1000085;
+    D_80114E7C.field_B = 0x64;
+    D_80114E7C.field_8 = D_80114E7C.field_9 = D_80114E7C.field_A = 0x80;
+    D_80114E7C.field_C = -0x80;
+    D_80114E7C.field_E = -0x48;
+    D_80114E7C.field_12 = 0x7800;
+    D_80114E7C.field_14 = 0x100;
+    D_80114E7C.field_16 = 0x90;
+    D_80114E7C.field_10 = 0;
+    D_80114E7C.field_11 = 0;
     addPrim(D_800AA60C[D_800B9A02], &D_80114E7C);
 }
 
@@ -749,18 +749,18 @@ s32 func_800CFC5C(s32 a) {
 }
 
 s32 func_800CFD68(s32 a) {
-    return StageImageNeedsLoad(D_800D34AC[a & ~0xF000].file);
+    return func_800191D4(D_800D34AC[a & ~0xF000].field_0_b0);
 }
 
 void func_800CFDA4(void) {
-    SetStageImage(D_800D34AC[D_800B9A08 & ~0xF000].file);
+    func_800191BC(D_800D34AC[D_800B9A08 & ~0xF000].field_0_b0);
 }
 
 void func_800CFDE8(s32 a) {
-    s32 i = D_800D34AC[a & ~0xF000].file;
+    s32 i = D_800D34AC[a & ~0xF000].field_0_b0;
 
-    if (i >= 0 && g_ArchiveFileLoc[i][0] != 0) {
-        func_8001ABBC(2, 0, g_ArchiveFileLoc[i], 0, 0);
+    if (i >= 0 && D_800AE830[i][0] != 0) {
+        func_8001ABBC(2, 0, D_800AE830[i], 0, 0);
     }
 }
 
@@ -771,7 +771,7 @@ extern s32 func_8002F658(void);
 void func_800D00E4(s32 a);
 
 s32 func_800CFE60(void) {
-    register Work *w = &D_800AF630;
+    register struct_A444 *w = &D_800AF630;
     u32 mask = 0xFFFF0FFF;
     s32 file;
     s32 slot;
@@ -783,10 +783,10 @@ s32 func_800CFE60(void) {
     s32 k;
     s32 m;
     k = D_800B9A08 & mask;
-    slot = D_800D34AC[k].slot;
-    file = D_800D34AC[k].file;
+    slot = D_800D34AC[k].field_2_b0;
+    file = D_800D34AC[k].field_0_b0;
     v = func_8002F648();
-    m = D_800D34AC[D_800B9A08 & mask].mode;
+    m = D_800D34AC[D_800B9A08 & mask].field_1_b4;
     if (v == m) {
         mode = -1;
     } else if (v == 0) {
@@ -796,24 +796,24 @@ s32 func_800CFE60(void) {
         func_8002F620();
     }
     t = func_80029504();
-    if (w->mapId == 0x300B && w->unkA3DE != 0) {
+    if (w->field_A3D8 == 0x300B && w->field_A3DE != 0) {
         slot = 8;
         file = 0x8A;
     }
-    if (w->mapId == 0x3001 && t < 5) {
+    if (w->field_A3D8 == 0x3001 && t < 5) {
         file = 0x37;
     }
-    if (w->mapId == 0x304E) {
+    if (w->field_A3D8 == 0x304E) {
         if (func_80029178(0x17) & 0xFF) {
             file = 0x129;
             slot = 0x2F;
         }
     }
-    if (w->mapId == 0x1077 && t >= 0x2A8) {
+    if (w->field_A3D8 == 0x1077 && t >= 0x2A8) {
         file = 0x151;
         slot = 0x34;
     }
-    if (w->mapId == 0x3021 && (func_80029178(0xB9) & 0xFF)) {
+    if (w->field_A3D8 == 0x3021 && (func_80029178(0xB9) & 0xFF)) {
         file = 0xC1;
         slot = 0x41;
     }
@@ -828,15 +828,15 @@ s32 func_800CFE60(void) {
     }
     if (file >= 0) {
         r = 1;
-        if (g_ArchiveFileLoc[file][0] != 0) {
-            r = LoadFileStep(g_ArchiveFileLoc[file], D_80072C74, mode, (s32)p);
+        if (D_800AE830[file][0] != 0) {
+            r = func_80019A24(D_800AE830[file], D_80072C74, mode, (s32)p);
         }
     } else {
         r = 1;
     }
     if (mode == 0) {
         if (r & 1) {
-            func_800D00E4(D_800D34AC[w->mapId & 0xFFFF0FFF].mode);
+            func_800D00E4(D_800D34AC[w->field_A3D8 & 0xFFFF0FFF].field_1_b4);
         }
     }
     return r;
@@ -872,13 +872,13 @@ s32 func_800D0214(s32 a) {
     s32 i;
     s32 t;
 
-    i = D_800D34AC[k].file;
-    t = D_800D34AC[k].slot;
+    i = D_800D34AC[k].field_0_b0;
+    t = D_800D34AC[k].field_2_b0;
     D_800C7C64[0] = &D_800A2E20;
     *p = t;
     if (i >= 0) {
-        if (g_ArchiveFileLoc[i][0] != 0) {
-            return LoadFileStep(g_ArchiveFileLoc[i], a, 0, (s32)p);
+        if (D_800AE830[i][0] != 0) {
+            return func_80019A24(D_800AE830[i], a, 0, (s32)p);
         }
         return 1;
     }
@@ -926,12 +926,12 @@ s32 func_800D02D0(s32 n) {
     case 30: n = 0x1C; break;
     default: n = -1; break;
     }
-    t = D_800D3764[n].unk4;
+    t = D_800D3764[n].field_4;
     p = &D_800C7C60;
     D_800C7C64[0] = &D_800A2E20;
     *p = t;
     if (n >= 0) {
-        r = func_8001ABBC(0, 0, g_ArchiveFileLoc[D_800D3764[n].file], D_80072C78, (s32)p);
+        r = func_8001ABBC(0, 0, D_800AE830[D_800D3764[n].field_0], D_80072C78, (s32)p);
     } else {
         r = 1;
     }
@@ -956,12 +956,12 @@ s32 func_800D0488(s32 a) {
     case 6: i = 5; break;
     default: i = -1; break;
     }
-    t = D_800D384C[i].arg;
+    t = D_800D384C[i].field_4;
     D_800C7C64[0] = &D_800A2E20;
     p = &D_800C7C60;
     *p = t;
     if (i >= 0) {
-        r = func_8001ABBC(0, 0, g_ArchiveFileLoc[D_800D384C[i].file], D_80072C7C, (s32)p);
+        r = func_8001ABBC(0, 0, D_800AE830[D_800D384C[i].field_0], D_80072C7C, (s32)p);
     } else {
         r = 1;
     }
@@ -1029,7 +1029,7 @@ void func_800D06CC(void) {
    D_801151F8: picks the map's track id (D_80114EA0 when it differs from D_800A654C), waits 0x3C frames after
    func_8002D4C8(1, 2), then starts it */
 void func_800D06E8(void) {
-    FieldStats *st = &D_80078E78;
+    struct_38 *st = &D_80078E78;
     s32 k;
     u32 t;
     s32 m;
@@ -1057,7 +1057,7 @@ void func_800D06E8(void) {
                 D_800A2B70 = 0;
             }
             k = 0;
-            c = st->unk37;
+            c = st->field_37;
             if (c == 1) {
                 k = 1;
             } else if (c == 3 || c == 4) {
@@ -1089,11 +1089,11 @@ void func_800D06E8(void) {
             break;
         case 0x3014:
         case 0x301C:
-            if (st->unk37 != D_8011529C) {
-                D_8011529C = st->unk37;
-                if (st->unk37 == 4) {
+            if (st->field_37 != D_8011529C) {
+                D_8011529C = st->field_37;
+                if (st->field_37 == 4) {
                     func_8002D4C8(0x683, 0);
-                } else if (st->unk37 == 0) {
+                } else if (st->field_37 == 0) {
                     func_8002D4C8(0xD, 0x683);
                 }
             }
@@ -1141,7 +1141,7 @@ void func_800D06E8(void) {
                 m = 0x65;
             } else if (t - 0x64 < 0x1E) {
                 m = 0x28;
-            } else if (st->unk36 == 1) {
+            } else if (st->field_36 == 1) {
                 m = 0xF;
             } else {
                 m = 0x10;
@@ -1152,7 +1152,7 @@ void func_800D06E8(void) {
         case 0x301E:
         case 0x3023:
             m = 0xA;
-            if (st->unk37 == 4) {
+            if (st->field_37 == 4) {
                 m = 0x3C;
             }
             break;
@@ -1234,41 +1234,41 @@ s32 func_800D0CE0(void) {
 
 extern u8 D_80078EB0;
 extern u8 D_80078EB1;
-typedef union { s16 w; struct { u8 lo, hi; } b; } ClockDiff;
+typedef union { s16 m0; struct { u8 field_0, field_1; } m1; } union_2;
 
 s16 func_800D0D7C(u8 h, u8 m) {
-    ClockDiff r;
-    r.b.lo = D_80078EB0;
-    r.b.hi = D_80078EB1;
-    if (r.b.lo >= m) {
-        r.b.lo -= m;
+    union_2 r;
+    r.m1.field_0 = D_80078EB0;
+    r.m1.field_1 = D_80078EB1;
+    if (r.m1.field_0 >= m) {
+        r.m1.field_0 -= m;
     } else {
-        r.b.lo = 0x3C - (m - r.b.lo);
+        r.m1.field_0 = 0x3C - (m - r.m1.field_0);
         h++;
     }
-    if (r.b.hi >= h) {
-        r.b.hi -= h;
+    if (r.m1.field_1 >= h) {
+        r.m1.field_1 -= h;
     } else {
-        r.b.hi = 0x18 - (h - r.b.hi);
+        r.m1.field_1 = 0x18 - (h - r.m1.field_1);
     }
-    return r.w;
+    return r.m0;
 }
 
-typedef struct { u8 lo, hi; } FieldClock;
+typedef struct { u8 field_0, field_1; } struct_2;
 
-s16 func_800D0E30(FieldClock *c) {
-    ClockDiff r;
+s16 func_800D0E30(struct_2 *c) {
+    union_2 r;
 
-    r.b.hi = c->hi - D_80078EB1;
-    r.b.lo = c->lo - D_80078EB0;
-    if (r.b.lo >= 60) {
-        r.b.lo += 60;
-        r.b.hi--;
+    r.m1.field_1 = c->field_1 - D_80078EB1;
+    r.m1.field_0 = c->field_0 - D_80078EB0;
+    if (r.m1.field_0 >= 60) {
+        r.m1.field_0 += 60;
+        r.m1.field_1--;
     }
-    if (r.b.hi >= 24) {
-        r.b.hi += 24;
+    if (r.m1.field_1 >= 24) {
+        r.m1.field_1 += 24;
     }
-    return r.w;
+    return r.m0;
 }
 
 u32 func_800D0EC4(void) {
@@ -1321,11 +1321,11 @@ s16 func_800D1028(void) {
 }
 
 s32 func_800D1054(u8 a) {
-    return D_8010EDE8[a].unk0;
+    return D_8010EDE8[a].field_0;
 }
 
 s16 func_800D1078(u8 a) {
-    return D_8010EDE8[a].unk4;
+    return D_8010EDE8[a].field_4;
 }
 
 s16 func_800D109C(void) {
@@ -1333,22 +1333,22 @@ s16 func_800D109C(void) {
 }
 
 s16 func_800D10C8(u8 a) {
-    return D_8010EDE8[a].unk6;
+    return D_8010EDE8[a].field_6;
 }
 
 void func_800D10EC(void) {
-    FieldStats *st = &D_80078E78;
+    struct_38 *st = &D_80078E78;
     s16 i;
 
     for (i = 0; i < 12; i++) {
         u8 k = func_800291B4(i + 0x2F);
         if (k != 0) {
-            u8 n = D_8010EDF0[k].unk0;
+            u8 n = D_8010EDF0[k].field_0;
             if (n != 0) {
                 s32 t = (s16)func_800291DC(i * 2 + 0x14);
-                s32 c = st->unk34;
+                s32 c = st->field_34;
                 if (c - t >= n) {
-                    func_800291A0(i + 0x2F, D_8010EDF0[k].unk1);
+                    func_800291A0(i + 0x2F, D_8010EDF0[k].field_1);
                     func_800291C8(i * 2 + 0x14, D_80078EAC);
                 }
             }
@@ -1592,7 +1592,7 @@ s16 func_800D1658(u8 a) {
     if (k == 0) {
         return 0;
     }
-    t = D_8010EDE8[k].unk4;
+    t = D_8010EDE8[k].field_4;
     r = t;
     if (t > 0 || ((u16)r == 0x8000 && k != 0x27)) {
         func_800291A0(j, 0);
@@ -1614,7 +1614,7 @@ void func_800D1724(s32 a) {
 }
 
 void func_800D1734(s32 a) {
-    D_800AE6A8.next = a;
+    D_800AE6A8.field_0 = a;
 }
 
 void func_800D1744(s32 a) {
@@ -1623,7 +1623,7 @@ void func_800D1744(s32 a) {
 
 void func_800D1754(void) {
     s32 t;
-    s32 *m = &D_800AE6A8.next;
+    s32 *m = &D_800AE6A8.field_0;
     if (func_800D17B8(D_800AE6B0) == 0) {
         t = m[0];
         if (t != 0) {
@@ -1635,7 +1635,7 @@ void func_800D1754(void) {
 }
 
 s32 func_800D17B8(s32 a) {
-    FieldDest *d = (FieldDest *)(a & 0x80FFFFFF);
+    struct_8_5 *d = (struct_8_5 *)(a & 0x80FFFFFF);
 
     if (d != NULL) {
         func_800D185C(d);
@@ -1645,9 +1645,9 @@ s32 func_800D17B8(s32 a) {
         } else {
             D_800AE6BC = 0;
             D_80114EA8 = 0;
-            D_800AE6B4 = d->unk4;
+            D_800AE6B4 = d->field_4;
         }
-        NextGameState();
+        func_80011A3C();
         return 1;
     }
     return 0;
@@ -1655,46 +1655,46 @@ s32 func_800D17B8(s32 a) {
 
 /* the map record copied to D_80078E50 and linked into the field map (r150: byte 3 read before the link store) */
 void func_800D185C(void *p) {
-    FieldMapX *m = (FieldMapX *)&D_800AE6A8;
+    struct_1C_2 *m = (struct_1C_2 *)&D_800AE6A8;
     u8 b3;
-    *(FieldBlk24 *)&D_80078E50 = *(FieldBlk24 *)p;
-    m->unk16 = ((u8 *)p)[2];
+    *(struct_24 *)&D_80078E50 = *(struct_24 *)p;
+    m->field_16 = ((u8 *)p)[2];
     b3 = ((u8 *)p)[3];
-    m->cur = (s32)p | (m->cur & 0x1000000);
-    m->unk19 = b3;
+    m->field_8 = (s32)p | (m->field_8 & 0x1000000);
+    m->field_19 = b3;
 }
 
 void func_800D18DC(void) {
-    FieldFn3 t = D_801141BC;
+    struct_C_6 t = D_801141BC;
 
-    t.fn[D_800AE6BC](&D_800AE6A8);
+    t.field_0[D_800AE6BC](&D_800AE6A8);
 }
 
-s32 func_800D1938(FieldTask *p) {
+s32 func_800D1938(struct_18 *p) {
     func_800D1F58();
     func_801285D4();
-    p->unk15 = 0;
-    p->step++;
+    p->field_15 = 0;
+    p->field_14++;
     func_800D1984(p);
     return 0;
 }
 
-s32 func_800D1984(FieldTask *p) {
-    if (p->fn(p) != 0) {
-        p->step++;
+s32 func_800D1984(struct_18 *p) {
+    if (p->field_C(p) != 0) {
+        p->field_14++;
         return func_800D19DC(p);
     }
     return 0;
 }
 
-s32 func_800D19DC(FieldTask *p) {
+s32 func_800D19DC(struct_18 *p) {
     D_800B9A10 = 1;
     return 1;
 }
 
 s32 func_800D19F0(void) {
-    FieldFn3S t = D_801141C8;
-    FieldMapS *m = (FieldMapS *)&D_800AE6A8;
+    struct_C_7 t = D_801141C8;
+    struct_18_2 *m = (struct_18_2 *)&D_800AE6A8;
 
     if (D_80126BA6 != 0) {
         return 0;
@@ -1717,68 +1717,68 @@ s32 func_800D19F0(void) {
             break;
         }
     }
-    return t.fn[m->step](m);
+    return t.field_0[m->field_14](m);
 }
 
-s32 func_800D1B10(FieldTask *p) {
+s32 func_800D1B10(struct_18 *p) {
     func_80029124(0x119, 0);
     func_8002D4C8(4, 0x448);
     func_8002D4C8(4, 0x449);
     func_8002D4C8(4, 0x8ED);
     D_800B9A10 = 0;
-    p->step++;
-    p->unk15 = 0;
+    p->field_14++;
+    p->field_15 = 0;
     do { return 0; } while (0); /* MATCH-TRICK: keeps the return 0 in its own block */
 }
 
-s32 func_800D1B80(FieldTask *p) {
-    if (p->fn(p) != 0) {
-        p->step++;
+s32 func_800D1B80(struct_18 *p) {
+    if (p->field_C(p) != 0) {
+        p->field_14++;
         return func_800D1BD8(p);
     }
     return 0;
 }
 
-s32 func_800D1BD8(FieldTask *p) {
+s32 func_800D1BD8(struct_18 *p) {
     func_800D1BF8();
     return 1;
 }
 
 void func_800D1BF8(void) {
-    FieldMapS *m = (FieldMapS *)&D_800AE6A8;
+    struct_18_2 *m = (struct_18_2 *)&D_800AE6A8;
 
     D_800B9A0E = 0;
-    ((FieldDestFn *)(D_800AE6B0 & 0x80FFFFFF))->fn();
+    ((struct_20_3 *)(D_800AE6B0 & 0x80FFFFFF))->field_1C();
     func_800D1D24();
-    if (DemoEndRequested() != 0) {
-        DemoClearEndRequest();
-        SetMode(0x11);
+    if (func_80011DF4() != 0) {
+        func_80011DCC();
+        func_80011818(0x11);
     } else if (func_8002AF08() != 0) {
-        SetGameState(0xD);
+        func_80011B7C(0xD);
     } else if (((s32 (*)(void))func_800CFBE8)() != 0) {
         func_800CFBBC();
-        SetGameState(0x13);
+        func_80011B7C(0x13);
     } else if (func_80029264() != 0) {
         func_80029254();
-        SetGameState(0x12);
+        func_80011B7C(0x12);
     } else {
         switch (func_800D1DB0()) {
         case 0:
-            SetGameState(6);
+            func_80011B7C(6);
             break;
         case 1:
-            SetGameState(5);
+            func_80011B7C(5);
             break;
         case 2:
         default:
-            SetGameState(0x10);
+            func_80011B7C(0x10);
             break;
         }
     }
-    if (m->cur & 0x1000000) {
-        m->unk17 = 1;
+    if (m->field_8 & 0x1000000) {
+        m->field_17 = 1;
     } else {
-        m->unk17 = 0;
+        m->field_17 = 0;
     }
 }
 
@@ -1882,31 +1882,31 @@ void func_800D1F90(void) {
     D_80078E8C = D_80128150;
 }
 
-void func_800D1FC8(FieldPos *p, u16 sh) {
+void func_800D1FC8(struct_10 *p, u16 sh) {
     SVECTOR v;
-    FieldCam *c = D_801151D4;
+    struct_68_2 *c = D_801151D4;
 
-    v.vx = c->x - p->x;
-    v.vy = c->y - p->y;
-    v.vz = c->z - p->z;
+    v.vx = c->field_5C - p->field_6;
+    v.vy = c->field_60 - p->field_A;
+    v.vz = c->field_64 - p->field_E;
     if (!(v.vx >= -0x3FFF && v.vx < 0x4000 && v.vy >= -0x3FFF && v.vy < 0x4000 && v.vz >= -0x3FFF && v.vz < 0x4000)) {
         v.vz = 0;
         v.vx = 0;
         v.vy = -0xFFF;
     }
     VectorNormalSS(&v, &v);
-    p->x += v.vx >> sh;
-    p->y += v.vy >> sh;
-    p->z += v.vz >> sh;
+    p->field_6 += v.vx >> sh;
+    p->field_A += v.vy >> sh;
+    p->field_E += v.vz >> sh;
 }
 
 void func_800D20C0(SVECTOR *p, SVECTOR *out, u16 sh) {
     SVECTOR v;
-    FieldCam *c = D_801151D4;
+    struct_68_2 *c = D_801151D4;
 
-    v.vx = c->x - p->vx;
-    v.vy = c->y - p->vy;
-    v.vz = c->z - p->vz;
+    v.vx = c->field_5C - p->vx;
+    v.vy = c->field_60 - p->vy;
+    v.vz = c->field_64 - p->vz;
     if (!(v.vx >= -0x3FFF && v.vx < 0x4000 && v.vy >= -0x3FFF && v.vy < 0x4000 && v.vz >= -0x3FFF && v.vz < 0x4000)) {
         v.vz = 0;
         v.vx = 0;
@@ -1918,30 +1918,30 @@ void func_800D20C0(SVECTOR *p, SVECTOR *out, u16 sh) {
     p->vz += out->vz >> sh;
 }
 
-FieldObj *func_800D21C4(s32 a, s32 b, s8 c) {
-    FieldObj *o = func_801465C0(a);
+struct_28 *func_800D21C4(s32 a, s32 b, s8 c) {
+    struct_28 *o = func_801465C0(a);
 
     if (o != NULL) {
         func_8001CC3C(o, b, 0, 0);
-        o->unk27 = c;
+        o->field_27 = c;
         return o;
     }
     return NULL;
 }
 
-FieldObj *func_800D222C(s32 a, s32 b, s8 c) {
-    FieldObj *o = func_801465C0(a);
+struct_28 *func_800D222C(s32 a, s32 b, s8 c) {
+    struct_28 *o = func_801465C0(a);
 
     if (o != NULL) {
         func_8001CB6C(o, b, 0, 0);
-        o->unk27 = c;
+        o->field_27 = c;
         return o;
     }
     return NULL;
 }
 
-FieldObj *func_800D2294(s32 a, s32 b) {
-    FieldObj *o = func_801465C0(a);
+struct_28 *func_800D2294(s32 a, s32 b) {
+    struct_28 *o = func_801465C0(a);
 
     if (o != NULL) {
         func_8001CD9C(o, b);
@@ -1950,32 +1950,32 @@ FieldObj *func_800D2294(s32 a, s32 b) {
     return NULL;
 }
 
-void func_800D22E4(FieldMover *m) {
-    m->x += m->vx;
-    m->y += m->vy;
-    m->z += m->vz;
+void func_800D22E4(struct_1C *m) {
+    m->field_4 += m->field_10;
+    m->field_8 += m->field_14;
+    m->field_C += m->field_18;
 }
 
-void func_800D2318(FieldDir *p) {
-    s32 w = p->unk2C;
+void func_800D2318(struct_30_2 *p) {
+    s32 w = p->field_2C;
     u32 m = w & 0x3FFFFFFF;
     s32 x = (s16)((m >> 14) & 0xFFC0) >> 3;
     s32 z = (s32)(w << 22) >> 19;
     s32 y = (s16)((m >> 4) & 0xFFC0) >> 3;
 
-    p->unk12 = -ratan2(y, (s16)SquareRoot0(x * x + z * z));
-    p->unk16 = ratan2(x, z);
-    p->unk1A = 0;
+    p->field_12 = -ratan2(y, (s16)SquareRoot0(x * x + z * z));
+    p->field_16 = ratan2(x, z);
+    p->field_1A = 0;
 }
 
-void func_800D23D0(FieldAngle *v) {
-    s16 x = v->vx;
-    s32 z = v->vz;
-    s32 y; y = v->vy;
+void func_800D23D0(struct_6 *v) {
+    s16 x = v->field_0;
+    s32 z = v->field_4;
+    s32 y; y = v->field_2;
 
-    v->vx = -ratan2(y, SquareRoot0(x * x + z * z));
-    v->vy = ratan2(x, z);
-    v->vz = 0;
+    v->field_0 = -ratan2(y, SquareRoot0(x * x + z * z));
+    v->field_2 = ratan2(x, z);
+    v->field_4 = 0;
 }
 
 void func_800D2460(void) {
@@ -1994,7 +1994,7 @@ void func_800D24A0(s16 mode) {
     s32 *dst;
     s16 j;
     u8 *p;
-    StopPadRumble();
+    func_80018FC8();
     DrawSync(0);
     j = 0;
     src = (s32 *)&D_800A6518[D_800B9A02 ^ 1];
@@ -2010,11 +2010,11 @@ void func_800D24A0(s16 mode) {
     *(s16 *)D_80115110 = mode;
     D_800B9A13 = mode + 1;
     D_80115114 = D_800B9A02;
-    D_801151C8 = g_PrimBuf + D_800B9A02 * 0x13880;
+    D_801151C8 = D_8007BA70 + D_800B9A02 * 0x13880;
     D_801151CC = D_800856B0 + D_800B9A02 * 0x13880;
     for (; j < 8; j++) {
         p = D_80115110 + j * 4; *(s32 *)(p + 0x78) = 0;
-        D_80115168[j].v = 0;
+        D_80115168[j].field_0 = 0;
     }
     func_8002D4C8(0x14, 0);
 }
@@ -2030,13 +2030,13 @@ void func_800D2624(void) {
 
 /* the field's text line: one 8x8 sprite per glyph (two bytes: u, v) into OT slot 2 of the overlay OT; codes 0x3870-0x3872
    are spaces (7, 4, 2 pixels), 0x1850 / 0x1858 are glyphs drawn 4 right and 7 up; a byte >= 0x80 ends the line */
-FieldSprt *func_800D2650(FieldSprt *p, u8 *s, s16 x, s16 y, s16 clut, s32 rgb) {
+struct_14_3 *func_800D2650(struct_14_3 *p, u8 *s, s16 x, s16 y, s16 clut, s32 rgb) {
     while (*s < 0x80) {
         switch (*(s16 *)s) {
         case 0x1850:
         case 0x1858:
-            p->x = x + 4;
-            p->y = y - 7;
+            p->field_8 = x + 4;
+            p->field_A = y - 7;
             break;
         case 0x3870:
             x += 7;
@@ -2051,20 +2051,20 @@ FieldSprt *func_800D2650(FieldSprt *p, u8 *s, s16 x, s16 y, s16 clut, s32 rgb) {
             s += 2;
             continue;
         default:
-            p->x = x;
+            p->field_8 = x;
             x += 7;
-            p->y = y;
+            p->field_A = y;
             break;
         }
-        p->tag = 0x04000000;
-        p->code = rgb | 0x64000000;
-        p->u = *s++;
-        p->v = *s++;
-        p->clut = ((clut + 0x100) << 6) | 0x16;
-        p->w = 8;
-        p->h = 8;
-        ((OtTag *)p)->addr = ((OtTag *)(D_800AE7BC[D_800AF630.frame].ot + 2))->addr;
-        ((OtTag *)(D_800AE7BC[D_800AF630.frame].ot + 2))->addr = (u32)p;
+        p->field_0 = 0x04000000;
+        p->field_4 = rgb | 0x64000000;
+        p->field_C = *s++;
+        p->field_D = *s++;
+        p->field_E = ((clut + 0x100) << 6) | 0x16;
+        p->field_10 = 8;
+        p->field_12 = 8;
+        ((struct_4_4 *)p)->field_0_b0 = ((struct_4_4 *)(D_800AE7BC[D_800AF630.field_A3D2].field_0 + 2))->field_0_b0;
+        ((struct_4_4 *)(D_800AE7BC[D_800AF630.field_A3D2].field_0 + 2))->field_0_b0 = (u32)p;
         p++;
     }
     return p;
@@ -2072,7 +2072,7 @@ FieldSprt *func_800D2650(FieldSprt *p, u8 *s, s16 x, s16 y, s16 clut, s32 rgb) {
 
 /* a row of n textured quads from a u16 list (x, y, w, h, u, v, and with flags & 2 clut, tpage, du, dv; otherwise the\n   default page 0x4056 / 0x15 with 8x8 cells, one pixel narrower for i & 7 in 4..5 and shorter in 6..7); flags & 1 dims
    them; each goes into OT slot 2 */
-FieldFt4 *func_800D27DC(u16 flags, FieldFt4 *p, u16 *d, s16 n, u16 dx) {
+struct_28_2 *func_800D27DC(u16 flags, struct_28_2 *p, u16 *d, s16 n, u16 dx) {
     s32 code;
     s16 i;
     s16 x, y, w, h;
@@ -2084,19 +2084,19 @@ FieldFt4 *func_800D27DC(u16 flags, FieldFt4 *p, u16 *d, s16 n, u16 dx) {
         code = 0x2C585858;
     }
     for (i = 0; i < n; i++) {
-        p->tag = 0x09000000;
-        p->code = code;
-        p->x0 = p->x2 = x = *d++ + dx;
-        p->y0 = p->y1 = y = *d++;
+        p->field_0 = 0x09000000;
+        p->field_4 = code;
+        p->field_8 = p->field_18 = x = *d++ + dx;
+        p->field_A = p->field_12 = y = *d++;
         w = *d++;
         h = *d++;
-        p->u0 = p->u2 = u = *d++;
-        p->v0 = p->v1 = v = *d++;
+        p->field_C = p->field_1C = u = *d++;
+        p->field_D = p->field_15 = v = *d++;
         if (!(flags & 2)) {
             dv = 8;
             du = 8;
-            p->clut = 0x4056;
-            p->tpage = 0x15;
+            p->field_E = 0x4056;
+            p->field_16 = 0x15;
             if ((i & 7) < 4) {
             } else if ((i & 7) < 6) {
                 du = 7;
@@ -2104,17 +2104,17 @@ FieldFt4 *func_800D27DC(u16 flags, FieldFt4 *p, u16 *d, s16 n, u16 dx) {
                 dv = 7;
             }
         } else {
-            p->clut = *d++;
-            p->tpage = *d++;
+            p->field_E = *d++;
+            p->field_16 = *d++;
             du = *d++;
             dv = *d++;
         }
-        p->x1 = p->x3 = x + w;
-        p->y2 = p->y3 = y + h;
-        p->u1 = p->u3 = u + du;
-        p->v2 = p->v3 = v + dv;
-        ((OtTag *)p)->addr = ((OtTag *)(D_800AE7BC[D_800AF630.frame].ot + 2))->addr;
-        ((OtTag *)(D_800AE7BC[D_800AF630.frame].ot + 2))->addr = (u32)p;
+        p->field_10 = p->field_20 = x + w;
+        p->field_1A = p->field_22 = y + h;
+        p->field_14 = p->field_24 = u + du;
+        p->field_1D = p->field_25 = v + dv;
+        ((struct_4_4 *)p)->field_0_b0 = ((struct_4_4 *)(D_800AE7BC[D_800AF630.field_A3D2].field_0 + 2))->field_0_b0;
+        ((struct_4_4 *)(D_800AE7BC[D_800AF630.field_A3D2].field_0 + 2))->field_0_b0 = (u32)p;
         p++;
     }
     return p;
@@ -2131,8 +2131,8 @@ u8 *func_800D29F8(s16 sel, u8 *p, u8 *d, s16 n, u16 dx) {
     u16 y;
     u16 w, h;
 
-    ((OtTag *)p)->len = 1;
-    ((FieldTPage *)p)->code = 0xE1000000;
+    ((struct_4_4 *)p)->field_3_b0 = 1;
+    ((struct_8_7 *)p)->field_4 = 0xE1000000;
     ADDPRIM2(p);
     p += 8;
     for (i = 0; i < n; i++) {
@@ -2145,32 +2145,32 @@ u8 *func_800D29F8(s16 sel, u8 *p, u8 *d, s16 n, u16 dx) {
                 continue;
             }
         }
-        ((FieldG4 *)p)->tag = 0x08000000;
-        ((FieldG4 *)p)->c0 = ((semi | 0x38) << 24) | *(u32 *)d;
+        ((struct_24_2 *)p)->field_0 = 0x08000000;
+        ((struct_24_2 *)p)->field_4 = ((semi | 0x38) << 24) | *(u32 *)d;
         d += 4;
-        ((FieldG4 *)p)->c1 = ((FieldG4 *)p)->c0 - 0x280000;
+        ((struct_24_2 *)p)->field_C = ((struct_24_2 *)p)->field_4 - 0x280000;
         c = *(u32 *)d;
         d += 4;
-        ((FieldG4 *)p)->c3 = c;
+        ((struct_24_2 *)p)->field_1C = c;
         c += 0x280000;
-        ((FieldG4 *)p)->c2 = c;
+        ((struct_24_2 *)p)->field_14 = c;
         x = *(u16 *)d + dx;
         d += 2;
-        ((FieldG4 *)p)->x0 = ((FieldG4 *)p)->x2 = x;
+        ((struct_24_2 *)p)->field_8 = ((struct_24_2 *)p)->field_18 = x;
         y = *(u16 *)d;
         d += 2;
-        ((FieldG4 *)p)->y0 = ((FieldG4 *)p)->y1 = y;
+        ((struct_24_2 *)p)->field_A = ((struct_24_2 *)p)->field_12 = y;
         w = *(u16 *)d;
         d += 2;
         h = *(u16 *)d;
         d += 2;
-        ((FieldG4 *)p)->x1 = ((FieldG4 *)p)->x3 = x + w;
-        ((FieldG4 *)p)->y2 = ((FieldG4 *)p)->y3 = y + h;
+        ((struct_24_2 *)p)->field_10 = ((struct_24_2 *)p)->field_20 = x + w;
+        ((struct_24_2 *)p)->field_1A = ((struct_24_2 *)p)->field_22 = y + h;
         ADDPRIM2(p);
-        p += sizeof(FieldG4);
+        p += sizeof(struct_24_2);
     }
-    ((OtTag *)p)->len = 1;
-    ((FieldTPage *)p)->code = 0xE1000200;
+    ((struct_4_4 *)p)->field_3_b0 = 1;
+    ((struct_8_7 *)p)->field_4 = 0xE1000200;
     ADDPRIM2(p);
     return p + 8;
 }
@@ -2214,10 +2214,10 @@ void func_800D2D10(u32 n, s16 len, u16 *out, s16 pad) {
     }
 }
 
-s32 func_800D2DAC(FieldStep *p) {
+s32 func_800D2DAC(struct_2C *p) {
     func_8016EDEC(func_800D3238, 0x01000000);
     func_800167B8(0);
-    p->step++;
+    p->field_15++;
     return 0;
 }
 
@@ -2225,21 +2225,21 @@ s32 func_800D2DFC(void) {
     return (func_800167F0(0) & 0xFFFF) != 0;
 }
 
-s32 func_800D2E20(FieldStep *p) {
+s32 func_800D2E20(struct_2C *p) {
     func_8016EDEC(func_800D3348, 0x01000000);
-    p->cnt = 10;
-    p->step++;
+    p->field_19 = 10;
+    p->field_15++;
     return 0;
 }
 
-s32 func_800D2E6C(FieldStep *p) {
-    if (p->cnt-- == 0) {
+s32 func_800D2E6C(struct_2C *p) {
+    if (p->field_19-- == 0) {
         func_8002D4C8(0x1C, 0);
         func_8001BFD0();
         func_8002D4C8(0x1D, 0);
         func_800D0C48(1);
         func_800167B8(4);
-        p->step++;
+        p->field_15++;
     }
     return 0;
 }
@@ -2248,14 +2248,14 @@ s32 func_800D2EE8(void) {
     return (func_800167F0(4) & 0xFFFF) != 0;
 }
 
-void func_800D2F0C(FieldStep *p) {
-    D_800D39C4[p->step](p);
+void func_800D2F0C(struct_2C *p) {
+    D_800D39C4[p->field_15](p);
 }
 
-s32 func_800D2F48(FieldStep *p) {
+s32 func_800D2F48(struct_2C *p) {
     func_800D33B8();
     func_800167B8(0);
-    p->step++;
+    p->field_15++;
     return 0;
 }
 
@@ -2263,25 +2263,25 @@ s32 func_800D2F8C(void) {
     return (func_800167F0(0) & 0xFFFF) != 0;
 }
 
-void func_800D2FB0(FieldStep *p) {
-    D_800D39F0[p->step](p);
+void func_800D2FB0(struct_2C *p) {
+    D_800D39F0[p->field_15](p);
 }
 
-s32 func_800D2FEC(FieldStep *p) {
+s32 func_800D2FEC(struct_2C *p) {
     func_800D33E0();
-    p->timer = 10;
-    p->step++;
+    p->field_28 = 10;
+    p->field_15++;
     return 0;
 }
 
-s32 func_800D302C(FieldStep *p) {
-    if (--p->timer == -1) {
+s32 func_800D302C(struct_2C *p) {
+    if (--p->field_28 == -1) {
         func_8002D4C8(0x1C, 0);
         func_8001BFD0();
         func_8002D4C8(0x1D, 0);
         func_800D0C48(1);
         func_800D1E28();
-        p->step++;
+        p->field_15++;
     }
     return 0;
 }
@@ -2290,24 +2290,24 @@ void func_800D30A8(void) {
     func_800D1EBC();
 }
 
-void func_800D30C8(FieldStep *p) {
-    D_800D3A8C[p->step](p);
+void func_800D30C8(struct_2C *p) {
+    D_800D3A8C[p->field_15](p);
 }
 
-s32 func_800D3104(FieldStep *p) {
-    p->cnt = 10;
-    p->step++;
+s32 func_800D3104(struct_2C *p) {
+    p->field_19 = 10;
+    p->field_15++;
     return 0;
 }
 
-s32 func_800D3120(FieldStep *p) {
-    if (p->cnt-- == 0) {
+s32 func_800D3120(struct_2C *p) {
+    if (p->field_19-- == 0) {
         func_8002D4C8(0x1C, 0);
         func_8001BFD0();
         func_8002D4C8(0x1D, 0);
         func_800D0C48(1);
         func_800167B8(4);
-        p->step++;
+        p->field_15++;
     }
     return 0;
 }
@@ -2316,31 +2316,31 @@ s32 func_800D319C(void) {
     return (func_800167F0(4) & 0xFFFF) != 0;
 }
 
-void func_800D31C0(FieldStep *p) {
-    D_800D3920[p->step](p);
+void func_800D31C0(struct_2C *p) {
+    D_800D3920[p->field_15](p);
 }
 
-void func_800D31FC(FieldStep *p) {
-    D_800D3928[p->step](p);
+void func_800D31FC(struct_2C *p) {
+    D_800D3928[p->field_15](p);
 }
 
-void func_800D3238(FieldSeq *p) {
-    D_800D3A98[p->step](p);
+void func_800D3238(struct_218 *p) {
+    D_800D3A98[p->field_214](p);
 }
 
-void func_800D3274(FieldSeq *p) {
-    if (p->unk198 != 0) {
-        p->unk198 = func_8013767C(p->unk198);
-        p->step++;
+void func_800D3274(struct_218 *p) {
+    if (p->field_198 != 0) {
+        p->field_198 = func_8013767C(p->field_198);
+        p->field_214++;
     } else {
-        p->step += 2;
+        p->field_214 += 2;
     }
 }
 
-void func_800D32D4(FieldSeq *p) {
-    if (func_801399F0(p->unk198) != 0) {
-        func_80139914(p->unk198);
-        p->step++;
+void func_800D32D4(struct_218 *p) {
+    if (func_801399F0(p->field_198) != 0) {
+        func_80139914(p->field_198);
+        p->field_214++;
     }
 }
 
@@ -2348,12 +2348,12 @@ void func_800D3328(void) {
     func_8016F0E4();
 }
 
-void func_800D3348(FieldSeq *p) {
-    D_800D3AA4[p->step](p);
+void func_800D3348(struct_218 *p) {
+    D_800D3AA4[p->field_214](p);
 }
 
-void func_800D3384(FieldSeq *p) {
-    p->step++;
+void func_800D3384(struct_218 *p) {
+    p->field_214++;
 }
 
 void func_800D3398(void) {

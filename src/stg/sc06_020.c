@@ -15,13 +15,13 @@ void func_sc06_020_8017BEAC(void) {
 void func_sc06_020_8017BEB4(void) {
 }
 
-typedef struct { s16 x, y, z, pad; } SV8;
-typedef struct { s16 v[6]; } S12;
+typedef struct { s16 field_0, field_2, field_4, field_6; } struct_8_4;
+typedef struct { s16 field_0[6]; } struct_C_3;
 extern void (*D_sc06_020_80188A54[])();
 extern void (*D_sc06_020_80188AD0[])();
-typedef struct { s16 x, y; } XY;
-typedef struct { XY p; s16 n; s16 pad; XY q; s32 pad2; s32 col; s32 z; s32 code; } L181E88;
-typedef struct { s32 x, y, z; } V3;
+typedef struct { s16 field_0, field_2; } struct_4_2;
+typedef struct { struct_4_2 field_0; s16 field_4; s16 field_6; struct_4_2 field_8; s32 field_C; s32 field_10; s32 field_14; s32 field_18; } struct_1C;
+typedef struct { s32 field_0, field_4, field_8; } struct_C_4;
 void func_sc06_020_8017D37C(void);
 extern void func_800167B8();
 extern s32 func_800167F0();
@@ -169,7 +169,7 @@ extern s32 func_80132EF4();
 
 extern void func_8012B2CC();
 
-typedef struct { s16 m[3][3]; s32 t[3]; } SMtx;
+typedef struct { s16 field_0[3][3]; s32 field_14[3]; } struct_20_3;
 extern void func_80131E00();
 extern void func_80131C78();
 extern void func_8012B23C();
@@ -189,7 +189,7 @@ extern void func_8001C214();
 extern s32 func_8012C1B8();
 extern u8 D_sc06_020_8019EDB8;
 
-typedef struct { u8 r, g, b, cd; } CV;
+typedef struct { u8 field_0, field_1, field_2, field_3; } struct_4_3;
 extern u8 D_sc06_020_8019E78C;
 extern u8 D_sc06_020_801B5DC8;
 extern u8 D_sc06_020_801B6150;
@@ -200,42 +200,42 @@ extern s32 func_8012F14C();
 extern s32 func_sc06_020_801842E0(s32 arg0, s32 arg1, s32 arg2);
 extern s32 func_sc06_020_8018348C();
 
-typedef struct { s16 m[3][3]; s16 pad; s32 t[3]; } MtxDCM;
-typedef struct { u32 x; u32 y; u32 z; u32 n; u32 *poly; } ChunkDCM;
-typedef struct { s32 zbox; s32 flag; s32 z; s32 sz0; s32 sz1; s32 sz2; s32 sz3; } GteDCM;
-extern u8 *g_PrimNext;
+typedef struct { s16 field_0[3][3]; s16 field_12; s32 field_14[3]; } struct_20_4;
+typedef struct { u32 field_0; u32 field_4; u32 field_8; u32 field_C; u32 *field_10; } struct_14_2;
+typedef struct { s32 field_0; s32 field_4; s32 field_8; s32 field_C; s32 field_10; s32 field_14; s32 field_18; } struct_1C_2;
+extern u8 *D_800A5E60;
 extern u16 D_800B9A02;
-extern u32 g_WorldOtTable[2][0x1000];
+extern u32 D_800A6610[2][0x1000];
 
 extern s32 func_8012B6D4();
 extern void *D_80126B78;
 
-typedef struct { s16 vx, vy, vz, pad; } SV;
-typedef struct { u16 v[6]; } U12;
-typedef struct { u16 x, y, z, pad; } UV4;
-typedef struct { u8 r, g, b, cd; } CV4;
-typedef struct { UV4 p0; UV4 p1; CV4 c0; CV4 c1; s32 code; } LineArg;
-typedef struct { s16 m[3][3]; s32 t[3]; } WMtx;
-typedef struct { s16 x, y, z, pad; } SV4;
-typedef struct { SV4 p[4]; CV4 c[4]; s32 code; } QuadArg;
-typedef struct { s32 x, y, z, pad; } V4;
-typedef struct { u16 active; s16 y; s16 dy; s16 ang; s32 x; s32 z; } Pt16;
-typedef struct { s16 a, b, c, g; u8 d, e; s16 f; Pt16 pts[16]; } PtSys;
-typedef struct { u32 *ot; u8 pad[0x10]; } OtRef;
-typedef struct { u8 b[0x14]; } Ot14;
-typedef struct { unsigned addr : 24; unsigned len : 8; } PTag;
-typedef struct { u8 b[8]; } B8;
-typedef struct { s16 m[3][3]; s32 t[3]; } FeMtx;
-typedef struct { s16 x, y, z, pad; } FeSv;
+typedef struct { s16 field_0, field_2, field_4, field_6; } struct_8_5;
+typedef struct { u16 field_0[6]; } struct_C_5;
+typedef struct { u16 field_0, field_2, field_4, field_6; } struct_8_6;
+typedef struct { u8 field_0, field_1, field_2, field_3; } struct_4_4;
+typedef struct { struct_8_6 field_0; struct_8_6 field_8; struct_4_4 field_10; struct_4_4 field_14; s32 field_18; } struct_1C_3;
+typedef struct { s16 field_0[3][3]; s32 field_14[3]; } struct_20_5;
+typedef struct { s16 field_0, field_2, field_4, field_6; } struct_8_7;
+typedef struct { struct_8_7 field_0[4]; struct_4_4 field_20[4]; s32 field_30; } struct_34_2;
+typedef struct { s32 field_0, field_4, field_8, field_C; } struct_10;
+typedef struct { u16 field_0; s16 field_2; s16 field_4; s16 field_6; s32 field_8; s32 field_C; } struct_10_2;
+typedef struct { s16 field_0, field_2, field_4, field_6; u8 field_8, field_9; s16 field_A; struct_10_2 field_C[16]; } struct_10C_2;
+typedef struct { u32 *field_0; u8 field_4[0x10]; } struct_14_3;
+typedef struct { u8 field_0[0x14]; } struct_14_4;
+typedef struct { unsigned field_0_b0 : 24; unsigned field_3_b0 : 8; } struct_4_5;
+typedef struct { u8 field_0[8]; } struct_8_8;
+typedef struct { s16 field_0[3][3]; s32 field_14[3]; } struct_20_6;
+typedef struct { s16 field_0, field_2, field_4, field_6; } struct_8_9;
 extern void func_sc06_020_8017D558();
 extern s32 func_80012C6C();
 extern s32 func_80012ABC();
 
-typedef struct { u8 pad[0x18]; WMtx wsm; } WorkHead;
-typedef struct { u32 addr : 24; u32 len : 8; } PTAG;
-typedef struct { s16 m[3][3]; s32 t[3]; } MAT3;
-typedef struct { PTAG tag; u8 r0, g0, b0, code; s16 x0, y0, x1, y1, x2, y2, x3, y3; } PF4;
-typedef union { s32 w; XY s; } UXY;
+typedef struct { u8 field_0[0x18]; struct_20_5 field_18; } struct_38;
+typedef struct { u32 field_0_b0 : 24; u32 field_3_b0 : 8; } struct_4_6;
+typedef struct { s16 field_0[3][3]; s32 field_14[3]; } struct_20_7;
+typedef struct { struct_4_6 field_0; u8 field_4, field_5, field_6, field_7; s16 field_8, field_A, field_C, field_E, field_10, field_12, field_14, field_16; } struct_18;
+typedef union { s32 m0; struct_4_2 m1; } union_4_2;
 extern void func_sc06_020_80180A98();
 
 extern void func_8012EC04();
@@ -268,16 +268,16 @@ extern s32 func_800132BC();
 extern u8 D_800AE620;
 extern void func_80017758();
 
-typedef void (*VoidFn)();
-typedef struct { s32 v[4]; } V16;
-typedef struct { V16 a, b, c; } Blk30;
-typedef struct { u8 b[0x34]; } R34;
-typedef struct { s16 x, y, z, a, b, c, d, e; s32 f; } FeS14s;
-typedef struct { SV8 v[4]; CV4 c[4]; s32 code; } Q34;
+typedef void (*type_2)();
+typedef struct { s32 field_0[4]; } struct_10_3;
+typedef struct { struct_10_3 field_0, field_10, field_20; } struct_30_2;
+typedef struct { u8 field_0[0x34]; } struct_34_3;
+typedef struct { s16 field_0, field_2, field_4, field_6, field_8, field_A, field_C, field_E; s32 field_10; } struct_14_5;
+typedef struct { struct_8_4 field_0[4]; struct_4_4 field_20[4]; s32 field_30; } struct_34_4;
 extern s32 func_8012B8A4();
 extern s32 func_80135888();
 extern void func_8012F568();
-extern SV8 D_sc06_020_8019EBC4[];
+extern struct_8_4 D_sc06_020_8019EBC4[];
 extern s32 D_80126B90;
 extern u8 D_801152A8;
 extern void func_80143994();
@@ -286,20 +286,20 @@ extern u8 D_sc06_020_8019EC8C;
 extern u8 D_sc06_020_8019ECC0;
 extern u8 D_sc06_020_8019EC60;
 extern void func_80146A6C();
-extern SV8 D_sc06_020_8019ED04[];
+extern struct_8_4 D_sc06_020_8019ED04[];
 extern void func_800D20C0();
 extern void func_800D23D0();
 extern u8 D_sc06_020_801B6BE4;
-extern WMtx *D_sc06_020_801B6C18;
-extern WMtx D_sc06_020_801BA858[];
+extern struct_20_5 *D_sc06_020_801B6C18;
+extern struct_20_5 D_sc06_020_801BA858[];
 extern void func_80017DC4();
 extern void func_80017E68();
 extern s32 func_80134510();
 extern s8 D_sc06_020_801B6BD0[];
 
-typedef struct { u8 b[0x34]; } T34;
+typedef struct { u8 field_0[0x34]; } struct_34_5;
 extern void func_8012B030();
-extern T34 D_sc06_020_8019E8C4[];
+extern struct_34_5 D_sc06_020_8019E8C4[];
 extern u8 D_sc06_020_8019EA5C;
 extern u8 D_sc06_020_8019E9E4;
 extern s16 D_sc06_020_801B5EA4;
@@ -316,14 +316,14 @@ extern s32 func_801469C8();
 extern u8 D_801202A0;
 extern s32 func_8012B0B4();
 
-typedef struct { s16 m[3][3]; s32 t[3]; } MTX;
-typedef struct { s32 vx, vy, vz, pad; } VEC;
+typedef struct { s16 field_0[3][3]; s32 field_14[3]; } struct_20_8;
+typedef struct { s32 field_0, field_4, field_8, field_C; } struct_10_4;
 extern u8 D_sc06_020_801A16E8;
 extern u8 D_sc06_020_801A4EAC;
 extern u8 D_sc06_020_8019E9AC;
 extern u8 D_sc06_020_8019E9BC;
 extern u8 D_sc06_020_801B5C00;
-extern SV8 D_sc06_020_8019EC30[];
+extern struct_8_4 D_sc06_020_8019EC30[];
 extern s32 func_8012CC40();
 extern void func_8012E8C4();
 extern s32 func_8012D5E4();
@@ -357,7 +357,7 @@ extern u8 D_sc06_020_80188A68;
 extern s32 D_sc06_020_80188A70;
 
 void func_sc06_020_8017BEF8(u8 *o) {
-    V3 t;
+    struct_C_4 t;
     u8 *p;
     s32 a;
     s32 b;
@@ -371,25 +371,25 @@ void func_sc06_020_8017BEF8(u8 *o) {
         AF(p, s32, 4) |= 0x8000000;
         D_sc06_020_80188A70 = (rand() & 3) * 0x20000 + (b = (rand() & 3) * 0x8000 + 0x40000);
         v = AF(o, u32, 0x2C) >> 20;
-        t.x = v & 0x3FF;
+        t.field_0 = v & 0x3FF;
         if (v & 0x200) {
-            t.x |= -0x200;
+            t.field_0 |= -0x200;
         } else {
-            t.x = v & 0x1FF;
+            t.field_0 = v & 0x1FF;
         }
         v = AF(o, u32, 0x2C);
-        t.z = v & 0x3FF;
+        t.field_8 = v & 0x3FF;
         if (v & 0x200) {
-            t.z |= -0x200;
+            t.field_8 |= -0x200;
         } else {
-            t.z = v & 0x1FF;
+            t.field_8 = v & 0x1FF;
         }
-        a = ratan2(t.x, t.z);
+        a = ratan2(t.field_0, t.field_8);
         a = (a = a - 0x1C7) + (rand() & 7) * 0x71;
         AF(p, s16, 0x14) = a;
         func_8001382C((s16)a, &D_sc06_020_80188A68, &t);
-        AF(o, s32, 0x10) = t.x;
-        AF(o, s32, 0x18) = t.z;
+        AF(o, s32, 0x10) = t.field_0;
+        AF(o, s32, 0x18) = t.field_8;
         AF(o, s32, 0x14) = 0xFFFC0000;
         func_80146E90(o, (rand() & 7) | 8);
         AF(o, u16, 2)++;
@@ -418,17 +418,17 @@ void func_sc06_020_8017C0A4(u8 *arg0) {
     }
 }
 
-typedef struct { SV8 v[4]; CV c; s32 code; } Quad28;
-typedef struct { u8 pad[0x20]; u8 *m; } ObjM;
-typedef struct { U12 e[9]; } U12x9;
-typedef struct { s32 vx, vy, vz, pad; } V4F20;
-typedef struct { s16 x, y, z, pad; } SV_8E8A0;
-typedef struct { s32 x, y, z, pad; } VEC_8E8A0;
-typedef struct { s16 m[3][3]; s32 t[3]; } MAT_8E8A0;
-typedef struct { u8 r, g, b, cd; } CV_8E8A0;
-typedef struct { SV_8E8A0 pt[4]; CV_8E8A0 col[4]; s32 code; } PRIM_8E8A0;
-typedef struct { s32 x, y, z; } POS_8E8A0;
-typedef struct { s16 x, y, z, kind, unk8; u16 flags; s16 unkC, unkE; s32 unk10; } SpawnDef;
+typedef struct { struct_8_4 field_0[4]; struct_4_3 field_20; s32 field_24; } struct_28;
+typedef struct { u8 field_0[0x20]; u8 *field_20; } struct_24;
+typedef struct { struct_C_5 field_0[9]; } struct_6C;
+typedef struct { s32 field_0, field_4, field_8, field_C; } struct_10_5;
+typedef struct { s16 field_0, field_2, field_4, field_6; } struct_8_10;
+typedef struct { s32 field_0, field_4, field_8, field_C; } struct_10_6;
+typedef struct { s16 field_0[3][3]; s32 field_14[3]; } struct_20_9;
+typedef struct { u8 field_0, field_1, field_2, field_3; } struct_4_7;
+typedef struct { struct_8_10 field_0[4]; struct_4_7 field_20[4]; s32 field_30; } struct_34_6;
+typedef struct { s32 field_0, field_4, field_8; } struct_C_6;
+typedef struct { s16 field_0, field_2, field_4, field_6, field_8; u16 field_A; s16 field_C, field_E; s32 field_10; } struct_14_6;
 extern void func_sc06_020_8017D918();
 extern void func_80015978();
 extern s32 func_800178EC();
@@ -442,10 +442,10 @@ extern s16 D_80126CB0;
 
 extern s16 D_sc06_020_80188A7C;
 extern void func_800139C8();
-typedef struct { unsigned lo : 31; unsigned top : 1; } TB;
+typedef struct { unsigned field_0_b0 : 31; unsigned field_3_b7 : 1; } struct_4_8;
 
 void func_sc06_020_8017C120(u8 *arg0) {
-    SV8 out;
+    struct_8_4 out;
     u8 *b;
     s16 *p;
     s32 a;
@@ -455,8 +455,8 @@ void func_sc06_020_8017C120(u8 *arg0) {
     AF(arg0, s32, 0x2C) = a;
     *(p = &D_sc06_020_80188A7C) = rsin(a) / 256;
     func_800139C8(AF(b, s16, 0x14), p - 2, &out);
-    AF(arg0, s16, 6) = AF(arg0, u16, 0x12) + out.x;
-    AF(arg0, s16, 0xE) = AF(arg0, u16, 0x1A) + out.z;
+    AF(arg0, s16, 6) = AF(arg0, u16, 0x12) + out.field_0;
+    AF(arg0, s16, 0xE) = AF(arg0, u16, 0x1A) + out.field_4;
     if (--AF(arg0, s32, 0x1C) == -1) {
         func_80146E90(arg0, 0x10);
         AF(arg0, u16, 2)++;
@@ -479,10 +479,10 @@ void func_sc06_020_8017C1DC(u8 *arg0) {
 
 void func_sc06_020_8017C24C(u8 *obj) {
     s32 tmp[3];
-    volatile SV8 box[8];
-    SV8 scr[8];
-    MtxDCM ls;
-    GteDCM g;
+    volatile struct_8_4 box[8];
+    struct_8_4 scr[8];
+    struct_20_4 ls;
+    struct_1C_2 g;
     s32 zlim;
     s32 i;
     s32 n;
@@ -490,7 +490,7 @@ void func_sc06_020_8017C24C(u8 *obj) {
     u32 *ot;
     u8 *hdr;
     u8 *verts;
-    ChunkDCM *c;
+    struct_14_2 *c;
     u32 *poly;
     u32 nf;
     u32 j;
@@ -508,36 +508,36 @@ void func_sc06_020_8017C24C(u8 *obj) {
     zlim = ReadGeomScreen() + AF(obj, s32, 0x64);
     GsGetLs(obj + 0x10, &ls);
     GsSetLsMatrix(&ls);
-    pk = g_PrimNext;
-    ot = g_WorldOtTable[D_800B9A02];
-    c = AF(obj, ChunkDCM *, 0xC);
+    pk = D_800A5E60;
+    ot = D_800A6610[D_800B9A02];
+    c = AF(obj, struct_14_2 *, 0xC);
     hdr = AF(obj, u8 *, 8);
     n = AF(hdr, s32, 8);
     verts = AF(hdr, u8 *, 0x10);
     for (i = 0; i < n; i++, c++) {
-        y = c->y;
-        xl = c->x;
-        xh = c->x >> 16;
+        y = c->field_4;
+        xl = c->field_0;
+        xh = c->field_0 >> 16;
         yl = y;
         yh = y >> 16;
-        x = c->z;
+        x = c->field_8;
         y = x >> 16;
-        box[0].x = xl; box[0].y = yl;
-        box[1].x = xh; box[1].y = yl;
-        box[2].x = xl; box[2].y = yl;
-        box[3].x = xh; box[3].y = yl;
-        box[4].x = xl; box[4].y = yh;
-        box[5].x = xh; box[5].y = yh;
-        box[6].x = xl; box[6].y = yh;
-        box[7].x = xh; box[7].y = yh;
-        box[0].z = x;
-        box[1].z = x;
-        box[4].z = x;
-        box[5].z = x;
-        box[2].z = y;
-        box[3].z = y;
-        box[6].z = y;
-        box[7].z = y;
+        box[0].field_0 = xl; box[0].field_2 = yl;
+        box[1].field_0 = xh; box[1].field_2 = yl;
+        box[2].field_0 = xl; box[2].field_2 = yl;
+        box[3].field_0 = xh; box[3].field_2 = yl;
+        box[4].field_0 = xl; box[4].field_2 = yh;
+        box[5].field_0 = xh; box[5].field_2 = yh;
+        box[6].field_0 = xl; box[6].field_2 = yh;
+        box[7].field_0 = xh; box[7].field_2 = yh;
+        box[0].field_4 = x;
+        box[1].field_4 = x;
+        box[4].field_4 = x;
+        box[5].field_4 = x;
+        box[2].field_4 = y;
+        box[3].field_4 = y;
+        box[6].field_4 = y;
+        box[7].field_4 = y;
         gte_ldv3c(&box[0]);
         gte_rtpt();
         gte_stsxy3(&scr[0], &scr[1], &scr[2]);
@@ -550,31 +550,31 @@ void func_sc06_020_8017C24C(u8 *obj) {
         gte_ldv0(&box[7]);
         gte_rtps();
         gte_stsxy(&scr[7]);
-        gte_stszotz(&g.zbox);
-        if (g.zbox > zlim) continue;
+        gte_stszotz(&g.field_0);
+        if (g.field_0 > zlim) continue;
 
-        if (scr[0].x > scr[1].x) { hi = scr[0].x; lo = scr[1].x; } else { lo = scr[0].x; hi = scr[1].x; }
-        if (scr[2].x > hi) hi = scr[2].x; else if (scr[2].x < lo) lo = scr[2].x;
-        if (scr[3].x > hi) hi = scr[3].x; else if (scr[3].x < lo) lo = scr[3].x;
-        if (scr[4].x > scr[5].x) { hi2 = scr[4].x; lo2 = scr[5].x; } else { lo2 = scr[4].x; hi2 = scr[5].x; }
-        if (scr[6].x > hi2) hi2 = scr[6].x; else if (scr[6].x < lo2) lo2 = scr[6].x;
-        if (scr[7].x > hi2) hi2 = scr[7].x; else if (scr[7].x < lo2) lo2 = scr[7].x;
+        if (scr[0].field_0 > scr[1].field_0) { hi = scr[0].field_0; lo = scr[1].field_0; } else { lo = scr[0].field_0; hi = scr[1].field_0; }
+        if (scr[2].field_0 > hi) hi = scr[2].field_0; else if (scr[2].field_0 < lo) lo = scr[2].field_0;
+        if (scr[3].field_0 > hi) hi = scr[3].field_0; else if (scr[3].field_0 < lo) lo = scr[3].field_0;
+        if (scr[4].field_0 > scr[5].field_0) { hi2 = scr[4].field_0; lo2 = scr[5].field_0; } else { lo2 = scr[4].field_0; hi2 = scr[5].field_0; }
+        if (scr[6].field_0 > hi2) hi2 = scr[6].field_0; else if (scr[6].field_0 < lo2) lo2 = scr[6].field_0;
+        if (scr[7].field_0 > hi2) hi2 = scr[7].field_0; else if (scr[7].field_0 < lo2) lo2 = scr[7].field_0;
         l = lo; if (lo2 < l) l = lo2;
         h = hi; if (h < hi2) h = hi2;
         if ((s16)h < -160 || (s16)l > 160) continue;
 
-        if (scr[0].y > scr[1].y) { hi = scr[0].y; lo = scr[1].y; } else { lo = scr[0].y; hi = scr[1].y; }
-        if (scr[2].y > hi) hi = scr[2].y; else if (scr[2].y < lo) lo = scr[2].y;
-        if (scr[3].y > hi) hi = scr[3].y; else if (scr[3].y < lo) lo = scr[3].y;
-        if (scr[4].y > scr[5].y) { hi2 = scr[4].y; lo2 = scr[5].y; } else { lo2 = scr[4].y; hi2 = scr[5].y; }
-        if (scr[6].y > hi2) hi2 = scr[6].y; else if (scr[6].y < lo2) lo2 = scr[6].y;
-        if (scr[7].y > hi2) hi2 = scr[7].y; else if (scr[7].y < lo2) lo2 = scr[7].y;
+        if (scr[0].field_2 > scr[1].field_2) { hi = scr[0].field_2; lo = scr[1].field_2; } else { lo = scr[0].field_2; hi = scr[1].field_2; }
+        if (scr[2].field_2 > hi) hi = scr[2].field_2; else if (scr[2].field_2 < lo) lo = scr[2].field_2;
+        if (scr[3].field_2 > hi) hi = scr[3].field_2; else if (scr[3].field_2 < lo) lo = scr[3].field_2;
+        if (scr[4].field_2 > scr[5].field_2) { hi2 = scr[4].field_2; lo2 = scr[5].field_2; } else { lo2 = scr[4].field_2; hi2 = scr[5].field_2; }
+        if (scr[6].field_2 > hi2) hi2 = scr[6].field_2; else if (scr[6].field_2 < lo2) lo2 = scr[6].field_2;
+        if (scr[7].field_2 > hi2) hi2 = scr[7].field_2; else if (scr[7].field_2 < lo2) lo2 = scr[7].field_2;
         l = lo; if (lo2 < l) l = lo2;
         h = hi; if (h < hi2) h = hi2;
         if ((s16)h < -120 || (s16)l > 120) continue;
 
-        poly = c->poly;
-        nf = c->n;
+        poly = c->field_10;
+        nf = c->field_C;
         for (j = 0; j < nf; j++, poly += 3) {
             w = poly[1];
             a = (s32)(verts + (w & 0xFFFF));
@@ -584,19 +584,19 @@ void func_sc06_020_8017C24C(u8 *obj) {
             w >>= 16;
             gte_ldv3(a, b, d3);
             gte_rtpt();
-            gte_stflg(&g.flag);
-            if (g.flag & 0x7F85E000) continue;
+            gte_stflg(&g.field_4);
+            if (g.field_4 & 0x7F85E000) continue;
             gte_nclip();
             type = w & 7;
             d = verts + (w & 0xFFF8);
-            gte_stopz(&g.z);
-            if (g.z <= 0) continue;
+            gte_stopz(&g.field_8);
+            if (g.field_8 <= 0) continue;
             switch (type) {
             case 4:
             case 5:
             { u32 *otp; s16 p0, p1, p2, q0, q1, q2; s32 m, m2;
                 gte_stsxy3_f3(pk);
-                gte_stsz3(&g.sz0, &g.sz1, &g.sz2);
+                gte_stsz3(&g.field_C, &g.field_10, &g.field_14);
                 p0 = AF(pk, s16, 8); p1 = AF(pk, s16, 0xC);
                 if (p0 > p1) { xh = p0; xl = p1; } else { xl = p0; xh = p1; }
                 p2 = AF(pk, s16, 0x10);
@@ -607,11 +607,11 @@ void func_sc06_020_8017C24C(u8 *obj) {
                 q2 = AF(pk, s16, 0x12);
                 if (q2 > yh) yh = q2; else if (q2 < yl) yl = q2;
                 if (yh < -120 || yl > 120) continue;
-                if (g.sz0 > g.sz1) { m = g.sz0; if (m < g.sz2) m = g.sz2; } else { m = g.sz1; if (m < g.sz2) m = g.sz2; }
-                g.z = m;
-                if (type != 4) g.z = m + 0x200;
+                if (g.field_C > g.field_10) { m = g.field_C; if (m < g.field_14) m = g.field_14; } else { m = g.field_10; if (m < g.field_14) m = g.field_14; }
+                g.field_8 = m;
+                if (type != 4) g.field_8 = m + 0x200;
                 AF(pk, u32, 4) = poly[0];
-                otp = (u32 *)(((g.z >> 2) << 2) + (u32)ot);
+                otp = (u32 *)(((g.field_8 >> 2) << 2) + (u32)ot);
                 *(u32 *)pk = (*otp & 0xFFFFFF) | 0x4000000;
                 *otp = (*otp & 0xFF000000) | ((u32)pk & 0xFFFFFF);
                 pk += 0x14;
@@ -621,7 +621,7 @@ void func_sc06_020_8017C24C(u8 *obj) {
             case 7:
             { u32 *otp; s16 p0, p1, p2, q0, q1, q2; s32 m, m2;
                 gte_stsxy3_ft3(pk);
-                gte_stsz3(&g.sz0, &g.sz1, &g.sz2);
+                gte_stsz3(&g.field_C, &g.field_10, &g.field_14);
                 p0 = AF(pk, s16, 8); p1 = AF(pk, s16, 0x10);
                 if (p0 > p1) { xh = p0; xl = p1; } else { xl = p0; xh = p1; }
                 p2 = AF(pk, s16, 0x18);
@@ -632,15 +632,15 @@ void func_sc06_020_8017C24C(u8 *obj) {
                 q2 = AF(pk, s16, 0x1A);
                 if (q2 > yh) yh = q2; else if (q2 < yl) yl = q2;
                 if (yh < -120 || yl > 120) continue;
-                if (g.sz0 > g.sz1) { m = g.sz0; if (m < g.sz2) m = g.sz2; } else { m = g.sz1; if (m < g.sz2) m = g.sz2; }
-                g.z = m;
-                if (type == 7) g.z = m + 0x200;
+                if (g.field_C > g.field_10) { m = g.field_C; if (m < g.field_14) m = g.field_14; } else { m = g.field_10; if (m < g.field_14) m = g.field_14; }
+                g.field_8 = m;
+                if (type == 7) g.field_8 = m + 0x200;
                 t = (u32 *)poly[0];
                 AF(pk, u32, 4) = t[0];
                 AF(pk, u32, 0xC) = t[1];
                 AF(pk, u32, 0x14) = t[2];
                 AF(pk, u16, 0x1C) = t[3];
-                otp = (u32 *)(((g.z >> 2) << 2) + (u32)ot);
+                otp = (u32 *)(((g.field_8 >> 2) << 2) + (u32)ot);
                 *(u32 *)pk = (*otp & 0xFFFFFF) | 0x7000000;
                 *otp = (*otp & 0xFF000000) | ((u32)pk & 0xFFFFFF);
                 pk += 0x20;
@@ -660,9 +660,9 @@ void func_sc06_020_8017C24C(u8 *obj) {
                 if (q0 > q1) { yh = q0; yl = q1; } else { yl = q0; yh = q1; }
                 q2 = AF(pk, s16, 0x12);
                 if (q2 > yh) yh = q2; else if (q2 < yl) yl = q2;
-                gte_stflg(&g.flag);
-                if (g.flag & 0x7F85E000) continue;
-                gte_stsz4(&g.sz0, &g.sz1, &g.sz2, &g.sz3);
+                gte_stflg(&g.field_4);
+                if (g.field_4 & 0x7F85E000) continue;
+                gte_stsz4(&g.field_C, &g.field_10, &g.field_14, &g.field_18);
                 gte_stsxy(pk + 0x14);
                 p3 = AF(pk, s16, 0x14);
                 if (p3 < xl) xl = p3; else if (p3 > xh) xh = p3;
@@ -670,11 +670,11 @@ void func_sc06_020_8017C24C(u8 *obj) {
                 q3 = AF(pk, s16, 0x16);
                 if (q3 < yl) yl = q3; else if (q3 > yh) yh = q3;
                 if (yh < -120 || yl > 120) continue;
-                za = g.sz2; if (za < g.sz3) za = g.sz3;
-                zb = g.sz0; if (zb < g.sz1) zb = g.sz1;
+                za = g.field_14; if (za < g.field_18) za = g.field_18;
+                zb = g.field_C; if (zb < g.field_10) zb = g.field_10;
                 zc = zb;
                 if (zc < za) zc = za;
-                g.z = zc;
+                g.field_8 = zc;
                 otp = (u32 *)(((zc >> 2) << 2) + (u32)ot);
                 AF(pk, u32, 4) = poly[0];
                 *(u32 *)pk = (*otp & 0xFFFFFF) | 0x5000000;
@@ -696,9 +696,9 @@ void func_sc06_020_8017C24C(u8 *obj) {
                 if (q0 > q1) { yh = q0; yl = q1; } else { yl = q0; yh = q1; }
                 q2 = AF(tmp, s16, 0xA);
                 if (q2 > yh) yh = q2; else if (q2 < yl) yl = q2;
-                gte_stflg(&g.flag);
-                if (g.flag & 0x7F85E000) continue;
-                gte_stsz4(&g.sz0, &g.sz1, &g.sz2, &g.sz3);
+                gte_stflg(&g.field_4);
+                if (g.field_4 & 0x7F85E000) continue;
+                gte_stsz4(&g.field_C, &g.field_10, &g.field_14, &g.field_18);
                 gte_stsxy(pk + 0x20);
                 p3 = AF(pk, s16, 0x20);
                 if (p3 < xl) xl = p3; else if (p3 > xh) xh = p3;
@@ -706,11 +706,11 @@ void func_sc06_020_8017C24C(u8 *obj) {
                 q3 = AF(pk, s16, 0x22);
                 if (q3 < yl) yl = q3; else if (q3 > yh) yh = q3;
                 if (yh < -120 || yl > 120) continue;
-                za = g.sz2; if (za < g.sz3) za = g.sz3;
-                zb = g.sz0; if (zb < g.sz1) zb = g.sz1;
+                za = g.field_14; if (za < g.field_18) za = g.field_18;
+                zb = g.field_C; if (zb < g.field_10) zb = g.field_10;
                 if (zb < za) zb = za;
-                g.z = zb;
-                if (type == 3) g.z = zb + 0x200;
+                g.field_8 = zb;
+                if (type == 3) g.field_8 = zb + 0x200;
                 AF(pk, s32, 8) = tmp[0];
                 AF(pk, s32, 0x10) = tmp[1];
                 AF(pk, s32, 0x18) = tmp[2];
@@ -722,7 +722,7 @@ void func_sc06_020_8017C24C(u8 *obj) {
                 AF(pk, u16, 0x1C) = tw;
                 tw >>= 16;
                 AF(pk, u16, 0x24) = tw;
-                otp = (u32 *)(((g.z >> 2) << 2) + (u32)ot);
+                otp = (u32 *)(((g.field_8 >> 2) << 2) + (u32)ot);
                 *(u32 *)pk = (*otp & 0xFFFFFF) | 0x9000000;
                 *otp = (*otp & 0xFF000000) | ((u32)pk & 0xFFFFFF);
                 pk += 0x28;
@@ -731,7 +731,7 @@ void func_sc06_020_8017C24C(u8 *obj) {
             }
         }
     }
-    g_PrimNext = pk;
+    D_800A5E60 = pk;
 }
 
 void func_sc06_020_8017D12C(void) {
@@ -825,55 +825,55 @@ void func_sc06_020_8017D464(s32 arg0) {
     D_sc06_020_80188B10[AF(arg0, u8, 4)]();
 }
 
-typedef struct { s16 x, y, z; } SV6;
-typedef struct { s32 w[4]; } W16;
-typedef struct { s16 x, y; s32 col; } Star8;
-typedef struct { SV8 p[3]; CV4 c[3]; s32 code; } TriArg;
-typedef struct { s32 a; s32 c4; s32 c8; s16 ang; s16 e; s32 pad10[2]; s32 t18; s32 done; s32 f20; } Fx24;
-typedef struct { s16 x, y, z, w; s16 a, b, c, d; s32 e; } BF70S;
-typedef struct { SV8 v[4]; s32 a, b, c, d, e, f; } Q;
-typedef struct { s16 v; s16 pad[5]; } E12s;
-typedef struct { u8 v; u8 pad[11]; } E12b;
-typedef struct { u32 tag; u32 code; s16 x, y; u8 u, v; u16 clut; s16 w, h; } Sprt;
-typedef struct { s8 lo; u8 hi; } S8P;
-typedef struct { u16 v; } U16R;
-typedef struct { u32 tag; u8 r0, g0, b0, code; s16 x0, y0; u8 r1, g1, b1, p1; s16 x1, y1; u8 r2, g2, b2, p2; s16 x2, y2; u8 r3, g3, b3, p3; s16 x3, y3; } PolyG4;
-typedef struct { s32 v; } S32R;
-typedef struct { u8 pad[0x10]; XY pt[12]; } Pts80182FD4;
+typedef struct { s16 field_0, field_2, field_4; } struct_6;
+typedef struct { s32 field_0[4]; } struct_10_7;
+typedef struct { s16 field_0, field_2; s32 field_4; } struct_8_11;
+typedef struct { struct_8_4 field_0[3]; struct_4_4 field_18[3]; s32 field_24; } struct_28_2;
+typedef struct { s32 field_0; s32 field_4; s32 field_8; s16 field_C; s16 field_E; s32 field_10[2]; s32 field_18; s32 field_1C; s32 field_20; } struct_24_2;
+typedef struct { s16 field_0, field_2, field_4, field_6; s16 field_8, field_A, field_C, field_E; s32 field_10; } struct_14_7;
+typedef struct { struct_8_4 field_0[4]; s32 field_20, field_24, field_28, field_2C, field_30, field_34; } struct_38_2;
+typedef struct { s16 field_0; s16 field_2[5]; } struct_C_7;
+typedef struct { u8 field_0; u8 field_1[11]; } struct_C_8;
+typedef struct { u32 field_0; u32 field_4; s16 field_8, field_A; u8 field_C, field_D; u16 field_E; s16 field_10, field_12; } struct_14_8;
+typedef struct { s8 field_0; u8 field_1; } struct_2;
+typedef struct { u16 field_0; } struct_2_2;
+typedef struct { u32 field_0; u8 field_4, field_5, field_6, field_7; s16 field_8, field_A; u8 field_C, field_D, field_E, field_F; s16 field_10, field_12; u8 field_14, field_15, field_16, field_17; s16 field_18, field_1A; u8 field_1C, field_1D, field_1E, field_1F; s16 field_20, field_22; } struct_24_3;
+typedef struct { s32 field_0; } struct_4_9;
+typedef struct { u8 field_0[0x10]; struct_4_2 field_10[12]; } struct_40;
 typedef struct {
-    u32 tag;
-    u8 r0, g0, b0, code;
-    s16 x0, y0;
-    u8 u0, v0;
-    u16 clut;
-    s16 x1, y1;
-    u8 u1, v1;
-    u16 tpage;
-    s16 x2, y2;
-    u8 u2, v2;
-    u16 pad1;
-    s16 x3, y3;
-    u8 u3, v3;
-    u16 pad2;
-} PFT4;
-typedef struct { u32 tag; u32 code; } PMODE;
-typedef struct { u8 pad[0x10]; XY t[13]; } FANUV;
-typedef struct { s32 v; u8 pad[8]; } E12w;
-typedef struct { s32 v; s32 pad; } E8w;
-typedef struct { SV4 p[4]; s32 c[4]; s32 col; s32 code; u8 flag; } Q74;
+    u32 field_0;
+    u8 field_4, field_5, field_6, field_7;
+    s16 field_8, field_A;
+    u8 field_C, field_D;
+    u16 field_E;
+    s16 field_10, field_12;
+    u8 field_14, field_15;
+    u16 field_16;
+    s16 field_18, field_1A;
+    u8 field_1C, field_1D;
+    u16 field_1E;
+    s16 field_20, field_22;
+    u8 field_24, field_25;
+    u16 field_26;
+} struct_28_3;
+typedef struct { u32 field_0; u32 field_4; } struct_8_12;
+typedef struct { u8 field_0[0x10]; struct_4_2 field_10[13]; } struct_44;
+typedef struct { s32 field_0; u8 field_4[8]; } struct_C_9;
+typedef struct { s32 field_0; s32 field_4; } struct_8_13;
+typedef struct { struct_8_7 field_0[4]; s32 field_20[4]; s32 field_30; s32 field_34; u8 field_38; } struct_3C;
 extern void func_80178BF8();
 extern void func_80172710();
-extern SV8 D_sc06_020_801B753C[];
+extern struct_8_4 D_sc06_020_801B753C[];
 
-typedef struct { s16 xl, x, yl, y, zl, z, pl, ph; } HV16;
-typedef struct { u16 a, b, c, d; } U16x4;
-typedef struct { s32 a; s32 b; } P8;
-typedef struct { u16 x, y, z, pad; } uV4;
-typedef struct { s16 m[3][3]; s32 t[3]; } wMtx;
-typedef struct { u8 pad[0x18]; wMtx wsm; } workHead;
-typedef struct { u16 v[6]; } u12;
-typedef struct { u16 a, b, c, pad; } Rec801AC2F0;
-typedef struct { SV8 v[4]; CV4 c; s32 code; } Q1C;
+typedef struct { s16 field_0, field_2, field_4, field_6, field_8, field_A, field_C, field_E; } struct_10_8;
+typedef struct { u16 field_0, field_2, field_4, field_6; } struct_8_14;
+typedef struct { s32 field_0; s32 field_4; } struct_8_15;
+typedef struct { u16 field_0, field_2, field_4, field_6; } struct_8_16;
+typedef struct { s16 field_0[3][3]; s32 field_14[3]; } struct_20_10;
+typedef struct { u8 field_0[0x18]; struct_20_10 field_18; } struct_38_3;
+typedef struct { u16 field_0[6]; } struct_C_10;
+typedef struct { u16 field_0, field_2, field_4, field_6; } struct_8_17;
+typedef struct { struct_8_4 field_0[4]; struct_4_4 field_20; s32 field_24; } struct_28_4;
 extern s32 func_sc06_020_8018353C();
 extern s32 func_8012C51C();
 
@@ -881,8 +881,8 @@ extern u8 D_80126940;
 extern s32 func_80148800();
 extern s16 D_sc06_020_80188B14[];
 void func_sc06_020_8017D4A0(u8 *o) {
-    typedef struct { u8 b[8]; } B8;
-    B8 v;
+    typedef struct { u8 field_0[8]; } struct_8_18;
+    struct_8_18 v;
     u8 t;
 
     if (func_80148800(&D_80126B58) & 3) {
@@ -890,7 +890,7 @@ void func_sc06_020_8017D4A0(u8 *o) {
         AF(o, u8, 5) = t;
         AF(o, s32, 0x14) = D_sc06_020_80188B14[t];
     }
-    v = *(B8 *)&D_80126940;
+    v = *(struct_8_18 *)&D_80126940;
     if (AF(&v, s16, 2) < -0x102) {
         AF(&v, s16, 2) = -0x102;
     }
@@ -898,9 +898,9 @@ void func_sc06_020_8017D4A0(u8 *o) {
 }
 
 void func_sc06_020_8017D558(u8 *arg0, u8 *arg1) {
-    FeMtx m;
-    FeSv v;
-    FeSv o;
+    struct_20_6 m;
+    struct_8_9 v;
+    struct_8_9 o;
 
     AF(arg0, s32, 8) = (s16) func_80012C6C(AF(arg0, s16, 8), AF(arg0, s16, 0xC), 4);
     AF(arg0, s32, 0x10) = (s16) func_80012C6C(AF(arg0, s16, 0x10), AF(arg0, s16, 0x14), 4);
@@ -914,16 +914,16 @@ void func_sc06_020_8017D558(u8 *arg0, u8 *arg1) {
     AF(arg0, s32, 0x4C) = AF(arg0, s16, 0x2A) + AF(arg1, s16, 2);
     AF(arg0, s32, 0x50) = AF(arg0, s16, 0x2C) + AF(arg1, s16, 4);
     RotMatrixZYX(arg0 + 0x18, &m);
-    m.t[0] = AF(arg0, s16, 0x28) + AF(arg1, s16, 0);
-    m.t[1] = AF(arg0, s16, 0x2A) + AF(arg1, s16, 2);
-    m.t[2] = AF(arg0, s16, 0x2C) + AF(arg1, s16, 4);
-    v.x = 0;
-    v.y = 0;
-    v.z = AF(arg0, s32, 0x10);
+    m.field_14[0] = AF(arg0, s16, 0x28) + AF(arg1, s16, 0);
+    m.field_14[1] = AF(arg0, s16, 0x2A) + AF(arg1, s16, 2);
+    m.field_14[2] = AF(arg0, s16, 0x2C) + AF(arg1, s16, 4);
+    v.field_0 = 0;
+    v.field_2 = 0;
+    v.field_4 = AF(arg0, s32, 0x10);
     func_8012F14C(&m, &v, &o);
-    AF(arg0, s32, 0x3C) = o.x;
-    AF(arg0, s32, 0x40) = o.y;
-    AF(arg0, s32, 0x44) = o.z;
+    AF(arg0, s32, 0x3C) = o.field_0;
+    AF(arg0, s32, 0x40) = o.field_2;
+    AF(arg0, s32, 0x44) = o.field_4;
 }
 
 void func_sc06_020_8017D6F0(u8 *arg0) {
@@ -969,68 +969,68 @@ void func_sc06_020_8017D79C(u8 *o) {
 }
 
 void func_sc06_020_8017D918(u8 *o, s32 n, s32 a, s32 b, s32 k, s32 m) {
-    typedef struct { SV8 v[4]; XY uv[4]; s32 c[4]; s32 code; u8 tp; } P;
-    P q;
-    XY xy;
-    P *p;
+    typedef struct { struct_8_4 field_0[4]; struct_4_2 field_20[4]; s32 field_30[4]; s32 field_40; u8 field_44; } struct_48;
+    struct_48 q;
+    struct_4_2 xy;
+    struct_48 *p;
     p = &q;
     func_80015978(o + 4, &xy);
-    p->v[0].x = xy.x + a;
-    p->v[0].y = xy.y + 0x80;
-    p->v[1].x = xy.x + b;
-    p->v[1].y = xy.y - 0x80;
+    p->field_0[0].field_0 = xy.field_0 + a;
+    p->field_0[0].field_2 = xy.field_2 + 0x80;
+    p->field_0[1].field_0 = xy.field_0 + b;
+    p->field_0[1].field_2 = xy.field_2 - 0x80;
     switch (n) {
     case 0:
-        p->v[2].x = xy.x - 0xA0;
-        p->v[2].y = xy.y + 0x80;
-        p->v[3].x = xy.x - 0xA0;
-        p->v[3].y = xy.y - 0x80;
+        p->field_0[2].field_0 = xy.field_0 - 0xA0;
+        p->field_0[2].field_2 = xy.field_2 + 0x80;
+        p->field_0[3].field_0 = xy.field_0 - 0xA0;
+        p->field_0[3].field_2 = xy.field_2 - 0x80;
         break;
     case 1:
-        p->v[2].x = xy.x + 0xA0;
-        p->v[2].y = xy.y + 0x80;
-        p->v[3].x = xy.x + 0xA0;
-        p->v[3].y = xy.y - 0x80;
+        p->field_0[2].field_0 = xy.field_0 + 0xA0;
+        p->field_0[2].field_2 = xy.field_2 + 0x80;
+        p->field_0[3].field_0 = xy.field_0 + 0xA0;
+        p->field_0[3].field_2 = xy.field_2 - 0x80;
         break;
     }
-    p->v[0].z = 0;
-    p->c[0] = p->c[1] = k;
-    p->c[2] = p->c[3] = m;
-    p->uv[0].x = AF(o, s32, 0xE4) + 0xC00;
-    p->uv[0].y = 0x100;
-    p->uv[1].x = AF(o, s32, 0xE4) + 0xC3F;
-    p->uv[1].y = 0x100;
-    p->uv[2].x = AF(o, s32, 0xE4) + 0xC00;
-    p->uv[2].y = 0x13F;
-    p->uv[3].x = AF(o, s32, 0xE4) + 0xC3F;
-    p->uv[3].y = 0x13F;
-    p->tp = 0x36;
-    p->code = 0x50000000;
+    p->field_0[0].field_4 = 0;
+    p->field_30[0] = p->field_30[1] = k;
+    p->field_30[2] = p->field_30[3] = m;
+    p->field_20[0].field_0 = AF(o, s32, 0xE4) + 0xC00;
+    p->field_20[0].field_2 = 0x100;
+    p->field_20[1].field_0 = AF(o, s32, 0xE4) + 0xC3F;
+    p->field_20[1].field_2 = 0x100;
+    p->field_20[2].field_0 = AF(o, s32, 0xE4) + 0xC00;
+    p->field_20[2].field_2 = 0x13F;
+    p->field_20[3].field_0 = AF(o, s32, 0xE4) + 0xC3F;
+    p->field_20[3].field_2 = 0x13F;
+    p->field_44 = 0x36;
+    p->field_40 = 0x50000000;
     func_800178EC(p);
 }
 
 s32 func_sc06_020_8017DA50(u8 *o) {
-    V3 d;
+    struct_C_4 d;
 
-    d.x = D_80126CAC - AF(o, s16, 0);
-    d.y = 0;
-    d.z = D_80126CB0 - AF(o, s16, 4);
+    d.field_0 = D_80126CAC - AF(o, s16, 0);
+    d.field_4 = 0;
+    d.field_8 = D_80126CB0 - AF(o, s16, 4);
     gte_ldlvl(&d);
     gte_sqr0();
     gte_stlvnl(&d);
-    return (u32) (d.x + d.y + d.z + 0xFFF9BFFF) <= 0x14FFEU;
+    return (u32) (d.field_0 + d.field_4 + d.field_8 + 0xFFF9BFFF) <= 0x14FFEU;
 }
 
 s32 func_sc06_020_8017DAE4(u8 *o) {
-    V3 d;
+    struct_C_4 d;
 
-    d.x = D_80126CAC - AF(o, s16, 6);
-    d.y = 0;
-    d.z = D_80126CB0 - AF(o, s16, 0xE);
+    d.field_0 = D_80126CAC - AF(o, s16, 6);
+    d.field_4 = 0;
+    d.field_8 = D_80126CB0 - AF(o, s16, 0xE);
     gte_ldlvl(&d);
     gte_sqr0();
     gte_stlvnl(&d);
-    return d.x + d.y + d.z > 0xC3FFF;
+    return d.field_0 + d.field_4 + d.field_8 > 0xC3FFF;
 }
 
 s32 func_sc06_020_8017DB68(void) {
@@ -1065,7 +1065,7 @@ void func_sc06_020_8017DBE0(u8 *o) {
         } else {
             AF(o, s16, 2) = 1;
             AF(o, s32, 0x1C) = 0x1E;
-            SetScript(o, &D_sc06_020_801B59B0);
+            func_8012A828(o, &D_sc06_020_801B59B0);
         }
         break;
     case 1:
@@ -1108,7 +1108,7 @@ void func_sc06_020_8017DE4C(u8 *o) {
     r = rand() % 1024;
     e = AF(o, s32, 0xE8);
     AF(o, s32, 0xE8) = (rand() & 1) ? e + r : e - r;
-    SetScript(o, &D_sc06_020_801B64D0);
+    func_8012A828(o, &D_sc06_020_801B64D0);
     AF(o, s16, 2) = 3;
     AF(o, s32, 0xE0) &= ~0x40;
 }
@@ -1142,7 +1142,7 @@ void func_sc06_020_8017DF14(u8 *o) {
 }
 
 void func_sc06_020_8017E080(s32 arg0) {
-    SetScript(arg0, (s32) &D_sc06_020_801B5A18);
+    func_8012A828(arg0, (s32) &D_sc06_020_801B5A18);
     AF(arg0, s32, 0x48) = 0x4650;
     AF(arg0, s16, 2) = 5;
 }
@@ -1187,7 +1187,7 @@ void func_sc06_020_8017E0C0(s32 arg0) {
 void func_sc06_020_8017E248(u8 *arg0) {
     AF(arg0, s32, 0x1C) = 0x20;
     AF(arg0, s16, 2) = 7;
-    SetScript((s32) arg0, (s32) &D_sc06_020_801B59B0);
+    func_8012A828((s32) arg0, (s32) &D_sc06_020_801B59B0);
 }
 
 void func_sc06_020_8017E27C(s32 arg0) {
@@ -1213,7 +1213,7 @@ void func_sc06_020_8017E27C(s32 arg0) {
 }
 
 void func_sc06_020_8017E304(s32 arg0) {
-    SetScript(arg0, (s32) &D_sc06_020_801B5AC0);
+    func_8012A828(arg0, (s32) &D_sc06_020_801B5AC0);
     AF(arg0, s16, 2) = 9;
     AF(arg0, s32, 0xE0) = (s32) ((AF(arg0, s32, 0xE0) | 2) & ~0x10);
 }
@@ -1235,13 +1235,13 @@ void func_sc06_020_8017E350(u8 *o) {
             d = func_8012BCCC(o);
             if (d <= 0xFFFFF) {
                 if (d < 0x4000) {
-                    SetScript(o, &D_sc06_020_801B63D8);
+                    func_8012A828(o, &D_sc06_020_801B63D8);
                     AF(o, s32, 0xE0) &= ~0x10;
                 } else if (d < 0x6400) {
                     if (!(AF(o, s32, 0xE0) & 0x10)) {
-                        SetScript(o, &D_sc06_020_801B63D8);
+                        func_8012A828(o, &D_sc06_020_801B63D8);
                     } else {
-                        SetScript(o, &D_sc06_020_801B5AC0);
+                        func_8012A828(o, &D_sc06_020_801B5AC0);
                         AF(o, s32, 0xE0) &= ~0x10;
                     }
                 } else {
@@ -1257,7 +1257,7 @@ void func_sc06_020_8017E350(u8 *o) {
 }
 
 void func_sc06_020_8017E48C(s32 arg0) {
-    SetScript(arg0, (s32) &D_sc06_020_801B63D8);
+    func_8012A828(arg0, (s32) &D_sc06_020_801B63D8);
     AF(arg0, s16, 2) = 0xB;
     AF(arg0, s16, 0x34) = 0;
     AF(arg0, s32, 0x10) = (s32) (AF(arg0, s32, 0x10) * 2);
@@ -1305,7 +1305,7 @@ void func_sc06_020_8017E4E0(s32 arg0) {
 }
 
 void func_sc06_020_8017E630(s32 arg0) {
-    SetScript(arg0, (s32) &D_sc06_020_801B5D08);
+    func_8012A828(arg0, (s32) &D_sc06_020_801B5D08);
     AF(arg0, s16, 2) = 0xD;
     AF(arg0, s32, 0x1C) = 0x28;
 }
@@ -1313,7 +1313,7 @@ void func_sc06_020_8017E630(s32 arg0) {
 void func_sc06_020_8017E670(s32 arg0) {
     s32 sp10;
 
-    FaceHelper(arg0, (s32) &D_sc06_020_8019E994, (s32) &sp10);
+    func_8012F214(arg0, (s32) &D_sc06_020_8019E994, (s32) &sp10);
     if (((func_8012BEE8(arg0) != 0) && !(D_80126B9C & 2)) || (func_sc06_020_801833F4((s32) &sp10, (s32) AF(AF(arg0, void *, 0x20), s16, 0x12), 0x400) == 0)) {
         AF(arg0, s16, 2) = 4;
     }
@@ -1336,7 +1336,7 @@ void func_sc06_020_8017E6EC(u8 *o) {
         func_8012C218(AF(o, u8 *, 0xCC));
         AF(o, u8 *, 0xCC) = 0;
         func_8001C924(AF(o, u8 *, 0x20), &D_sc06_020_801A4EAC);
-        SetScript(o, &D_sc06_020_801B5A18);
+        func_8012A828(o, &D_sc06_020_801B5A18);
         AF(o, s32, 0x1C) = 0x200;
         AF(o, s32, 0xE0) &= ~4;
         AF(o, s16, 0x34)++;
@@ -1354,7 +1354,7 @@ void func_sc06_020_8017E6EC(u8 *o) {
         func_8012C218(AF(o, u8 *, 0xD0));
         AF(o, u8 *, 0xD0) = 0;
         func_8001C924(AF(o, u8 *, 0x20), &D_sc06_020_801A16E8);
-        SetScript(o, &D_sc06_020_801B5A18);
+        func_8012A828(o, &D_sc06_020_801B5A18);
         AF(o, s32, 0x48) = 0x4650;
         AF(o, s16, 2) = 5;
         AF(o, s32, 0xE0) |= 1;
@@ -1365,13 +1365,13 @@ void func_sc06_020_8017E6EC(u8 *o) {
     else func_8012B178(o, 0xFFF90000);
     func_sc06_020_801817CC(o);
     if (func_80013350(o + 4, t + 4) < 0x900) {
-        if (AF(o, u16, 0x34) == 0) SetScript(o, &D_sc06_020_801B6918);
+        if (AF(o, u16, 0x34) == 0) func_8012A828(o, &D_sc06_020_801B6918);
         AF(o, s16, 0x34)++;
     }
 }
 
 void func_sc06_020_8017E96C(s32 arg0) {
-    SetScript(arg0, (s32) &D_sc06_020_801B59B0);
+    func_8012A828(arg0, (s32) &D_sc06_020_801B59B0);
     AF(arg0, s16, 2) = 0x10;
     AF(arg0, s16, 0x34) = 0;
     AF(arg0, s32, 0xE8) = func_8012B864(arg0);
@@ -1400,7 +1400,7 @@ void func_sc06_020_8017E9B4(u8 *arg0, s32 arg1, s32 arg2) {
 }
 
 void func_sc06_020_8017EA74(s32 arg0) {
-    SetScript(arg0, (s32) &D_sc06_020_801B6098);
+    func_8012A828(arg0, (s32) &D_sc06_020_801B6098);
     AF(arg0, s32, 0x48) = 0x4650;
     AF(arg0, s16, 2) = 0x12;
 }
@@ -1443,14 +1443,14 @@ void func_sc06_020_8017EC18(u8 *arg0) {
         AF(arg0, s16, 0x34) = 0;
         var_a1 = &D_sc06_020_8019E78C;
     }
-    SetScript((s32) arg0, (s32) var_a1);
+    func_8012A828((s32) arg0, (s32) var_a1);
 }
 
 void func_sc06_020_8017EC6C(u8 *o) {
     switch (AF(o, u16, 0x34)) {
     case 0:
         if (AF(o, u16, 0x72) & 0x4000) {
-            SetScript(o, &D_sc06_020_801B5D60);
+            func_8012A828(o, &D_sc06_020_801B5D60);
             AF(o, u16, 0x34)++;
         }
         break;
@@ -1459,14 +1459,14 @@ void func_sc06_020_8017EC6C(u8 *o) {
             if (!(AF(o, s32, 0xE0) & 0x400)) {
                 AF(o, s16, 2) = 0x15;
             } else {
-                SetScript(o, &D_sc06_020_801B6150);
+                func_8012A828(o, &D_sc06_020_801B6150);
                 AF(o, u16, 0x34)++;
             }
         }
         break;
     case 2:
         if (AF(o, u16, 0x72) & 0x4000) {
-            SetScript(o, &D_sc06_020_801B6098);
+            func_8012A828(o, &D_sc06_020_801B6098);
             AF(o, s32, 0x48) = 0x4650;
             AF(o, s16, 2) = 0x12;
         }
@@ -1477,7 +1477,7 @@ void func_sc06_020_8017EC6C(u8 *o) {
 void func_sc06_020_8017ED7C(u8 *arg0) {
     AF(arg0, s16, 2) = 0x16;
     if (!(AF(arg0, s32, 0xE0) & 0x400)) {
-        SetScript((s32) arg0, (s32) &D_sc06_020_801B5D60);
+        func_8012A828((s32) arg0, (s32) &D_sc06_020_801B5D60);
         AF(arg0, s16, 0x34) = 4;
         AF(arg0, s32, 0x1C) = 0xF;
         return;
@@ -1487,8 +1487,8 @@ void func_sc06_020_8017ED7C(u8 *arg0) {
 }
 
 void func_sc06_020_8017EDE4(s32 arg0) {
-    SV8 p;
-    SMtx m;
+    struct_8_4 p;
+    struct_20_3 m;
     s32 d;
     s32 t;
 
@@ -1500,12 +1500,12 @@ void func_sc06_020_8017EDE4(s32 arg0) {
         if (func_8012BEE8(arg0) == 0 && d != 0) {
             break;
         }
-        SetScript(arg0, &D_sc06_020_8019E78C);
+        func_8012A828(arg0, &D_sc06_020_8019E78C);
         AF(arg0, u16, 0x34)++;
         break;
     case 1:
         if (AF(arg0, u16, 0x72) & 0x4000) {
-            SetScript(arg0, &D_sc06_020_801B5DC8);
+            func_8012A828(arg0, &D_sc06_020_801B5DC8);
             AF(arg0, u16, 0x34)++;
         }
         break;
@@ -1515,10 +1515,10 @@ void func_sc06_020_8017EDE4(s32 arg0) {
                 AF(arg0, s16, 2) = 0x14;
 if (!(AF(arg0, s32, 0xE0) & 0x400)) {
                     AF(arg0, u16, 0x34) = 1;
-                    SetScript(arg0, &D_sc06_020_801B5D60);
+                    func_8012A828(arg0, &D_sc06_020_801B5D60);
                 } else {
                     AF(arg0, u16, 0x34) = 0;
-                    SetScript(arg0, &D_sc06_020_8019E78C);
+                    func_8012A828(arg0, &D_sc06_020_8019E78C);
                 }
                 break;
             }
@@ -1528,15 +1528,15 @@ if (!(AF(arg0, s32, 0xE0) & 0x400)) {
                     AF(arg0, s16, 2) = 0x14;
 if (!(AF(arg0, s32, 0xE0) & 0x400)) {
                         AF(arg0, u16, 0x34) = 1;
-                        SetScript(arg0, &D_sc06_020_801B5D60);
+                        func_8012A828(arg0, &D_sc06_020_801B5D60);
                     } else {
                         AF(arg0, u16, 0x34) = 0;
-                        SetScript(arg0, &D_sc06_020_8019E78C);
+                        func_8012A828(arg0, &D_sc06_020_8019E78C);
                     }
                     break;
                 }
             } else if ((u32) (d - 0x24000) > 0xA0000) {
-                SetScript(arg0, &D_sc06_020_801B6150);
+                func_8012A828(arg0, &D_sc06_020_801B6150);
                 AF(arg0, u16, 0x34)++;
                 break;
             }
@@ -1549,7 +1549,7 @@ if (!(AF(arg0, s32, 0xE0) & 0x400)) {
             func_8012EA90(arg0, 0xB, &m);
             func_8012F14C(&m, &D_sc06_020_8019E9A4, &p);
             ((s32 (*)()) func_sc06_020_801842E0)(arg0, &p);
-            gte_SetRotMatrix((SMtx *) (AF(arg0, s32, 0x20) + 0x34));
+            gte_SetRotMatrix((struct_20_3 *) (AF(arg0, s32, 0x20) + 0x34));
             gte_ldclmv(&m);
             gte_rtir();
             gte_stclmv(&m);
@@ -1559,10 +1559,10 @@ if (!(AF(arg0, s32, 0xE0) & 0x400)) {
             gte_ldclmv((u8 *) &m + 4);
             gte_rtir();
             gte_stclmv((u8 *) &m + 4);
-            gte_SetTransMatrix((SMtx *) (AF(arg0, s32, 0x20) + 0x34));
-            gte_ldlv0(m.t);
+            gte_SetTransMatrix((struct_20_3 *) (AF(arg0, s32, 0x20) + 0x34));
+            gte_ldlv0(m.field_14);
             gte_rtv0tr();
-            gte_stlvnl(m.t);
+            gte_stlvnl(m.field_14);
             func_8012F14C(&m, &D_sc06_020_8019E9A4, &p);
             func_sc06_020_8018348C(arg0, &p, 0x282, 2, -0x120, 0);
             func_sc06_020_8018348C(arg0, &p, 0x282, 2, 0, 0);
@@ -1572,14 +1572,14 @@ if (!(AF(arg0, s32, 0xE0) & 0x400)) {
         break;
     case 3:
         if (AF(arg0, u16, 0x72) & 0x4000) {
-            SetScript(arg0, &D_sc06_020_801B6098);
+            func_8012A828(arg0, &D_sc06_020_801B6098);
             AF(arg0, s32, 0x48) = 0x4650;
             AF(arg0, s16, 2) = 0x12;
         }
         break;
     case 4:
         if (func_8012BEE8(arg0) != 0) {
-            SetScript(arg0, &D_sc06_020_801B5DC8);
+            func_8012A828(arg0, &D_sc06_020_801B5DC8);
             AF(arg0, u16, 0x34) = 2;
         }
         break;
@@ -1603,13 +1603,13 @@ void func_sc06_020_8017F264(u8 *o) {
         func_sc06_020_801817CC(o);
         if (func_80013350(o + 4, t + 4) < 0x900) {
             AF(o, s16, 0x34)++;
-            SetScript(o, &D_sc06_020_801B6918);
+            func_8012A828(o, &D_sc06_020_801B6918);
         }
     } else if (AF(o, s16, 0x98) == 0) {
         func_8012C218(AF(o, u8 *, 0xCC));
         AF(o, u8 *, 0xCC) = 0;
         func_8001C924(AF(o, u8 *, 0x20), &D_sc06_020_801A58C0);
-        SetScript(o, &D_sc06_020_801B6098);
+        func_8012A828(o, &D_sc06_020_801B6098);
         AF(o, s32, 0x48) = 0x4650;
         AF(o, s16, 2) = 0x12;
         AF(o, s32, 0xE0) &= ~4;
@@ -1621,7 +1621,7 @@ void func_sc06_020_8017F3D8(u8 *arg0) {
     s32 e;
 
     AF(arg0, s16, 2) = 0x19;
-    SetScript((s32) arg0, (s32) &D_sc06_020_801B5FD0);
+    func_8012A828((s32) arg0, (s32) &D_sc06_020_801B5FD0);
     AF(arg0, s32, 0x1C) = rand() % 64 + 0x80;
     r = rand() % 1024;
     e = AF(arg0, s32, 0xE8);
@@ -1637,7 +1637,7 @@ void func_sc06_020_8017F490(u8 *o) {
     func_8012B178(o, -0x43000);
     AF(o, s32, 0xE0) &= ~0x40;
     if (!func_sc06_020_801817CC(o)) func_sc06_020_80181954(o);
-    FaceHelper(o, &D_sc06_020_8019E994, sp10);
+    func_8012F214(o, &D_sc06_020_8019E994, sp10);
     if (func_sc06_020_801833F4(sp10, AF(AF(o, u8 *, 0x20), s16, 0x12), 0x380) && func_8012BCCC(o) < 0x64000) {
         AF(o, s16, 2) = 0x1C;
     } else if (func_8012BEE8(o)) {
@@ -1647,14 +1647,14 @@ void func_sc06_020_8017F490(u8 *o) {
 
 void func_sc06_020_8017F570(u8 *arg0) {
     AF(arg0, s16, 2) = 0x1B;
-    SetScript((s32) arg0, (s32) &D_sc06_020_801B5B88);
+    func_8012A828((s32) arg0, (s32) &D_sc06_020_801B5B88);
     AF(arg0, s32, 0x1C) = 0x20;
 }
 
 void func_sc06_020_8017F5B0(s32 arg0) {
     s32 sp10[2];
 
-    FaceHelper(arg0, (s32) &D_sc06_020_8019E994, (s32) sp10);
+    func_8012F214(arg0, (s32) &D_sc06_020_8019E994, (s32) sp10);
     if (func_sc06_020_801833F4((s32) sp10, (s32) AF(AF(arg0, void *, 0x20), s16, 0x12), 0x380) != 0 && func_8012BCCC(arg0) <= 0x63FFF) {
         AF(arg0, s16, 2) = 0x1C;
         return;
@@ -1668,22 +1668,22 @@ void func_sc06_020_8017F630(u8 *arg0) {
     AF(arg0, s16, 2) = 0x1D;
     AF(arg0, s16, 0x34) = 0;
     AF(arg0, s32, 0x1C) = 0xF;
-    SetScript((s32) arg0, (s32) &D_sc06_020_801B5B88);
+    func_8012A828((s32) arg0, (s32) &D_sc06_020_801B5B88);
 }
 
 void func_sc06_020_8017F668(u8 *o) {
-    MTX m;
-    V3 vec;
-    SV8 rot;
-    SV8 pos;
-    SV8 face;
+    struct_20_8 m;
+    struct_C_4 vec;
+    struct_8_4 rot;
+    struct_8_4 pos;
+    struct_8_4 face;
     u8 *c;
     s32 i;
     if (AF(o, u16, 0x34) == 0) {
         if (!func_8012BEE8()) {
             return;
         }
-        SetScript(o, &D_sc06_020_801B5C00);
+        func_8012A828(o, &D_sc06_020_801B5C00);
         AF(o, s16, 0x34)++;
     }
     if (AF(o, s32, 0x94) < 0xE) {
@@ -1695,36 +1695,36 @@ void func_sc06_020_8017F668(u8 *o) {
         c = func_80132EF4(o, 0x22);
         if (c != 0) {
             AF(c, s16, 0x34) = 0x7002;
-            AF(c, s16, 6) = pos.x;
-            AF(c, s16, 0xA) = pos.y;
-            AF(c, s16, 0xE) = pos.z;
+            AF(c, s16, 6) = pos.field_0;
+            AF(c, s16, 0xA) = pos.field_2;
+            AF(c, s16, 0xE) = pos.field_4;
             AF(AF(c, u8 *, 0x20), u16, 0x2C) = 0xC006;
         }
-        rot.x = 0x40;
-        rot.y = AF(AF(o, u8 *, 0x20), s16, 0x12);
-        rot.z = 0;
+        rot.field_0 = 0x40;
+        rot.field_2 = AF(AF(o, u8 *, 0x20), s16, 0x12);
+        rot.field_4 = 0;
         RotMatrixZYX(&rot, &m);
         for (i = 0; i < 5; i++) {
             c = func_80132EF4(o, 0x22);
             if (c != 0) {
-                vec.x = vec.y = 0;
-                vec.z = (rand() % 5 + 4) << 16;
+                vec.field_0 = vec.field_4 = 0;
+                vec.field_8 = (rand() % 5 + 4) << 16;
                 ApplyMatrixLV(&m, &vec, c + 0x10);
                 AF(c, s16, 0x34) = ((rand() % 2 + 2) << 12) | 1;
                 AF(AF(c, u8 *, 0x20), u16, 0x2C) = 0xC006;
                 func_sc06_020_801834F0(o, &D_sc06_020_8019E9BC + i * 8, &pos, 0xB);
-                AF(c, s16, 6) = pos.x;
-                AF(c, s16, 0xA) = pos.y;
-                AF(c, s16, 0xE) = pos.z;
+                AF(c, s16, 6) = pos.field_0;
+                AF(c, s16, 0xA) = pos.field_2;
+                AF(c, s16, 0xE) = pos.field_4;
             }
         }
         func_sc06_020_80183FD0(o, 0x8BE);
     }
     if (AF(o, u16, 0x72) & 0x4000) {
-        FaceHelper(o, &D_sc06_020_8019E994, &face);
+        func_8012F214(o, &D_sc06_020_8019E994, &face);
         if (func_8012BCCC(o) > 0x63FFF || func_sc06_020_801833F4(&face, AF(AF(o, u8 *, 0x20), s16, 0x12), 0x380) == 0) {
             AF(o, s16, 2) = 0x1B;
-            SetScript(o, &D_sc06_020_801B5B88);
+            func_8012A828(o, &D_sc06_020_801B5B88);
             AF(o, s32, 0x1C) = 0x20;
         }
     }
@@ -1747,7 +1747,7 @@ void func_sc06_020_8017F93C(u8 *o) {
         func_sc06_020_801817CC(o);
         if (func_80013350(o + 4, t + 4) < 0x900) {
             AF(o, s16, 0x34)++;
-            SetScript(o, &D_sc06_020_801B6918);
+            func_8012A828(o, &D_sc06_020_801B6918);
         }
     } else if (AF(o, s16, 0x98) == 0) {
         func_8012C218(AF(o, u8 *, 0xCC));
@@ -1756,22 +1756,22 @@ void func_sc06_020_8017F93C(u8 *o) {
         AF(o, s16, 2) = 0x1D;
         AF(o, s16, 0x34) = 0;
         AF(o, s32, 0x1C) = 0xF;
-        SetScript(o, &D_sc06_020_801B5B88);
+        func_8012A828(o, &D_sc06_020_801B5B88);
         AF(o, s32, 0xE0) &= ~4;
     }
 }
 
 void func_sc06_020_8017FAB4(u8 *arg0) {
     AF(arg0, s16, 2) = 0x20;
-    SetScript((s32) arg0, (s32) &D_sc06_020_801B5F18);
+    func_8012A828((s32) arg0, (s32) &D_sc06_020_801B5F18);
     AF(arg0, s32, 0x1C) = 0;
     AF(arg0, s32, 0xE4) = 0;
     AF(arg0, s32, 0x48) = 0x4650;
 }
 
 void func_sc06_020_8017FAFC(u8 *o) {
-    SV8 x;
-    SV8 w;
+    struct_8_4 x;
+    struct_8_4 w;
     s32 v;
     s32 *vp;
     s32 t;
@@ -1809,8 +1809,8 @@ void func_sc06_020_8017FAFC(u8 *o) {
     AF(o, s32, 0xE0) &= ~0x40;
     if (func_sc06_020_801817CC(o) == 0) {
         func_sc06_020_80181954(o);
-        w.x = w.y = 0;
-        w.z = -0x100;
+        w.field_0 = w.field_2 = 0;
+        w.field_4 = -0x100;
         func_8012F14C(AF(o, u8 *, 0x20) + 0x34, &w, p);
     }
     if (D_800B99DA % 40 == 0) {
@@ -1845,14 +1845,14 @@ void func_sc06_020_8017FD9C(u8 *o) {
         func_sc06_020_801817CC(o);
         if (func_80013350(o + 4, p + 4) < 0x900) {
             AF(o, s16, 0x34)++;
-            SetScript(o, &D_sc06_020_801B6918);
+            func_8012A828(o, &D_sc06_020_801B6918);
         }
     } else if (AF(o, s16, 0x98) == 0) {
         func_8012C218(AF(o, u8 *, 0xCC));
         AF(o, u8 *, 0xCC) = 0;
         func_8001C924(AF(o, s32, 0x20), &D_sc06_020_801A5CC4);
         AF(o, s16, 2) = 0x20;
-        SetScript(o, &D_sc06_020_801B5F18);
+        func_8012A828(o, &D_sc06_020_801B5F18);
         AF(o, s32, 0x48) = 0x4650;
         AF(o, s32, 0x1C) = 0;
         AF(o, s32, 0xE4) = 0;
@@ -1867,8 +1867,8 @@ void func_sc06_020_8017FF18(u8 *arg0) {
 }
 
 void func_sc06_020_8017FF48(u8 *o) {
-    SV8 p;
-    SV8 q;
+    struct_8_4 p;
+    struct_8_4 q;
     s32 t;
 
     if (!(AF(o, s32, 0xE0) & 0x40)) {
@@ -1882,17 +1882,17 @@ void func_sc06_020_8017FF48(u8 *o) {
     AF(o, s32, 0xE0) &= ~0x40;
     func_8012B178(o, -0x73000);
     if (!func_sc06_020_801817CC(o)) func_sc06_020_80181954(o);
-    p.x = AF(o, s16, 6);
-    p.y = AF(o, s16, 0xA);
-    p.z = AF(o, s16, 0xE);
+    p.field_0 = AF(o, s16, 6);
+    p.field_2 = AF(o, s16, 0xA);
+    p.field_4 = AF(o, s16, 0xE);
     func_8012EFB8(&p, &q);
-    if ((q.x < 0 ? -q.x : q.x) > 0x104 || (q.y < 0 ? -q.y : q.y) > 0xC8) {
+    if ((q.field_0 < 0 ? -q.field_0 : q.field_0) > 0x104 || (q.field_2 < 0 ? -q.field_2 : q.field_2) > 0xC8) {
         func_8012C098(o);
     }
 }
 
 void func_sc06_020_801800C8(u8 *o) {
-    SV8 v;
+    struct_8_4 v;
     s16 d;
     u8 *p;
     func_8012E9C0();
@@ -1904,7 +1904,7 @@ void func_sc06_020_801800C8(u8 *o) {
         d = 1;
     }
     if (AF(o, s32, 0xE0) & 1) {
-        FaceHelper(o, &D_sc06_020_8019E994, &v);
+        func_8012F214(o, &D_sc06_020_8019E994, &v);
         if (func_sc06_020_801833F4(&v, AF(AF(o, u8 *, 0x20), s16, 0x12), 0x400)) {
             func_80146A6C(6, o, AF(o, s16, 0x7C), AF(o, s16, 0x7E), AF(o, s16, 0x80), 0, 0);
             AF(o, s16, 0xFE) -= d;
@@ -1944,15 +1944,15 @@ void func_sc06_020_801800C8(u8 *o) {
     case 35: case 36: case 37: case 40:
     case 43: case 44: case 45: case 46: case 47: case 48: case 49: case 50:
         AF(o, s16, 0x34) = 4;
-        SetScript(o, D_sc06_020_8019EB7C[AF(o, u16, 0x70) & 0xF]);
+        func_8012A828(o, D_sc06_020_8019EB7C[AF(o, u16, 0x70) & 0xF]);
         return;
     case 8:
-        SetScript(o, D_sc06_020_8019EB7C[AF(o, u16, 0x70) & 0xF]);
+        func_8012A828(o, D_sc06_020_8019EB7C[AF(o, u16, 0x70) & 0xF]);
         p = &D_sc06_020_8019E9FC;
         break;
     case 5: case 29: case 32: case 38: case 42:
         p = &D_sc06_020_8019EA0C;
-        SetScript(o, &D_sc06_020_801B6598);
+        func_8012A828(o, &D_sc06_020_801B6598);
         AF(o, s32, 0xE0) |= 8;
         AF(o, u16, 0xAE) |= 1;
         func_sc06_020_80181654(o, -0x8000);
@@ -2103,12 +2103,12 @@ void func_sc06_020_80180844(s32 arg0) {
     func_8012B14C(arg0, (s32) &D_sc06_020_8019EA0C);
     AF(arg0, s16, 0x34) = 0;
     AF(arg0, s32, 0xE0) = (s32) (AF(arg0, s32, 0xE0) | 8);
-    SetScript(arg0, (s32) &D_sc06_020_801B6598);
+    func_8012A828(arg0, (s32) &D_sc06_020_801B6598);
     func_sc06_020_80181654(arg0, 0);
 }
 
 void func_sc06_020_801808A8(u8 *arg0) {
-    SetScript((s32) arg0, D_sc06_020_8019EB8C[(AF(arg0, u16, 0x70) & 0xF)]);
+    func_8012A828((s32) arg0, D_sc06_020_8019EB8C[(AF(arg0, u16, 0x70) & 0xF)]);
     AF(arg0, s32, 0xE4) = 0;
 }
 
@@ -2124,7 +2124,7 @@ void func_sc06_020_801808F4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
 void func_sc06_020_80180970(u8 *arg0) {
     func_80131B14();
     AF(arg0, s16, 0x52) = -0x30;
-    SetScript((s32) arg0, D_sc06_020_8019EA4C[(AF(arg0, u16, 0x70) & 0xF)]);
+    func_8012A828((s32) arg0, D_sc06_020_8019EA4C[(AF(arg0, u16, 0x70) & 0xF)]);
 }
 
 void func_sc06_020_801809C0(u8 *arg0) {
@@ -2285,28 +2285,28 @@ void func_sc06_020_80180B04(s32 arg0) {
     }
 }
 
-void func_sc06_020_80180EF0(u8 *o, SV8 *v) {
-    SV8 a;
-    SV8 b;
-    SV8 c;
-    a.x = AF(o, s16, 0x3A);
-    a.y = AF(o, s16, 0x3E);
-    a.z = AF(o, s16, 0x42);
+void func_sc06_020_80180EF0(u8 *o, struct_8_4 *v) {
+    struct_8_4 a;
+    struct_8_4 b;
+    struct_8_4 c;
+    a.field_0 = AF(o, s16, 0x3A);
+    a.field_2 = AF(o, s16, 0x3E);
+    a.field_4 = AF(o, s16, 0x42);
     b = a;
-    b.x += v->x;
-    b.y += v->y;
-    b.z += v->z;
+    b.field_0 += v->field_0;
+    b.field_2 += v->field_2;
+    b.field_4 += v->field_4;
     c = b;
     func_8012CEB0(&a, &b, 1);
-    b.x -= v->x;
-    b.y -= v->y;
-    b.z -= v->z;
-    AF(o, s16, 0x3A) = b.x;
-    AF(o, s16, 0x3E) = b.y;
-    AF(o, s16, 0x42) = b.z;
-    AF(o, s16, 6) = b.x;
-    AF(o, s16, 0xA) = b.y;
-    AF(o, s16, 0xE) = b.z;
+    b.field_0 -= v->field_0;
+    b.field_2 -= v->field_2;
+    b.field_4 -= v->field_4;
+    AF(o, s16, 0x3A) = b.field_0;
+    AF(o, s16, 0x3E) = b.field_2;
+    AF(o, s16, 0x42) = b.field_4;
+    AF(o, s16, 6) = b.field_0;
+    AF(o, s16, 0xA) = b.field_2;
+    AF(o, s16, 0xE) = b.field_4;
 }
 
 void func_sc06_020_80181044(s32 arg0) {
@@ -2357,7 +2357,7 @@ void func_sc06_020_801810E8(u8 *arg0) {
             func_sc06_020_80181654((s32) arg0, -0x8000);
         }
         AF(arg0, s16, 2) = 0x22;
-        SetScript((s32) arg0, (s32) &D_sc06_020_801B69A0);
+        func_8012A828((s32) arg0, (s32) &D_sc06_020_801B69A0);
     }
     temp_v0 = AF(arg0, void *, 0x20);
     AF(temp_v0, s16, 0x14) = 0;
@@ -2375,26 +2375,26 @@ void func_sc06_020_801811A8(u8 *o) {
     if (!(e & 4)) {
         if (e & 0x800) {
             AF(o, s16, 2) = 0xE;
-            SetScript(o, &D_sc06_020_801B66F0);
+            func_8012A828(o, &D_sc06_020_801B66F0);
         } else if (!(e & 1) && AF(o, s32, 0xD0) != 0) {
             AF(o, s16, 2) = 0xE;
             AF(o, s16, 0x34) = 2;
             AF(o, s32, 0x1C) = 0x200;
-            SetScript(o, &D_sc06_020_801B5A18);
+            func_8012A828(o, &D_sc06_020_801B5A18);
         } else {
             AF(o, s16, 2) = D_sc06_020_8019EA2C[AF(o, u16, 0x70) & 0xF];
         }
     } else {
         AF(o, s16, 2) = D_sc06_020_8019EA3C[AF(o, u16, 0x70) & 0xF];
-        SetScript(o, &D_sc06_020_801B66F0);
+        func_8012A828(o, &D_sc06_020_801B66F0);
         AF(o, s32, 0x1C) = 0x200;
     }
 }
 
 s32 func_sc06_020_801812A0(u8 *o, s32 k) {
     s32 m[8];
-    SV8 a;
-    SV8 b;
+    struct_8_4 a;
+    struct_8_4 b;
     u8 unused[8];
     s32 flag;
     func_8012EC04(o, 0xB, m);
@@ -2418,7 +2418,7 @@ s32 func_sc06_020_801813C0(u8 *o) {
     if (!(D_80126B9C & 2)) return 0;
     if (func_8012BCCC(o) > 0x10000) return 0;
     if ((r = func_sc06_020_8018353C(o, 0x380)) != 0) {
-        FaceHelper(o, &D_sc06_020_8019E994, sp10);
+        func_8012F214(o, &D_sc06_020_8019E994, sp10);
         if (func_sc06_020_801833F4(sp10, AF(AF(o, u8 *, 0x20), s16, 0x12), 0x380) == 0) return 0;
         AF(o, u16, 2) = 0xC;
         r = 1;
@@ -2427,10 +2427,10 @@ s32 func_sc06_020_801813C0(u8 *o) {
 }
 
 void func_sc06_020_80181490(u8 *o) {
-    typedef struct { s32 v; } W;
-    SV8 b;
-    SV8 a;
-    W d;
+    typedef struct { s32 field_0; } struct_4_10;
+    struct_8_4 b;
+    struct_8_4 a;
+    struct_4_10 d;
     u8 *p;
     s32 i;
     s32 z;
@@ -2442,22 +2442,22 @@ void func_sc06_020_80181490(u8 *o) {
         switch (AF(p, u16, 0)) {
         case 0x27A:
             if (func_8012BC60(o + 4, p + 4) < 0x6400) {
-                d = ((W (*)())func_8012B0B4)(func_8012B6D4(o + 4, p + 4), 0xA1);
-                a.x = AF(p, s16, 6);
-                a.y = AF(p, s16, 0xA);
-                a.z = AF(p, s16, 0xE);
-                a.x += d.v;
-                a.z += d.v >> 16;
-                a.y = AF(o, s16, 0xA);
-                b.x = AF(o, s16, 0x3A);
-                b.y = AF(o, s16, 0x3E);
-                b.z = AF(o, s16, 0x42);
+                d = ((struct_4_10 (*)())func_8012B0B4)(func_8012B6D4(o + 4, p + 4), 0xA1);
+                a.field_0 = AF(p, s16, 6);
+                a.field_2 = AF(p, s16, 0xA);
+                a.field_4 = AF(p, s16, 0xE);
+                a.field_0 += d.field_0;
+                a.field_4 += d.field_0 >> 16;
+                a.field_2 = AF(o, s16, 0xA);
+                b.field_0 = AF(o, s16, 0x3A);
+                b.field_2 = AF(o, s16, 0x3E);
+                b.field_4 = AF(o, s16, 0x42);
                 if (!(func_8012CEB0(&b, &a, 0) & 0x2000)) {
                     func_8012ADE4(o);
                 } else {
-                    AF(o, s16, 6) = a.x;
-                    AF(o, s16, 0xA) = a.y;
-                    AF(o, s16, 0xE) = a.z;
+                    AF(o, s16, 6) = a.field_0;
+                    AF(o, s16, 0xA) = a.field_2;
+                    AF(o, s16, 0xE) = a.field_4;
                 }
                 return;
             }
@@ -2484,7 +2484,7 @@ void func_sc06_020_80181490(u8 *o) {
 
 s32 func_sc06_020_80181654(u8 *o, s32 a1) {
     s16 arg1 = a1;
-    SV8 buf;
+    struct_8_4 buf;
     s16 n;
     s32 flags;
     u8 *r;
@@ -2552,20 +2552,20 @@ void func_sc06_020_80181954(s32 arg0) {
 }
 
 s32 func_sc06_020_801819B4(u8 *o, s32 i) {
-    SV8 d;
-    SV8 a;
-    SV8 b;
+    struct_8_4 d;
+    struct_8_4 a;
+    struct_8_4 b;
     s32 r;
-    ApplyMatrixSV(AF(o, u8 *, 0x20) + 0x34, (SV8 *)&D_sc06_020_8019EBE4 + i, &d);
-    a.x = AF(o, s16, 6);
-    a.y = AF(o, s16, 0xA);
-    a.z = AF(o, s16, 0xE);
-    b.x = AF(o, s16, 6);
-    b.y = AF(o, s16, 0xA);
-    b.z = AF(o, s16, 0xE);
-    b.x += d.x;
-    b.y += d.y;
-    b.z += d.z;
+    ApplyMatrixSV(AF(o, u8 *, 0x20) + 0x34, (struct_8_4 *)&D_sc06_020_8019EBE4 + i, &d);
+    a.field_0 = AF(o, s16, 6);
+    a.field_2 = AF(o, s16, 0xA);
+    a.field_4 = AF(o, s16, 0xE);
+    b.field_0 = AF(o, s16, 6);
+    b.field_2 = AF(o, s16, 0xA);
+    b.field_4 = AF(o, s16, 0xE);
+    b.field_0 += d.field_0;
+    b.field_2 += d.field_2;
+    b.field_4 += d.field_4;
     r = func_8012CEB0(&a, &b, 0);
     D_sc06_020_801BA730 = func_800132BC(&a, &b);
     return r != 0x2000;
@@ -2576,10 +2576,10 @@ void func_sc06_020_80181A94(u8 *arg0) {
 }
 
 void func_sc06_020_80181AD0(u8 *o) {
-    typedef struct { s16 m[3][3]; s32 t[3]; } MTX;
-    MTX m;
-    SV8 r;
-    V3 v;
+    typedef struct { s16 field_0[3][3]; s32 field_14[3]; } struct_20_11;
+    struct_20_11 m;
+    struct_8_4 r;
+    struct_C_4 v;
     s32 n;
     u8 *p;
 
@@ -2598,12 +2598,12 @@ void func_sc06_020_80181AD0(u8 *o) {
         AF(o, u16, 2) = 2;
         return;
     }
-    v.x = v.y = 0;
-    v.z = 0xFFE80000;
+    v.field_0 = v.field_4 = 0;
+    v.field_8 = 0xFFE80000;
     n = rand() % 128;
-    r.x = !(rand() & 1) ? n - 0x380 : -0x380 - n;
-    r.y = AF(AF(AF(o, u8 *, 0x64), u8 *, 0x20), u16, 0x12) + 0x800;
-    r.z = 0;
+    r.field_0 = !(rand() & 1) ? n - 0x380 : -0x380 - n;
+    r.field_2 = AF(AF(AF(o, u8 *, 0x64), u8 *, 0x20), u16, 0x12) + 0x800;
+    r.field_4 = 0;
     RotMatrixZYX(&r, &m);
     ApplyMatrixLV(&m, &v, o + 0x10);
     AF(o, s32, 0x48) = 0x18000;
@@ -2711,7 +2711,7 @@ void func_sc06_020_80181F40(u8 *o) {
             AF(o, s16, 0xFE) = AF(((u8 *)((u32)s & ~0x1000000)), s8, 0x64);
             AF(o, s16, 0x100) = AF(((u8 *)((u32)s & ~0x1000000)), s8, 0x65);
         } else {
-            AF(o, S12, 0xFC) = AF(s, S12, 0x90);
+            AF(o, struct_C_3, 0xFC) = AF(s, struct_C_3, 0x90);
         }
         AF(AF(o, u8 *, 0x20), u8 *, 0x20) = d;
     }
@@ -2735,9 +2735,9 @@ void func_sc06_020_80181F40(u8 *o) {
     AF(o, s32, 4) = AF(par, s32, 4);
     AF(o, s32, 8) = AF(par, s32, 8);
     AF(o, s32, 0xC) = AF(par, s32, 0xC);
-    AF(o, SV8, 0x50) = AF(par, SV8, 0x50);
-    AF(AF(o, u8 *, 0x20), SV8, 0x10) = AF(AF(par, u8 *, 0x20), SV8, 0x10);
-    AF(AF(o, u8 *, 0x20), SV8, 0x18) = AF(AF(par, u8 *, 0x20), SV8, 0x18);
+    AF(o, struct_8_4, 0x50) = AF(par, struct_8_4, 0x50);
+    AF(AF(o, u8 *, 0x20), struct_8_4, 0x10) = AF(AF(par, u8 *, 0x20), struct_8_4, 0x10);
+    AF(AF(o, u8 *, 0x20), struct_8_4, 0x18) = AF(AF(par, u8 *, 0x20), struct_8_4, 0x18);
     AF(AF(o, u8 *, 0x20), s32, 4) = AF(AF(par, u8 *, 0x20), s32, 4);
     AF(AF(o, u8 *, 0x20), s16, 0x2C) = AF(AF(par, u8 *, 0x20), s16, 0x2C);
 }
@@ -2798,7 +2798,7 @@ void func_sc06_020_801823A4(s32 arg0) {
 
 void func_sc06_020_8018240C(u8 *o) {
     u8 *p;
-    SV8 v;
+    struct_8_4 v;
     if (AF(o, s16, 0xA) >= 0x10) {
         func_8012C218(o);
         return;
@@ -2840,10 +2840,10 @@ void func_sc06_020_8018240C(u8 *o) {
         }
         p = func_8012913C(0x80);
         if (p != 0) {
-            FaceHelper(o, &D_sc06_020_8019EDA8, &v);
-            AF(p, s16, 6) = v.x;
-            AF(p, s16, 0xA) = v.y;
-            AF(p, s16, 0xE) = v.z;
+            func_8012F214(o, &D_sc06_020_8019EDA8, &v);
+            AF(p, s16, 6) = v.field_0;
+            AF(p, s16, 0xA) = v.field_2;
+            AF(p, s16, 0xE) = v.field_4;
         }
         break;
     }
@@ -2899,9 +2899,9 @@ void func_sc06_020_801827FC(u8 *arg0) {
 }
 
 void func_sc06_020_80182820(u8 *arg0, s32 arg1) {
-    SV8 a;
-    SV8 b;
-    V3 c;
+    struct_8_4 a;
+    struct_8_4 b;
+    struct_C_4 c;
     s32 temp_v0_2;
     s32 temp_v1_3;
     s32 var_a2;
@@ -2928,21 +2928,21 @@ void func_sc06_020_80182820(u8 *arg0, s32 arg1) {
         }
         if (AF(temp_s2, s32, 0x94) < 0x11) {
             func_sc06_020_801834F0((s32) temp_s2, (s32) &D_sc06_020_8019ED1C, (s32) &a, 5);
-            AF(arg0, s16, 6) = a.x;
-            AF(arg0, s16, 0xA) = a.y;
-            AF(arg0, s16, 0xE) = a.z;
+            AF(arg0, s16, 6) = a.field_0;
+            AF(arg0, s16, 0xA) = a.field_2;
+            AF(arg0, s16, 0xE) = a.field_4;
             return;
         }
         func_sc06_020_801834F0((s32) temp_s2, (s32) &D_sc06_020_8019ED24, (s32) &a, 4);
         func_sc06_020_801834F0((s32) temp_s2, (s32) &D_sc06_020_8019ED24, (s32) &b, 5);
-        AF(arg0, s16, 6) = (a.x + b.x) >> 1;
-        AF(arg0, s16, 0xA) = (a.y + b.y) >> 1;
-        AF(arg0, s16, 0xE) = (a.z + b.z) >> 1;
+        AF(arg0, s16, 6) = (a.field_0 + b.field_0) >> 1;
+        AF(arg0, s16, 0xA) = (a.field_2 + b.field_2) >> 1;
+        AF(arg0, s16, 0xE) = (a.field_4 + b.field_4) >> 1;
         if (AF(temp_s2, s32, 0x94) == 0x19) {
             AF(arg0, u16, 0x34) = (u16) (AF(arg0, u16, 0x34) + 1);
-            c.x = 0;
-            c.y = -0xC0000;
-            c.z = -((func_80013328((s32) &D_80126B5C, arg0 + 4) << 0x10) / 34);
+            c.field_0 = 0;
+            c.field_4 = -0xC0000;
+            c.field_8 = -((func_80013328((s32) &D_80126B5C, arg0 + 4) << 0x10) / 34);
             func_8012B14C((s32) arg0, (s32) &c);
             AF(arg0, s32, 0x48) = 0xC000;
             return;
@@ -3015,18 +3015,18 @@ void func_sc06_020_80182820(u8 *arg0, s32 arg1) {
 
 void func_sc06_020_80182C70(s32 arg0) {
     s32 v[4];
-    FeSv a;
-    FeMtx m;
+    struct_8_9 a;
+    struct_20_6 m;
     s16 t;
 
     v[2] = 0xFFF00000;
     v[1] = 0;
     v[0] = 0;
-    a.x = 0x10;
+    a.field_0 = 0x10;
     t = AF(AF(AF(arg0, void *, 0x64), void *, 0x20), u16, 0x12) + AF(arg0, u16, 0xFC);
-    a.y = t;
+    a.field_2 = t;
     AF(arg0, s16, 0xFE) = t;
-    a.z = 0;
+    a.field_4 = 0;
     RotMatrixZYX((s32) &a, (s32) &m);
     ApplyMatrixLV((s32) &m, (s32) v, arg0 + 0x10);
     AF(arg0, s16, 2) = 8;
@@ -3036,15 +3036,15 @@ void func_sc06_020_80182C70(s32 arg0) {
 
 void func_sc06_020_80182D0C(u8 *o) {
     s32 m[8];
-    SV8 r;
-    SV8 a;
-    SV8 b;
+    struct_8_4 r;
+    struct_8_4 a;
+    struct_8_4 b;
     s32 flag[2];
     u8 *p;
 
-    r.x = AF(AF(o, u8 *, 0x20), s16, 0x10);
-    r.y = AF(AF(o, u8 *, 0x20), s16, 0x12);
-    r.z = 0;
+    r.field_0 = AF(AF(o, u8 *, 0x20), s16, 0x10);
+    r.field_2 = AF(AF(o, u8 *, 0x20), s16, 0x12);
+    r.field_4 = 0;
     RotMatrixZYX(&r, m);
     gte_SetRotMatrix(m);
     gte_SetTransMatrix(AF(o, u8 *, 0x20) + 0x34);
@@ -3086,13 +3086,13 @@ void func_sc06_020_80182F00(u8 *arg0) {
 
 s32 func_sc06_020_80182F80(u8 *o, u8 *a1, u8 *a2, s32 a3, s32 k0) {
     u16 k = k0;
-    SV8 s;
-    SV8 t;
-    SV8 u;
+    struct_8_4 s;
+    struct_8_4 t;
+    struct_8_4 u;
     u8 *p;
     s32 i;
-    FaceHelper(o, a1, &s);
-    FaceHelper(o, a2, &t);
+    func_8012F214(o, a1, &s);
+    func_8012F214(o, a2, &t);
     u = t;
     if (func_80135888(D_80126B78, D_80126B90, &s, &t)) {
         func_8012F568(1, 1, AF(AF(o, u8 *, 0x20), s16, 0x12), a3, &t, &D_801152A8);
@@ -3123,9 +3123,9 @@ s32 func_sc06_020_80182F80(u8 *o, u8 *a1, u8 *a2, s32 a3, s32 k0) {
 }
 
 void func_sc06_020_80183170(u8 *o, s32 n) {
-    MTX m;
-    VEC v;
-    SV8 r;
+    struct_20_8 m;
+    struct_10_4 v;
+    struct_8_4 r;
     s32 xy[2];
     s32 *q;
     s32 t;
@@ -3147,13 +3147,13 @@ void func_sc06_020_80183170(u8 *o, s32 n) {
             AF(p, s16, 6) += t;
             AF(p, s16, 0xE) += t >> 16;
             k = rand() % 0x80;
-            r.x = ((rand() & 1) ? k : -k) + 0x400;
+            r.field_0 = ((rand() & 1) ? k : -k) + 0x400;
             k2 = rand() % 192;
-            r.y = (rand() & 1) ? a + k2 : a - k2;
-            r.z = 0;
-            v.vy = 0;
-            v.vx = 0;
-            v.vz = (rand() % 4 + 3) << 16;
+            r.field_2 = (rand() & 1) ? a + k2 : a - k2;
+            r.field_4 = 0;
+            v.field_4 = 0;
+            v.field_0 = 0;
+            v.field_8 = (rand() % 4 + 3) << 16;
             RotMatrixZYX(&r, &m);
             ApplyMatrixLV(&m, &v, p + 0x10);
         }
@@ -3170,12 +3170,12 @@ void func_sc06_020_80183170(u8 *o, s32 n) {
 }
 
 s32 func_sc06_020_801833F4(s32 arg0, s32 arg1, s32 arg2) {
-    FeSv v;
+    struct_8_9 v;
     s32 d;
 
-    v.x = D_80126B5E;
-    v.y = D_80126B62;
-    v.z = D_80126B66;
+    v.field_0 = D_80126B5E;
+    v.field_2 = D_80126B62;
+    v.field_4 = D_80126B66;
     d = (func_8012B70C(arg0, (s32) &v) - (s16) arg1) & 0xFFF;
     if (d < 0x800) {
         return d < (s16) arg2;
@@ -3183,19 +3183,19 @@ s32 func_sc06_020_801833F4(s32 arg0, s32 arg1, s32 arg2) {
     return (0x1000 - d) < (s16) arg2;
 }
 
-s32 func_sc06_020_8018348C(u8 *o, SV8 *p, s32 a, s32 b, s32 e0, s32 f) {
-    typedef struct { s16 x, y, z, a, b, c, d, e; s32 f; } S14;
-    S14 s;
+s32 func_sc06_020_8018348C(u8 *o, struct_8_4 *p, s32 a, s32 b, s32 e0, s32 f) {
+    typedef struct { s16 field_0, field_2, field_4, field_6, field_8, field_A, field_C, field_E; s32 field_10; } struct_14_9;
+    struct_14_9 s;
     s16 e = e0;
-    s.x = p->x;
-    s.y = p->y;
-    s.z = p->z;
-    s.a = a;
-    s.b = b;
-    s.c = 0;
-    s.e = e;
-    s.f = f;
-    s.d = 0x7FFF;
+    s.field_0 = p->field_0;
+    s.field_2 = p->field_2;
+    s.field_4 = p->field_4;
+    s.field_6 = a;
+    s.field_8 = b;
+    s.field_A = 0;
+    s.field_E = e;
+    s.field_10 = f;
+    s.field_C = 0x7FFF;
     return func_8012C51C(&s, o);
 }
 
@@ -3359,7 +3359,7 @@ void func_sc06_020_80183BA4(u8 *o) {
 }
 
 void func_sc06_020_80183D98(u8 *o) {
-    Q34 q;
+    struct_34_4 q;
     u8 *p;
     if (AF(o, u16, 0x34) == 0) {
         AF(o, s32, 0xE0) -= 0x14;
@@ -3373,23 +3373,23 @@ void func_sc06_020_80183D98(u8 *o) {
             return;
         }
     }
-    q.v[0].x = 4;
-    q.v[0].y = 0;
-    q.v[0].z = 0;
-    q.v[1].x = -4;
-    q.v[1].y = 0;
-    q.v[1].z = 0;
-    q.v[2].x = 0xC;
-    q.v[2].y = 0;
-    q.v[2].z = AF(o, s32, 0xE0);
-    q.v[3].x = -0xC;
-    q.v[3].y = 0;
-    q.v[3].z = AF(o, s32, 0xE0);
-    q.code = 0x50000000;
-    q.c[0].r = q.c[0].g = q.c[0].b = 0x80;
-    q.c[1].r = q.c[1].g = q.c[1].b = 0x80;
-    q.c[2].r = q.c[2].g = q.c[2].b = 0x30;
-    q.c[3].r = q.c[3].g = q.c[3].b = 0x30;
+    q.field_0[0].field_0 = 4;
+    q.field_0[0].field_2 = 0;
+    q.field_0[0].field_4 = 0;
+    q.field_0[1].field_0 = -4;
+    q.field_0[1].field_2 = 0;
+    q.field_0[1].field_4 = 0;
+    q.field_0[2].field_0 = 0xC;
+    q.field_0[2].field_2 = 0;
+    q.field_0[2].field_4 = AF(o, s32, 0xE0);
+    q.field_0[3].field_0 = -0xC;
+    q.field_0[3].field_2 = 0;
+    q.field_0[3].field_4 = AF(o, s32, 0xE0);
+    q.field_30 = 0x50000000;
+    q.field_20[0].field_0 = q.field_20[0].field_1 = q.field_20[0].field_2 = 0x80;
+    q.field_20[1].field_0 = q.field_20[1].field_1 = q.field_20[1].field_2 = 0x80;
+    q.field_20[2].field_0 = q.field_20[2].field_1 = q.field_20[2].field_2 = 0x30;
+    q.field_20[3].field_0 = q.field_20[3].field_1 = q.field_20[3].field_2 = 0x30;
     func_80017758(&q, AF(o, u8 *, 0x20) + 0x34);
 }
 
@@ -3425,10 +3425,10 @@ void func_sc06_020_80183ED4(u8 *o) {
 
 s32 func_sc06_020_80183FD0(u8 *o, s32 snd0) {
     u16 snd = snd0;
-    SV8 a;
-    SV8 b;
-    SV8 c;
-    SV8 d;
+    struct_8_4 a;
+    struct_8_4 b;
+    struct_8_4 c;
+    struct_8_4 d;
     s32 vol;
     s16 pan;
     s32 dist;
@@ -3436,22 +3436,22 @@ s32 func_sc06_020_80183FD0(u8 *o, s32 snd0) {
     s32 x;
     vol = 0x7F;
     p = (u8 *)&D_80126B58;
-    a.x = AF(o, s16, 6);
-    a.y = AF(o, s16, 0xA);
-    a.z = AF(o, s16, 0xE);
+    a.field_0 = AF(o, s16, 6);
+    a.field_2 = AF(o, s16, 0xA);
+    a.field_4 = AF(o, s16, 0xE);
     func_8012EFB8(&a, &b);
-    b.z = 0;
-    pan = b.x / 25 + 7;
+    b.field_4 = 0;
+    pan = b.field_0 / 25 + 7;
     if (pan < 0) {
         pan = 0;
     } else if (pan >= 16) {
         pan = 15;
     }
-    c.x = AF(p, s16, 6);
-    c.y = AF(p, s16, 0xA);
-    c.z = AF(p, s16, 0xE);
+    c.field_0 = AF(p, s16, 6);
+    c.field_2 = AF(p, s16, 0xA);
+    c.field_4 = AF(p, s16, 0xE);
     func_8012EFB8(&c, &d);
-    d.z = 0;
+    d.field_4 = 0;
     dist = func_800132BC(&b, &d) - 0x400;
     if (dist > 0) {
         if (dist < 0x6E40) {
@@ -3519,19 +3519,19 @@ s32 func_sc06_020_801842E0(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 void func_sc06_020_80184310(u8 *o) {
-    SV8 a;
-    SV8 r;
-    SV8 b;
-    WMtx mat;
+    struct_8_4 a;
+    struct_8_4 r;
+    struct_8_4 b;
+    struct_20_5 mat;
     u8 *p;
     u8 *m;
-    WMtx *q;
+    struct_20_5 *q;
     s16 y;
 
     if (func_8012C354(o, &D_sc06_020_801B6BE4) == 0) {
         func_8012C218(o);
     }
-    SetScript(o, &D_sc06_020_80185388);
+    func_8012A828(o, &D_sc06_020_80185388);
     p = AF(o, u8 *, 0x20);
     AF(o, s16, 0x70) = 0x80;
     AF(p, s32, 4) |= 0x50000040;
@@ -3539,13 +3539,13 @@ void func_sc06_020_80184310(u8 *o) {
     m = AF(AF(o, u8 *, 0x64), u8 *, 0x20) + 0x34;
     func_8012F14C(m, D_sc06_020_801BA878, &a);
     b = a;
-    r.x = r.y = r.z = 0x1800;
+    r.field_0 = r.field_2 = r.field_4 = 0x1800;
     func_80017DC4(&r, &mat);
     RotMatrixZ(rand() & 0xFFF, &mat);
     MulMatrix0(m, &mat, p + 0x34);
     func_80017E68(&b, p + 0x34);
     q = D_sc06_020_801B6C18++;
-    AF(o, WMtx *, 0xCC) = q;
+    AF(o, struct_20_5 *, 0xCC) = q;
     if (D_sc06_020_801B6C18 > D_sc06_020_801BA858) {
         D_sc06_020_801B6C18 = D_sc06_020_801BA858 - 9;
     }
@@ -3553,11 +3553,11 @@ void func_sc06_020_80184310(u8 *o) {
     func_800D23D0(&r);
     RotMatrixYXZ(&r, q);
     func_80017E68(&a, q);
-    y = b.y;
-    if (func_80134510(&b) != 0 && y - b.y < 0x80) {
-        b.y = b.y - 4;
+    y = b.field_2;
+    if (func_80134510(&b) != 0 && y - b.field_2 < 0x80) {
+        b.field_2 = b.field_2 - 4;
         q = D_sc06_020_801B6C18++;
-        AF(o, WMtx *, 0xD0) = q;
+        AF(o, struct_20_5 *, 0xD0) = q;
         if (D_sc06_020_801B6C18 > D_sc06_020_801BA858) {
             D_sc06_020_801B6C18 = D_sc06_020_801BA858 - 9;
         }
@@ -3569,7 +3569,7 @@ void func_sc06_020_80184310(u8 *o) {
 }
 
 void func_sc06_020_80184554(u8 *o) {
-    QuadArg q;
+    struct_34_2 q;
     u8 *p;
     u8 *m;
     u8 *mm;
@@ -3584,22 +3584,22 @@ void func_sc06_020_80184554(u8 *o) {
         i = 0;
         m = AF(o, u8 *, 0xCC);
         v = AF(o, u16, 0x70);
-        q.p[1].x = q.p[1].y = q.p[1].z = 0;
-        q.p[0].z = q.p[2].z = q.p[3].z = 0;
-        q.c[0].r = q.c[0].g = q.c[0].b = 0;
-        q.c[2].r = q.c[2].g = q.c[2].b = 0;
-        q.c[3].r = q.c[3].g = q.c[3].b = 0;
-        q.code = 0x50000000;
-        q.c[1].g = v;
-        q.c[1].b = v;
-        q.c[1].r = v;
+        q.field_0[1].field_0 = q.field_0[1].field_2 = q.field_0[1].field_4 = 0;
+        q.field_0[0].field_4 = q.field_0[2].field_4 = q.field_0[3].field_4 = 0;
+        q.field_20[0].field_0 = q.field_20[0].field_1 = q.field_20[0].field_2 = 0;
+        q.field_20[2].field_0 = q.field_20[2].field_1 = q.field_20[2].field_2 = 0;
+        q.field_20[3].field_0 = q.field_20[3].field_1 = q.field_20[3].field_2 = 0;
+        q.field_30 = 0x50000000;
+        q.field_20[1].field_1 = v;
+        q.field_20[1].field_2 = v;
+        q.field_20[1].field_0 = v;
         for (; i < 4; i++) {
-            q.p[0].x = *t++;
-            q.p[0].y = *t++;
-            q.p[2].x = *t++;
-            q.p[2].y = *t++;
-            q.p[3].x = *t++;
-            q.p[3].y = *t++;
+            q.field_0[0].field_0 = *t++;
+            q.field_0[0].field_2 = *t++;
+            q.field_0[2].field_0 = *t++;
+            q.field_0[2].field_2 = *t++;
+            q.field_0[3].field_0 = *t++;
+            q.field_0[3].field_2 = *t++;
             t -= 2;
             func_80017758(&q, m);
         }
@@ -3609,22 +3609,22 @@ void func_sc06_020_80184554(u8 *o) {
             t = D_sc06_020_801B6BD0;
             j = 0;
             v = AF(o, u16, 0x70);
-        q.p[1].x = q.p[1].y = q.p[1].z = 0;
-        q.p[0].z = q.p[2].z = q.p[3].z = 0;
-        q.c[0].r = q.c[0].g = q.c[0].b = 0;
-        q.c[2].r = q.c[2].g = q.c[2].b = 0;
-        q.c[3].r = q.c[3].g = q.c[3].b = 0;
-        q.code = 0x50000000;
-        q.c[1].g = v;
-        q.c[1].b = v;
-        q.c[1].r = v;
+        q.field_0[1].field_0 = q.field_0[1].field_2 = q.field_0[1].field_4 = 0;
+        q.field_0[0].field_4 = q.field_0[2].field_4 = q.field_0[3].field_4 = 0;
+        q.field_20[0].field_0 = q.field_20[0].field_1 = q.field_20[0].field_2 = 0;
+        q.field_20[2].field_0 = q.field_20[2].field_1 = q.field_20[2].field_2 = 0;
+        q.field_20[3].field_0 = q.field_20[3].field_1 = q.field_20[3].field_2 = 0;
+        q.field_30 = 0x50000000;
+        q.field_20[1].field_1 = v;
+        q.field_20[1].field_2 = v;
+        q.field_20[1].field_0 = v;
         for (; j < 4; j++) {
-            q.p[0].x = *t++;
-            q.p[0].y = *t++;
-            q.p[2].x = *t++;
-            q.p[2].y = *t++;
-            q.p[3].x = *t++;
-            q.p[3].y = *t++;
+            q.field_0[0].field_0 = *t++;
+            q.field_0[0].field_2 = *t++;
+            q.field_0[2].field_0 = *t++;
+            q.field_0[2].field_2 = *t++;
+            q.field_0[3].field_0 = *t++;
+            q.field_0[3].field_2 = *t++;
             t -= 2;
             func_80017758(&q, m);
         }
@@ -3659,7 +3659,7 @@ void func_sc06_020_8018486C(s32 arg0) {
             func_8012CAE4(arg0);
             return;
         }
-        SetScript(arg0, (s32) &D_sc06_020_80185388);
+        func_8012A828(arg0, (s32) &D_sc06_020_80185388);
         AF(arg0, s16, 2) = 1;
     }
 }
@@ -3773,10 +3773,10 @@ void func_sc06_020_80184D60(s32 arg0) {
     if (func_8012C354(arg0, (s32) &D_sc06_020_801B7248) != 0) {
         AF(arg0, u16, 0xFC) = (u16) AF(AF(arg0, void *, 0x64), u16, 0x36);
         if (AF(arg0, u16, 0x70) & 0x4000) {
-            SetScript(arg0, (s32) &D_sc06_020_801B7C0C);
+            func_8012A828(arg0, (s32) &D_sc06_020_801B7C0C);
             AF(arg0, s16, 0x5C) = 0;
         } else {
-            SetScript(arg0, (s32) &D_sc06_020_801B79EC);
+            func_8012A828(arg0, (s32) &D_sc06_020_801B79EC);
         }
         AF(arg0, s16, 2) = 1;
     }
@@ -3793,13 +3793,13 @@ void func_sc06_020_80184DE8(u8 *arg0, s32 arg1) {
     if (temp_v1 == 1) {
         AF(arg0, s16, 2) = 2;
         AF(arg0, s32, 0x1C) = 0x20;
-        SetScript((s32) arg0, (s32) &D_sc06_020_801B79FC);
+        func_8012A828((s32) arg0, (s32) &D_sc06_020_801B79FC);
         AF(arg0, s16, 0x5C) = 0;
         func_8002D4C8(0x5BF, 0);
     } else if (temp_v1 == 2) {
         AF(arg0, s16, 2) = 2;
         AF(arg0, s32, 0x1C) = 0x20;
-        SetScript((s32) arg0, (s32) &D_sc06_020_801B7B04);
+        func_8012A828((s32) arg0, (s32) &D_sc06_020_801B7B04);
         AF(arg0, u16, 0x5C) = 0x8C00;
     }
 }
@@ -3811,17 +3811,17 @@ void func_sc06_020_80184EA8(u8 *arg0) {
         f = AF(arg0, s16, 0xFE);
         AF(arg0, s16, 2) = 1;
         if (f == 1) {
-            SetScript((s32) arg0, (s32) &D_sc06_020_801B7C0C);
+            func_8012A828((s32) arg0, (s32) &D_sc06_020_801B7C0C);
         } else {
-            SetScript((s32) arg0, (s32) &D_sc06_020_801B79EC);
+            func_8012A828((s32) arg0, (s32) &D_sc06_020_801B79EC);
         }
         AF(arg0, s16, 0xFE) = 0;
     }
 }
 
 s32 *func_sc06_020_80184F18(u8 *o) {
-    SV8 a;
-    SV8 b;
+    struct_8_4 a;
+    struct_8_4 b;
     s32 f;
     u8 *p;
     s32 *r;

@@ -8,7 +8,7 @@ extern void func_80146EC0();
 extern void func_800183E0();
 extern u8 D_ovl20_800CBBB8[];
 extern u8 D_ovl20_800CBB78[];
-extern AbilStep D_ovl20_800CBB10[];
+extern type_1 D_ovl20_800CBB10[];
 void func_ovl20_800CAEC0(u8 *a);
 extern void func_80162CCC();
 
@@ -33,9 +33,9 @@ extern s32 func_80165910();
 extern void func_801466F0();
 extern void func_ovl20_800CB5D4();
 extern u8 D_80078EC1;
-extern AbilStep D_ovl20_800CBB24[];
+extern type_1 D_ovl20_800CBB24[];
 extern void func_ovl20_800CB8A4();
-extern AbilStep D_ovl20_800CBB48[];
+extern type_1 D_ovl20_800CBB48[];
 extern s32 rand();
 
 void func_ovl20_800CAEC0(u8 *arg0) {
@@ -139,7 +139,7 @@ extern u16 D_800B99DA;
 extern void func_80013F3C();
 extern void func_800174DC();
 /* a textured triangle on the stack for func_800174DC: three points, three UV pairs, three colours, the code, the page */
-typedef struct { AVec p[3]; u16 uv[6]; s32 c[3]; s32 code; u8 tp; } AFT3;
+typedef struct { struct_8 field_0[3]; u16 field_18[6]; s32 field_24[3]; s32 field_30; u8 field_34; } struct_38;
 
 extern void func_ovl20_800CB5F4();
 
@@ -356,54 +356,54 @@ s32 func_ovl20_800CB8C4(s32 arg0, s32 arg1) {
 }
 
 void func_ovl20_800CB900(u8 *arg0, s16 *pos, u16 *a, u16 *b, s32 *c1, s32 *c2, s16 *ang) {
-    AFT3 s;
-    AVec v[3];
-    AMtx m;
-    AFT3 *ps;
+    struct_38 s;
+    struct_8 v[3];
+    struct_20 m;
+    struct_38 *ps;
     s32 x;
     s32 w;
     s32 y;
 
     func_80013F3C(&m);
     RotMatrixZ(*ang, &m);
-    m.t[0] = pos[0];
-    m.t[1] = pos[1];
-    m.t[2] = 0;
+    m.field_14[0] = pos[0];
+    m.field_14[1] = pos[1];
+    m.field_14[2] = 0;
     SetRotMatrix(&m);
     SetTransMatrix(&m);
-    s.code = 0x50000000;
-    s.c[0] = *c1;
-    s.c[1] = *c2;
+    s.field_30 = 0x50000000;
+    s.field_24[0] = *c1;
+    s.field_24[1] = *c2;
     w = *c2;
-    v[0].vx = a[0];
-    v[0].vy = a[1];
-    v[0].vz = 0;
-    v[1].vx = a[0] - b[0];
-    v[1].vy = b[1];
-    v[1].vz = 0;
-    v[2].vx = a[0] + b[0];
-    v[2].vy = b[1];
-    v[2].vz = 0;
-    s.c[2] = w;
+    v[0].field_0 = a[0];
+    v[0].field_2 = a[1];
+    v[0].field_4 = 0;
+    v[1].field_0 = a[0] - b[0];
+    v[1].field_2 = b[1];
+    v[1].field_4 = 0;
+    v[2].field_0 = a[0] + b[0];
+    v[2].field_2 = b[1];
+    v[2].field_4 = 0;
+    s.field_24[2] = w;
     ps = &s;
     gte_ldv0(&v[0]);
     gte_rtv0tr();
     gte_stsv(ps);
     gte_ldv0(&v[1]);
     gte_rtv0tr();
-    gte_stsv(&s.p[1]);
+    gte_stsv(&s.field_0[1]);
     gte_ldv0(&v[2]);
     gte_rtv0tr();
-    gte_stsv(&s.p[2]);
-    s.uv[1] = 0x13F;
-    s.uv[3] = 0x100;
-    s.uv[5] = 0x17F;
-    s.tp = 0x19;
-    s.p[0].vz = 1;
+    gte_stsv(&s.field_0[2]);
+    s.field_18[1] = 0x13F;
+    s.field_18[3] = 0x100;
+    s.field_18[5] = 0x17F;
+    s.field_34 = 0x19;
+    s.field_0[0].field_4 = 1;
     x = (D_800B99DA << 2) & 0x3F;
-    s.uv[0] = x | 0x680;
+    s.field_18[0] = x | 0x680;
     y = x + 0x6BF;
-    s.uv[2] = y;
-    s.uv[4] = y;
+    s.field_18[2] = y;
+    s.field_18[4] = y;
     func_800174DC(ps);
 }

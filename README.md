@@ -3,9 +3,9 @@
 A matching decompilation of Brave Fencer Musashi (PlayStation, NTSC-U, SLUS-00726): C source that GCC 2.7.2 (PsyQ)
 builds back to the original executable, overlays and stage images byte for byte. This repository is the **source of
 truth for the game's original code**: the matching decompilation in its original form, kept for research. It uses
-the splitter's address-based names (`func_8012CB64`, `D_80126B5E`) and the code exactly as matched, with no
-renaming or restructuring. The working project, Twinblade, is the readable version: it renames functions and adds
-structures on top of the same code.
+the splitter's address-based names (`func_8012CB64`, `D_80126B5E`), neutral names for the structures
+(`struct_10C`, `field_20`), and the code exactly as matched, with no restructuring. The working project, Twinblade,
+is the readable version: it renames functions and adds structures on top of the same code.
 
 ## How this repository changes
 
@@ -22,10 +22,41 @@ structures on top of the same code.
 |---|---|---|
 | 1, "Phase 1 complete" | 5 Nov 2026, 11:30 | the working repository's commit `93205e05` (local tag `phase1-complete`): every function of the 182 checked images matched |
 | 2, "Phase 1 final" | 7 Nov 2026, 13:59 | the working repository's commit `ec96cf48` (local tag `phase1-final`): commit 1 plus two cleanups that removed the last frame-padding locals marked `MATCH-TRICK` (r292, `src/stage/engine_8012F5F4.c`: three pad locals and the plain statement forms that replace them; r373, `src/stg/sc03_014_post.c` and `sc03_015_post.c`: one `u8 c[0];` line each). Nothing else in the decomp sources changed between the two |
+| 3, "Original address names restored" | 8 Nov 2026, 15:21 | the working repository's commit `bf15da33` (local tag `phase1-pristine`): commit 2's code with every name the working project gave during Phase 1 replaced by a neutral one (see "Names" below). A pure rename: no type, size, layout, expression or statement changed |
 
-Each commit holds only the decomp files of the working repository at that commit (the allowlist
-`tools/publish/manifest_phase1.txt` of the working repository; the commit messages give the file counts). The port,
-the recompiler, the publisher and every extracted asset stayed local. The dates are the original commits' dates.
+Commits 1 and 2 are the code exactly as it was matched, so they still carry the names the working project gave
+while matching (215 functions and data, the structures of `include/game.h`, `include/work.h` and
+`include/abil.h`, and the small structures each source file declares); commit 3 is the same code with those names
+neutral. Each commit holds only the decomp files of the working repository at that commit (the allowlist
+`tools/publish/manifest_phase1.txt` of the working repository; the commit messages give the file counts). Commit 3
+also adds the renaming tool, `tools/pristine_names.py`, and the SDK name list it reads,
+`tools/pristine_sdk_names.txt`. The port, the recompiler, the publisher and every extracted asset stayed local. The
+dates are the original commits' dates.
+
+## Names
+
+Since commit 3, every name in the code is one of these:
+
+* **Functions and data:** the splitter's (splat's) address name in the form of the image that owns the address:
+  `func_8001xxxx` / `D_8001xxxx` in the executable, the mode overlays, the shared stage engine and the village;
+  `func_scXX_YYY_<address>` / `D_scXX_YYY_<address>` for a stage image's own code and data;
+  `func_ovlNN_<address>` / `D_ovlNN_<address>` for an ability package's own.
+* **Inline helpers** (`static inline`, inlined, so with no address of their own): `<first caller>_inline`, with
+  `_inline_2` and so on for further helpers of the same caller.
+* **Structures:** `struct_<SIZE>` / `union_<SIZE>` (the size in hex), `_2`, `_3` and so on for further types of the
+  same size in one file (the shared headers are numbered first); fields `field_<OFFSET>` (the byte offset in hex),
+  union members `m0`, `m1` and so on, bit-fields `field_<OFFSET>_b<BIT>`. Every such offset and size was checked
+  against the compiler. Function-pointer typedefs are `type_<N>`.
+* **Kept as they are:** the PsyQ library's names (`symbol_addrs_psyq.txt`), the SDK's own types and their fields
+  (`MATRIX`, `SVECTOR`, `RECT`, `DRAWENV`, `GsSPRITE` ...; the names declared by the Runtime Library 4.0 headers,
+  listed in `tools/pristine_sdk_names.txt`), `main`, the basic types `s8` to `u32`, every macro, local variables,
+  parameters and labels (no address form exists for them), and every comment.
+
+The comments and the notes in `docs/` were written by the working project and still use its names in places
+(`StageActor`, `SetScript`, `g_SoundSlot` ...). To map an old name to its new one, run
+`python tools/pristine_names.py plan --out <dir>` on commit 2's tree: it writes every rename (old, new, address or
+offset, where it was defined) to `<dir>/renames.csv` and every kept name with its reason to `<dir>/kept.csv`
+(it needs `pycparser` in the virtual environment; the build does not).
 
 ## What "100 %" means here, and what it does not
 
@@ -39,11 +70,11 @@ file (SHA-1 and size in `tools/regress_baseline.txt`):
 | abil | the 35 ability packages | `disc/overlays/code/` |
 | stg | the other 139 stage images | `disc/pac4/` |
 
-Both commits were rebuilt from nothing on 8 Nov 2026 (a fresh checkout, no earlier build output) and gave **182 of
+Every commit was rebuilt from nothing on 8 Nov 2026 (a fresh checkout, no earlier build output) and gave **182 of
 182 byte-identical**, with the engine check below passing. In the checked images, every function the compiler made
 is written in C that GCC 2.7.2 + maspsx compiles to the original instructions. A small number of those functions
 carry one marked line that steers the compiler without changing what the code does (`/* MATCH-TRICK: ... */`: 154
-lines in commit 1, 149 in commit 2; `docs/decomp_recipes.md` explains the forms). No function is left as
+lines in commit 1, 149 in commits 2 and 3; `docs/decomp_recipes.md` explains the forms). No function is left as
 `NON_MATCHING` C.
 
 **Not C, by design or by ruling:**
@@ -112,6 +143,8 @@ wrong bytes.
 * `docs/test_infrastructure.md`: the regression suite and what each check proves
 * `docs/stage_engine.md`, `docs/overlays.md`, `docs/stage_loader.md`: how the code is split and loaded
 * `docs/stage_status.md`: functions per stage image
+
+These notes come from the working project and may use its names; "Names" above says how to map them.
 
 Brave Fencer Musashi is a trademark of its owners. This repository contains no part of the game; it is source code
 written to reproduce the game's code when built against your own copy.

@@ -1,7 +1,7 @@
 #include "common.h"
 #include "abil.h"
 
-extern AbilStep D_ovl2b_800CB610[];
+extern type_1 D_ovl2b_800CB610[];
 extern s32 func_80161104();
 void func_ovl2b_800CAF4C(u8 *a);
 extern void func_80154274();
@@ -17,11 +17,11 @@ extern s32 D_ovl2b_800CB73C;
 extern s32 D_ovl2b_800CB95C;
 extern void func_80146C3C();
 extern u8 D_80078EC1;
-extern AbilStep D_ovl2b_800CB654[];
+extern type_1 D_ovl2b_800CB654[];
 extern void func_80146CA0();
 extern s32 func_80146E98();
 extern void func_ovl2b_800CB378();
-extern AbilStep D_ovl2b_800CB634[];
+extern type_1 D_ovl2b_800CB634[];
 extern void func_801466F0();
 extern void func_801599A4();
 extern void func_80159B3C();
@@ -138,7 +138,7 @@ extern void func_80163408();
 extern void func_80163328();
 
 void func_ovl2b_800CB150(u8 *arg0) {
-    AVec v;
+    struct_8 v;
     s32 f;
     u8 *o;
     s32 i;
@@ -214,13 +214,13 @@ void func_ovl2b_800CB358(void) {
 }
 
 void func_ovl2b_800CB378(u8 *arg0) {
-    AVec v;
+    struct_8 v;
     u8 *p;
 
     for (p = D_801202A0; p < D_801202A0 + 0x6480; p += 0x10C) {
         if (func_8014C308(arg0, p, 0x27, 0x80) != 0 && func_8014C278(arg0, p, 0x60) != 0) {
             func_80015978(p + 4, &v);
-            v.pad = 0;
+            v.field_6 = 0;
             func_8014C3A4(arg0, p, 0x27, &v);
         }
     }

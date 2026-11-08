@@ -5,7 +5,7 @@
 extern void func_80162CCC();
 extern void func_800183E0();
 extern u8 D_ovl19_800CC160[];
-extern AbilStep D_ovl19_800CC104[];
+extern type_1 D_ovl19_800CC104[];
 extern s32 func_80161104();
 void func_ovl19_800CAEC0(s32 arg0);
 
@@ -27,8 +27,8 @@ void func_ovl19_800CAE78(u8 *a) {
 
 extern void func_ovl19_800CB4A8();
 extern u8 D_80078EC1;
-extern AbilStep D_ovl19_800CC124[];
-extern AbilStep D_ovl19_800CC130[];
+extern type_1 D_ovl19_800CC124[];
+extern type_1 D_ovl19_800CC130[];
 extern void func_80159B3C();
 extern s32 func_80161208();
 extern void func_80165A78();
@@ -205,7 +205,7 @@ void func_ovl19_800CB324(u8 *arg0) {
     if (temp_v0 != 0) {
         func_8001C2C4(temp_v0);
         AF(temp_v0, s32, 4) |= 0x80000000;
-        AF(temp_v0, AMtx, 0x34) = AF(AF(temp_s2, void *, 0x20), AMtx, 0x34);
+        AF(temp_v0, struct_20, 0x34) = AF(AF(temp_s2, void *, 0x20), struct_20, 0x34);
         func_ovl19_800CB4C8(arg0);
         func_80146E90(arg0, 0x40);
         func_80146CA0(arg0);
@@ -245,7 +245,7 @@ void func_ovl19_800CB4C8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     func_80015978(arg0 + 4, arg0 + 0x10);
     var_a2 = 0;
     do {
-        AF(var_s0, AVec, 0x0) = AF(arg0, AVec, 0x10);
+        AF(var_s0, struct_8, 0x0) = AF(arg0, struct_8, 0x10);
         var_a2 += 1;
         var_s0 += 8;
     } while (var_a2 < 0x14);
@@ -256,18 +256,18 @@ void func_ovl19_800CB4C8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 
 extern void func_ovl19_800CBF60();
 
-extern ACol D_ovl19_800CC114[];
+extern struct_4 D_ovl19_800CC114[];
 extern void func_80013F3C();
 extern s32 func_800130D0();
 extern void func_ovl19_800CB9F8();
 
 s32 func_ovl19_800CB578(u8 *arg0) {
-    AVec pos;
-    AMtx m;
-    AVec sc;
-    ACol c[2];
+    struct_8 pos;
+    struct_20 m;
+    struct_8 sc;
+    struct_4 c[2];
     u8 *mo;
-    AVec *p;
+    struct_8 *p;
     u16 *q;
     s16 r;
     s32 i;
@@ -288,40 +288,40 @@ s32 func_ovl19_800CB578(u8 *arg0) {
     gte_ldclmv(q);
     gte_rtir();
     gte_stclmv(q);
-    m.t[0] = AF(mo, s32, 0x48);
-    m.t[1] = AF(mo, s32, 0x4C);
-    m.t[2] = AF(mo, s32, 0x50);
+    m.field_14[0] = AF(mo, s32, 0x48);
+    m.field_14[1] = AF(mo, s32, 0x4C);
+    m.field_14[2] = AF(mo, s32, 0x50);
     AF(arg0, u16, 0x64) = (AF(arg0, u16, 0x64) + 0x71) & 0xFFF;
-    pos = AF(arg0, AVec, 0x10);
+    pos = AF(arg0, struct_8, 0x10);
     r = rsin(AF(arg0, s16, 0x62)) / 128;
-    pos.vx += r * rcos(AF(arg0, s16, 0x60)) / 4096;
-    pos.vy += r * rsin(AF(arg0, s16, 0x60)) / 4096;
+    pos.field_0 += r * rcos(AF(arg0, s16, 0x60)) / 4096;
+    pos.field_2 += r * rsin(AF(arg0, s16, 0x60)) / 4096;
     k = AF(arg0, s32, 0x50);
     AF(arg0, u16, 0x60) = (AF(arg0, u16, 0x60) + 0xE3) & 0xFFF;
     AF(arg0, u16, 0x62) = (AF(arg0, u16, 0x62) + 0x38) & 0xFFF;
-    p = ((AVec (*)[20]) &D_ovl19_800CC5B0)[k];
+    p = ((struct_8 (*)[20]) &D_ovl19_800CC5B0)[k];
     c[0] = D_ovl19_800CC114[k];
     c[1] = D_ovl19_800CC114[AF(arg0, s32, 0x50)];
-    sc.vx = sc.vy = sc.vz = 0x1000;
+    sc.field_0 = sc.field_2 = sc.field_4 = 0x1000;
     func_ovl19_800CB9F8(&pos, p, &m, c, &sc);
-    p = ((AVec (*)[20]) &D_ovl19_800CC5B0)[AF(arg0, s32, 0x50)];
+    p = ((struct_8 (*)[20]) &D_ovl19_800CC5B0)[AF(arg0, s32, 0x50)];
     for (i = 0; i < 0x12; i += 2) {
         c[0] = c[1];
-        c[1].r = func_800130D0(c[1].r, 0, 0xC);
-        c[1].g = func_800130D0(c[1].g, 0, 0xC);
-        c[1].b = func_800130D0(c[1].b, 0, 0xC);
-        sc.vx = sc.vy = sc.vz = sc.vz - 0x100;
+        c[1].field_0 = func_800130D0(c[1].field_0, 0, 0xC);
+        c[1].field_1 = func_800130D0(c[1].field_1, 0, 0xC);
+        c[1].field_2 = func_800130D0(c[1].field_2, 0, 0xC);
+        sc.field_0 = sc.field_2 = sc.field_4 = sc.field_4 - 0x100;
         func_ovl19_800CB9F8(p, p + 2, &m, c, &sc);
         p += 2;
     }
-    p = &((AVec (*)[20]) &D_ovl19_800CC5B0)[AF(arg0, s32, 0x50)][17];
+    p = &((struct_8 (*)[20]) &D_ovl19_800CC5B0)[AF(arg0, s32, 0x50)][17];
     c[0] = c[1];
-    c[1].r = func_800130D0(c[1].r, 0, 0xA);
-    c[1].g = func_800130D0(c[1].g, 0, 0xA);
-    c[1].b = func_800130D0(c[1].b, 0, 0xA);
-    sc.vx = sc.vy = sc.vz = sc.vz - 0x100;
+    c[1].field_0 = func_800130D0(c[1].field_0, 0, 0xA);
+    c[1].field_1 = func_800130D0(c[1].field_1, 0, 0xA);
+    c[1].field_2 = func_800130D0(c[1].field_2, 0, 0xA);
+    sc.field_0 = sc.field_2 = sc.field_4 = sc.field_4 - 0x100;
     func_ovl19_800CB9F8(p, p + 2, &m, c, &sc);
-    p = &((AVec (*)[20]) &D_ovl19_800CC5B0)[AF(arg0, s32, 0x50)][19];
+    p = &((struct_8 (*)[20]) &D_ovl19_800CC5B0)[AF(arg0, s32, 0x50)][19];
     for (i = 0; i < 0x13; i++) {
         p[0] = p[-1];
         p--;
@@ -329,35 +329,35 @@ s32 func_ovl19_800CB578(u8 *arg0) {
     *p = pos;
 }
 
-typedef struct { AVec v[4]; s32 c[4]; s32 code; } APrimW;
+typedef struct { struct_8 field_0[4]; s32 field_20[4]; s32 field_30; } struct_34_2;
 extern void func_80017DC4();
 extern void func_80017758();
 
-void func_ovl19_800CB9F8(u16 *a, u16 *b, AMtx *mt, s32 *c, AVec * volatile rot) {
-    APrimW s;
-    AMtx m;
+void func_ovl19_800CB9F8(u16 *a, u16 *b, struct_20 *mt, s32 *c, struct_8 * volatile rot) {
+    struct_34_2 s;
+    struct_20 m;
     u16 *q;
-    AVec *r;
-    APrimW *ps;
+    struct_8 *r;
+    struct_34_2 *ps;
 
     r = rot; /* MATCH-TRICK: rot is a volatile parameter, read once here: its entry load gets no REG_EQUIV, so combine cannot sink it past the stores into the a0 copy */
-    s.v[0].vx = a[0] - 8;
-    s.v[0].vy = a[1];
-    s.v[0].vz = a[2];
-    s.v[1].vx = a[0] + 8;
-    s.v[1].vy = a[1];
-    s.v[1].vz = a[2];
-    s.v[2].vx = b[0] - 8;
-    s.v[2].vy = b[1];
-    s.v[2].vz = b[2];
-    s.v[3].vx = b[0] + 8;
-    s.v[3].vy = b[1];
-    s.v[3].vz = b[2];
-    s.c[0] = c[0];
-    s.c[1] = c[0];
-    s.c[2] = c[1];
-    s.c[3] = c[1];
-    s.code = 0x50000000;
+    s.field_0[0].field_0 = a[0] - 8;
+    s.field_0[0].field_2 = a[1];
+    s.field_0[0].field_4 = a[2];
+    s.field_0[1].field_0 = a[0] + 8;
+    s.field_0[1].field_2 = a[1];
+    s.field_0[1].field_4 = a[2];
+    s.field_0[2].field_0 = b[0] - 8;
+    s.field_0[2].field_2 = b[1];
+    s.field_0[2].field_4 = b[2];
+    s.field_0[3].field_0 = b[0] + 8;
+    s.field_0[3].field_2 = b[1];
+    s.field_0[3].field_4 = b[2];
+    s.field_20[0] = c[0];
+    s.field_20[1] = c[0];
+    s.field_20[2] = c[1];
+    s.field_20[3] = c[1];
+    s.field_30 = 0x50000000;
     func_80017DC4(r, &m);
     ps = &s;
     gte_SetRotMatrix(mt);
@@ -372,15 +372,15 @@ void func_ovl19_800CB9F8(u16 *a, u16 *b, AMtx *mt, s32 *c, AVec * volatile rot) 
     gte_ldclmv(q);
     gte_rtir();
     gte_stclmv(q);
-    m.t[0] = mt->t[0];
-    m.t[1] = mt->t[1];
-    m.t[2] = mt->t[2];
+    m.field_14[0] = mt->field_14[0];
+    m.field_14[1] = mt->field_14[1];
+    m.field_14[2] = mt->field_14[2];
     func_80017758(ps, &m);
 }
 
 void func_ovl19_800CBC0C(u8 *arg0) {
-    AVec v;
-    AVec w;
+    struct_8 v;
+    struct_8 w;
     u8 *p;
 
     func_80015978(arg0 + 4, &w);
@@ -390,7 +390,7 @@ void func_ovl19_800CBC0C(u8 *arg0) {
     for (p = D_801202A0; p < D_801202A0 + 0x6480; p += 0x10C) {
         if (func_8014C308(arg0, p, 0x1E, 0x2000) != 0 && AF(p, s16, 0xAA) == 0 && func_8014C278(arg0, p, 0x40) != 0) {
             func_80015978(p + 4, &v);
-            v.pad = 0;
+            v.field_6 = 0;
             func_8014C3A4(arg0, p, 0x1E, &v);
         }
     }

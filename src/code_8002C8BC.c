@@ -4,53 +4,53 @@
 
 /* Five slots with an SPU RAM address each (0x10000, 0x14000, ...) */
 typedef struct {
-    /* 0x00 */ u8 pad0[2];
-    /* 0x02 */ s16 unk2;
-    /* 0x04 */ s16 unk4;
-    /* 0x06 */ u8 pad6[2];
-    /* 0x08 */ s16 unk8;
-    /* 0x0A */ u8 padA[6];
-    /* 0x10 */ u8 unk10;
-    /* 0x11 */ u8 pad11[3];
-    /* 0x14 */ s32 spuAddr;
-} SoundSlot; /* size 0x18 */
+    /* 0x00 */ u8 field_0[2];
+    /* 0x02 */ s16 field_2;
+    /* 0x04 */ s16 field_4;
+    /* 0x06 */ u8 field_6[2];
+    /* 0x08 */ s16 field_8;
+    /* 0x0A */ u8 field_A[6];
+    /* 0x10 */ u8 field_10;
+    /* 0x11 */ u8 field_11[3];
+    /* 0x14 */ s32 field_14;
+} struct_18; /* size 0x18 */
 
 /* Sound channels: 0-7 and 8-15 are initialised differently */
 typedef struct {
-    /* 0x00 */ s16 unk0;
-    /* 0x02 */ u8 pad2[2];
-    /* 0x04 */ s32 unk4;
-    /* 0x08 */ u8 pad8[2];
-    /* 0x0A */ s16 unkA;
-    /* 0x0C */ u8 padC[0x34];
-    /* 0x40 */ s32 unk40;
-    /* 0x44 */ u8 pad44[0xA];
-    /* 0x4E */ u8 unk4E;
-    /* 0x4F */ u8 pad4F;
-    /* 0x50 */ u8 unk50;
-    /* 0x51 */ u8 unk51;
-    /* 0x52 */ u8 pad52[2];
-} SoundChan; /* size 0x54 */
+    /* 0x00 */ s16 field_0;
+    /* 0x02 */ u8 field_2[2];
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ u8 field_8[2];
+    /* 0x0A */ s16 field_A;
+    /* 0x0C */ u8 field_C[0x34];
+    /* 0x40 */ s32 field_40;
+    /* 0x44 */ u8 field_44[0xA];
+    /* 0x4E */ u8 field_4E;
+    /* 0x4F */ u8 field_4F;
+    /* 0x50 */ u8 field_50;
+    /* 0x51 */ u8 field_51;
+    /* 0x52 */ u8 field_52[2];
+} struct_54; /* size 0x54 */
 
 typedef struct {
-    /* 0x0 */ s32 unk0;
-    /* 0x4 */ u8 unk4;
-    /* 0x5 */ u8 unk5;
-    /* 0x6 */ u8 pad6[0x42];
-} SoundUnk48; /* size 0x48 */
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ u8 field_4;
+    /* 0x5 */ u8 field_5;
+    /* 0x6 */ u8 field_6[0x42];
+} struct_48; /* size 0x48 */
 
 typedef struct {
-    /* 0x0 */ s32 unk0;
-    /* 0x4 */ u8 pad4[8];
-} SoundUnkC; /* size 0xC */
+    /* 0x0 */ s32 field_0;
+    /* 0x4 */ u8 field_4[8];
+} struct_C_3; /* size 0xC */
 
-extern SpuCommonAttr g_SpuCommonAttr;
+extern SpuCommonAttr D_800A4EA4;
 extern s32 D_800A4638;
 extern s32 D_800A463C;
-extern SoundSlot g_SoundSlot[5];
-extern SoundChan g_SoundChan[16];
-extern SoundUnk48 D_800A4C68[8];
-extern SoundUnkC D_800A64B0[8];
+extern struct_18 D_800A4640[5];
+extern struct_54 D_800A46E8[16];
+extern struct_48 D_800A4C68[8];
+extern struct_C_3 D_800A64B0[8];
 
 extern s32 D_800A4E68;
 extern s16 D_800A4E6C;
@@ -214,15 +214,15 @@ extern void SpuSetReverbModeParam();
 
 extern void func_80036D58(s32 n);
 
-typedef struct { u8 b[0x1A]; } E1A;
-typedef struct { u8 pad0[6]; s16 idx; u8 pad8[0x48]; E1A *list; u8 pad54[6]; u8 on; u8 pad5B[5]; } Ch60;
-extern Ch60 D_800C6DD0[];
+typedef struct { u8 field_0[0x1A]; } struct_1A;
+typedef struct { u8 field_0[6]; s16 field_6; u8 field_8[0x48]; struct_1A *field_50; u8 field_54[6]; u8 field_5A; u8 field_5B[5]; } struct_60_2;
+extern struct_60_2 D_800C6DD0[];
 
 extern s32 SpuIsTransferCompleted(s32 n);
 
 extern u16 D_8006A9C8[];
 extern u16 D_800A4EE2;
-typedef struct { u8 pad0[0x20]; s32 unk20; s32 unk24; s32 unk28; s32 unk2C; s16 unk30; u8 pad32[5]; u8 unk37; u8 unk38; u8 pad39[0x1B]; } Chan54;
+typedef struct { u8 field_0[0x20]; s32 field_20; s32 field_24; s32 field_28; s32 field_2C; s16 field_30; u8 field_32[5]; u8 field_37; u8 field_38; u8 field_39[0x1B]; } struct_54_2;
 
 extern void func_8003350C(s32 k, s16 n);
 
@@ -267,7 +267,7 @@ extern s8 D_800760D8;
 extern s8 D_800760DC;
 extern void func_8002F80C();
 
-extern s32 g_StageImageEntry;
+extern s32 D_80078E30;
 extern s32 D_80078E88;
 extern s32 D_800BA1B4;
 extern s16 D_800B9ECA;
@@ -279,8 +279,8 @@ extern void func_8002F620(void);
 
 extern u16 D_8006A9E0[];
 
-typedef struct { u8 b0, b1, b2, b3, b4, b5, b6, b7; s32 w[10]; } Req;
-extern Req D_80076118[];
+typedef struct { u8 field_0, field_1, field_2, field_3, field_4, field_5, field_6, field_7; s32 field_8[10]; } struct_30_2;
+extern struct_30_2 D_80076118[];
 
 extern s32 D_800747E8;
 extern u8 D_800AE648[];
@@ -310,37 +310,37 @@ extern void func_800128EC();
 extern s32 func_80013154(s32 a, s32 b, s32 c);
 extern void func_8001ABBC(s32 a, void *b, s32 c, s32 d, s32 e);
 extern void func_8001B3C4(void);
-extern void ApplyBgColor(void);
-extern u16 g_Pad0PrevHeld;
-extern u16 g_Pad0Held;
+extern void func_80014998(void);
+extern u16 D_80078DDA;
+extern u16 D_80078DCA;
 extern s32 D_80078E90;
 extern s8 D_800AF7C2;
 extern s8 D_800AF7C3;
 extern s8 D_800AF7C4;
-typedef struct { s16 m[3][3]; s16 pad; s32 t[3]; } Mtx;
+typedef struct { s16 field_0[3][3]; s16 field_12; s32 field_14[3]; } struct_20_3;
 
 /* Controller state, one per port (0x4C bytes) */
 typedef struct {
-    /* 0x00 */ u8 pad0[4];
-    /* 0x04 */ s32 unk4;
-    /* 0x08 */ u8 data[0x44]; /* receive buffer handed to PadInitDirect */
-} Pad;
-extern Pad g_Pads[2];
+    /* 0x00 */ u8 field_0[4];
+    /* 0x04 */ s32 field_4;
+    /* 0x08 */ u8 field_8[0x44]; /* receive buffer handed to PadInitDirect */
+} struct_4C;
+extern struct_4C D_80078D98[2];
 extern s32 D_800A4ED0;
 extern s32 func_800173DC();
 extern s32 func_8001751C();
 extern void func_80016450(u8 a, s32 b);
 extern void RotMatrixZYX(void *r, void *m);
 extern s32 D_80078EE8;
-typedef struct { s16 lo; s16 hi; } Pair;
-extern Pair D_800C5328[]; /* 0x79 pairs; D_800C532A is the hi half */
+typedef struct { s16 field_0; s16 field_2; } struct_4_2;
+extern struct_4_2 D_800C5328[]; /* 0x79 pairs; D_800C532A is the hi half */
 extern u8 D_800C532A[];
 extern u8 D_80078F28[];
 extern s32 func_8002AA3C(void);
 extern void ApplyMatrixLV();
 extern s32 D_800747C8;
 extern u8 D_800B9A64;
-extern s32 g_RumbleScript;
+extern s32 D_800747C0;
 extern u8 D_800747C4;
 extern u8 D_800747C5;
 extern void func_80028620();
@@ -360,27 +360,27 @@ void func_8002C8BC(void) {
  * Sound init: SPU master/CD volume and reverb, then default state for the
  * sound driver (5 SPU RAM slots, 16 channels, misc. mixer variables).
  */
-void InitSound(void)
+void func_8002C8F4(void)
 {
     SpuEnv env;
     s32 i;
     s32 voice;
-    SoundChan *ch;
+    struct_54 *ch;
 
     func_8003A424();
     SsInit();
 
-    g_SpuCommonAttr.mask = 0x23CF;
-    g_SpuCommonAttr.mvol.left = 0x3FFF;
-    g_SpuCommonAttr.mvol.right = 0x3FFF;
-    g_SpuCommonAttr.cd.volume.left = 0x3FFF;
-    g_SpuCommonAttr.cd.volume.right = 0x3FFF;
-    g_SpuCommonAttr.mvolmode.left = 0;
-    g_SpuCommonAttr.mvolmode.right = 0;
-    g_SpuCommonAttr.cd.reverb = 0;
-    g_SpuCommonAttr.cd.mix = 1;
-    g_SpuCommonAttr.ext.mix = 0;
-    SpuSetCommonAttr(&g_SpuCommonAttr);
+    D_800A4EA4.mask = 0x23CF;
+    D_800A4EA4.mvol.left = 0x3FFF;
+    D_800A4EA4.mvol.right = 0x3FFF;
+    D_800A4EA4.cd.volume.left = 0x3FFF;
+    D_800A4EA4.cd.volume.right = 0x3FFF;
+    D_800A4EA4.mvolmode.left = 0;
+    D_800A4EA4.mvolmode.right = 0;
+    D_800A4EA4.cd.reverb = 0;
+    D_800A4EA4.cd.mix = 1;
+    D_800A4EA4.ext.mix = 0;
+    SpuSetCommonAttr(&D_800A4EA4);
     SpuReserveReverbWorkArea(1);
     func_8002D1F0(4);
     SpuSetReverb(1);
@@ -397,34 +397,34 @@ void InitSound(void)
     D_800A4638 = 0;
     D_800A4E7A = 0;
     D_800A46E4 = 0;
-    g_SoundSlot[0].spuAddr = 0x10000;
-    g_SoundSlot[1].spuAddr = 0x14000;
-    g_SoundSlot[2].spuAddr = 0x18000;
-    g_SoundSlot[3].spuAddr = 0x39F00;
+    D_800A4640[0].field_14 = 0x10000;
+    D_800A4640[1].field_14 = 0x14000;
+    D_800A4640[2].field_14 = 0x18000;
+    D_800A4640[3].field_14 = 0x39F00;
 
     for (i = 0; i < 8; i++) {
-        D_800A64B0[i].unk0 = 0;
+        D_800A64B0[i].field_0 = 0;
     }
     for (i = 0; i < 5; i++) {
-        g_SoundSlot[i].unk10 = 1;
-        g_SoundSlot[i].unk4 = 0;
-        g_SoundSlot[i].unk2 = -1;
+        D_800A4640[i].field_10 = 1;
+        D_800A4640[i].field_4 = 0;
+        D_800A4640[i].field_2 = -1;
     }
     for (i = 0; i < 8; i++) {
-        g_SoundChan[i].unk0 = 0;
+        D_800A46E8[i].field_0 = 0;
     }
     voice = 16;
-    ch = &g_SoundChan[8];
+    ch = &D_800A46E8[8];
     for (i = 0; i < 8; i++, voice++, ch++) {
-        ch->unk51 = i;
-        ch->unkA = voice;
-        ch->unk4E = 0;
-        ch->unk4 = 0;
-        ch->unk40 = 0;
-        ch->unk50 = 0;
-        D_800A4C68[i].unk0 = voice;
-        D_800A4C68[i].unk4 = 0;
-        D_800A4C68[i].unk5 = 0;
+        ch->field_51 = i;
+        ch->field_A = voice;
+        ch->field_4E = 0;
+        ch->field_4 = 0;
+        ch->field_40 = 0;
+        ch->field_50 = 0;
+        D_800A4C68[i].field_0 = voice;
+        D_800A4C68[i].field_4 = 0;
+        D_800A4C68[i].field_5 = 0;
     }
     func_8002CC4C();
 
@@ -464,10 +464,10 @@ void InitSound(void)
 }
 
 typedef struct {
-    s16 flag;
-    u8 pad2[14];
-} Ent10;
-extern Ent10 D_800B97D8[];
+    s16 field_0;
+    u8 field_2[14];
+} struct_10;
+extern struct_10 D_800B97D8[];
 extern s32 D_800747F4;
 extern s32 D_800AE6F0;
 extern s32 D_800AE6F8;
@@ -481,33 +481,33 @@ extern s8 D_800AE798;
 extern s8 D_800AE799;
 extern u8 *D_8006A970[];
 extern s32 D_80065504[];
-typedef struct { s32 w[9]; } Blk24;
-extern Blk24 D_80079204;
+typedef struct { s32 field_0[9]; } struct_24;
+extern struct_24 D_80079204;
 extern s32 func_80028DBC(s32 a);
 extern s32 func_80028E00(s32 a);
 extern s32 func_80028FDC(s32 a);
 extern s32 func_80029020(s32 a);
 extern s32 libc_memset();
-extern u16 GetPadPressedDirWide(s32 n);
-extern u16 GetPadHeldDirWide(s32 n);
+extern u16 func_80014ED4(s32 n);
+extern u16 func_80015018(s32 n);
 extern void GsMapModelingData(s32 p);
-extern void StopPadRumble(void);
+extern void func_80018FC8(void);
 extern void func_8001C9D0(u8 *a);
 extern void func_8002906C(void);
 extern void func_80029094(void);
 extern void func_80029218(void);
-extern void ClearRumbleScript(void);
+extern void func_8001903C(void);
 extern void func_8001B324(void);
 extern void func_80029044(void);
 extern s16 func_80012E6C(s32 a, s32 b, s16 n, s16 m, s16 *f);
 extern s16 func_80012FC8(s16 a, s16 b, s16 c, s16 d);
-extern s32 StageAlwaysReloads(s32 n);
+extern s32 func_8001923C(s32 n);
 extern s32 rand(void);
 extern void func_8002992C(s32 a);
 
 extern u8 D_800C6E2A[];
-typedef struct { u8 flag; } Flag8;
-extern Flag8 D_80076242;
+typedef struct { u8 field_0; } struct_1;
+extern struct_1 D_80076242;
 extern void func_800373D0(void);
 
 extern s32 D_80074808;
@@ -517,7 +517,7 @@ extern s16 D_800A46B8;
 extern u8 D_80075AC0[];
 extern s16 D_8006A9BC[];
 extern u16 D_8006A9B0[];
-extern Mtx D_800AF648;
+extern struct_20_3 D_800AF648;
 extern s32 rsin(s32 a);
 extern s32 rcos(s32 a);
 extern s32 ratan2(s32 y, s32 x);
@@ -586,10 +586,10 @@ void func_8002CCD8(void) {
         r = l * i >> 4;
         func_8003D3F8(r, r);
         v = i * 0x3FF;
-        g_SpuCommonAttr.mask = 3;
-        g_SpuCommonAttr.mvol.left = v;
-        g_SpuCommonAttr.mvol.right = v;
-        SpuSetCommonAttr(&g_SpuCommonAttr);
+        D_800A4EA4.mask = 3;
+        D_800A4EA4.mvol.left = v;
+        D_800A4EA4.mvol.right = v;
+        SpuSetCommonAttr(&D_800A4EA4);
     }
     SsEnd();
     func_8003D630();
@@ -678,7 +678,7 @@ extern void func_8002D29C(void);
 extern s32 func_8002DF80(void);
 
 void func_8002D034(void) {
-    SoundUnkC *p;
+    struct_C_3 *p;
     s32 i;
     s16 cur;
     s16 tgt;
@@ -689,9 +689,9 @@ void func_8002D034(void) {
     }
     p = D_800A64B0;
     for (i = 0; i < 8; i++, p++) {
-        if (p->unk0 != 0) {
-            if (--p->unk0 == 0) {
-                PS1_FN((void (*)(SoundUnkC *))*(s32 *)(p->pad4 + 4))(p);
+        if (p->field_0 != 0) {
+            if (--p->field_0 == 0) {
+                PS1_FN((void (*)(struct_C_3 *))*(s32 *)(p->field_4 + 4))(p);
             }
         }
     }
@@ -751,7 +751,7 @@ void func_8002D240(s16 n) {
 }
 
 void func_8002D29C(void) {
-    register s32 *p = &g_SoundSlot[4].spuAddr;
+    register s32 *p = &D_800A4640[4].field_14;
     s32 v = *p;
     SsSetSerialVol(0, (v * D_800A4EF4) >> 16, (v * D_800A4EF4) >> 16);
     v -= D_800A46B8;
@@ -763,7 +763,7 @@ void func_8002D29C(void) {
     *p = v;
 }
 
-extern struct { u8 pad0[4]; s32 unk4; u8 pad8[0x3D]; u8 unk45; u8 pad46[2]; } D_800A4C28[];
+extern struct { u8 field_0[4]; s32 field_4; u8 field_8[0x3D]; u8 field_45; u8 field_46[2]; } D_800A4C28[];
 
 void func_8002D320(void) {
     s32 i;
@@ -883,7 +883,7 @@ extern s32 func_8002F4E4(u8 *p);
 void func_8002D6D8(u32 a) {
     u32 v;
     u8 *p;
-    ((u8 *)g_SoundChan)[0x82F] = 1;
+    ((u8 *)D_800A46E8)[0x82F] = 1;
     v = a >> 16;
     a &= 0xFFFF;
     if ((v & 0xFFFF) < 0x100) {
@@ -900,10 +900,10 @@ void func_8002D6D8(u32 a) {
         return;
     }
     a--;
-    if (*(u16 *)&g_SoundChan[a].unk4 == (v & 0xFFFF)) {
+    if (*(u16 *)&D_800A46E8[a].field_4 == (v & 0xFFFF)) {
         func_8003324C(a);
     }
-    ((u8 *)g_SoundChan)[0x82F] = D_800A4F18;
+    ((u8 *)D_800A46E8)[0x82F] = D_800A4F18;
     if (D_800A4F18 != 0) {
         if (D_800A4EFC != 0) {
             D_800A4EFC -= 1;
@@ -912,7 +912,7 @@ void func_8002D6D8(u32 a) {
         func_8002D320();
         func_80031BE0();
         D_800A4F18 = 0;
-        ((u8 *)g_SoundChan)[0x82F] = 0;
+        ((u8 *)D_800A46E8)[0x82F] = 0;
     }
 }
 
@@ -969,8 +969,8 @@ extern s16 D_80068B5C[];
 extern u16 D_80068B5E[];
 extern s16 D_80068B60[];
 extern s16 D_80068B62[];
-typedef struct { u16 v; } U16R;
-extern U16R D_80065438[];
+typedef struct { u16 field_0; } struct_2;
+extern struct_2 D_80065438[];
 extern s32 D_800652F0[];
 
 void func_8002D904(u32 n) {
@@ -988,7 +988,7 @@ void func_8002D904(u32 n) {
 
     i = (u16)n - 0x100;
     func_8002EE64();
-    ch = g_SoundSlot[D_80068B5C[i * 8]].unk2;
+    ch = D_800A4640[D_80068B5C[i * 8]].field_2;
     if (ch < 0) {
         return;
     }
@@ -1013,7 +1013,7 @@ void func_8002D904(u32 n) {
         }
     }
     ea2 = &D_800A4EA2;
-    vol = D_800652F0[D_80065438[D_80068B60[i * 8]].v];
+    vol = D_800652F0[D_80065438[D_80068B60[i * 8]].field_0];
     if ((*ea2 & 4) && D_800A4EA0 == i) {
         D_800A4EA0 = 0;
         D_800A4E8E = *ea2;
@@ -1449,7 +1449,7 @@ void func_8002E638(s32 n) {
             v = 0x1F;
         }
         D_800A46B8 = v;
-        g_SoundSlot[4].spuAddr = 0xFFFF;
+        D_800A4640[4].field_14 = 0xFFFF;
         D_800A46BA = 1;
         v = D_8006AEEC;
         D_800A4EF4 = v;
@@ -1744,11 +1744,11 @@ void func_8002F0D0(void) {
     }
 }
 
-SoundUnkC *func_8002F0F4(void) {
+struct_C_3 *func_8002F0F4(void) {
     s32 i;
-    SoundUnkC *p = D_800A64B0;
+    struct_C_3 *p = D_800A64B0;
     for (i = 0; i < 8; i++, p++) {
-        if (p->unk0 == 0) {
+        if (p->field_0 == 0) {
             return p;
         }
     }
@@ -1760,10 +1760,10 @@ void func_8002F12C(u8 *a) {
 }
 
 void func_8002F150(s32 a) {
-    u8 *t = (u8 *)&g_SoundChan[a - 1];
+    u8 *t = (u8 *)&D_800A46E8[a - 1];
     s32 i;
     for (i = 0; i < 8; i++) {
-        u8 *p = (u8 *)&g_SoundChan[8 + i];
+        u8 *p = (u8 *)&D_800A46E8[8 + i];
         if (*(t + i + 0xE) != 0) {
             *(s16 *)(p + 0x30) = 0;
             p[0x38] = 0;
@@ -1775,12 +1775,12 @@ void func_8002F150(s32 a) {
 }
 
 void func_8002F1CC(s32 n) {
-    u8 *q = n * 0x54 + ((u8 *)g_SoundSlot + 0x54);
+    u8 *q = n * 0x54 + ((u8 *)D_800A4640 + 0x54);
     s32 i = 0;
-    Chan54 *arr = (Chan54 *)((u8 *)g_SoundSlot + 0x54 + 0x2F4);
+    struct_54_2 *arr = (struct_54_2 *)((u8 *)D_800A4640 + 0x54 + 0x2F4);
     do {
         if ((q + i)[0xE] != 0) {
-            arr[i].unk30 = 0; arr[i].unk38 = 0; arr[i].unk2C = 0x18; arr[i].unk28 = arr[i].unk20 + 0x100; arr[i].unk37 |= 1;
+            arr[i].field_30 = 0; arr[i].field_38 = 0; arr[i].field_2C = 0x18; arr[i].field_28 = arr[i].field_20 + 0x100; arr[i].field_37 |= 1;
         }
         i++;
     } while (i < 8);
@@ -1794,7 +1794,7 @@ void func_8002F248(u8 *a, s32 b) {
     s32 n;
     s32 i;
     u8 *q;
-    Chan54 *arr;
+    struct_54_2 *arr;
 
     switch (a[3]) {
     case 0:
@@ -1822,12 +1822,12 @@ void func_8002F248(u8 *a, s32 b) {
     case 2:
         n = func_800331D4(0x95C);
         if (n != 0) {
-            q = n * 0x54 + ((u8 *)g_SoundSlot + 0x54);
+            q = n * 0x54 + ((u8 *)D_800A4640 + 0x54);
             i = 0;
-            arr = (Chan54 *)((u8 *)g_SoundSlot + 0x54 + 0x2F4);
+            arr = (struct_54_2 *)((u8 *)D_800A4640 + 0x54 + 0x2F4);
             do {
                 if ((q + i)[0xE] != 0) {
-                    arr[i].unk30 = 0; arr[i].unk38 = 0; arr[i].unk2C = -0x18; arr[i].unk28 = arr[i].unk20 - 0x100; arr[i].unk37 |= 1;
+                    arr[i].field_30 = 0; arr[i].field_38 = 0; arr[i].field_2C = -0x18; arr[i].field_28 = arr[i].field_20 - 0x100; arr[i].field_37 |= 1;
                 }
                 i++;
             } while (i < 8);
@@ -1836,12 +1836,12 @@ void func_8002F248(u8 *a, s32 b) {
     case 3:
         n = func_800331D4(0x95C);
         if (n != 0) {
-            q = n * 0x54 + ((u8 *)g_SoundSlot + 0x54);
+            q = n * 0x54 + ((u8 *)D_800A4640 + 0x54);
             i = 0;
-            arr = (Chan54 *)((u8 *)g_SoundSlot + 0x54 + 0x2F4);
+            arr = (struct_54_2 *)((u8 *)D_800A4640 + 0x54 + 0x2F4);
             do {
                 if ((q + i)[0xE] != 0) {
-                    arr[i].unk30 = 0; arr[i].unk38 = 0; arr[i].unk2C = 0x18; arr[i].unk28 = arr[i].unk20 + 0x100; arr[i].unk37 |= 1;
+                    arr[i].field_30 = 0; arr[i].field_38 = 0; arr[i].field_2C = 0x18; arr[i].field_28 = arr[i].field_20 + 0x100; arr[i].field_37 |= 1;
                 }
                 i++;
             } while (i < 8);
@@ -1897,7 +1897,7 @@ s32 func_8002F4E4(u8 *p) {
     if (tbl == 0) {
         return 0;
     }
-    n = *(s16 *)&g_SoundSlot[p[2]];
+    n = *(s16 *)&D_800A4640[p[2]];
     if (n < *(s16 *)(tbl + 4)) {
         return 0;
     }
@@ -1940,23 +1940,23 @@ s32 func_8002F648(void) {
 }
 
 s16 func_8002F658(void) {
-    if (((u8 *)g_SoundSlot)[0x58] != 0) {
+    if (((u8 *)D_800A4640)[0x58] != 0) {
         return -1;
     }
-    return *(s16 *)((u8 *)g_SoundSlot + 0x48);
+    return *(s16 *)((u8 *)D_800A4640 + 0x48);
 }
 
 void func_8002F67C(void) {
-    if (g_SoundSlot[3].unk10 == 0) {
-        *(s16 *)((u8 *)D_800C5328 + *(s16 *)g_SoundSlot[3].pad0 * 4) = -1;
-        g_SoundSlot[3].unk10 = 1;
+    if (D_800A4640[3].field_10 == 0) {
+        *(s16 *)((u8 *)D_800C5328 + *(s16 *)D_800A4640[3].field_0 * 4) = -1;
+        D_800A4640[3].field_10 = 1;
     }
-    if (g_SoundSlot[4].unk2 >= 0) {
-        SsVabClose(g_SoundSlot[4].unk2);
-        g_SoundSlot[4].unk2 = -1;
+    if (D_800A4640[4].field_2 >= 0) {
+        SsVabClose(D_800A4640[4].field_2);
+        D_800A4640[4].field_2 = -1;
     }
-    if (g_SoundSlot[4].unk10 == 0) {
-        g_SoundSlot[4].unk10 = 1;
+    if (D_800A4640[4].field_10 == 0) {
+        D_800A4640[4].field_10 = 1;
     }
 }
 
@@ -2098,19 +2098,19 @@ s32 func_8002FB08(s32 a) {
     a *= 12;
     n = D_80064D49[a];
     D_800A46C8 = (&D_800A463C)[n * 6];
-    if (g_SoundSlot[n].unk10 == 0) {
-        D_800C5328[*(s16 *)g_SoundSlot[n].pad0].lo = -1;
+    if (D_800A4640[n].field_10 == 0) {
+        D_800C5328[*(s16 *)D_800A4640[n].field_0].field_0 = -1;
     }
     func_80031A98();
     n = D_80064D4D[a];
     if (n != 0) {
-        if (g_SoundSlot[n].unk2 >= 0) {
+        if (D_800A4640[n].field_2 >= 0) {
             func_8002EC10();
-            SsVabClose(g_SoundSlot[n].unk2);
-            g_SoundSlot[n].unk2 = -1;
-            *(s16 *)g_SoundSlot[n].pad0 = -1;
+            SsVabClose(D_800A4640[n].field_2);
+            D_800A4640[n].field_2 = -1;
+            *(s16 *)D_800A4640[n].field_0 = -1;
         }
-        g_SoundSlot[n].unk10 = 1;
+        D_800A4640[n].field_10 = 1;
     }
     D_800A46CC = 0;
     D_8006AEF4 |= 2;
@@ -2196,10 +2196,10 @@ s32 func_8002FDE8(s32 a, u8 *b) {
 extern s32 D_800A46BC;
 extern s16 D_800A46CE;
 extern s16 D_800A46D0;
-typedef struct { u8 c; u8 pad[11]; } Row12;
-extern Row12 D_80064D4A[];
+typedef struct { u8 field_0; u8 field_1[11]; } struct_C_4;
+extern struct_C_4 D_80064D4A[];
 extern u8 D_80064D4E[];
-typedef struct { u8 pad0[8]; SoundSlot slot[5]; u8 pad80[0x1A]; s16 unk9A; } SoundBlk;
+typedef struct { u8 field_0[8]; struct_18 field_8[5]; u8 field_80[0x1A]; s16 field_9A; } struct_9C;
 extern s32 func_80030730(void);
 extern s32 func_80030A14(void);
 extern s16 SsVabFakeHead(u8 *addr, s16 vabid, u32 sbaddr);
@@ -2215,28 +2215,28 @@ s32 func_8002FF0C(s32 a, s32 b) {
 
     if (D_800A46CC == 0) {
         n = D_80064D49[a * 12];
-        if (g_SoundSlot[n].unk4 != 0 && g_SoundSlot[n].unk4 != D_80064D4A[a].c) {
-            *(s16 *)(D_800C532A + g_SoundSlot[n].unk8 * 4) = -1;
-            g_SoundSlot[n].unk4 = 0;
-            g_SoundSlot[n].unk8 = 0;
+        if (D_800A4640[n].field_4 != 0 && D_800A4640[n].field_4 != D_80064D4A[a].field_0) {
+            *(s16 *)(D_800C532A + D_800A4640[n].field_8 * 4) = -1;
+            D_800A4640[n].field_4 = 0;
+            D_800A4640[n].field_8 = 0;
         }
-        if (g_SoundSlot[n].unk10 == 0) {
-            D_800C5328[*(s16 *)g_SoundSlot[n].pad0].lo = -1;
+        if (D_800A4640[n].field_10 == 0) {
+            D_800C5328[*(s16 *)D_800A4640[n].field_0].field_0 = -1;
             func_80031A98();
         }
         *(s16 *)((u8 *)&D_800A4638 + 0x96) = n;
         off = n * 0x18;
-        *(s16 *)((u8 *)g_SoundSlot + off) = a;
+        *(s16 *)((u8 *)D_800A4640 + off) = a;
         D_800A46D0 = a;
         D_800A46BC = b;
-        *(s32 *)&g_SoundSlot[n].padA[2] = b;
+        *(s32 *)&D_800A4640[n].field_A[2] = b;
         c = D_80064D4E[a * 12];
         if (c != 0) {
             D_800A4EF6 = c;
         }
-        ((SoundBlk *)&D_800A4638)->slot[n].unk2 = D_800A46D2 = r = SsVabFakeHead((u8 *)b, -1, (&D_800A463C)[n * 6]);
-        if (r == -1 || SsVabFakeBody(((SoundBlk *)&D_800A4638)->unk9A) == -1) {
-            g_SoundSlot[n].unk10 = 1;
+        ((struct_9C *)&D_800A4638)->field_8[n].field_2 = D_800A46D2 = r = SsVabFakeHead((u8 *)b, -1, (&D_800A463C)[n * 6]);
+        if (r == -1 || SsVabFakeBody(((struct_9C *)&D_800A4638)->field_9A) == -1) {
+            D_800A4640[n].field_10 = 1;
             return 1;
         }
         D_800A46CC = 1;
@@ -2254,7 +2254,7 @@ s32 func_8002FF0C(s32 a, s32 b) {
         p = &D_800A46D2;
         SsVabClose(*p);
         *p = -1;
-        g_SoundSlot[D_800A46CE].unk2 = -1;
+        D_800A4640[D_800A46CE].field_2 = -1;
         return 1;
     }
     return 0;
@@ -2290,29 +2290,29 @@ s32 func_800301C8(s32 a, s32 b, s32 c) {
         D_800A46CE = t;
         n = t;
         o = n * 24;
-        *(s32 *)((u8 *)g_SoundSlot + o + 0xC) = b;
-        v = *(s16 *)((u8 *)g_SoundSlot + o + 4);
+        *(s32 *)((u8 *)D_800A4640 + o + 0xC) = b;
+        v = *(s16 *)((u8 *)D_800A4640 + o + 4);
         if (v != 0) {
             if (v != D_80064D49[i + 1]) {
-                *(s16 *)(D_800C532A + g_SoundSlot[n].unk8 * 4) = -1;
-                g_SoundSlot[n].unk4 = 0;
-                g_SoundSlot[n].unk8 = 0;
+                *(s16 *)(D_800C532A + D_800A4640[n].field_8 * 4) = -1;
+                D_800A4640[n].field_4 = 0;
+                D_800A4640[n].field_8 = 0;
             }
         }
-        if (g_SoundSlot[n].unk10 == 0) {
-            D_800C5328[*(s16 *)g_SoundSlot[n].pad0].lo = -1;
+        if (D_800A4640[n].field_10 == 0) {
+            D_800C5328[*(s16 *)D_800A4640[n].field_0].field_0 = -1;
             func_80031A98();
-            SsVabClose(g_SoundSlot[n].unk2);
+            SsVabClose(D_800A4640[n].field_2);
         }
         p = &D_800A46D0;
-        *(s16 *)g_SoundSlot[n].pad0 = *p = a;
-        g_SoundSlot[n].unk10 = 1;
+        *(s16 *)D_800A4640[n].field_0 = *p = a;
+        D_800A4640[n].field_10 = 1;
         r = SsVabOpenHeadSticky((u8 *)b, -1, (&D_800A463C)[n * 6]);
         D_800A46D2 = r;
         q = (u8 *)p - 0x98;
         *(s16 *)(q + n * 24 + 0xA) = r;
         if (r == -1) {
-            g_SoundSlot[n].unk10 = 1;
+            D_800A4640[n].field_10 = 1;
             return 1;
         }
         if (func_80037CD8(PS1_FN_ADDR(func_800301A4)) != 0) {
@@ -2332,7 +2332,7 @@ s32 func_800301C8(s32 a, s32 b, s32 c) {
         if (D_800A46D2 >= 0) {
             SsVabClose(D_800A46D2);
             D_800A46D2 = -1;
-            g_SoundSlot[D_800A46CE].unk2 = -1;
+            D_800A4640[D_800A46CE].field_2 = -1;
         }
     }
     return ret;
@@ -2369,14 +2369,14 @@ extern s32 SsVabTransBodyPartly(void *addr, s32 size, s32 id);
 s32 func_80030538(void) {
     s32 i = D_800A46CE;
     u16 *cnt;
-    s16 r = SsVabTransBodyPartly((u8 *)D_800A46C0 + D_800A46C4, 0x8000, g_SoundSlot[i].unk2);
+    s16 r = SsVabTransBodyPartly((u8 *)D_800A46C0 + D_800A46C4, 0x8000, D_800A4640[i].field_2);
     switch (r) {
     case -2:
         D_800A46C4 += 0x8000;
         D_800A46CC++;
         break;
     case -1:
-        g_SoundSlot[i].unk10 = 1;
+        D_800A4640[i].field_10 = 1;
         D_800A46CC += 2;
         return 1;
     default:
@@ -2395,13 +2395,13 @@ s32 func_80030634(void) {
     s16 r;
     if (SsVabTransCompleted(0) != 0) {
         i = D_800A46CE;
-        r = SsVabTransBodyPartly((u8 *)D_800A46C0 + D_800A46C4, 0x8000, g_SoundSlot[i].unk2);
+        r = SsVabTransBodyPartly((u8 *)D_800A46C0 + D_800A46C4, 0x8000, D_800A4640[i].field_2);
         switch (r) {
         case -2:
             D_800A46C4 += 0x8000;
             break;
         case -1:
-            g_SoundSlot[i].unk10 = 1;
+            D_800A4640[i].field_10 = 1;
             D_800A46CC++;
             break;
         default:
@@ -2422,7 +2422,7 @@ typedef struct {
      u8 shift;
      u8 min;
      u8 max;
-     u8 pad8[8];
+     u8 field_8[8];
      u16 adsr1;
      u16 adsr2;
      s16 prog;
@@ -2453,11 +2453,11 @@ s32 func_80030730(void) {
     D_8006AEF4 &= 0xFC;
     func_80037D74();
     D_800760F0 = 0;
-    k = g_SoundSlot[*((s16 *)(u8 *)&D_800A46CC + 1)].unk10; /* MATCH-TRICK: dead read, gives the early slot offset */
+    k = D_800A4640[*((s16 *)(u8 *)&D_800A46CC + 1)].field_10; /* MATCH-TRICK: dead read, gives the early slot offset */
     r = D_80064D44 + *((s16 *)(u8 *)&D_800A46CC + 2) * 12;
     D_800760F4 = r[4];
     if (D_800760F4 == 0) {
-        g_SoundSlot[*((s16 *)(u8 *)&D_800A46CC + 1)].unk10 = 0;
+        D_800A4640[*((s16 *)(u8 *)&D_800A46CC + 1)].field_10 = 0;
         D_800A46CC = 0;
         return 1;
     }
@@ -2470,14 +2470,14 @@ s32 func_80030730(void) {
     cnt = 10;
     if (D_800760F4 < 11) {
         if (r[6] != 0) {
-            *(s16 *)g_SoundSlot[*((s16 *)(u8 *)&D_800A46CC + 1)].pad6 = r[7];
-            g_SoundSlot[*((s16 *)(u8 *)&D_800A46CC + 1)].unk4 = r[6];
-            g_SoundSlot[*((s16 *)(u8 *)&D_800A46CC + 1)].unk8 = r[8];
+            *(s16 *)D_800A4640[*((s16 *)(u8 *)&D_800A46CC + 1)].field_6 = r[7];
+            D_800A4640[*((s16 *)(u8 *)&D_800A46CC + 1)].field_4 = r[6];
+            D_800A4640[*((s16 *)(u8 *)&D_800A46CC + 1)].field_8 = r[8];
             *(s16 *)(D_800C532A + r[8] * 4) = *((s16 *)(u8 *)&D_800A46CC + 1);
         }
         cnt = D_800760F4;
         D_800760F4 = 0;
-        D_800C5328[*((s16 *)(u8 *)&D_800A46CC + 2)].lo = *((s16 *)(u8 *)&D_800A46CC + 1);
+        D_800C5328[*((s16 *)(u8 *)&D_800A46CC + 2)].field_0 = *((s16 *)(u8 *)&D_800A46CC + 1);
     } else {
         D_800760F4 -= 10;
     }
@@ -2494,7 +2494,7 @@ s32 func_80030730(void) {
         }
     }
     if (D_800760F4 == 0) {
-        g_SoundSlot[D_800A46CE].unk10 = 0;
+        D_800A4640[D_800A46CE].field_10 = 0;
         D_800A46CC = 0;
         return 1;
     }
@@ -2507,11 +2507,11 @@ s32 func_80030730(void) {
 extern u8 D_80064D44[];
 extern s32 D_800760F0;
 extern s32 D_800760F4;
-typedef struct { s16 v; } S16R;
+typedef struct { s16 field_0; } struct_2_2;
 extern s32 SsUtGetVagAddr(s16 vabId, s16 vag);
 
 s32 func_80030A14(void) {
-    S16R *slot;
+    struct_2_2 *slot;
     u8 *e;
     u8 *p;
     u8 *q;
@@ -2525,22 +2525,22 @@ s32 func_80030A14(void) {
     if (SsVabTransCompleted(0) == 0) {
         return 0;
     }
-    slot = (S16R *)&D_800A46CE;
-    k = slot->v;
+    slot = (struct_2_2 *)&D_800A46CE;
+    k = slot->field_0;
     e = D_80064D44 + D_800A46D0 * 12;
     p = *(u8 **)e + D_800760F0 * 2;
     q = D_8006A970[k] + D_800760F0 * 12;
     o = k * 24;
     if (D_800760F4 < 11) {
         if (e[6] != 0) {
-            *(s16 *)((u8 *)g_SoundSlot + o + 6) = e[7];
-            g_SoundSlot[slot->v].unk4 = e[6];
-            *(s16 *)(g_SoundSlot[slot->v].pad6 + 2) = e[8];
-            *(s16 *)(D_800C532A + e[8] * 4) = slot->v;
+            *(s16 *)((u8 *)D_800A4640 + o + 6) = e[7];
+            D_800A4640[slot->field_0].field_4 = e[6];
+            *(s16 *)(D_800A4640[slot->field_0].field_6 + 2) = e[8];
+            *(s16 *)(D_800C532A + e[8] * 4) = slot->field_0;
         }
         n = D_800760F4;
         D_800760F4 = 0;
-        D_800C5328[D_800A46D0].lo = slot->v;
+        D_800C5328[D_800A46D0].field_0 = slot->field_0;
     } else {
         n = 10;
         D_800760F4 -= 10;
@@ -2558,7 +2558,7 @@ s32 func_80030A14(void) {
         }
     }
     if (D_800760F4 == 0) {
-        g_SoundSlot[D_800A46CE].unk10 = 0;
+        D_800A4640[D_800A46CE].field_10 = 0;
         D_800A46CC = 0;
         return 1;
     }
@@ -2567,32 +2567,32 @@ s32 func_80030A14(void) {
 }
 
 s32 func_80030CA4(u16 prio) {
-    struct { s32 idx; u8 *ch; u16 prio; u8 found; } b;
-    u8 *ch = (u8 *)g_SoundChan + 0x2A0;
+    struct { s32 field_0; u8 *field_4; u16 field_8; u8 field_A; } b;
+    u8 *ch = (u8 *)D_800A46E8 + 0x2A0;
     s32 i;
-    b.found = 0;
+    b.field_A = 0;
     for (i = 0; i < 8; i++, ch += 0x54) {
         u8 *q = ch + 8;
         if (q[0x46] == 0) {
             return i + 1;
         }
-        if (b.found == 0) {
-            b.prio = *(u16 *)q;
-            b.found = 1;
-            b.idx = i;
-            b.ch = ch;
-        } else if (*(u16 *)q < b.prio) {
-            b.prio = *(u16 *)q;
-            b.idx = i;
-            b.ch = ch;
+        if (b.field_A == 0) {
+            b.field_8 = *(u16 *)q;
+            b.field_A = 1;
+            b.field_0 = i;
+            b.field_4 = ch;
+        } else if (*(u16 *)q < b.field_8) {
+            b.field_8 = *(u16 *)q;
+            b.field_0 = i;
+            b.field_4 = ch;
         }
     }
-    if (prio < b.prio) {
+    if (prio < b.field_8) {
         return 0;
     }
-    func_80030D80(b.ch, 1);
+    func_80030D80(b.field_4, 1);
     ch[0x4E] = 0;
-    return ++b.idx;
+    return ++b.field_0;
 }
 
 extern s32 D_80073140[];
@@ -2608,16 +2608,16 @@ void func_80030D80(void *c, s16 n) {
         *(s32 *)c = 0;
         r = 1;
     } else if (((u8 *)c)[0x4E] >= 2 && (D_800C7D20 & D_80073140[*(u16 *)((u8 *)c + 0xA)])) {
-        D_800A4C28[((u8 *)c)[0x51]].unk45 = 1;
-        D_800A4C28[((u8 *)c)[0x51]].unk4 &= 0xFFF9FFFF;
+        D_800A4C28[((u8 *)c)[0x51]].field_45 = 1;
+        D_800A4C28[((u8 *)c)[0x51]].field_4 &= 0xFFF9FFFF;
         r = 1;
         func_8002EFF8(0, D_80073140[*(u16 *)((u8 *)c + 0xA)]);
     } else {
         r = 0;
         if (n != 0) {
             ((u8 *)c)[0x50] = 1;
-            D_800A4C28[((u8 *)c)[0x51]].unk45 = 1;
-            D_800A4C28[((u8 *)c)[0x51]].unk4 &= 0xFFF9FFFF;
+            D_800A4C28[((u8 *)c)[0x51]].field_45 = 1;
+            D_800A4C28[((u8 *)c)[0x51]].field_4 &= 0xFFF9FFFF;
             func_8002EFF8(0, D_80073140[*(u16 *)((u8 *)c + 0xA)]);
         } else {
             s32 bits = D_80073140[*(u16 *)((u8 *)c + 0xA)];
@@ -2636,8 +2636,8 @@ void func_80030D80(void *c, s16 n) {
     D_800A4F17 = saved;
 }
 
-typedef struct { u16 v; } U16E;
-extern U16E D_8006AA30[];
+typedef struct { u16 field_0; } struct_2_3;
+extern struct_2_3 D_8006AA30[];
 extern const u16 D_8007319E[];
 extern u16 D_8007321E;
 extern void func_800314DC();
@@ -2645,8 +2645,8 @@ extern void func_800316F8();
 
 void func_80030F80(void) {
     s32 i;
-    u8 *keys = (u8 *)g_SoundChan + 0x816;
-    u8 *c = (u8 *)g_SoundChan + 0x2A0;
+    u8 *keys = (u8 *)D_800A46E8 + 0x816;
+    u8 *c = (u8 *)D_800A46E8 + 0x2A0;
     for (i = 0; i < 8; i++, c += 0x54) {
         u8 f = 0;
         if ((c[0x4E] &= 0x7F) != 0) {
@@ -2685,7 +2685,7 @@ void func_80030F80(void) {
                         *(u16 *)(c + 0x4A) = 0;
                         c[0x4C] = 0;
                         c[0x50] = 1;
-                        D_800A4C28[i].unk45 = 1;
+                        D_800A4C28[i].field_45 = 1;
                         func_8002EFF8(0, D_80073140[*(u16 *)(c + 0xA)]);
                     }
                 }
@@ -2729,16 +2729,16 @@ void func_80030F80(void) {
                         u32 vol;
                         u32 r;
                         u8 *v;
-                        vol = D_8006AA30[c[0x34]].v;
-                        vol = (vol * *(s16 *)((u8 *)g_SoundChan + 0x812)) >> 7;
+                        vol = D_8006AA30[c[0x34]].field_0;
+                        vol = (vol * *(s16 *)((u8 *)D_800A46E8 + 0x812)) >> 7;
                         vol = (vol * *(s16 *)(c + 0x48)) >> 7;
                         if (f) {
                             vol = (vol * ((s16)*(u16 *)(c + 0x4A) >> 7)) >> 8;
                         }
-                        v = (u8 *)&g_SoundChan[16] + i * 0x48;
+                        v = (u8 *)&D_800A46E8[16] + i * 0x48;
                         *(s32 *)v = D_80073140[*(u16 *)(c + 0xA)];
                         if (p != 0) {
-                            if (((u8 *)g_SoundChan)[0x831] != 0) {
+                            if (((u8 *)D_800A46E8)[0x831] != 0) {
                                 *(u16 *)(v + 8) = (vol * (D_8007319E + 1)[0x7F - p]) >> 14;
                                 { const u16 *pl = D_8007319E; *(u16 *)(v + 0xA) = (vol * pl[p]) >> 14; }
                             } else {
@@ -3031,21 +3031,21 @@ void func_80031988(u8 *a) {
 
 void func_80031A98(void) {
     s32 i;
-    u8 *ch = (u8 *)g_SoundChan + 0x2A0;
+    u8 *ch = (u8 *)D_800A46E8 + 0x2A0;
     for (i = 0; i < 8; i++, ch += 0x54) {
         u8 *q = ch + 0xE;
         s32 v;
         if (q[0x40] != 0) {
             if (q[0x28] != 0) {
-                v = D_800C5328[*(u16 *)q].hi;
+                v = D_800C5328[*(u16 *)q].field_2;
             } else if (*(u16 *)q & 0x80) {
-                if (g_SoundSlot[4].unk10 == 0) {
+                if (D_800A4640[4].field_10 == 0) {
                     continue;
                 }
                 func_80030D80(ch, 1);
                 continue;
             } else {
-                v = D_800C5328[*(u16 *)q].lo;
+                v = D_800C5328[*(u16 *)q].field_0;
             }
             if (v < 0) {
                 func_80030D80(ch, 1);
@@ -3057,7 +3057,7 @@ void func_80031A98(void) {
 void func_80031B7C(void) {
     s32 i;
     for (i = 0; i < 8; i++) {
-        u8 *p = (u8 *)g_SoundChan + 0x2EA + i * 0x54;
+        u8 *p = (u8 *)D_800A46E8 + 0x2EA + i * 0x54;
         if (p[4] != 0 && p[2] == 0 && p[3] != 0) {
             p[2] = 1;
             *(s16 *)p = 0x7FFF;
@@ -3094,7 +3094,7 @@ void func_80031BE0(void) {
 }
 
 void func_80031CC8(void) {
-    u8 *ch = (u8 *)g_SoundChan;
+    u8 *ch = (u8 *)D_800A46E8;
     s32 i;
     for (i = 0; i < 8; i++, ch += 0x54) {
         switch (*(u16 *)ch & 0x3F) {
@@ -3111,7 +3111,7 @@ void func_80031CC8(void) {
 }
 
 void func_80031D70(void) {
-    u8 *c = (u8 *)g_SoundChan;
+    u8 *c = (u8 *)D_800A46E8;
     s32 i = 0;
     do {
         if ((*(u16 *)c & 0x3F) == 1 && c[0xA] != 0) {
@@ -3123,7 +3123,7 @@ void func_80031D70(void) {
 }
 
 void func_80031DEC(void) {
-    u8 *ch = (u8 *)g_SoundChan;
+    u8 *ch = (u8 *)D_800A46E8;
     s32 i;
     for (i = 0; i < 8; i++, ch += 0x54) {
         u16 t = *(u16 *)ch;
@@ -3141,7 +3141,7 @@ void func_80031DEC(void) {
 }
 
 void func_80031E94(void) {
-    u8 *c = (u8 *)g_SoundChan;
+    u8 *c = (u8 *)D_800A46E8;
     s32 i = 0;
     s32 t;
     do {
@@ -3155,7 +3155,7 @@ void func_80031E94(void) {
 }
 
 void func_80031F14(void) {
-    u8 *c = (u8 *)g_SoundChan;
+    u8 *c = (u8 *)D_800A46E8;
     s32 i = 0;
     u16 wv;
     u16 t;
@@ -3176,7 +3176,7 @@ void func_80031F14(void) {
 }
 
 void func_80031FC8(void) {
-    u8 *c = (u8 *)g_SoundChan;
+    u8 *c = (u8 *)D_800A46E8;
     s32 i = 0;
     s32 t;
     do {
@@ -3253,14 +3253,14 @@ s32 func_80032048(s32 a, u8 *p, u32 f) {
         }
         r = n;
         n--;
-        c = (u8 *)&g_SoundChan[n];
+        c = (u8 *)&D_800A46E8[n];
     } else {
         if (f & 0x4000) {
             func_800335B8(n - 1, f);
             goto end;
         }
         n--;
-        c = (u8 *)&g_SoundChan[n];
+        c = (u8 *)&D_800A46E8[n];
         if (*(u16 *)(c + 8) != 0) {
             goto end;
         }
@@ -3323,10 +3323,10 @@ s32 func_800322A8(s32 a, u8 *p, s32 flags0) {
         }
         ret = n;
         n--;
-        c = (u8 *)((SoundChan *)(&D_800A4F17 - 0x82F) + n);
+        c = (u8 *)((struct_54 *)(&D_800A4F17 - 0x82F) + n);
     } else {
         n--;
-        c = (u8 *)((SoundChan *)(&D_800A4F17 - 0x82F) + n);
+        c = (u8 *)((struct_54 *)(&D_800A4F17 - 0x82F) + n);
         if (*(u16 *)(c + 8) != 0) {
             goto end;
         }
@@ -3419,10 +3419,10 @@ s32 func_800324A4(s32 a, u8 *p, s32 flags0, s32 lim) {
         }
         ret = n;
         n--;
-        c = (u8 *)&g_SoundChan[n];
+        c = (u8 *)&D_800A46E8[n];
     } else {
         n--;
-        c = (u8 *)&g_SoundChan[n];
+        c = (u8 *)&D_800A46E8[n];
         if (*(u16 *)(c + 8) != 0) {
             goto end;
         }
@@ -3528,11 +3528,11 @@ s32 func_80032774(s32 a, u8 *p, s32 flags) {
         }
         ret = n;
         n--;
-        c = (u8 *)&g_SoundChan[n];
+        c = (u8 *)&D_800A46E8[n];
     } else {
         ret = n;
         n--;
-        c = (u8 *)&g_SoundChan[n];
+        c = (u8 *)&D_800A46E8[n];
         if (*(u16 *)(c + 8) != 0) {
             goto end;
         }
@@ -3602,16 +3602,16 @@ void func_80032A74(u8 *c, s32 i, u8 *s, u16 f) {
             if (e[6] != 0) {
                 ok = tone < e[7];
             }
-            slot = D_800C5328[t].lo;
+            slot = D_800C5328[t].field_0;
             if (slot < 0) {
                 if (!ok) {
                     break;
                 }
-                slot = D_800C5328[t].hi;
+                slot = D_800C5328[t].field_2;
                 if (slot < 0) {
                     break;
                 }
-                if (!(tone < *(s16 *)g_SoundSlot[slot].pad6)) {
+                if (!(tone < *(s16 *)D_800A4640[slot].field_6)) {
                     break;
                 }
             }
@@ -3635,10 +3635,10 @@ void func_80032A74(u8 *c, s32 i, u8 *s, u16 f) {
             *(u16 *)(v + 0x3A) = *(u16 *)(r + 6);
             *(u16 *)(v + 0x3C) = *(u16 *)(r + 8);
         } else {
-            if (SsUtGetVagAtr(g_SoundSlot[4].unk2, t & 0x7F, s[9], &atr) != 0) {
+            if (SsUtGetVagAtr(D_800A4640[4].field_2, t & 0x7F, s[9], &atr) != 0) {
                 goto next;
             }
-            addr = SsUtGetVagAddr(g_SoundSlot[4].unk2, atr.vag);
+            addr = SsUtGetVagAddr(D_800A4640[4].field_2, atr.vag);
             if (addr < 0) {
                 goto next;
             }
@@ -3649,7 +3649,7 @@ void func_80032A74(u8 *c, s32 i, u8 *s, u16 f) {
         }
         k = n + 0x10;
         *(s32 *)v = D_80073140[k];
-        ch = (u8 *)&g_SoundChan[8 + n];
+        ch = (u8 *)&D_800A46E8[8 + n];
         ch[0x4C] = 0;
         *(s16 *)(ch + 0x4A) = 0x7FFF;
         if (*(u16 *)c & 0x80) {
@@ -3717,7 +3717,7 @@ void func_80032A74(u8 *c, s32 i, u8 *s, u16 f) {
             w >>= 8;
             *(u16 *)(v + 0x14) = w;
         }
-        vol = D_8006AA30[ch[0x34]].v;
+        vol = D_8006AA30[ch[0x34]].field_0;
         vol = (vol * D_800A4EFA) >> 7;
         vol = (vol * *(s16 *)(ch + 0x48)) >> 7;
         if (pan != 0) {
@@ -3777,33 +3777,33 @@ void func_80032A74(u8 *c, s32 i, u8 *s, u16 f) {
 }
 
 s32 func_8003310C(s32 prio) {
-    struct { u8 found; s32 best; u16 min; } s;
-    u8 *c; s32 i; c = (u8 *)g_SoundChan; i = 0;
-    s.found = 0;
+    struct { u8 field_0; s32 field_4; u16 field_8; } s;
+    u8 *c; s32 i; c = (u8 *)D_800A46E8; i = 0;
+    s.field_0 = 0;
     do {
         if (*(u16 *)c == 0) {
             return i + 1;
         }
-        if (s.found == 0) {
-            s.found = 1;
-            s.min = *(u16 *)(c + 2);
-            s.best = i;
-        } else if (*(u16 *)(c + 2) < s.min) {
-            s.min = *(u16 *)(c + 2);
-            s.best = i;
+        if (s.field_0 == 0) {
+            s.field_0 = 1;
+            s.field_8 = *(u16 *)(c + 2);
+            s.field_4 = i;
+        } else if (*(u16 *)(c + 2) < s.field_8) {
+            s.field_8 = *(u16 *)(c + 2);
+            s.field_4 = i;
         }
         i++;
         c += 0x54;
     } while (i < 8);
-    if ((u32)(prio & 0xFFFF) < s.min) {
+    if ((u32)(prio & 0xFFFF) < s.field_8) {
         return 0;
     }
-    func_8003324C(s.best);
-    return s.best + 1;
+    func_8003324C(s.field_4);
+    return s.field_4 + 1;
 }
 
 s32 func_800331D4(s32 arg) {
-    u8 *c = (u8 *)g_SoundChan;
+    u8 *c = (u8 *)D_800A46E8;
     s32 i = 0;
     do {
         if ((*(u16 *)c & 0x3F) == 1 && *(u16 *)(c + 4) == (arg & 0xFFFF)) {
@@ -3818,23 +3818,23 @@ s32 func_800331D4(s32 arg) {
 }
 
 void func_8003324C(u16 a) {
-    SoundChan *c = &g_SoundChan[a];
+    struct_54 *c = &D_800A46E8[a];
     s32 i;
-    switch (c->unk0 & 0x3F) {
+    switch (c->field_0 & 0x3F) {
     case 1:
         i = 0;
         do {
-            SoundChan *v = &g_SoundChan[8] + i;
+            struct_54 *v = &D_800A46E8[8] + i;
             if (((u8 *)c + i)[0xE] != 0) {
                 ((u8 *)c + i)[0xE] = 0;
-                v->unk40 = 0;
-                if (v->unk4E != 0) {
+                v->field_40 = 0;
+                if (v->field_4E != 0) {
                     func_80030D80(v, 0);
                 }
             }
             i++;
         } while (i < 8);
-        c->unk0 = 0;
+        c->field_0 = 0;
         break;
     case 5:
         func_80034650((u8 *)c, 0);
@@ -3843,7 +3843,7 @@ void func_8003324C(u16 a) {
 }
 
 void func_80033324(s32 k, s32 i) {
-    u8 *c = (u8 *)&g_SoundChan[i];
+    u8 *c = (u8 *)&D_800A46E8[i];
     if ((*(u16 *)c & 0x3F) == 1) {
         (c + k)[0xE] = 0;
         if (--*(u16 *)(c + 0xC) == 0 && c[0xA] != 5) {
@@ -3855,25 +3855,25 @@ void func_80033324(s32 k, s32 i) {
 
 void func_80033398(u32 arg) {
     u16 lo = arg;
-    u8 *c = (u8 *)g_SoundChan;
+    u8 *c = (u8 *)D_800A46E8;
     s32 i = 0;
     u32 hi = arg >> 16;
     u8 *t;
     s32 k;
-    SoundChan *v;
+    struct_54 *v;
     do {
         if ((*(u16 *)c & 0x3F) == 1 && *(u16 *)(c + 4) == lo
             && (hi == 0 || *(u16 *)(c + 6) == hi)) {
-            t = (u8 *)&g_SoundChan[(u16)i];
+            t = (u8 *)&D_800A46E8[(u16)i];
             switch (*(u16 *)t & 0x3F) {
             case 1:
                 k = 0;
                 do {
-                    v = &g_SoundChan[8] + k;
+                    v = &D_800A46E8[8] + k;
                     if ((t + k)[0xE] != 0) {
                         (t + k)[0xE] = 0;
-                        v->unk40 = 0;
-                        if (v->unk4E != 0) {
+                        v->field_40 = 0;
+                        if (v->field_4E != 0) {
                             func_80030D80(v, 0);
                         }
                     }
@@ -3892,23 +3892,23 @@ void func_80033398(u32 arg) {
 }
 
 void func_8003350C(s32 k, s16 n) {
-    SoundChan *c = &g_SoundChan[k];
+    struct_54 *c = &D_800A46E8[k];
     s32 i = 0;
     do {
-        SoundChan *v = &g_SoundChan[8] + i;
+        struct_54 *v = &D_800A46E8[8] + i;
         if (((u8 *)c + i)[0xE] != 0) { ((u8 *)c + i)[0xE] = 0;
-            v->unk40 = 0;
-            if (v->unk4E != 0) {
+            v->field_40 = 0;
+            if (v->field_4E != 0) {
                 func_80030D80(v, n);
             }
         }
         i++;
     } while (i < 8);
-    c->unk0 = 0;
+    c->field_0 = 0;
 }
 
 void func_800335B8(s32 ch, u16 cmd) {
-    u8 *c = (u8 *)g_SoundChan + ch * 0x54;
+    u8 *c = (u8 *)D_800A46E8 + ch * 0x54;
     u16 c0 = cmd;
     u8 *q;
     s32 n;
@@ -3921,7 +3921,7 @@ void func_800335B8(s32 ch, u16 cmd) {
                     break;
                 }
                 if ((c + i)[0xE] != 0) {
-                    q = (u8 *)&g_SoundChan[8 + i];
+                    q = (u8 *)&D_800A46E8[8 + i];
                     n--;
                     *(s16 *)(q + 0x48) = cmd & 0x7F;
                     q[0x4F] = 1;
@@ -3934,7 +3934,7 @@ void func_800335B8(s32 ch, u16 cmd) {
                     break;
                 }
                 if ((c + i)[0xE] != 0) {
-                    q = (u8 *)&g_SoundChan[8 + i];
+                    q = (u8 *)&D_800A46E8[8 + i];
                     if (q[0x35] != 0) {
                         q[0x53] = c0 & 0x7F;
                     }
@@ -3945,8 +3945,8 @@ void func_800335B8(s32 ch, u16 cmd) {
     }
 }
 
-typedef struct { s32 v; } S32R;
-extern U16E D_8006AA30[];
+typedef struct { s32 field_0; } struct_4_3;
+extern struct_2_3 D_8006AA30[];
 extern const u16 D_8007319E[];
 extern u16 D_8007321E;
 
@@ -3954,17 +3954,17 @@ void func_800336A8(u8 *s) {
     s32 i;
     for (i = 0; i < 8; i++) {
         if ((s + i)[0x3A] != 0) {
-            u8 *c = (u8 *)&g_SoundChan[8 + i];
-            u8 *v = (u8 *)&g_SoundChan[16] + i * 0x48;
+            u8 *c = (u8 *)&D_800A46E8[8 + i];
+            u8 *v = (u8 *)&D_800A46E8[16] + i * 0x48;
             u32 vol;
             u32 p;
             u32 r;
             u16 *e;
             s32 k;
-            *(s32 *)v = ((S32R *)D_80073140)[*(u16 *)(c + 0xA)].v;
+            *(s32 *)v = ((struct_4_3 *)D_80073140)[*(u16 *)(c + 0xA)].field_0;
             vol = c[0x34];
-            vol = D_8006AA30[vol].v;
-            vol *= *(s16 *)((u8 *)g_SoundChan + 0x812);
+            vol = D_8006AA30[vol].field_0;
+            vol *= *(s16 *)((u8 *)D_800A46E8 + 0x812);
             vol >>= 7;
             if (s[0x16] != 0) {
                 vol *= *(u16 *)(s + 0x18);
@@ -4017,17 +4017,17 @@ void func_800342E8(s32 a, s32 b);
 
 void func_8003388C(u8 *a, s32 idx) {
     struct {
-        u16 h0;
-        u16 h2;
-        u16 h4;
-        u16 h6;
-        u8 b8;
-        u8 b9;
-        u8 bA;
-        u8 bB;
-        u8 bC;
-        u8 bD;
-        s32 w10;
+        u16 field_0;
+        u16 field_2;
+        u16 field_4;
+        u16 field_6;
+        u8 field_8;
+        u8 field_9;
+        u8 field_A;
+        u8 field_B;
+        u8 field_C;
+        u8 field_D;
+        s32 field_10;
     } rec;
     VagAtr atr;
     u8 *s = a;
@@ -4051,7 +4051,7 @@ void func_8003388C(u8 *a, s32 idx) {
     u32 r;
     u32 m;
     s32 addr;
-    SoundSlot *sl;
+    struct_18 *sl;
     u16 cur;
     u32 x;
 
@@ -4129,42 +4129,42 @@ void func_8003388C(u8 *a, s32 idx) {
             switch ((u32)w >> 24) {
             case 0x80:
                 q++;
-                rec.h6 = w;
-                rec.b8 = w >> 16;
+                rec.field_6 = w;
+                rec.field_8 = w >> 16;
                 w = *q;
                 q++;
-                rec.h2 = w;
-                rec.h0 = w >> 16;
+                rec.field_2 = w;
+                rec.field_0 = w >> 16;
                 w = *q;
                 q++;
-                s[0x4F] = rec.bC = w;
+                s[0x4F] = rec.field_C = w;
                 w >>= 8;
-                s[0x4E] = rec.bB = w;
+                s[0x4E] = rec.field_B = w;
                 w >>= 8;
-                s[0x4D] = rec.bA = w;
-                s[0x4C] = rec.b9 = (u32)w >> 8;
-                *(u16 *)(s + 0x4A) = rec.h4 = *(u16 *)q;
+                s[0x4D] = rec.field_A = w;
+                s[0x4C] = rec.field_9 = (u32)w >> 8;
+                *(u16 *)(s + 0x4A) = rec.field_4 = *(u16 *)q;
                 q++;
                 w = *q;
                 q++;
-                rec.bD = 0;
-                rec.w10 = w;
+                rec.field_D = 0;
+                rec.field_10 = w;
                 goto play;
             case 0x81:
                 q++;
-                rec.h6 = w;
-                rec.b8 = w >> 16;
+                rec.field_6 = w;
+                rec.field_8 = w >> 16;
                 w = *q;
-                rec.h2 = w;
-                rec.h0 = w >> 16;
-                rec.bC = s[0x4F];
-                rec.bB = s[0x4E];
-                rec.bA = s[0x4D];
-                rec.b9 = s[0x4C];
-                rec.h4 = *(u16 *)(s + 0x4A);
+                rec.field_2 = w;
+                rec.field_0 = w >> 16;
+                rec.field_C = s[0x4F];
+                rec.field_B = s[0x4E];
+                rec.field_A = s[0x4D];
+                rec.field_9 = s[0x4C];
+                rec.field_4 = *(u16 *)(s + 0x4A);
                 q++;
-                rec.w10 = 0;
-                rec.bD = 0;
+                rec.field_10 = 0;
+                rec.field_D = 0;
                 goto play;
             case 0x82:
                 q++;
@@ -4245,13 +4245,13 @@ void func_8003388C(u8 *a, s32 idx) {
             prog = p[0xA];
             n--;
             if (!(prog & 0x80)) {
-                bank = D_800C5328[prog].lo;
+                bank = D_800C5328[prog].field_0;
             } else {
                 bank = 4;
             }
             if (bank >= 0) {
-                c = (u8 *)&g_SoundChan[8] + n * 0x54;
-                v = (u8 *)&g_SoundChan[16] + n * 0x48;
+                c = (u8 *)&D_800A46E8[8] + n * 0x54;
+                v = (u8 *)&D_800A46E8[16] + n * 0x48;
                 if (!(prog & 0x80)) {
                     t = D_8006A970[bank] + p[0xB] * 12;
                     *(s32 *)(v + 0x1C) = *(s32 *)t;
@@ -4259,11 +4259,11 @@ void func_8003388C(u8 *a, s32 idx) {
                     *(u16 *)(v + 0x3A) = *(u16 *)(t + 6);
                     *(u16 *)(v + 0x3C) = *(u16 *)(t + 8);
                 } else {
-                    sl = &g_SoundSlot[4];
-                    if (SsUtGetVagAtr(sl->unk2, prog & 0x7F, p[0xB], &atr) != 0) {
+                    sl = &D_800A4640[4];
+                    if (SsUtGetVagAtr(sl->field_2, prog & 0x7F, p[0xB], &atr) != 0) {
                         goto next;
                     }
-                    addr = SsUtGetVagAddr(sl->unk2, atr.vag);
+                    addr = SsUtGetVagAddr(sl->field_2, atr.vag);
                     if (addr < 0) {
                         goto next;
                     }
@@ -4336,7 +4336,7 @@ void func_8003388C(u8 *a, s32 idx) {
                     vol >>= 7;
                 }
                 c[0x34] = vol;
-                vol = D_8006AA30[vol].v;
+                vol = D_8006AA30[vol].field_0;
                 vol *= D_800A4EFA;
                 vol >>= 7;
                 if (s[0x16] != 0) {
@@ -4398,7 +4398,7 @@ next:
 }
 
 void func_800342E8(s32 a, s32 b) {
-    u8 *p = &((u8 *)g_SoundChan)[b * 0x54];
+    u8 *p = &((u8 *)D_800A46E8)[b * 0x54];
     p += a;
     p[0x3A] = 0;
 }
@@ -4438,7 +4438,7 @@ s32 func_80034314(s32 a, u8 *p, s32 f0) {
     if (n != 0) {
         r = n;
         n--;
-        c = (u8 *)&g_SoundChan[n];
+        c = (u8 *)&D_800A46E8[n];
         if (f & 0x1000) {
             c[0x22] = 1;
             *(s16 *)(c + 0x1E) = 0x100;
@@ -4462,7 +4462,7 @@ s32 func_80034314(s32 a, u8 *p, s32 f0) {
         }
         r = n;
         n--;
-        c = (u8 *)&g_SoundChan[n];
+        c = (u8 *)&D_800A46E8[n];
     }
     c[0x37] = e[8];
     *(s16 *)(c + 0x34) = b1;
@@ -4524,10 +4524,10 @@ s32 func_80034314(s32 a, u8 *p, s32 f0) {
 void func_80034650(u8 *a, s32 n) {
     s32 i = 0;
     u8 v = n;
-    Chan54 *arr = (Chan54 *)((u8 *)g_SoundChan + 0x2A0);
+    struct_54_2 *arr = (struct_54_2 *)((u8 *)D_800A46E8 + 0x2A0);
     do {
         if ((a + i)[0x3A] != 0) {
-            func_80030D80((Chan54 *)((u8 *)g_SoundChan + 0x2A0) + i, v);
+            func_80030D80((struct_54_2 *)((u8 *)D_800A46E8 + 0x2A0) + i, v);
         }
         i++;
     } while (i < 8);
@@ -4535,7 +4535,7 @@ void func_80034650(u8 *a, s32 n) {
 }
 
 void func_800346D0(s32 a) {
-    u8 *c = (u8 *)g_SoundChan;
+    u8 *c = (u8 *)D_800A46E8;
     s32 i;
     s32 j;
     for (i = 0; i < 8; i++, c += 0x54) {
@@ -4550,7 +4550,7 @@ void func_800346D0(s32 a) {
         }
         for (j = 0; j < 8; j++) {
             if ((c + j)[0x3A] != 0) {
-                func_80030D80(&g_SoundChan[8 + j], 0);
+                func_80030D80(&D_800A46E8[8 + j], 0);
             }
         }
         *(u16 *)c = 0;
@@ -4558,7 +4558,7 @@ void func_800346D0(s32 a) {
 }
 
 void func_800347C8(s32 key) {
-    u8 *c = (u8 *)g_SoundChan;
+    u8 *c = (u8 *)D_800A46E8;
     s32 i = 0;
     do {
         if (*(u16 *)c == 5 && *(u16 *)(c + 4) == (s16)key && (!(key >> 16) || (key >> 16) == *(u16 *)(c + 6))) {
@@ -4570,7 +4570,7 @@ void func_800347C8(s32 key) {
 }
 
 void func_80034844(void) {
-    u8 *s = (u8 *)g_SoundChan;
+    u8 *s = (u8 *)D_800A46E8;
     s32 i;
     for (i = 0; i < 8; i++, s += 0x54) {
         if (*(u16 *)s == 5 && !(s[0x37] & 2)) {
@@ -4581,7 +4581,7 @@ void func_80034844(void) {
 }
 
 s32 func_800348A8(u32 key) {
-    u8 *c = (u8 *)g_SoundChan;
+    u8 *c = (u8 *)D_800A46E8;
     s32 i = 0;
     do {
         if (*(u16 *)c == 5 && *(u16 *)(c + 4) == (key & 0xFFFF) && (!(key >> 16) || *(u16 *)(c + 6) == (key >> 16))) {
@@ -4611,13 +4611,13 @@ void func_8003491C(s32 a) {
     if ((s16)n < 0x100) {
         return;
     }
-    old = ((u8 *)g_SoundChan)[0x82F];
-    ((u8 *)g_SoundChan)[0x82F] = 1;
+    old = ((u8 *)D_800A46E8)[0x82F];
+    ((u8 *)D_800A46E8)[0x82F] = 1;
     switch (p[0] & 0x7F) {
     case 1:
         break;
     case 5:
-        c = (u8 *)g_SoundChan;
+        c = (u8 *)D_800A46E8;
         i = 0;
         do {
             if (*(u16 *)c == 5 && *(u16 *)(c + 4) == lo && (!(s16)hi || (s16)hi == *(u16 *)(c + 6))) {
@@ -4744,12 +4744,12 @@ void func_80034C24(void) {
     D_800C6D28 = 0;
 }
 
-s32 func_80034CF0(Req *src) {
+s32 func_80034CF0(struct_30_2 *src) {
     s32 next;
     s8 old;
     s32 tail;
     s32 idx;
-    Req *q;
+    struct_30_2 *q;
     next = D_8006AEFC;
     next++;
     old = D_8006AEF5;
@@ -4764,31 +4764,31 @@ s32 func_80034CF0(Req *src) {
     }
     {
         q = &D_80076118[D_8006AEFC];
-        q->w[0] = src->w[0];
-        q->w[1] = src->w[1];
-        q->w[2] = src->w[2];
-        q->w[3] = src->w[3];
-        q->w[4] = src->w[4];
-        q->w[5] = src->w[5];
-        q->w[6] = src->w[6];
-        q->w[7] = src->w[7];
-        q->w[8] = src->w[8];
-        q->b0 = 1;
-        q->b1 = 0;
-        q->b2 = 0;
-        q->b3 = 0;
-        q->b7 = 1;
+        q->field_8[0] = src->field_8[0];
+        q->field_8[1] = src->field_8[1];
+        q->field_8[2] = src->field_8[2];
+        q->field_8[3] = src->field_8[3];
+        q->field_8[4] = src->field_8[4];
+        q->field_8[5] = src->field_8[5];
+        q->field_8[6] = src->field_8[6];
+        q->field_8[7] = src->field_8[7];
+        q->field_8[8] = src->field_8[8];
+        q->field_0 = 1;
+        q->field_1 = 0;
+        q->field_2 = 0;
+        q->field_3 = 0;
+        q->field_7 = 1;
         idx = D_8006AEFC;
         D_8006AEFC = next;
         D_8006AEF5 = old;
-        q->w[9] = idx;
+        q->field_8[9] = idx;
         return idx + 1;
     }
 }
 
 void func_80034DFC(s16 n) {
-    Req *q;
-    Req *p;
+    struct_30_2 *q;
+    struct_30_2 *p;
     s32 cur;
     s32 i;
     u8 old;
@@ -4798,35 +4798,35 @@ void func_80034DFC(s16 n) {
         q = &D_80076118[cur];
         old = D_8006AEF5;
         D_8006AEF5 = 1;
-        if (q->b0 != 0) {
-            q->b0 = 0;
-            q->b1 = 1;
-            if (cur != D_8006AEF8 && q->b7 != 0) {
+        if (q->field_0 != 0) {
+            q->field_0 = 0;
+            q->field_1 = 1;
+            if (cur != D_8006AEF8 && q->field_7 != 0) {
                 i = cur + 1;
                 if (i >= 4) {
                     i = 0;
                 }
                 while (i != D_8006AEFC) {
                     p = &D_80076118[i];
-                        q->b0 = p->b0;
-                        q->b1 = p->b1;
-                        q->b2 = p->b2;
-                        q->b3 = p->b3;
-                        q->b4 = p->b4;
-                        q->b5 = p->b5;
-                        q->b6 = p->b6;
-                        q->b7 = p->b7;
-                        q->w[0] = p->w[0];
-                        q->w[1] = p->w[1];
-                        q->w[2] = p->w[2];
-                        q->w[3] = p->w[3];
-                        q->w[4] = p->w[4];
-                        q->w[5] = p->w[5];
-                        q->w[6] = p->w[6];
-                        q->w[7] = p->w[7];
-                        q->w[8] = p->w[8];
-                        q->w[9] = p->w[9];
-                        PS1_FN((void (*)(s32, s32))p->w[8])(i + 1, cur + 1);
+                        q->field_0 = p->field_0;
+                        q->field_1 = p->field_1;
+                        q->field_2 = p->field_2;
+                        q->field_3 = p->field_3;
+                        q->field_4 = p->field_4;
+                        q->field_5 = p->field_5;
+                        q->field_6 = p->field_6;
+                        q->field_7 = p->field_7;
+                        q->field_8[0] = p->field_8[0];
+                        q->field_8[1] = p->field_8[1];
+                        q->field_8[2] = p->field_8[2];
+                        q->field_8[3] = p->field_8[3];
+                        q->field_8[4] = p->field_8[4];
+                        q->field_8[5] = p->field_8[5];
+                        q->field_8[6] = p->field_8[6];
+                        q->field_8[7] = p->field_8[7];
+                        q->field_8[8] = p->field_8[8];
+                        q->field_8[9] = p->field_8[9];
+                        PS1_FN((void (*)(s32, s32))p->field_8[8])(i + 1, cur + 1);
                     cur = i;
                     q = p;
                     i++;
@@ -4835,7 +4835,7 @@ void func_80034DFC(s16 n) {
                     }
                 }
                 D_8006AEFC = cur;
-                D_80076118[cur].b0 = 0;
+                D_80076118[cur].field_0 = 0;
             }
         }
         D_8006AEF5 = old;
@@ -4843,28 +4843,28 @@ void func_80034DFC(s16 n) {
 }
 
 void func_8003500C(void) {
-    Req *q;
+    struct_30_2 *q;
     void (*f)();
-    void (*g)(Req *);
+    void (*g)(struct_30_2 *);
     u8 b;
     if (*(u8 *)&D_8006AEF5 != 0) {
         return;
     }
     if (D_8006AEFC != D_8006AEF8) {
         q = &D_80076118[D_8006AEF8];
-        if (q->b0 != 0) {
-            D_80076114 = q->b4;
-            if (PS1_FN((s32 (*)(Req *))q->w[0])(q) == 0) {
+        if (q->field_0 != 0) {
+            D_80076114 = q->field_4;
+            if (PS1_FN((s32 (*)(struct_30_2 *))q->field_8[0])(q) == 0) {
                 return;
             }
-            b = q->b4;
-            f = (void (*)())q->w[5];
+            b = q->field_4;
+            f = (void (*)())q->field_8[5];
             D_80076114 = b;
             if (f != NULL) {
-                PS1_FN(f)(D_80076118[D_8006AEF8].w[6], b);
+                PS1_FN(f)(D_80076118[D_8006AEF8].field_8[6], b);
             }
-            q->b0 = 0;
-            q->b1 = 0;
+            q->field_0 = 0;
+            q->field_1 = 0;
             if ((u32)++D_8006AEF8 >= 4) {
                 D_8006AEF8 = 0;
             }
@@ -4874,16 +4874,16 @@ void func_8003500C(void) {
             D_80076114 = 0;
             return;
         }
-        if (q->b1 != 0 && q->b7 == 0) {
-            g = (void (*)(Req *))q->w[7];
+        if (q->field_1 != 0 && q->field_7 == 0) {
+            g = (void (*)(struct_30_2 *))q->field_8[7];
             if (g != NULL) {
                 PS1_FN(g)(q);
             }
-            if (q->b2 != 0) {
+            if (q->field_2 != 0) {
                 return;
             }
         }
-        q->b1 = 0;
+        q->field_1 = 0;
         if ((u32)++D_8006AEF8 >= 4) {
             D_8006AEF8 = 0;
         }
@@ -4910,8 +4910,8 @@ u32 func_80035210(s32 dst, s32 n) {
     return r;
 }
 
-typedef struct { u8 *tbl; u8 flag; s32 ofs[16]; } SndBank;
-extern SndBank D_8006A69C[];
+typedef struct { u8 *field_0; u8 field_4; s32 field_8[16]; } struct_48_2;
+extern struct_48_2 D_8006A69C[];
 
 extern s16 D_800760F8;
 extern s32 D_80076100;
@@ -4922,14 +4922,14 @@ extern u8 D_80076210;
 extern int CdMode(void);
 extern int CdStatus(void);
 
-static inline u8 *func_80035270_ent(s32 bank, s32 row, s32 col) {
-    u8 *t = D_8006A69C[bank].tbl;
+static inline u8 *func_80035270_inline(s32 bank, s32 row, s32 col) {
+    u8 *t = D_8006A69C[bank].field_0;
     t += row * 64;
     t += col * 4;
     return t;
 }
 
-s32 func_80035270(Req *q) {
+s32 func_80035270(struct_30_2 *q) {
     u8 res[8];
     u8 param[8];
     CdlLOC loc;
@@ -4948,26 +4948,26 @@ s32 func_80035270(Req *q) {
     s16 bank;
     u8 e;
 
-    row = (q->w[2] >> 4) & 0x1F;
-    c = q->w[2] & 0xF;
+    row = (q->field_8[2] >> 4) & 0x1F;
+    c = q->field_8[2] & 0xF;
     col = c;
-    bank = (q->w[2] >> 9) & 0x1F;
+    bank = (q->field_8[2] >> 9) & 0x1F;
     if (row & 1) {
         col = c + 4;
-        if (D_8006A69C[bank].flag == 0) {
+        if (D_8006A69C[bank].field_4 == 0) {
             col = c + 8;
         }
     }
     row = row >> 1;
-    if (q->b7 != 0) {
-        q->b7 = 0;
-        q->b3 = 17;
-        if (q->w[1] == 0) {
+    if (q->field_7 != 0) {
+        q->field_7 = 0;
+        q->field_3 = 17;
+        if (q->field_8[1] == 0) {
             return 1;
         }
-        if (q->w[9] + 1 != D_80078F10[0]) {
+        if (q->field_8[9] + 1 != D_80078F10[0]) {
             for (i = 1; i < 5; i++) {
-                if (D_80078F10[i] == q->w[9] + 1) {
+                if (D_80078F10[i] == q->field_8[9] + 1) {
                     break;
                 }
             }
@@ -4985,11 +4985,11 @@ s32 func_80035270(Req *q) {
                 D_8006AEE8 = j;
             }
         }
-        q->w[3] = 15;
+        q->field_8[3] = 15;
         D_800760F8 = 0;
         D_80076100 = CdMode();
     }
-    switch (q->b3) {
+    switch (q->field_3) {
     case 17:
         p = &D_800760FC;
         *p = 1;
@@ -4998,7 +4998,7 @@ s32 func_80035270(Req *q) {
             D_800760F8++;
             goto timeout;
         }
-        q->b3 = 18;
+        q->field_3 = 18;
         SsSetSerialVol(0, 0, 0);
         D_800760F8 = 0;
     case 18:
@@ -5007,11 +5007,11 @@ s32 func_80035270(Req *q) {
             D_800760F8++;
             goto timeout;
         }
-        if ((q->w[2] == 0x4486 || q->w[2] == 0x4364) && g_SoundSlot[3].unk10 == 0 &&
-            *(s16 *)g_SoundSlot[3].pad0 == 0x2B) {
+        if ((q->field_8[2] == 0x4486 || q->field_8[2] == 0x4364) && D_800A4640[3].field_10 == 0 &&
+            *(s16 *)D_800A4640[3].field_0 == 0x2B) {
             goto attr;
         }
-        r = (s32)D_8006A69C[bank].tbl;
+        r = (s32)D_8006A69C[bank].field_0;
         t = (u8 *)(row * 64 + r) + col * 4;
         e = t[1];
         if (e & 0x20) {
@@ -5030,25 +5030,25 @@ s32 func_80035270(Req *q) {
         }
         D_800760F8 = 0;
         if (D_80076100 & CdlModeSpeed) {
-            q->b3 = 1;
+            q->field_3 = 1;
             goto seek;
         }
-        q->b3 = 0;
+        q->field_3 = 0;
     case 0:
-        if (q->w[3] != 0) {
-            q->w[3]--;
+        if (q->field_8[3] != 0) {
+            q->field_8[3]--;
         }
         if (++D_800760F8 < 10) {
             return 0;
         }
-        q->b3 = 1;
+        q->field_3 = 1;
         D_800760F8 = 0;
     case 1:
     seek:
-        if (q->w[3] != 0) {
-            q->w[3]--;
+        if (q->field_8[3] != 0) {
+            q->field_8[3]--;
         }
-        CdIntToPos(q->w[1], &loc);
+        CdIntToPos(q->field_8[1], &loc);
         D_800760F8++;
         if (CdControlB(2, (u8 *)&loc, NULL) == 0) {
             goto timeout;
@@ -5057,10 +5057,10 @@ s32 func_80035270(Req *q) {
             goto timeout;
         }
         D_800760F8 = 0;
-        q->b3 = 2;
+        q->field_3 = 2;
     case 2:
-        if (q->w[3] != 0) {
-            q->w[3]--;
+        if (q->field_8[3] != 0) {
+            q->field_8[3]--;
         }
         i = CdSync(1, res);
         if (i == 0) {
@@ -5072,31 +5072,31 @@ s32 func_80035270(Req *q) {
                 D_80076214 = 1;
                 return 1;
             }
-            q->b3 = 1;
+            q->field_3 = 1;
             return 0;
         }
-        D_80076208 = q->w[3];
-        q->b3 = 3;
+        D_80076208 = q->field_8[3];
+        q->field_3 = 3;
     case 3:
-        if (q->w[3] != 0) {
-            q->w[3]--;
+        if (q->field_8[3] != 0) {
+            q->field_8[3]--;
             break;
         }
         D_800760F8 = 0;
-        q->b3 = 4;
+        q->field_3 = 4;
     case 4:
-        CdIntToPos(q->w[1], &loc);
+        CdIntToPos(q->field_8[1], &loc);
         if (CdControl(0x1B, (u8 *)&loc, NULL) == 0) {
             D_800760F8++;
             goto timeout;
         }
-        t = func_80035270_ent(bank, row, col);
+        t = func_80035270_inline(bank, row, col);
         D_80076210 = 0;
         D_800760F8 = 0;
         v = (t[0] * D_800A4EFA >> 7) & 0x7F;
         SsSetSerialVol(0, v, v);
         D_8006AEEC = v;
-        q->b3 = 5;
+        q->field_3 = 5;
     case 5:
         r = CdSync(1, res);
         if (r != CdlComplete) {
@@ -5105,28 +5105,28 @@ s32 func_80035270(Req *q) {
                     goto flush;
                 }
                 CdFlush();
-                q->b3 = 4;
+                q->field_3 = 4;
                 return 0;
             }
             D_800760F8++;
             goto timeout;
         }
-        q->b3 = 6;
+        q->field_3 = 6;
     case 6:
         CdControl(CdlNop, NULL, NULL);
         if (!((D_8007620C = CdStatus()) & 0x20)) {
             return 0;
         }
-        t = func_80035270_ent(bank, row, col);
+        t = func_80035270_inline(bank, row, col);
         now = D_800A4638;
-        q->w[4] = now;
-        q->w[3] = *(s16 *)(t + 2) + now;
-        if ((u32)q->w[3] < now) {
-            q->b6 = 1;
+        q->field_8[4] = now;
+        q->field_8[3] = *(s16 *)(t + 2) + now;
+        if ((u32)q->field_8[3] < now) {
+            q->field_6 = 1;
         } else {
-            q->b6 = 0;
+            q->field_6 = 0;
         }
-        q->b3 = 7;
+        q->field_3 = 7;
     case 7:
         if ((D_80076210++ & 3) == 0) {
             CdControl(CdlNop, NULL, NULL);
@@ -5135,20 +5135,20 @@ s32 func_80035270(Req *q) {
             }
         }
         now = D_800A4638;
-        if (now < (u32)q->w[3]) {
+        if (now < (u32)q->field_8[3]) {
             return 0;
         }
-        if (q->b6 != 0 && now >= (u32)q->w[4]) {
+        if (q->field_6 != 0 && now >= (u32)q->field_8[4]) {
             return 0;
         }
-        q->b3 = 8;
+        q->field_3 = 8;
     case 8:
         SsSetSerialVol(0, 0, 0);
         if (CdControl(CdlPause, NULL, NULL) == 0) {
             return 0;
         }
         D_8007620C = 0;
-        q->b3 = 9;
+        q->field_3 = 9;
     case 9:
         i = CdSync(1, res);
         if (i == 0) {
@@ -5523,10 +5523,10 @@ s32 func_80036260(void) {
     }
     D_8006AF00 = 0;
     D_800A6544 = 0;
-    if (g_SoundSlot[4].unk2 >= 0) {
-        SsVabClose(g_SoundSlot[4].unk2);
-        g_SoundSlot[4].unk2 = -1;
-        g_SoundSlot[4].unk10 = 1;
+    if (D_800A4640[4].field_2 >= 0) {
+        SsVabClose(D_800A4640[4].field_2);
+        D_800A4640[4].field_2 = -1;
+        D_800A4640[4].field_10 = 1;
     }
     return 1;
 }
@@ -5761,7 +5761,7 @@ void func_80036D24(void);
 void func_80036FB0(s32 from, s32 to);
 
 void func_80036AF8(void *file, s16 b) {
-    Req req;
+    struct_30_2 req;
     s32 pad[2];
     s16 col;
     s16 c;
@@ -5779,12 +5779,12 @@ void func_80036AF8(void *file, s16 b) {
         bank = (b >> 9) & 0x1F;
         if (row & 1) {
             col = c + 4;
-            if (D_8006A69C[bank].flag == 0) {
+            if (D_8006A69C[bank].field_4 == 0) {
                 col = c + 8;
             }
         }
         row = row >> 1;
-        t = D_8006A69C[bank].tbl + row * 64 + col * 4;
+        t = D_8006A69C[bank].field_0 + row * 64 + col * 4;
         e = t[1];
         if (!(e & 0xF0)) {
             return;
@@ -5804,18 +5804,18 @@ void func_80036AF8(void *file, s16 b) {
                 D_8006AEE8 = 0;
             }
         }
-        req.w[0] = (s32)PS1_FN_ADDR(func_80035270);
+        req.field_8[0] = (s32)PS1_FN_ADDR(func_80035270);
         D_800A46BA = 0;
         if (row != 0) {
-            req.w[1] = CdPosToInt(file) + D_8006A69C[bank].ofs[row];
+            req.field_8[1] = CdPosToInt(file) + D_8006A69C[bank].field_8[row];
         } else {
-            req.w[1] = CdPosToInt(file);
+            req.field_8[1] = CdPosToInt(file);
         }
-        req.w[2] = b;
-        req.w[5] = (s32)PS1_FN_ADDR(func_80036D24);
-        req.w[6] = 0;
-        req.w[7] = (s32)PS1_FN_ADDR(func_800359B0);
-        req.w[8] = (s32)PS1_FN_ADDR(func_80036FB0);
+        req.field_8[2] = b;
+        req.field_8[5] = (s32)PS1_FN_ADDR(func_80036D24);
+        req.field_8[6] = 0;
+        req.field_8[7] = (s32)PS1_FN_ADDR(func_800359B0);
+        req.field_8[8] = (s32)PS1_FN_ADDR(func_80036FB0);
         r = func_80034CF0(&req);
         if (r != 0) {
             D_80078F10[D_8006AEE8] = r;
@@ -5837,7 +5837,7 @@ extern s32 func_80035C4C();
 void func_80036F98(void);
 
 void func_80036D58(s32 n) {
-    Req r;
+    struct_30_2 r;
     s32 pad[2];
     s32 i;
     s32 id;
@@ -5855,12 +5855,12 @@ void func_80036D58(s32 n) {
             }
             D_8006AEE8 = 0;
         }
-        r.w[0] = (s32)PS1_FN_ADDR(func_80035C4C);
-        r.w[1] = x;
-        r.w[5] = (s32)PS1_FN_ADDR(func_80036F98);
-        r.w[6] = 0;
-        r.w[7] = (s32)PS1_FN_ADDR(func_8003602C);
-        r.w[8] = (s32)PS1_FN_ADDR(func_80036FB0);
+        r.field_8[0] = (s32)PS1_FN_ADDR(func_80035C4C);
+        r.field_8[1] = x;
+        r.field_8[5] = (s32)PS1_FN_ADDR(func_80036F98);
+        r.field_8[6] = 0;
+        r.field_8[7] = (s32)PS1_FN_ADDR(func_8003602C);
+        r.field_8[8] = (s32)PS1_FN_ADDR(func_80036FB0);
         id = func_80034CF0(&r);
         D_80078F10[D_8006AEE8] = id;
         if (id != 0) {
@@ -5926,15 +5926,15 @@ void func_80037004(void) {
     } while (i >= 0);
 }
 
-typedef struct { s32 f0; s32 f4; s32 pad[4]; } BankEnt;
-typedef struct { s32 hdr[6]; BankEnt e[16]; } BankTab;
-extern BankTab D_800A4620;
-typedef struct { s32 a; s32 id; s32 c; u8 z; u8 used; u8 k; u8 pad; } SndSlot;
+typedef struct { s32 field_0; s32 field_4; s32 field_8[4]; } struct_18_2;
+typedef struct { s32 field_0[6]; struct_18_2 field_18[16]; } struct_198;
+extern struct_198 D_800A4620;
+typedef struct { s32 field_0; s32 field_4; s32 field_8; u8 field_C; u8 field_D; u8 field_E; u8 field_F; } struct_10_2;
 typedef struct {
-    s32 x22C; s32 p230; s32 p234; s32 x238; s32 x23C;
-    s16 x240; u8 x242; u8 x243; SndSlot slot[5];
-} SndCtl;
-extern SndCtl D_8007622C;
+    s32 field_0; s32 field_4; s32 field_8; s32 field_C; s32 field_10;
+    s16 field_14; u8 field_16; u8 field_17; struct_10_2 field_18[5];
+} struct_68_2;
+extern struct_68_2 D_8007622C;
 extern s32 D_80076228;
 extern s32 D_80076238;
 extern s16 D_80076240;
@@ -5945,26 +5945,26 @@ void func_80037028(s32 id, s32 a) {
     s32 i;
     s32 k;
     for (i = 0; i < 5; i++) {
-        if (D_8007622C.slot[i].used == 0) {
+        if (D_8007622C.field_18[i].field_D == 0) {
             break;
         }
     }
     if (i < 5) {
-        D_8007622C.slot[i].used = 1;
-        D_8007622C.slot[i].a = a;
-        D_8007622C.slot[i].z = 0;
-        D_8007622C.slot[i].id = id;
+        D_8007622C.field_18[i].field_D = 1;
+        D_8007622C.field_18[i].field_0 = a;
+        D_8007622C.field_18[i].field_C = 0;
+        D_8007622C.field_18[i].field_4 = id;
         k = D_80064D49[id * 12];
-        D_8007622C.slot[i].k = k;
-        D_8007622C.slot[i].c = D_800A4620.e[k].f4;
+        D_8007622C.field_18[i].field_E = k;
+        D_8007622C.field_18[i].field_8 = D_800A4620.field_18[k].field_4;
         if (i == 0) {
-            D_8007622C.x22C = a;
+            D_8007622C.field_0 = a;
             D_80076228 = a;
             D_80076240 = 0;
             D_80076243 = 2;
             *(u8 *)&D_80076242 = 0;
             D_80076294 = 0;
-            D_80076238 = D_800A4620.e[k].f4;
+            D_80076238 = D_800A4620.field_18[k].field_4;
         }
     }
     D_8007629C = 0;
@@ -5977,42 +5977,42 @@ void func_80037144(s32 a) {
     s32 s;
     u8 one; /* MATCH-TRICK: the constant 1 held in a local, set inside the do-while(0) below (LuciDin 1 Nov) */
     for (i = 0; i < 5; i++) {
-        if (D_8007622C.slot[i].used == 0) break;
+        if (D_8007622C.field_18[i].field_D == 0) break;
     }
     if (i < 5) {
         do { /* MATCH-TRICK: loop notes keep the li of one between the la and the bank store (sched1 would sink it to the used store) */
-            D_8007622C.slot[i].a = (s32)D_800BA320;
+            D_8007622C.field_18[i].field_0 = (s32)D_800BA320;
             one = 1;
         } while (0);
-        D_8007622C.slot[i].id = a | 0x2000;
-        D_8007622C.slot[i].z = 0;
-        D_8007622C.slot[i].used = one;
-        D_8007622C.slot[i].k = 4;
-        D_8007622C.slot[i].c = g_SoundSlot[3].spuAddr = D_800652F0[D_80065438[a].v];
+        D_8007622C.field_18[i].field_4 = a | 0x2000;
+        D_8007622C.field_18[i].field_C = 0;
+        D_8007622C.field_18[i].field_D = one;
+        D_8007622C.field_18[i].field_E = 4;
+        D_8007622C.field_18[i].field_8 = D_800A4640[3].field_14 = D_800652F0[D_80065438[a].field_0];
         s = 4;
-        if (g_SoundSlot[4].unk10 == 0) {
-            if (*(s16 *)g_SoundSlot[4].pad0 == (D_80065438[a].v | 0x4000)) {
-                D_8007622C.slot[i].id |= 0x1000;
+        if (D_800A4640[4].field_10 == 0) {
+            if (*(s16 *)D_800A4640[4].field_0 == (D_80065438[a].field_0 | 0x4000)) {
+                D_8007622C.field_18[i].field_4 |= 0x1000;
             } else {
-                g_SoundSlot[4].unk10 = 1;
-                if (g_SoundSlot[4].unk2 >= 0) {
-                    SsVabClose(g_SoundSlot[4].unk2);
-                    g_SoundSlot[4].unk2 = -1;
+                D_800A4640[4].field_10 = 1;
+                if (D_800A4640[4].field_2 >= 0) {
+                    SsVabClose(D_800A4640[4].field_2);
+                    D_800A4640[4].field_2 = -1;
                 }
             }
         } else {
-            if (g_SoundSlot[4].unk2 >= 0) {
-                SsVabClose(g_SoundSlot[4].unk2);
-                g_SoundSlot[4].unk2 = -1;
+            if (D_800A4640[4].field_2 >= 0) {
+                SsVabClose(D_800A4640[4].field_2);
+                D_800A4640[4].field_2 = -1;
             }
         }
         if (i == 0) {
-            D_8007622C.x22C = (s32)D_800BA320;
+            D_8007622C.field_0 = (s32)D_800BA320;
             D_80076238 = *(s32 *)((u8 *)&D_800A463C + s * 0x18);
             D_80076228 = (s32)D_800BA320;
             D_80076240 = 0;
             D_80076243 = 1;
-            D_80076242.flag = 0;
+            D_80076242.field_0 = 0;
             D_80076294 = 0;
         }
     }
@@ -6049,7 +6049,7 @@ u8 *func_80037368(s32 *count) {
     return D_80076220;
 }
 
-extern U16R D_80065438[];
+extern struct_2 D_80065438[];
 extern s32 D_80076298[];
 extern u8 D_80076250[];
 extern s32 D_80076248[];
@@ -6070,7 +6070,7 @@ void func_800373D0(void) {
                 *(u16 *)st = a & 0xFFF;
                 func_8002D7FC((s32)bank);
                 if (!(*p & 0x1000)) {
-                    func_8002FDE8(D_80065438[*(s16 *)st].v, bank + 0x7000);
+                    func_8002FDE8(D_80065438[*(s16 *)st].field_0, bank + 0x7000);
                 }
             }
         }
@@ -6088,7 +6088,7 @@ s32 func_800374CC(s32 *out) {
 }
 
 extern u8 D_80076252[];
-extern Row12 D_80064D4A[];
+extern struct_C_4 D_80064D4A[];
 
 s32 func_8003750C(void) {
     s32 i;
@@ -6117,17 +6117,17 @@ s32 func_8003750C(void) {
                 a = *(s32 *)((u8 *)D_80076248 + off);
                 k = D_80076252[off];
                 if (!(a & 0x6000)) {
-                    if (g_SoundSlot[k].unk4 != 0 && g_SoundSlot[k].unk4 != D_80064D4A[a].c) {
-                        *(s16 *)(D_800C532A + g_SoundSlot[k].unk8 * 4) = -1;
-                        g_SoundSlot[k].unk4 = 0;
-                        g_SoundSlot[k].unk8 = 0;
+                    if (D_800A4640[k].field_4 != 0 && D_800A4640[k].field_4 != D_80064D4A[a].field_0) {
+                        *(s16 *)(D_800C532A + D_800A4640[k].field_8 * 4) = -1;
+                        D_800A4640[k].field_4 = 0;
+                        D_800A4640[k].field_8 = 0;
                     }
-                    if (g_SoundSlot[k].unk10 == 0) {
-                        g_SoundSlot[k].unk10 = 1;
-                        D_800C5328[*(s16 *)g_SoundSlot[k].pad0].lo = -1;
-                        if (g_SoundSlot[i].unk2 >= 0) {
-                            SsVabClose(g_SoundSlot[i].unk2);
-                            g_SoundSlot[i].unk2 = -1;
+                    if (D_800A4640[k].field_10 == 0) {
+                        D_800A4640[k].field_10 = 1;
+                        D_800C5328[*(s16 *)D_800A4640[k].field_0].field_0 = -1;
+                        if (D_800A4640[i].field_2 >= 0) {
+                            SsVabClose(D_800A4640[i].field_2);
+                            D_800A4640[i].field_2 = -1;
                         }
                         func_80031A98();
                     }
@@ -6142,12 +6142,12 @@ s32 func_8003750C(void) {
 }
 
 s32 func_8003775C(void) {
-    register Flag8 *f = &D_80076242;
-    if (f->flag != 0) {
+    register struct_1 *f = &D_80076242;
+    if (f->field_0 != 0) {
         if (SpuIsTransferCompleted(0) == 0) {
             return 0;
         }
-        f->flag = 0;
+        f->field_0 = 0;
         D_8006AEF4 &= 0xFC;
         func_800373D0();
         return 1;
@@ -6177,17 +6177,17 @@ void func_800377D8(s32 a0) {
                 }
                 if (D_80076240 == 0 && *(s32 *)D_80076228 != 0x7671732E) {
                     *(u8 *)D_80076298 = 1;
-                    D_8007622C.slot[D_80076294].z = 2;
+                    D_8007622C.field_18[D_80076294].field_C = 2;
                     goto fail;
                 }
                 D_80076228 += 0x800;
-                D_8007622C.x240++;
-                if (D_8007622C.x240 == 14) {
-                    if (D_8007622C.slot[D_80076294].id & 0x1000) {
-                        D_8007622C.slot[D_80076294].z = 1;
+                D_8007622C.field_14++;
+                if (D_8007622C.field_14 == 14) {
+                    if (D_8007622C.field_18[D_80076294].field_4 & 0x1000) {
+                        D_8007622C.field_18[D_80076294].field_C = 1;
                         D_80076294++;
-                        if (D_80076294 < 5 && D_8007622C.slot[D_80076294].used != 0) {
-                            if (D_8007622C.slot[D_80076294].id & 0x2000) {
+                        if (D_80076294 < 5 && D_8007622C.field_18[D_80076294].field_D != 0) {
+                            if (D_8007622C.field_18[D_80076294].field_4 & 0x2000) {
                                 D_80076243 = 1;
                                 *(u8 *)D_80076298 = 0;
                                 D_80076240 = 0;
@@ -6196,15 +6196,15 @@ void func_800377D8(s32 a0) {
                                 *(u8 *)D_80076298 = 0;
                                 D_80076240 = 0;
                             }
-                            D_80076228 = D_8007622C.slot[D_80076294].a;
-                            D_80076238 = D_8007622C.slot[D_80076294].c;
+                            D_80076228 = D_8007622C.field_18[D_80076294].field_0;
+                            D_80076238 = D_8007622C.field_18[D_80076294].field_8;
                         } else {
                             D_80076243 = 4;
                             D_8006AEF4 &= 0xFD;
                         }
                     } else {
                         D_80076243 = 2;
-                        D_8007622C.x240 = 0;
+                        D_8007622C.field_14 = 0;
                     }
                 }
                 return;
@@ -6217,8 +6217,8 @@ void func_800377D8(s32 a0) {
                 if (D_80076240 == 7) {
                     D_80076243 = 3;
                     D_80076240 = 0;
-                    if (D_80076242.flag != 0 && SpuIsTransferCompleted(0) != 0) {
-                        D_8007622C.x242 = 0;
+                    if (D_80076242.field_0 != 0 && SpuIsTransferCompleted(0) != 0) {
+                        D_8007622C.field_16 = 0;
                     }
                 }
                 return;
@@ -6227,7 +6227,7 @@ void func_800377D8(s32 a0) {
                     goto fail;
                 }
                 D_80076240++;
-                if (D_80076242.flag != 0 && SpuIsTransferCompleted(0) == 0) {
+                if (D_80076242.field_0 != 0 && SpuIsTransferCompleted(0) == 0) {
                     goto fail;
                 }
                 /* MATCH-TRICK: the file declares SpuSetTransferStartAddr void; the original tests its return value */
@@ -6236,12 +6236,12 @@ void func_800377D8(s32 a0) {
                 }
                 if (D_80076240 == ((s16 *)D_80076228)[-2]) {
                     SpuRead(D_80076228, ((s16 *)D_80076228)[-1]);
-                    D_8007622C.x242 = 1;
+                    D_8007622C.field_16 = 1;
                     D_8006AEF4 |= 1;
-                    D_8007622C.slot[D_80076294].z = 1;
+                    D_8007622C.field_18[D_80076294].field_C = 1;
                     D_80076294++;
-                    if (D_80076294 < 5 && D_8007622C.slot[D_80076294].used != 0) {
-                        if (D_8007622C.slot[D_80076294].id & 0x2000) {
+                    if (D_80076294 < 5 && D_8007622C.field_18[D_80076294].field_D != 0) {
+                        if (D_8007622C.field_18[D_80076294].field_4 & 0x2000) {
                             D_80076243 = 1;
                             *(u8 *)D_80076298 = 0;
                             D_80076240 = 0;
@@ -6250,15 +6250,15 @@ void func_800377D8(s32 a0) {
                             *(u8 *)D_80076298 = 0;
                             D_80076240 = 0;
                         }
-                        D_80076228 = D_8007622C.slot[D_80076294].a;
-                        D_80076238 = D_8007622C.slot[D_80076294].c;
+                        D_80076228 = D_8007622C.field_18[D_80076294].field_0;
+                        D_80076238 = D_8007622C.field_18[D_80076294].field_8;
                     } else {
                         D_80076243 = 4;
                         D_8006AEF4 &= 0xFD;
                     }
                 } else {
                     SpuRead(D_80076228, 0x800);
-                    D_8007622C.x242 = 1;
+                    D_8007622C.field_16 = 1;
                     D_8006AEF4 |= 1;
                     D_80076238 += 0x800;
                 }
@@ -6626,19 +6626,19 @@ s32 func_800387C0(u8 **pp) {
     return 0;
 }
 
-typedef struct { u8 n; u8 f1; s16 f2; u8 f4; u8 pad5[2]; u8 f7; u8 pad8; u8 z[16]; } Ent1A;
+typedef struct { u8 field_0; u8 field_1; s16 field_2; u8 field_4; u8 field_5[2]; u8 field_7; u8 field_8; u8 field_9[16]; } struct_1A_2;
 
 void func_80038838(u8 *a) {
     s32 n;
     s32 j;
-    Ent1A *p = (Ent1A *)(a + 0x1A);
+    struct_1A_2 *p = (struct_1A_2 *)(a + 0x1A);
     for (n = 0; n < 0x10; n++, p++) {
-        u8 *q = p->z;
-        p->n = n;
-        p->f2 = 0x40;
-        p->f4 = 0x40;
-        p->f7 = 0;
-        p->f1 = 0x7F;
+        u8 *q = p->field_9;
+        p->field_0 = n;
+        p->field_2 = 0x40;
+        p->field_4 = 0x40;
+        p->field_7 = 0;
+        p->field_1 = 0x7F;
         for (j = 0xF; j >= 0; j--) {
             *q++ = 0;
         }
@@ -6683,16 +6683,16 @@ void func_80038958(void) {
     u8 *st = D_800762B0;
     u8 *fl = &D_800762B4;
     s32 i = 0;
-    Ch60 *p = D_800C6DD0;
+    struct_60_2 *p = D_800C6DD0;
     do {
         u8 s = *st;
         if ((s == 0 || s == 3) && *fl == 0) {
-            p->pad5B[0] = 0;
-            if (p->on != 0) {
-                u8 *q = (u8 *)&p->list[p->idx];
+            p->field_5B[0] = 0;
+            if (p->field_5A != 0) {
+                u8 *q = (u8 *)&p->field_50[p->field_6];
                 q += i;
                 q[0x23] = 0;
-                p->on = 0;
+                p->field_5A = 0;
             }
         }
         i++;
@@ -6733,16 +6733,16 @@ void func_80038A58(void) {
         u8 *st = D_800762B0;
         u8 *fl = &D_800762B4;
         s32 k = 0;
-        Ch60 *c = D_800C6DD0;
+        struct_60_2 *c = D_800C6DD0;
         do {
             u8 s = *st;
             if ((s == 0 || s == 3) && *fl == 0) {
-                c->pad5B[0] = 0;
-                if (c->on != 0) {
-                    u8 *q = (u8 *)&c->list[c->idx];
+                c->field_5B[0] = 0;
+                if (c->field_5A != 0) {
+                    u8 *q = (u8 *)&c->field_50[c->field_6];
                     q += k;
                     q[0x23] = 0;
-                    c->on = 0;
+                    c->field_5A = 0;
                 }
             }
             k++;
@@ -6837,31 +6837,31 @@ void func_80038A58(void) {
                 *(s16 *)(p + 0x10) = v;
             }
             if (t2 != 0 || D_800A4F16 != 0) {
-                Ch60 *c = D_800C6DD0;
+                struct_60_2 *c = D_800C6DD0;
                 for (j = 0; j < 16; j++, c++) {
-                    if (c->on == 1) {
-                        if (*(s16 *)((u8 *)c->list + 0x1F0) == i) {
+                    if (c->field_5A == 1) {
+                        if (*(s16 *)((u8 *)c->field_50 + 0x1F0) == i) {
                             *(s16 *)((u8 *)c + 0x18) = (u32)(*(s16 *)c * *(s16 *)(p + 0x10)) >> 14;
                             *(s16 *)((u8 *)c + 0x1A) = (u32)(*(s16 *)((u8 *)c + 2) * *(s16 *)(p + 0x10)) >> 14;
-                            c->pad5B[2] = 1;
+                            c->field_5B[2] = 1;
                             *(s32 *)((u8 *)c + 0x14) |= 3;
                         }
-                    } else if (c->on != 0) {
-                        c->on = 1;
+                    } else if (c->field_5A != 0) {
+                        c->field_5A = 1;
                     }
                 }
             } else {
-                Ch60 *c = D_800C6DD0;
+                struct_60_2 *c = D_800C6DD0;
                 p[0x1F4] = 0;
                 for (j = 0; j < 16; j++, c++) {
-                    if (c->on == 2 && *(s16 *)((u8 *)c->list + 0x1F0) == i) {
-                        c->on = 1;
+                    if (c->field_5A == 2 && *(s16 *)((u8 *)c->field_50 + 0x1F0) == i) {
+                        c->field_5A = 1;
                     }
                 }
             }
         } else if (D_800A4F16 != 0) {
             s32 k;
-            Ch60 *c;
+            struct_60_2 *c;
             {
                 s32 v;
                 u16 *q;
@@ -6874,15 +6874,15 @@ void func_80038A58(void) {
             }
             c = D_800C6DD0;
             for (k = 0; k < 16; k++, c++) {
-                if (c->on == 1) {
-                    if (*(s16 *)((u8 *)c->list + 0x1F0) == i) {
+                if (c->field_5A == 1) {
+                    if (*(s16 *)((u8 *)c->field_50 + 0x1F0) == i) {
                         *(s16 *)((u8 *)c + 0x18) = (u32)(*(s16 *)c * *(s16 *)(p + 0x10)) >> 14;
                         *(s16 *)((u8 *)c + 0x1A) = (u32)(*(s16 *)((u8 *)c + 2) * *(s16 *)(p + 0x10)) >> 14;
-                        c->pad5B[2] = 1;
+                        c->field_5B[2] = 1;
                         *(s32 *)((u8 *)c + 0x14) |= 3;
                     }
-                } else if (c->on != 0) {
-                    c->on = 1;
+                } else if (c->field_5A != 0) {
+                    c->field_5A = 1;
                 }
             }
         }
@@ -6982,16 +6982,16 @@ s32 func_80038FFC(u8 *p) {
 }
 
 void func_8003916C(s16 n) {
-    Ch60 *p = &D_800C6DD0[n];
-    if (p->on != 0) {
-        u8 *q = (u8 *)&p->list[p->idx]; q += n; q[0x23] = 0;
-        p->on = 0;
+    struct_60_2 *p = &D_800C6DD0[n];
+    if (p->field_5A != 0) {
+        u8 *q = (u8 *)&p->field_50[p->field_6]; q += n; q[0x23] = 0;
+        p->field_5A = 0;
     }
 }
 
 extern u8 D_800C6DD4[];
 
-void func_800391D4(E1A *list, s32 id0, s32 idx0) {
+void func_800391D4(struct_1A *list, s32 id0, s32 idx0) {
     s16 idx = idx0;
     s16 id = id0;
     s32 i;
@@ -7001,10 +7001,10 @@ void func_800391D4(E1A *list, s32 id0, s32 idx0) {
         u8 *q = (u8 *)&list[idx] + i;
         if (q[0x23] != 0 && *(s16 *)(D_800C6DD4 + off) == id) {
             s16 n = i;
-            Ch60 *p = &D_800C6DD0[n];
-            if (p->on != 0) {
-                u8 *r = (u8 *)&p->list[p->idx]; r += n; r[0x23] = 0;
-                p->on = 0;
+            struct_60_2 *p = &D_800C6DD0[n];
+            if (p->field_5A != 0) {
+                u8 *r = (u8 *)&p->field_50[p->field_6]; r += n; r[0x23] = 0;
+                p->field_5A = 0;
             }
             bits = D_80073140[i];
             D_800C7D20 &= ~bits;
@@ -7023,15 +7023,15 @@ extern u16 D_8006ACD8[];
 extern s16 D_8006AF08[];
 extern u8 D_800C6DDD[];
 
-static inline void stop_i(s16 n) {
-    Ch60 *h = &D_800C6DD0[n];
-    if (h->on != 0) {
-        u8 *q = (u8 *)&h->list[h->idx]; q += n; q[0x23] = 0;
-        h->on = 0;
+static inline void func_80039308_inline(s16 n) {
+    struct_60_2 *h = &D_800C6DD0[n];
+    if (h->field_5A != 0) {
+        u8 *q = (u8 *)&h->field_50[h->field_6]; q += n; q[0x23] = 0;
+        h->field_5A = 0;
     }
 }
 
-static inline void off_i(u8 *p, s32 id0, s32 idx0) {
+static inline void func_80039308_inline_2(u8 *p, s32 id0, s32 idx0) {
     s16 k = idx0;
     s32 i = 0;
     u8 *row = p + k * 0x1A;
@@ -7039,7 +7039,7 @@ static inline void off_i(u8 *p, s32 id0, s32 idx0) {
     s32 off = 0;
 loop:
     if ((row + i)[0x23] != 0 && *(s16 *)(D_800C6DD4 + off) == id) {
-        stop_i(i);
+        func_80039308_inline(i);
         D_800C7D20 &= ~D_80073140[i];
         D_800A2B98 |= D_80073140[i];
         D_800762B0[i] = 2;
@@ -7209,17 +7209,17 @@ void func_80039308(u8 *a, s32 n0) {
                 *(s16 *)(d + 0x14) = m >> 15;
             }
             c[0x5D] = 1;
-            D_800A2B98 &= ~((S32R *)d)->v;
-            D_800C7D20 |= ((S32R *)d)->v;
+            D_800A2B98 &= ~((struct_4_3 *)d)->field_0;
+            D_800C7D20 |= ((struct_4_3 *)d)->field_0;
             (&D_800762B4)[slot] = 1;
             if (z[0] & 4) {
-                D_800A2BA0 &= ~((S32R *)d)->v;
-                D_800C7D2C |= ((S32R *)d)->v;
+                D_800A2BA0 &= ~((struct_4_3 *)d)->field_0;
+                D_800C7D2C |= ((struct_4_3 *)d)->field_0;
             } else {
-                D_800C7D2C &= ~((S32R *)d)->v;
-                D_800A2BA0 |= ((S32R *)d)->v;
+                D_800C7D2C &= ~((struct_4_3 *)d)->field_0;
+                D_800A2BA0 |= ((struct_4_3 *)d)->field_0;
             }
-            stop_i(slot);
+            func_80039308_inline(slot);
             (e + slot)[9] = 1;
             c = (u8 *)&D_800C6DD0[slot];
             *(s16 *)(c + 4) = note;
@@ -7238,7 +7238,7 @@ void func_80039308(u8 *a, s32 n0) {
             }
         }
     } else {
-        off_i(a, note, n);
+        func_80039308_inline_2(a, note, n);
     }
 }
 
@@ -7254,10 +7254,10 @@ void func_80039B20(u8 *p, s32 k0) {
 loop:
     if ((row + i)[0x23] != 0 && *(s16 *)(D_800C6DD4 + off) == c) {
         s16 n = i;
-        Ch60 *q = &D_800C6DD0[n];
-        if (q->on != 0) {
-            u8 *r = (u8 *)&q->list[q->idx]; r += n; r[0x23] = 0;
-            q->on = 0;
+        struct_60_2 *q = &D_800C6DD0[n];
+        if (q->field_5A != 0) {
+            u8 *r = (u8 *)&q->field_50[q->field_6]; r += n; r[0x23] = 0;
+            q->field_5A = 0;
         }
         D_800C7D20 &= ~D_80073140[i];
         D_800A2B98 |= D_80073140[i];

@@ -1,0 +1,296 @@
+# r503: SDK names kept by tools/pristine_names.py: the type names (with their field names) and the
+# function names that the PsyQ Runtime Library 4.0 headers (DTL-S2320, redump-verified; read-only, nothing
+# from the disc is in the repository) declare AND this source uses. Names only. Regenerate with
+# `python -I tools/pristine_names.py sdk-names <the headers folder>` from the tree before the rename.
+
+type CdlFILE name pos size
+type CdlLOC minute second sector track
+type DISPENV disp isinter isrgb24 pad0 pad1 screen
+type DRAWENV b0 clip dfe dr_env dtd g0 isbg ofs r0 tpage tw
+type DR_ENV code tag
+type GsBG attribute b g h map mx my r rotate scalex scaley scrollx scrolly w x y
+type GsIMAGE ch clut cw cx cy ph pixel pmode pw px py
+type GsLINE attribute b g r x0 x1 y0 y1
+type GsMAP base cellh cellw index ncellh ncellw
+type GsOT length offset org point tag
+type GsRVIEW2 rz super vpx vpy vpz vrx vry vrz
+type GsSPRITE attribute b cx cy g h mx my r rotate scalex scaley tpage u v w x y
+type LINE_F2 b0 code g0 r0 tag x0 x1 y0 y1
+type LINE_G2 b0 b1 code g0 g1 p1 r0 r1 tag x0 x1 y0 y1
+type MATRIX m t
+type POLY_F3 b0 code g0 r0 tag x0 x1 x2 y0 y1 y2
+type POLY_F4 b0 code g0 r0 tag x0 x1 x2 x3 y0 y1 y2 y3
+type POLY_FT4 b0 clut code g0 pad1 pad2 r0 tag tpage u0 u1 u2 u3 v0 v1 v2 v3 x0 x1 x2 x3 y0 y1 y2 y3
+type P_TAG addr b0 code g0 len r0
+type RECT h w x y
+type SVECTOR pad vx vy vz
+type SpuCommonAttr cd ext mask mvol mvolmode mvolx
+type SpuEnv mask queueing
+type SpuExtAttr mix reverb volume
+type SpuVolume left right
+type StHEADER frameCount frameSize height id loc nSectors secCount type width
+type VECTOR pad vx vy vz
+type VagAtr adsr1 adsr2 center max min mode pan prior prog reserved shift vag vol
+func AddPrim
+func ApplyMatrixLV
+func ApplyMatrixSV
+func ApplyRotMatrix
+func ApplyRotMatrixLV
+func ApplyTransposeMatrixLV
+func CatPrim
+func CdControl
+func CdControlB
+func CdControlF
+func CdDiskReady
+func CdFlush
+func CdGetDiskType
+func CdGetSector
+func CdGetToc
+func CdInit
+func CdIntToPos
+func CdMix
+func CdMode
+func CdPosToInt
+func CdRead2
+func CdReadyCallback
+func CdSearchFile
+func CdStatus
+func CdSync
+func ClearImage
+func ClearOTagR
+func CompMatrix
+func CompMatrixLV
+func DecDCTvlc
+func DrawOTag
+func DrawSync
+func DrawSyncCallback
+func EnterCriticalSection
+func ExitCriticalSection
+func GetClut
+func GetTPage
+func GsDefDispBuff
+func GsDefDispBuff2
+func GsGetLs
+func GsGetLw
+func GsGetLws
+func GsGetTimInfo
+func GsInit3D
+func GsInitCoordinate2
+func GsInitGraph
+func GsInitGraph2
+func GsLinkObject4
+func GsLinkObject5
+func GsMapModelingData
+func GsPresetObject
+func GsPrstF3NL
+func GsPrstF4NL
+func GsPrstG3NL
+func GsPrstG4NL
+func GsPrstTF3NL
+func GsPrstTF4NL
+func GsPrstTG3NL
+func GsPrstTG4NL
+func GsSetAmbient
+func GsSetFlatLight
+func GsSetFogParam
+func GsSetLightMatrix2
+func GsSetLightMode
+func GsSetLsMatrix
+func GsSetProjection
+func GsSetRefView2
+func GsSetRefView2L
+func GsSortBg
+func GsSortFastBg
+func GsSortFastSprite
+func GsSortLine
+func GsSortObject4
+func GsSortObject5
+func GsSortSprite
+func GsTMDfastF3GL
+func GsTMDfastF3GNL
+func GsTMDfastF3NL
+func GsTMDfastF4GL
+func GsTMDfastF4GNL
+func GsTMDfastF4NL
+func GsTMDfastG3GL
+func GsTMDfastG3GNL
+func GsTMDfastG3NL
+func GsTMDfastG4GL
+func GsTMDfastG4GNL
+func GsTMDfastG4NL
+func GsTMDfastTF3NL
+func GsTMDfastTF4NL
+func GsTMDfastTG3NL
+func GsTMDfastTG4NL
+func InitGeom
+func InitHeap
+func LoadImage
+func LoadTPage
+func Lzc
+func MemCardAccept
+func MemCardClose
+func MemCardCreateFile
+func MemCardExist
+func MemCardFormat
+func MemCardGetDirentry
+func MemCardInit
+func MemCardOpen
+func MemCardReadData
+func MemCardStart
+func MemCardSync
+func MemCardWriteData
+func MemCardWriteFile
+func MoveImage
+func MulMatrix
+func MulMatrix0
+func MulMatrix2
+func MulRotMatrix
+func NormalClip
+func PopMatrix
+func PushMatrix
+func PutDispEnv
+func PutDrawEnv
+func ReadGeomOffset
+func ReadGeomScreen
+func ReadRotMatrix
+func ResetCallback
+func ResetGraph
+func RotMatrix
+func RotMatrixX
+func RotMatrixY
+func RotMatrixYXZ
+func RotMatrixZ
+func RotMatrixZYX
+func RotNclip4
+func RotTransPers
+func RotTransPers3
+func RotTransPers4
+func RotTransSV
+func ScaleMatrix
+func SetBackColor
+func SetDefDispEnv
+func SetDefDrawEnv
+func SetDispMask
+func SetDrawEnv
+func SetDrawMode
+func SetGeomOffset
+func SetGeomScreen
+func SetGraphDebug
+func SetLightMatrix
+func SetLineF2
+func SetLineG2
+func SetLineG3
+func SetLineG4
+func SetMulMatrix
+func SetMulRotMatrix
+func SetPolyF3
+func SetPolyF4
+func SetPolyFT3
+func SetPolyFT4
+func SetPolyG3
+func SetPolyG4
+func SetPolyGT3
+func SetPolyGT4
+func SetRotMatrix
+func SetSemiTrans
+func SetTransMatrix
+func SetVideoMode
+func SpuGetReverbModeDepth
+func SpuIsTransferCompleted
+func SpuNSetVoiceAttr
+func SpuQuit
+func SpuRGetAllKeysStatus
+func SpuRead
+func SpuReserveReverbWorkArea
+func SpuSetCommonAttr
+func SpuSetEnv
+func SpuSetKey
+func SpuSetReverb
+func SpuSetReverbModeParam
+func SpuSetReverbVoice
+func SpuSetTransferStartAddr
+func SpuSetVoiceRR
+func Square0
+func Square12
+func SquareRoot0
+func SquareRoot12
+func SsEnd
+func SsGetCurrentPoint
+func SsInit
+func SsSetSerialAttr
+func SsSetSerialVol
+func SsUtGetVagAddr
+func SsUtGetVagAtr
+func SsUtKeyOffV
+func SsUtKeyOnV
+func SsVabClose
+func SsVabFakeBody
+func SsVabFakeHead
+func SsVabOpenHeadSticky
+func SsVabTransBodyPartly
+func SsVabTransCompleted
+func StCdInterrupt
+func StFreeRing
+func StGetNext
+func StSetRing
+func StSetStream
+func StUnSetRing
+func StopCallback
+func StopRCnt
+func StoreImage
+func TransposeMatrix
+func VSync
+func VSyncCallback
+func VectorNormal
+func VectorNormalS
+func VectorNormalSS
+func abs
+func bzero
+func catan
+func cd
+func csqrt
+func getchar
+func gteMIMefunc
+func gte_SetTransMatrix
+func gte_avsz3
+func gte_avsz4
+func gte_dpcl
+func gte_gpf12
+func gte_ldclmv
+func gte_ldlv0
+func gte_ldlvl
+func gte_ldrgb
+func gte_ldsv
+func gte_ldv0
+func gte_ldv3
+func gte_nccs
+func gte_ncct
+func gte_nclip
+func gte_rtir
+func gte_rtps
+func gte_rtpt
+func gte_rtv0
+func gte_sqr0
+func gte_sqr12
+func gte_stclmv
+func gte_stdp
+func gte_stflg
+func gte_stlvnl
+func gte_stopz
+func gte_stotz
+func gte_strgb
+func gte_strgb3
+func gte_stsv
+func gte_stsxy
+func gte_stsxy3
+func gte_stszotz
+func index
+func memcpy
+func printf
+func putchar
+func rand
+func ratan2
+func rcos
+func rsin
+func srand
+func strcpy
