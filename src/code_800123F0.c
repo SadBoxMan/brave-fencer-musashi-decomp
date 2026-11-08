@@ -3,14 +3,14 @@
 #include "psyq.h"
 #include "work.h"
 
-/* Controller state, one per port (0x4C bytes; g_Pads[2], r249 docs/names_r249.md). Layout inside data[] (record offsets):
+/* Controller state, one per port (0x4C bytes; D_80078D98[2], r249 docs/names_r249.md). Layout inside data[] (record offsets):
  * 0x08 receive status (0 = good), 0x09 receive id, 0x0A.. the raw reply (buttons active-low, then rx ry lx ly);
  * 0x2A u16 buttons latched this read (PsyQ order: Start 0x800, Select 0x100, Up 0x1000 ... Left 0x8000), 0x2C analog;
- * 0x32 u16 held, 0x34.. analog after the dead zone (index 4 = left X, 5 = left Y; GetPadByte), 0x3A u16 pressed this
- * frame, 0x42 u16 held last frame + analog (GetPadPrevByte), 0x4A / 0x4B the small / large motor values */
+ * 0x32 u16 held, 0x34.. analog after the dead zone (index 4 = left X, 5 = left Y; func_80014CF8), 0x3A u16 pressed this
+ * frame, 0x42 u16 held last frame + analog (func_80014D30), 0x4A / 0x4B the small / large motor values */
 typedef struct {
     /* 0x00 */ u8 field_0[4];      /* [0] the pad type id: 0x41 digital, 0x53 analog stick, 0x73 DualShock analog */
-    /* 0x04 */ s32 field_4;        /* 8 at InitPad, no reader found */
+    /* 0x04 */ s32 field_4;        /* 8 at func_80018918, no reader found */
     /* 0x08 */ u8 field_8[0x44]; /* receive buffer handed to PadInitDirect */
 } struct_4C;
 
@@ -1255,7 +1255,7 @@ void func_80014338(void) {
     func_80029274();
 }
 
-/* Arm the frame loop: clear Work.exitLoop and run at one frame per 2 vblanks */
+/* Arm the frame loop: clear struct_A444.field_A3D4 and run at one frame per 2 vblanks */
 void func_80014390(void)
 {
     D_800AF630.field_A3D4 = 0;
@@ -1341,7 +1341,7 @@ void func_800145EC(s32 mode) {
     func_800147B8();
 }
 
-/* SetScreenMode with GsInitGraph2 / GsDefDispBuff2 (used by overlays and stages) */
+/* func_800145EC with GsInitGraph2 / GsDefDispBuff2 (used by overlays and stages) */
 void func_800146B0(s32 mode) {
     s32 ofs = (mode & 0xFFFF) * 6;
     u16 width; u16 height; u16 flags;
@@ -1369,7 +1369,7 @@ void func_80014774(void) {
     ClearImage(&r, 0, 0, 0);
 }
 
-/* Set Work.draw[2]/disp[2] for double buffering from the screen size, then the bg colour */
+/* Set struct_A444.field_38[2]/disp[2] for double buffering from the screen size, then the bg colour */
 extern void SetDefDrawEnv();
 extern void SetDefDispEnv();
 
@@ -1418,7 +1418,7 @@ void func_80014928(void) {
     ExitCriticalSection();
 }
 
-/* Zero the Work background colour bytes (0x192-0x194) and copy them into both DRAWENVs */
+/* Zero the struct_A444 background colour bytes (0x192-0x194) and copy them into both DRAWENVs */
 void func_80014960(void) {
     D_800AF7C4 = 0;
     D_800AF7C3 = 0;
@@ -1426,7 +1426,7 @@ void func_80014960(void) {
     func_80014998();
 }
 
-/* Copy the Work background colour (0x192-0x194) into both DRAWENVs' r0, g0, b0 */
+/* Copy the struct_A444 background colour (0x192-0x194) into both DRAWENVs' r0, g0, b0 */
 void func_80014998(void) {
     u8 *p; u8 *w; s32 i;
     w = (u8 *)&D_800AF630; i = 0; p = w;
@@ -1550,7 +1550,7 @@ u8 func_80014CF8(u8 port, s32 idx) {
     return (p + (u8)idx)[0x32];
 }
 
-/* Byte idx of last frame's state (as GetPadByte) */
+/* Byte idx of last frame's state (as func_80014CF8) */
 u8 func_80014D30(u8 port, u8 idx) {
     u8 *q = (u8 *)&D_80078D98[port];
     q += idx;
@@ -1567,19 +1567,19 @@ u16 func_80014D94(u8 port) {
     return *(u16 *)((u8 *)&D_80078DD2 + port * 0x4C);
 }
 
-/* The pad type id: a second copy of GetPadType (used by the stage engine) */
+/* The pad type id: a second copy of func_80014C28 (used by the stage engine) */
 u8 func_80014DC0(u8 port) {
     return D_80078D98[port].field_0[0];
 }
 
-/* Byte idx of the current state: a second copy of GetPadByte (no caller found) */
+/* Byte idx of the current state: a second copy of func_80014CF8 (no caller found) */
 u8 func_80014DEC(u8 port, u8 idx) {
     u8 *q = (u8 *)&D_80078D98[port];
     q += idx;
     return q[0x32];
 }
 
-/* 1 when every bit of mask is in GetPadHeldDirWide (kind == 1) or GetPadPressedDirWide (otherwise); no caller found */
+/* 1 when every bit of mask is in func_80015018 (kind == 1) or func_80014ED4 (otherwise); no caller found */
 s32 func_80014E24(u8 port, u8 kind, s32 mask) {
     s32 p = port;
     s32 bits;
@@ -1591,7 +1591,7 @@ s32 func_80014E24(u8 port, u8 kind, s32 mask) {
     return (bits & mask) == mask;
 }
 
-/* 1 when any bit of mask is in pad 0's GetPadHeldDirWide (which == 1) or GetPadPressedDirWide (otherwise) */
+/* 1 when any bit of mask is in pad 0's func_80015018 (which == 1) or func_80014ED4 (otherwise) */
 s32 func_80014E80(u8 which, s32 mask) {
     s32 bits;
     if (which == 1) {
@@ -1796,7 +1796,7 @@ struct_10_2 *func_8001544C(void) {
 extern void func_80015608(u8 *p, u8 *ot);
 extern void func_80015760(u8 *p, u8 *ot);
 
-/* Draw the 64 debug-text records (Work+0x9DA8) into the OT, then the font's texture page */
+/* Draw the 64 debug-text records (struct_A444+0x9DA8) into the OT, then the font's texture page */
 void func_80015498(void) {
     u8 *w = (u8 *)&D_800AF630;
     u8 *ot = D_800A651C[D_800B9A02].field_0;
@@ -3132,7 +3132,7 @@ void func_80018918(void)
     PadStartCom();
 }
 
-/* Read both controller ports into g_Pads: poll, latch, held / pressed / previous, the Select hold */
+/* Read both controller ports into D_80078D98: poll, latch, held / pressed / previous, the Select hold */
 void func_800189A8(void) {
     u32 i;
     struct_4C *p;
@@ -3357,12 +3357,12 @@ loop:
     }
 }
 
-/* Allow StartRumbleScript to start patterns again (clear the block flag) */
+/* Allow func_80019064 to start patterns again (clear the block flag) */
 void func_80019018(void) {
     D_800747C8 = 0;
 }
 
-/* Block new rumble patterns (StartRumbleScript ignores requests) */
+/* Block new rumble patterns (func_80019064 ignores requests) */
 void func_80019028(void) {
     D_800747C8 = 1;
 }
@@ -3613,8 +3613,8 @@ void func_800193B8(s32 lba) {
 /*
  * Disc file system init: look up every game file on the CD, read LIST.CD to
  * LIST_BUF, then convert each archive's (sector, size) list into absolute disc
- * positions in g_ArchiveFileLoc. Archives are g_FileTable[1..8] (MAIN.CD and
- * SC01-SC07); g_FileTableExtra is optional and only recorded as present or not.
+ * positions in D_800AE830. Archives are D_80062C24[1..8] (MAIN.CD and
+ * SC01-SC07); D_80063044 is optional and only recorded as present or not.
  */
 void func_8001971C(void)
 {
@@ -3663,13 +3663,13 @@ void func_8001971C(void)
     }
 }
 
-/* The CD streamer's state (0x800AE6F0): StreamStep steps it, DiscCheckStep checks the disc, StreamReadyCallback
-   (the data-ready callback) parses PAC archives into it. One object in the original: its code keeps &g_CdStream (or
+/* The CD streamer's state (0x800AE6F0): func_80019AF8 steps it, func_8001A114 checks the disc, func_8001A338
+   (the data-ready callback) parses PAC archives into it. One object in the original: its code keeps &D_800AE6F0 (or
    a member's address) in a register and reaches the other members from it. */
 typedef struct {
-    /* 0x00 */ s32 field_0;          /* StreamStep's step (0-10) */
-    /* 0x04 */ s32 field_4;          /* DiscCheckStep's step (0-5) */
-    /* 0x08 */ s32 field_8;            /* StreamReadyCallback: what the next sector holds */
+    /* 0x00 */ s32 field_0;          /* func_80019AF8's step (0-10) */
+    /* 0x04 */ s32 field_4;          /* func_8001A114's step (0-5) */
+    /* 0x08 */ s32 field_8;            /* func_8001A338: what the next sector holds */
     /* 0x0C */ s32 field_C;
     /* 0x10 */ s32 field_10;
     /* 0x14 */ s32 field_14;         /* texture sector buffer in use (0-3) */
@@ -3736,7 +3736,7 @@ void func_80019990(void) {
     D_800AE6F0.field_1C = 0;
 }
 
-/* Same as ForgetStageImage: mark no stage image as resident (a second copy, no caller) */
+/* Same as func_800191A8: mark no stage image as resident (a second copy, no caller) */
 void func_80019A10(void) {
     D_80078E30 = -1;
 }
@@ -3764,10 +3764,10 @@ inline s32 func_80019A24(CdlFILE *file, void *dest, s32 size, s32 soundTable) {
     return D_800AE6F0.field_C0;
 }
 
-/* The CD streamer's step, run every frame while a request is in flight (state g_CdStream.state): set the mode,
-   seek to the file, read it through the data-ready callback (StreamReadyCallback), load its sound banks, then wait for
+/* The CD streamer's step, run every frame while a request is in flight (state D_800AE6F0.state): set the mode,
+   seek to the file, read it through the data-ready callback (func_8001A338), load its sound banks, then wait for
    the drive. A lid opened sends it to the disc check (states 9 and 10). With `pause` set it only seeks. Sets
-   g_CdStream.complete to 1 on the frame the request completes, 0 otherwise. */
+   D_800AE6F0.complete to 1 on the frame the request completes, 0 otherwise. */
 void func_80019AF8(s32 seekOnly) {
     s32 r;
     s32 i;
@@ -3925,8 +3925,8 @@ void func_8001A0FC(void) {
     D_800AE6F0.field_1C = 0;
 }
 
-/* The disc check after the lid opened or a read failed, one step per call (state g_CdStream.check): wait for a disc,
-   set the mode, wait three calls, check the disc type, then look for this game's MUSA.ID (g_FileTable[21]).
+/* The disc check after the lid opened or a read failed, one step per call (state D_800AE6F0.check): wait for a disc,
+   set the mode, wait three calls, check the disc type, then look for this game's MUSA.ID (D_80062C24[21]).
    Returns 1 once the disc is this game's. */
 s32 func_8001A114(void) {
     s32 ret = 0;
@@ -3996,9 +3996,9 @@ s32 func_8001A114(void) {
     return ret;
 }
 
-/* The CD data-ready callback (CdReadyCallback, set by StreamStep): checks each sector arrives in order, then
-   by g_CdStream.sub reads a PAC header and starts its block (texture tiles, CLUT list, code or data payload,
-   sound bank, LZ data, skip), or takes the block's next sector. Sets g_CdStream.done to 1 when a request's last
+/* The CD data-ready callback (CdReadyCallback, set by func_80019AF8): checks each sector arrives in order, then
+   by D_800AE6F0.sub reads a PAC header and starts its block (texture tiles, CLUT list, code or data payload,
+   sound bank, LZ data, skip), or takes the block's next sector. Sets D_800AE6F0.done to 1 when a request's last
    block is in, 2 on an error. */
 void func_8001A338(u8 intr, u8 *result) {
     struct_C4 *cd = &D_800AE6F0;
@@ -4263,8 +4263,8 @@ void func_8001AAA0(s32 id) {
     func_8001ABBC(1, id, 0, 0, 0);
 }
 
-/* Load request kind 3 (a sound bank file) for one of the files g_FileTable[9..20] (n = 0..11; anything else:
-   g_FileTable[0]); clears a finished bank request first. Returns func_8001ABBC's answer. */
+/* Load request kind 3 (a sound bank file) for one of the files D_80062C24[9..20] (n = 0..11; anything else:
+   D_80062C24[0]); clears a finished bank request first. Returns func_8001ABBC's answer. */
 s32 func_8001AAD0(s32 n, s32 id) {
     s32 i;
     switch (n) {
@@ -4293,7 +4293,7 @@ void func_8001ABB4(void) {
 
 /* Ask for a load. kind 0: a file read (id = byte count, 0 for a PAC archive); 1: a sound by id (D_80063138): done
    at once when its package is the one loaded; 2: a header read; 3: a sound bank file. Returns 1 when the request
-   is done, 0 while it waits (another request in flight, or this one just queued for the pump, LoadQueueStep). */
+   is done, 0 while it waits (another request in flight, or this one just queued for the pump, func_8001AF34). */
 s32 func_8001ABBC(s32 kind, s32 id, s32 *file, s32 c, s32 d) {
     if (kind == 1) {
         if (id == D_800A654C) {
@@ -4323,7 +4323,7 @@ done:
     return 0;
 }
 
-/* Queue a load request for the pump (LoadQueueStep): D_800BA1B4 = 1 file read, 2 sound package, 4 header read,
+/* Queue a load request for the pump (func_8001AF34): D_800BA1B4 = 1 file read, 2 sound package, 4 header read,
    5 sound bank. A sound whose package is already loaded starts at once (returns 1). */
 s32 func_8001ACF0(s32 kind, s32 id, s32 *file, s32 dest, s32 table) {
     D_800747F0 = kind;
@@ -4396,7 +4396,7 @@ s32 func_8001AF04(void) {
 }
 
 /* The load pump, run every frame: works on the queued request (D_800BA1B4: 1 a file read, through the inlined
-   LoadFileStep; 2 a sound package; 4 a header read; 5 a sound bank) and sets 3 when it is done. 0 and 3 idle. */
+   func_80019A24; 2 a sound package; 4 a header read; 5 a sound bank) and sets 3 when it is done. 0 and 3 idle. */
 void func_8001AF34(void) {
     func_80034B98();
     switch (D_800BA1B4) {

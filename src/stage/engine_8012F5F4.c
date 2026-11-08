@@ -313,7 +313,7 @@ void func_8013339C(MATRIX *m, SVECTOR *scale);
 extern s32 D_80126B5C;          /* Musashi's position words */
 extern s32 D_80126B60;
 extern s32 D_80126B64;
-/* a model's collision box: the ranges on each axis (StageActor / Mover hitData, a KSEG0 address) */
+/* a model's collision box: the ranges on each axis (struct_10C / struct_60 field_58, a KSEG0 address) */
 typedef struct {
     s16 field_0;
     s16 field_2;
@@ -610,8 +610,8 @@ typedef struct {
     /* 0x06 */ u16 field_6;          /* frames in the mode */
     /* 0x08 */ u16 field_8;              /* 0 to 0x40 in steps of 0x10 */
     /* 0x0A */ u16 field_A;
-    /* 0x0C */ s16 field_C;         /* pad 0: GetPadHeldDirWide */
-    /* 0x0E */ s16 field_E;      /* GetPadPressedDirWide */
+    /* 0x0C */ s16 field_C;         /* pad 0: func_80015018 */
+    /* 0x0E */ s16 field_E;      /* func_80014ED4 */
     /* 0x10 */ s32 field_10;
     /* 0x14 */ s16 field_14;
     /* 0x16 */ s16 field_16;
@@ -651,7 +651,7 @@ extern u8 D_8018E524[], D_8018E53C[], D_8018E5B0[], D_8018E5B8[];
 extern u8 *D_801ED488;
 extern u8 *D_801ED48C;
 
-/* the two word arrays at StageMode +0x58 and +0x78, read as their own symbols (array-of-struct indexing keeps the
+/* the two word arrays at struct_C0 +0x58 and +0x78, read as their own symbols (array-of-struct indexing keeps the
    `lui at; addu at` form in the loops) */
 typedef struct { s32 field_0; } struct_4_3;
 extern struct_4_3 D_80115168[];
@@ -690,7 +690,7 @@ extern MATRIX D_801ED3C4;
 extern u32 func_80029504(void);
 extern u8 D_80078EC0;
 extern s32 D_8018E8AC[];
-/* StageMode's message tables at +0x38 and +0x30, cleared as their own symbols */
+/* struct_C0's message tables at +0x38 and +0x30, cleared as their own symbols */
 typedef struct { s16 field_0; } struct_2_2;
 typedef struct { u8 field_0; } struct_1;
 extern struct_2_2 D_80115148[];
@@ -3499,7 +3499,7 @@ s32 func_80136824(struct_10_5 *b, s16 f, s16 y) {
 }
 
 /* turns D_8018DAA4's vector and D_80126720 by m (and D_801152A8 by the GTE's rotation) when asked, then out is
-   D_8018DAA4 + o->t and D_80126720 moves by o->t */
+   D_8018DAA4 + o->field_48 and D_80126720 moves by o->field_48 */
 void func_80136A94(s32 turn, struct_54 *o, SVECTOR *out, MATRIX *m) {
     VECTOR r;
     if (turn != 0) {
@@ -4594,7 +4594,7 @@ void func_801392C8(struct_4C *w) {
     w->field_4 = 5;
 }
 
-/* a window's frame strips: one sprite per text row from the window's text area (the rows scrolled by unk16), the
+/* a window's frame strips: one sprite per text row from the window's text area (the rows scrolled by field_16), the
    first row k pixels short, then the k-pixel remainder (in two sprites when wider than 0xFC) */
 void func_801392FC(struct_4C *w, s32 k, GsOT *ot) {
     GsSPRITE s;
@@ -5062,7 +5062,7 @@ void func_8013A2BC(struct_4C *w) {
             { struct_4C *n; *f = n = D_80127528; D_80127528 = NULL; }
             if (*f != NULL) {
                 D_80127524->field_1A = 1;
-                func_80138C30(*(struct_4C * volatile *)f); /* r150: the volatile read keeps cse from reusing the value stored through f after the unk1A store; the original reloads *f here */
+                func_80138C30(*(struct_4C * volatile *)f); /* r150: the volatile read keeps cse from reusing the value stored through f after the field_1A store; the original reloads *f here */
             }
         }
         if (w->field_8 & 0x8000) {
@@ -5134,7 +5134,7 @@ extern void func_8013AA24();
 extern void func_80015F04();
 extern void func_80015D4C();
 
-/* r216 x11f: x is reused for c->unkE (one s16 local for both values); that raises its global-alloc priority above the unk34 load temp, so x gets a0 as in the original. */
+/* r216 x11f: x is reused for c->field_E (one s16 local for both values); that raises its global-alloc priority above the field_34 load temp, so x gets a0 as in the original. */
 void func_8013A530(struct_10_3 *c) {
     struct_4C *w = c->field_4;
     u8 f;
@@ -5212,7 +5212,7 @@ inline struct_10_3 *func_8013A8BC(void) {
     return NULL;
 }
 
-/* a free window gets a cursor; the cursor search (func_8013A8BC) is inline, and the unk40 test is an && chain
+/* a free window gets a cursor; the cursor search (func_8013A8BC) is inline, and the field_40 test is an && chain
    with it (no barrier there, so jump.c moves the search's found block up behind the first test's return) */
 s32 func_8013A8FC(struct_4C *w) {
     struct_10_3 *c;

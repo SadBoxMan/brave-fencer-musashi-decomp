@@ -20,7 +20,7 @@ typedef struct {
 
 extern u32 D_800A6610[2][0x1000];
 extern s32 D_800AE840[];
-/* Parameters for an archive read (func_8001ABBC / LoadFileStep) */
+/* Parameters for an archive read (func_8001ABBC / func_80019A24) */
 typedef struct {
     /* 0x0 */ s32 field_0;
     /* 0x4 */ u8 *field_4;

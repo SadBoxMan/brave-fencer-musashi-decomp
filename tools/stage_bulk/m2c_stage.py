@@ -104,7 +104,7 @@ def existing_decl(t, sym):
         m = re.search(rf'^((?:inline )?[A-Za-z_][\w \*]*?)\b{sym}\s*\([^;{{]*\)\s*\{{', o, re.M)
         if m and not m[1].startswith('static'):
             ret = m[1].replace('inline ', '').strip()
-            if re.fullmatch(r'(void|[su](8|16|32)|StageActor \*|u8 \*|s32 \*|void \*)', ret):
+            if re.fullmatch(r'(void|[su](8|16|32)|struct_10C \*|u8 \*|s32 \*|void \*)', ret):
                 return f'extern {ret} {sym}();'
     return None
 

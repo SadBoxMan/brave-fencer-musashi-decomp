@@ -62,6 +62,8 @@ AUTO_RE = re.compile(r'^(?:func|D|jtbl|L|B|STR)_(?:(?:ovl[0-9a-f]{2}|sc\d\d_\d\d
 NEUTRAL_RE = re.compile(r'^(?:struct|union)_(?:[0-9A-F]+|incomplete)(?:_\d+)?$|^field_[0-9A-F]+(?:_b\d+)?(?:_\d+)?$|'
                         r'^m\d+$|^type_\d+$|^enum_\d+(?:_-?[0-9A-Fx]+)?$')
 INLINE_RE = re.compile(r'^(?:func|D)_(?:(?:ovl[0-9a-f]{2}|sc\d\d_\d\d\d)_)?[0-9A-F]{8}_inline(?:_\d+)?$')
+SPLAT_ATTR_RE = re.compile(r'^\s*(?:(?:type|size|rom|segment|name_end|align|defined|force_migration|allow_addend|'
+                           r'dont_allow_addend|function_owner|data_owner|filename|visibility)\s*:\s*\S+\s*)+$')
 SYM_LINE_RE = re.compile(r'^(\s*)([A-Za-z_]\w*)(\s*=\s*)(0x[0-9A-Fa-f]+)(\s*;.*)$')
 BASIC = {'s8', 'u8', 's16', 'u16', 's32', 'u32'}
 C_KEYWORDS = set('''auto break case char const continue default do double else enum extern float for goto if inline
@@ -1662,6 +1664,8 @@ def comment_census(out):
         c = collections.Counter()
         for line, body in comments:
             inner = body.strip('/* \t\r\n')
+            if f.endswith('.txt') and SPLAT_ATTR_RE.match(inner):
+                continue          # `// type:func size:0x10` is splat's attribute syntax, not a comment (r503 fix)
             if 'MATCH-TRICK' in body:
                 c['match_trick'] += 1
             elif re.fullmatch(r'(?:0x[0-9A-Fa-f]+|[0-9A-Fa-f]{1,4}|size 0x[0-9A-Fa-f]+)', inner) or not inner:
@@ -1678,6 +1682,232 @@ def comment_census(out):
         w.writerow(['file', 'descriptive', 'match_trick', 'offset_or_empty'])
         w.writerows(r for r in rows if any(r[1:]))
     return tot, rows, samples
+
+
+# ---- comments (r503 commit 4; LuciDin, 8 Nov: "Keep, rewrite old names") ----------------------------------------
+
+COMMENT_KEEP = {
+    'Pad': 'in comments it is the controller port ("Pad 1 only", "Pad 2 is cleared"), not the type',
+}
+
+# Old names in comments that no general rule reaches: a field named in prose, a function named in the heading of the
+# comment above its definition, a name paired with its address only in another comment. Each entry: (file, the text
+# in the comment, its replacement, the evidence the tool checks before it writes anything):
+#   ('field', scope, owner, old)  renames.csv renames field `old` of `owner` (in `scope`) to the replacement's field
+#   ('next', )                    the replacement is the name of the first function defined after that comment
+#   ('addr', 0xADDR)              the build's link map names that address with the replacement
+COMMENT_FIXES = [
+    ('src/main.c', 'w->exitLoop', 'w->field_A3D4', ('field', 'global', 'struct_A444', 'exitLoop')),
+    ('src/ovl36/ovl36.c', 'unk37', 'field_37', ('field', 'src/ovl36/ovl36.c', 'struct_38', 'unk37')),
+    ('src/stage/engine_8012F5F4.c', 'o->t', 'o->field_48', ('field', 'src/stage/engine_8012F5F4.c', 'struct_54', 't')),
+    ('src/stage/engine_8012F5F4.c', 'unk16', 'field_16', ('field', 'src/stage/engine_8012F5F4.c', 'struct_4C', 'unk16')),
+    ('src/stage/engine_8012F5F4.c', 'unk1A', 'field_1A', ('field', 'src/stage/engine_8012F5F4.c', 'struct_4C', 'unk1A')),
+    ('src/stage/engine_8012F5F4.c', 'c->unkE', 'c->field_E',
+     ('field', 'src/stage/engine_8012F5F4.c', 'struct_10_3', 'unkE')),
+    ('src/stage/engine_8012F5F4.c', 'unk34', 'field_34', ('field', 'src/stage/engine_8012F5F4.c', 'struct_4C', 'unk34')),
+    ('src/stage/engine_8012F5F4.c', 'unk40', 'field_40', ('field', 'src/stage/engine_8012F5F4.c', 'struct_4C', 'unk40')),
+    ('src/stage/engine_8012F5F4.c', 'hitData', 'field_58', ('field', 'global', 'struct_10C', 'hitData')),
+    ('src/stage/engine_8013C98C.c', 'unk0', 'field_0', ('field', 'src/stage/engine_8013C98C.c', 'struct_C0', 'unk0')),
+    ('src/stage/engine_80144B9C.c', 'room->unkAC', 'room->field_AC',
+     ('field', 'src/stage/engine_80144B9C.c', 'struct_DC', 'unkAC')),
+    ('src/stage/engine.c', 'damageScale', 'field_30', ('field', 'src/stage/engine.c', 'struct_34_2', 'damageScale')),
+    ('src/stage/engine.c', 'SetScriptAtEnd', 'func_8012A860', ('next',)),
+    ('src/code_8002C8BC.c', 'SeqReadHeader', 'func_80038698', ('next',)),
+    ('include/game.h', 'model->pose', 'model->field_20', ('field', 'global', 'struct_84', 'pose')),
+    ('include/game.h', 'unk8', 'field_8', ('field', 'global', 'struct_14', 'unk8')),
+    ('include/game.h', 'unkE', 'field_E', ('field', 'global', 'struct_14', 'unkE')),
+    ('include/game.h', 'subTime', 'field_34', ('field', 'global', 'struct_10C', 'subTime')),
+    ('include/game.h', 'PartHide', 'func_8001D150', ('addr', 0x8001D150)),
+    ('include/game.h', 'PartShow', 'func_8001D130', ('addr', 0x8001D130)),
+    ('include/work.h', 'unkA3DC', 'field_A3DC', ('field', 'global', 'struct_A444', 'unkA3DC')),
+    ('undefined_syms_extra.txt', '].spuAddr', '].field_14', ('field', 'src/code_8002C8BC.c', 'struct_18', 'spuAddr')),
+    ('undefined_syms_extra.txt', '].unk2', '].field_2', ('field', 'src/code_8002C8BC.c', 'struct_18', 'unk2')),
+    ('undefined_syms_extra.txt', '].unk10', '].field_10', ('field', 'src/code_8002C8BC.c', 'struct_18', 'unk10')),
+]
+
+
+def apply_comment_fixes(out, write):
+    """the COMMENT_FIXES table: check each entry's evidence, then replace the text inside that file's comments"""
+    fields = {}
+    for r in csv.DictReader(open(os.path.join(out, 'renames.csv'), encoding='utf-8')):
+        if r['kind'] == 'field':
+            fields[(r['scope'], r['detail'].split(' +0x')[0], r['old'])] = r['new']
+    addr_names = map_names()
+    done, bad = [], []
+    by_file = collections.defaultdict(list)
+    for e in COMMENT_FIXES:
+        by_file[e[0]].append(e)
+    for f, entries in sorted(by_file.items()):
+        text = open(os.path.join(ROOT, f), encoding='utf-8', newline='').read()
+        spans = comment_spans(text, f.endswith('.txt'))
+        edits = []
+        for _, old, new, ev in entries:
+            word = re.compile((r'(?<![\w>.-])' if re.match(r'\w', old) else '') + re.escape(old) + r'\b')
+            hits = [(m.start(), m.end()) for a, b in spans for m in word.finditer(text, a, b)]
+            if not hits:
+                bad.append(f'{f}: "{old}" not found in a comment')
+                continue
+            for s, e in hits:
+                if ev[0] == 'field':
+                    want = fields.get(ev[1:])
+                    got = re.split(r'->|\.', new)[-1]
+                    if want != got:
+                        bad.append(f'{f}: {old}: renames.csv gives {want}, the table {got}')
+                        continue
+                elif ev[0] == 'next':
+                    m = re.compile(r'^[^\n;{}]*?\b(func_\w+)\s*\([^;{]*\)\s*\{', re.M).search(text, e)
+                    if not m or m.group(1) != new:
+                        bad.append(f'{f}: {old}: the next definition is {m.group(1) if m else None}, not {new}')
+                        continue
+                elif ev[0] == 'addr':
+                    if addr_names.get(ev[1]) != {new}:
+                        bad.append(f'{f}: {old}: the link maps name 0x{ev[1]:08X} {addr_names.get(ev[1])}')
+                        continue
+                edits.append((s, e, new, old))
+        if edits and write and not bad:
+            edits.sort()
+            res, last = [], 0
+            for s, e, new, old in edits:
+                res.append(text[last:s])
+                res.append(new)
+                last = e
+            res.append(text[last:])
+            open(os.path.join(ROOT, f), 'w', encoding='utf-8', newline='').write(''.join(res))
+        done += [(f, old, new) for s, e, new, old in edits]
+    return done, bad
+
+
+def comment_spans(text, txt_file):
+    """(start, end) of every comment: C comments in a .c / .h file (outside strings), // and /* */ in a symbol file"""
+    spans = []
+    if txt_file:
+        for m in re.finditer(r'/\*.*?\*/|//[^\n]*', text, re.S):
+            spans.append((m.start(), m.end()))
+        return spans
+    i, n = 0, len(text)
+    while i < n:
+        c = text[i]
+        if text.startswith('/*', i):
+            j = text.find('*/', i + 2)
+            j = n if j < 0 else j + 2
+            spans.append((i, j))
+            i = j
+        elif text.startswith('//', i):
+            j = text.find('\n', i)
+            j = n if j < 0 else j
+            spans.append((i, j))
+            i = j
+        elif c in '"\'':
+            j = i + 1
+            while j < n and text[j] != c:
+                j += 2 if text[j] == '\\' else 1
+            i = j + 1
+        else:
+            i += 1
+    return spans
+
+
+def map_names():
+    """{address: name} from every link map of the build (build/**/*.map): the name the build gives an address"""
+    out = {}
+    for p in glob.glob(os.path.join(ROOT, 'build', '**', '*.map'), recursive=True):
+        for m in re.finditer(r'^\s+0x([0-9a-f]{8})\s+([A-Za-z_]\w*)(?:\s*=|\s*$)', open(p, encoding='latin-1').read(),
+                             re.M):
+            if AUTO_RE.match(m.group(2)):
+                out.setdefault(int(m.group(1), 16), set()).add(m.group(2))
+    return out
+
+
+def rewrite_comments(out, write):
+    """replace the old project names inside comments with their new names (descriptive comments are kept):
+    functions and data by the rename map; types by the map (a file's own types only in that file), and a field written
+    as `Type.field` by the type's field map; a `Name = 0xADDR` pair whose name was never declared (commented-out
+    lines of the symbol files) by the name the build's link map gives that address"""
+    rows = list(csv.DictReader(open(os.path.join(out, 'renames.csv'), encoding='utf-8')))
+    glob_map, types, fields = {}, collections.defaultdict(dict), collections.defaultdict(dict)
+    for r in rows:
+        if r['kind'] in ('function', 'data'):
+            glob_map[r['old']] = r['new']
+        elif r['kind'] in ('struct', 'union', 'typedef', 'inline helper'):
+            for x in r['old'].split(' / '):
+                types[r['scope']][x.split()[-1]] = r['new']
+        elif r['kind'] == 'field':
+            owner = r['detail'].split(' +0x')[0].split(' (')[0]
+            fields[(r['scope'], owner)][r['old']] = r['new']
+    addr_names = map_names()
+    psyq = read_symbols()[1]
+    files = sorted(rel(p) for p in glob.glob(os.path.join(ROOT, 'src', '**', '*.c'), recursive=True)) + \
+        sorted(rel(p) for p in glob.glob(os.path.join(ROOT, 'include', '*.h'))) + \
+        [f for f in symbol_files() if f != 'symbol_addrs_psyq.txt']
+    report, kept, unknown, inside = [], collections.Counter(), collections.Counter(), collections.Counter()
+    changed = 0
+    for f in files:
+        text = open(os.path.join(ROOT, f), encoding='utf-8', newline='').read()
+        spans = comment_spans(text, f.endswith('.txt'))
+        if not spans:
+            continue
+        local = dict(types.get('global', {}))
+        local.update(types.get(f, {}))
+        edits = []
+        for a, b in spans:
+            body = text[a:b]
+            for m in re.finditer(r'\b([A-Za-z_]\w*)\b(\s*(?:\([^()\n]*\))?\s*=\s*0x([0-9A-Fa-f]{8})\b)?', body):
+                name = m.group(1)
+                new = None
+                if name in COMMENT_KEEP:
+                    kept[(name, f)] += 1
+                    continue
+                if name in glob_map:
+                    new = glob_map[name]
+                elif name in local:
+                    new = local[name]
+                    rest = body[m.end(1):]
+                    fm = re.match(r'\.([A-Za-z_]\w*)', rest)
+                    fmap = fields.get(('global', new)) or fields.get((f, new)) or {}
+                    if fm and fm.group(1) in fmap:
+                        edits.append((a + m.end(1) + 1, a + m.end(1) + 1 + len(fm.group(1)), fmap[fm.group(1)],
+                                      fm.group(1), f))
+                elif m.group(2) and not AUTO_RE.match(name) and name not in KEEP_GLOBALS and \
+                        name not in KEEP_LIBRARY and name not in psyq:
+                    addr = int(m.group(3), 16)
+                    cands = addr_names.get(addr, set())
+                    if len(cands) == 1:
+                        new = next(iter(cands))
+                    else:
+                        # no symbol starts there: the function of the build that holds the address, plus the offset
+                        below = [a2 for a2, ns in addr_names.items() if a2 < addr and any(n.startswith('func_')
+                                                                                         for n in ns)]
+                        start = max(below) if below else None
+                        above = [a2 for a2 in addr_names if a2 > addr]
+                        fn = [n for n in addr_names.get(start, ()) if n.startswith('func_')] if start else []
+                        if fn and above and min(above) - start < 0x2000 and len(fn) == 1:
+                            new = f'{fn[0]}+0x{addr - start:X}'
+                            inside[(name, m.group(3), new, f)] += 1
+                        else:
+                            unknown[(name, m.group(3), f)] += 1
+                if new and new != name:
+                    edits.append((a + m.start(1), a + m.end(1), new, name, f))
+        if not edits:
+            continue
+        edits.sort()
+        res, last = [], 0
+        for s, e, new, old, _ in edits:
+            res.append(text[last:s])
+            res.append(new)
+            last = e
+            report.append((f, old, new))
+        res.append(text[last:])
+        if write:
+            open(os.path.join(ROOT, f), 'w', encoding='utf-8', newline='').write(''.join(res))
+        changed += 1
+    with open(os.path.join(out, 'comment_renames.csv'), 'w', encoding='utf-8', newline='') as fh:
+        w = csv.writer(fh, lineterminator='\n')
+        w.writerow(['file', 'old', 'new', 'count'])
+        for (f, old, new), n in sorted(collections.Counter(report).items()):
+            w.writerow([f, old, new, n])
+    for (name, addr, new, f), n in sorted(inside.items()):
+        kept[(f'{name} = 0x{addr} -> {new}', f)] += n
+    return report, changed, kept, unknown
 
 
 # ---- checks ----------------------------------------------------------------------------------------------------------
@@ -1950,6 +2180,28 @@ def main():
             _, m = rewrite_symbol_files(nm, write=True)
             print(f'written: {n} source files, {m} symbol files')
         return 0
+    if cmd == 'comments':
+        write = '--write' in args
+        report, changed, kept, unknown = rewrite_comments(out, write)
+        print(f'comment renames: {len(report)} in {changed} files ({"written" if write else "dry run"}); '
+              f'list: {os.path.join(out, "comment_renames.csv")}')
+        for (name, f), n in sorted(kept.items()):
+            why = COMMENT_KEEP.get(name, 'no symbol starts at that address: written as the function holding it')
+            print(f'  {"kept " if name in COMMENT_KEEP else ""}{name} in {f} x{n}: {why}')
+        for (name, addr, f), n in sorted(unknown.items()):
+            print(f'  NOT RENAMED {name} = 0x{addr} in {f}: the link maps give no single name for the address')
+        done, bad = apply_comment_fixes(out, write)
+        print(f'table fixes (COMMENT_FIXES): {len(done)} ({"written" if write and not bad else "not written"})')
+        for b in bad:
+            print('  REFUSED ' + b)
+        if done:
+            with open(os.path.join(out, 'comment_renames.csv'), 'a', encoding='utf-8', newline='') as fh:
+                w = csv.writer(fh, lineterminator='\n')
+                for (f, old, new), n in sorted(collections.Counter(done).items()):
+                    w.writerow([f, old, new, n])
+        if write:
+            comment_census(out)
+        return 1 if unknown or bad else 0
     if cmd == 'offsets':
         an = Analysis().run()
         checked, bad = offset_checks(an, out)

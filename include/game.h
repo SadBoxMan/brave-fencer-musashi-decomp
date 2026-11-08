@@ -40,7 +40,7 @@ typedef struct {
     /* 0x10 */ SVECTOR field_10;         /* rotation, turned into coord's matrix (stage func_8012B2CC and its kin) */
     /* 0x18 */ SVECTOR field_18;       /* 0x1000 = 1.0; x and z eased together (stage func_8012E470) */
     /* 0x20 */ void *field_20;          /* current pose: per-part records (8- or 12-byte form) */
-    /* 0x24 */ u32 *field_24;          /* part table: one draw word per part; bit 24 hides it (PartHide/PartShow) */
+    /* 0x24 */ u32 *field_24;          /* part table: one draw word per part; bit 24 hides it (func_8001D150/func_8001D130) */
     /* 0x28 */ u32 field_28;
     /* 0x2C */ u16 field_2C;           /* bit 0: the position changed (stage func_8012B260) */
     /* 0x2E */ u16 field_2E;
@@ -71,20 +71,20 @@ typedef struct struct_14 {
  */
 typedef struct struct_10C {
     /* 0x000 */ u16 field_0;          /* 0: unused (the animation stepper skips it) */
-    /* 0x002 */ u16 field_2;            /* sub-state: func_8012AD44 sets it, func_8012AD50 steps it, both restart subTime */
+    /* 0x002 */ u16 field_2;            /* sub-state: func_8012AD44 sets it, func_8012AD50 steps it, both restart field_34 */
     /* 0x004 */ union_4 field_4[3];       /* 16.16 */
     /* 0x010 */ s32 field_10[3];
-    /* 0x01C */ s32 field_1C;          /* a countdown (Mover's timer) */
-    /* 0x020 */ struct_84 *field_20;    /* the drawn model; the controller writes model->pose */
+    /* 0x01C */ s32 field_1C;          /* a countdown (struct_60's timer) */
+    /* 0x020 */ struct_84 *field_20;    /* the drawn model; the controller writes model->field_20 */
     /* 0x024 */ u8 field_24[0x10];
     /* 0x034 */ u16 field_34;        /* a count kept in the sub-state (func_8012AD64 sets, func_8012AD6C steps) */
     /* 0x036 */ u16 field_36;             /* a serial number, from D_801270C4 at spawn (never 0) */
-    /* 0x038 */ union_4 field_38[3];      /* the position before the last move (Mover.prev) */
+    /* 0x038 */ union_4 field_38[3];      /* the position before the last move (struct_60.field_38) */
     /* 0x044 */ u32 field_44;        /* display flags: 0x30000000 all parts shown, 0x20000000, 0x10000000,
-                                       0x400 / 0x20000 / 0x4 weapon rules (UpdateWeaponParts), 0xC0 face distance */
+                                       0x400 / 0x20000 / 0x4 weapon rules (func_80155150), 0xC0 face distance */
     /* 0x048 */ u8 field_48[5];
-    /* 0x04D */ u8 field_4D;       /* 1 = BeginScene, 2 = EndScene */
-    /* 0x04E */ u8 field_4E;         /* small state byte: RunStateHandler4E calls table[state-1] */
+    /* 0x04D */ u8 field_4D;       /* 1 = func_80147060, 2 = func_8014706C */
+    /* 0x04E */ u8 field_4E;         /* small state byte: func_80155458 calls table[state-1] */
     /* 0x04F */ u8 field_4F;
     /* 0x050 */ s16 field_50[3];         /* added to the position given to the model */
     /* 0x056 */ u8 field_56[2];
@@ -96,8 +96,8 @@ typedef struct struct_10C {
     /* 0x064 */ struct struct_10C *field_64;  /* the actor that spawned it (func_8012C890), else NULL */
     /* 0x068 */ struct struct_14 *field_68;  /* the definition it was spawned from (func_8012C890) */
     /* 0x06C */ u8 field_6C[4];
-    /* 0x070 */ s16 field_70;          /* the definition's unk8 */
-    /* 0x072 */ u16 field_72;      /* 0x4000 wrapped, 0x2000 marker passed, 0x0400 stepped back, 0x0600 cleared on SetScript */
+    /* 0x070 */ s16 field_70;          /* the definition's field_8 */
+    /* 0x072 */ u16 field_72;      /* 0x4000 wrapped, 0x2000 marker passed, 0x0400 stepped back, 0x0600 cleared on func_8012A828 */
     /* 0x074 */ u8 field_74;           /* picks func_8012E014 (nonzero) or func_8012E138 (func_8012DFD4) */
     /* 0x075 */ u8 field_75;
     /* 0x076 */ s16 field_76;          /* the init record's first value (x1.5 unless D_80078EAE is set) */
@@ -125,14 +125,14 @@ typedef struct struct_10C {
     /* 0x0C2 */ u8 field_C2;
     /* 0x0C3 */ u8 field_C3;
     /* 0x0C4 */ u32 field_C4;          /* bit 1: skips the hit reaction (func_8012F5F4) */
-    /* 0x0C8 */ u32 field_C8;           /* face word (FaceSet); bit 0x40000000 = copy from the face rect table */
+    /* 0x0C8 */ u32 field_C8;           /* face word (func_80154ED8); bit 0x40000000 = copy from the face rect table */
     /* 0x0CC */ u32 **field_CC;    /* face scripts by number */
     /* 0x0D0 */ u32 *field_D0;    /* face script being played */
     /* 0x0D4 */ s32 field_D4;
     /* 0x0D8 */ s32 field_D8;
     /* 0x0DC */ void *field_DC[2];  /* NPC record message pointers (more follow in the record) */
     /* 0x0E4 */ u8 field_E4[0x18];
-    /* 0x0FC */ u16 field_FC;          /* the definition's unkE */
+    /* 0x0FC */ u16 field_FC;          /* the definition's field_E */
     /* 0x0FE */ u8 field_FE[0x0E];
 } struct_10C;                       /* 0x10C bytes */
 
@@ -158,7 +158,7 @@ typedef struct {
     u16 field_6;
 } struct_8_3;
 
-/* an object that moves by velocity and acceleration (not a StageActor: +0x44 is the display word there) */
+/* an object that moves by velocity and acceleration (not a struct_10C: +0x44 is the display word there) */
 typedef struct {
     /* 0x00 */ u16 field_0;
     /* 0x02 */ u16 field_2;

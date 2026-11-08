@@ -57,7 +57,7 @@ void func_80010A98(void);
  * Boot: hardware/CD/memory card init, then the frame loop. Each frame flips
  * the double buffers, clears the ordering tables, runs the update on the
  * scratchpad stack (func_800D25FC lives in a MAIN.CD overlay), then waits
- * for vsync and draws. w->exitLoop drops out to the outer loop, which
+ * for vsync and draws. w->field_A3D4 drops out to the outer loop, which
  * re-runs the per-mode setup.
  */
 int main(void)
@@ -227,7 +227,7 @@ void func_80010AE0(s32 depth) {
     D_80074778 = depth;
 }
 
-/* Return the ordering-table depth limit set by SetOtDepthLimit */
+/* Return the ordering-table depth limit set by func_80010AE0 */
 s32 func_80010B10(void) {
     return D_80074778;
 }
@@ -293,12 +293,12 @@ void func_80010DA0(void) {
     func_80011778();
 }
 
-/* Return to the title: SetMode(5), which reloads the title overlay */
+/* Return to the title: func_80011818(5), which reloads the title overlay */
 void func_80010DE0(void) {
     func_80011818(5);
 }
 
-/* Go to the trial version's end screen: SetMode(13), which loads MAIN.CD entry 8 (ovl3b) */
+/* Go to the trial version's end screen: func_80011818(13), which loads MAIN.CD entry 8 (ovl3b) */
 void func_80010E14(void) {
     func_80011818(0xD);
 }
@@ -308,7 +308,7 @@ void func_80010E48(void) {
     func_80011818(0xC);
 }
 
-/* Send sound command 2 and set Work.exitLoop so main() leaves its frame loop; no callers found */
+/* Send sound command 2 and set struct_A444.field_A3D4 so main() leaves its frame loop; no callers found */
 void func_80010E7C(void) {
     register struct_A444 *w = &D_800AF630;
     func_8002D4C8(2, 0);
@@ -507,7 +507,7 @@ void func_800116E0(void) {
     }
 }
 
-/* Advance Work.mode by one and clear the mode's step, timer and scratch halfwords */
+/* Advance struct_A444.field_A3AE by one and clear the mode's step, timer and scratch halfwords */
 void func_80011778(void) {
     register u8 *w = (u8 *)&D_800AF630;
     (*(u16 *)(w + 0xA3AE))++;
@@ -520,7 +520,7 @@ void func_80011778(void) {
     *(u16 *)(w + 0xA3BC) = 0;
 }
 
-/* Set Work.mode and clear the mode's step, timer and scratch halfwords */
+/* Set struct_A444.field_A3AE and clear the mode's step, timer and scratch halfwords */
 void func_80011818(u16 mode) {
     register struct_A444 *w = &D_800AF630;
     w->field_A3AE = mode;
@@ -533,7 +533,7 @@ void func_80011818(u16 mode) {
     w->field_A3BC = 0;
 }
 
-/* Advance Work.step and clear the step's done flag, sub-step and step timers */
+/* Advance struct_A444.field_A3B4 and clear the step's done flag, sub-step and step timers */
 void func_800118AC(void) {
     register u8 *w = (u8 *)&D_800AF630;
     (*(u16 *)(w + 0xA3B4))++;
@@ -543,7 +543,7 @@ void func_800118AC(void) {
     *(u16 *)(w + 0xA3BC) = 0;
 }
 
-/* Set Work.step and clear the step's done flag, sub-step and step timers */
+/* Set struct_A444.field_A3B4 and clear the step's done flag, sub-step and step timers */
 void func_80011928(u16 step) {
     register struct_A444 *w = &D_800AF630;
     w->field_A3B4 = step;
@@ -553,21 +553,21 @@ void func_80011928(u16 step) {
     w->field_A3BC = 0;
 }
 
-/* Advance the mode's sub-step (Work+0xA3BA) and clear its scratch halfword */
+/* Advance the mode's sub-step (struct_A444+0xA3BA) and clear its scratch halfword */
 void func_80011998(void) {
     register u8 *w = (u8 *)&D_800AF630;
     (*(u16 *)(w + 0xA3BA))++;
     *(u16 *)(w + 0xA3BC) = 0;
 }
 
-/* Set the mode's sub-step (Work+0xA3BA) and clear its scratch halfword */
+/* Set the mode's sub-step (struct_A444+0xA3BA) and clear its scratch halfword */
 void func_800119F0(u16 subStep) {
     register struct_A444 *w = &D_800AF630;
     w->field_A3BA = subStep;
     w->field_A3BC = 0;
 }
 
-/* Advance the game state (Work+0xA3C0) and clear its step, sub-step and scratch halfwords */
+/* Advance the game state (struct_A444+0xA3C0) and clear its step, sub-step and scratch halfwords */
 void func_80011A3C(void) {
     register u8 *w = (u8 *)&D_800AF630;
     (*(u16 *)(w + 0xA3C0))++;
@@ -580,7 +580,7 @@ void func_80011A3C(void) {
     *(u16 *)(w + 0xA3CE) = 0;
 }
 
-/* Step the game state (Work+0xA3C0) back by one and clear its step and scratch halfwords */
+/* Step the game state (struct_A444+0xA3C0) back by one and clear its step and scratch halfwords */
 void func_80011ADC(void) {
     register u8 *w = (u8 *)&D_800AF630;
     (*(u16 *)(w + 0xA3C0))--;
@@ -593,7 +593,7 @@ void func_80011ADC(void) {
     *(u16 *)(w + 0xA3CE) = 0;
 }
 
-/* Set the game state (Work+0xA3C0) read by the field overlay and clear its step and scratch */
+/* Set the game state (struct_A444+0xA3C0) read by the field overlay and clear its step and scratch */
 void func_80011B7C(u16 state) {
     register struct_A444 *w = &D_800AF630;
     w->field_A3C0 = state;
@@ -606,7 +606,7 @@ void func_80011B7C(u16 state) {
     w->field_A3CE = 0;
 }
 
-/* Advance the game state's step (Work+0xA3C6) and clear its sub-step and step scratch */
+/* Advance the game state's step (struct_A444+0xA3C6) and clear its sub-step and step scratch */
 void func_80011C10(void) {
     register u8 *w = (u8 *)&D_800AF630;
     (*(u16 *)(w + 0xA3C6))++;
@@ -616,7 +616,7 @@ void func_80011C10(void) {
     *(u16 *)(w + 0xA3CE) = 0;
 }
 
-/* Set the game state's step (Work+0xA3C6) and clear its sub-step and step scratch */
+/* Set the game state's step (struct_A444+0xA3C6) and clear its sub-step and step scratch */
 void func_80011C8C(u16 step) {
     register struct_A444 *w = &D_800AF630;
     w->field_A3C6 = step;
@@ -626,14 +626,14 @@ void func_80011C8C(u16 step) {
     w->field_A3CE = 0;
 }
 
-/* Advance the game state's sub-step (Work+0xA3CC) and clear its scratch halfword */
+/* Advance the game state's sub-step (struct_A444+0xA3CC) and clear its scratch halfword */
 void func_80011CFC(void) {
     register u8 *w = (u8 *)&D_800AF630;
     (*(u16 *)(w + 0xA3CC))++;
     *(u16 *)(w + 0xA3CE) = 0;
 }
 
-/* Set the game state's sub-step (Work+0xA3CC) and clear its scratch halfword */
+/* Set the game state's sub-step (struct_A444+0xA3CC) and clear its scratch halfword */
 void func_80011D54(u16 subStep) {
     register u8 *w = (u8 *)&D_800AF630;
     *(u16 *)(w + 0xA3CC) = subStep;

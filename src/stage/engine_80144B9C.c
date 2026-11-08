@@ -72,7 +72,7 @@ typedef struct {
     /* 0x00 */ u8 field_0[0x12];
     /* 0x12 */ u16 field_12;
 } struct_14_2;
-/* Musashi (game.h's Player at D_80126B58) as the loader sets him up */
+/* Musashi (game.h's struct_18C at D_80126B58) as the loader sets him up */
 typedef struct {
     /* 0x000 */ u8 field_0[4];
     /* 0x004 */ u16 field_4;
@@ -300,7 +300,7 @@ void func_80144B9C(void) {
     func_800D02C0(room->field_D4);
     func_80011E84(room->field_D8);
     for (i = 0; i < 8; i++) {
-        D_801151F0[i] = *(i + (u8 *)room + 0xAC);  /* not room->unkAC[i]: -O0 adds i to room first */
+        D_801151F0[i] = *(i + (u8 *)room + 0xAC);  /* not room->field_AC[i]: -O0 adds i to room first */
     }
     D_801274C8 = room->field_B4;
     D_801274CC = room->field_B8;

@@ -5,16 +5,16 @@ Levers (each confirmed by a match, docs/decomp_recipes.md section 8):
     s16sign   `x & 0x8000` in a condition -> `(s16) x < 0` (sll 16 + bgez/bltz, not andi)
     rand      `rand(arg0, ...)` -> `rand()` (m2c passes the live a-registers to a callee it does not know)
     table     `(u16) *(&D_x + (i * 4))` -> `D_x[i * 2]`, D_x declared `u16 D_x[]` (the cast gives the type)
-    avec      two M2C_UNALIGNED32 word copies (o, o+4) -> one AVec (SVECTOR) copy (lwl/lwr pairs)
+    avec      two M2C_UNALIGNED32 word copies (o, o+4) -> one struct_8 (SVECTOR) copy (lwl/lwr pairs)
     frame     the original's frame is N bytes larger -> an unused `s32 pad[N / 4];` (reads <in_dir>/<pkg>.c.log)
     rmwsort   a run of `AF(b, T, o) = ... AF(b, T, o) ...;` on one base sorted by offset (m2c shows the scheduled order)
     idx       `D_x[(state - 2)](a)` -> `{ s32 i = state - 2; D_x[i](a); }` (keeps `addiu -2` before the `sll`)
     stride    `u16 *p = &D; p += 0x68` (m2c's byte stride on a halfword pointer) -> `u8 *p`, `AF(p, u16, 0)`, `u8 D[]`
-    mtx       m2c's eight-word copy (four stores, three temps, four stores) -> `AF(d, AMtx, o) = AF(v, AMtx, p)`
-    amodel    the actor's model (+0x20) as an AModel *, its rot/scale/pos halfwords as members (struct stores let
+    mtx       m2c's eight-word copy (four stores, three temps, four stores) -> `AF(d, struct_20, o) = AF(v, struct_20, p)`
+    amodel    the actor's model (+0x20) as an struct_30 *, its rot/scale/pos halfwords as members (struct stores let
               loads from other pointers move above them; the source order may still need a hand swap)
     arr       a global whose address is passed and that is stored to -> an array, D_x[0] = ... (r131)
-    avecg     halfword globals 2 or 4 bytes apart -> one AVec global, D.vx / D.vz (r131)
+    avecg     halfword globals 2 or 4 bytes apart -> one struct_8 global, D.vx / D.vz (r131)
     all       every lever above at once
 """
 import glob, os, re, sys
@@ -29,12 +29,12 @@ LEVERS = {
 
 
 def avec(body):
-    """two M2C_UNALIGNED32 word copies at o and o+4 -> one AVec copy (8 bytes, 2-aligned: lwl/lwr pairs)"""
+    """two M2C_UNALIGNED32 word copies at o and o+4 -> one struct_8 copy (8 bytes, 2-aligned: lwl/lwr pairs)"""
     side = r'AF\((.+?), s32, (0x[0-9A-Fa-f]+|-?\d+)\)|M2C_FIELD\((.+?), s32 \*, (0x[0-9A-Fa-f]+|-?\d+)\)'
     pat = re.compile(rf'^(\s*)(?:{side}) = M2C_UNALIGNED32\((?:{side})\);\n\s*(?:{side}) = M2C_UNALIGNED32\((?:{side})\);$', re.M)
 
     def ref(base, off):
-        return f'AF({base}, AVec, {off})'
+        return f'AF({base}, struct_8, {off})'
 
     def one(m):
         g = m.groups()
@@ -75,15 +75,15 @@ FIELDS = {0x10: 'rot.vx', 0x12: 'rot.vy', 0x14: 'rot.vz', 0x16: 'rot.pad',
 
 
 def amodel(body):
-    """the actor's model (+0x20) as an AModel *: its halfword fields as struct members (loads move above them)"""
+    """the actor's model (+0x20) as an struct_30 *: its halfword fields as struct members (loads move above them)"""
     names = set(re.findall(r'^\s*(\w+) = (?:\(\w+ \*\) )?AF\(\w+, (?:void \*|s32|u8 \*), 0x20\);', body, re.M))
     names |= {m[1] for m in re.finditer(r'^\s*AF\(\w+, (?:s32|void \*), 0x20\) = (\w+);', body, re.M)}
     names = {n for n in names if re.search(rf'AF\({n}, [us]16, 0x(?:1[0-9A-E]|0[8AC])\)', body)}
     for n in names:
         body = re.sub(rf'^(\s*)(?:void \*|s32 |u8 \*){n};', rf'\1AModel *{n};', body, flags=re.M)
-        body = re.sub(rf'^(\s*){n} = (?:\(s32\) )?(func_\w+\()', rf'\1{n} = (AModel *) \2', body, flags=re.M)
-        body = re.sub(rf'^(\s*)AF\((\w+), (?:s32|void \*), 0x20\) = {n};', rf'\1AF(\2, AModel *, 0x20) = {n};', body, flags=re.M)
-        body = re.sub(rf'^(\s*){n} = (?:\(\w+ \*\) )?AF\((\w+), (?:void \*|s32|u8 \*), 0x20\);', rf'\1{n} = AF(\2, AModel *, 0x20);', body, flags=re.M)
+        body = re.sub(rf'^(\s*){n} = (?:\(s32\) )?(func_\w+\()', rf'\1{n} = (struct_30 *) \2', body, flags=re.M)
+        body = re.sub(rf'^(\s*)AF\((\w+), (?:s32|void \*), 0x20\) = {n};', rf'\1AF(\2, struct_30 *, 0x20) = {n};', body, flags=re.M)
+        body = re.sub(rf'^(\s*){n} = (?:\(\w+ \*\) )?AF\((\w+), (?:void \*|s32|u8 \*), 0x20\);', rf'\1{n} = AF(\2, struct_30 *, 0x20);', body, flags=re.M)
 
         def fld(m):
             f = FIELDS.get(int(m[1], 16))
@@ -186,7 +186,7 @@ LEVERS['stride'] = stride
 
 def mtx(body):
     """m2c's eight-word copy of a coord matrix (four `AF(d, s32, o) = AF(v, s32, p)`, three temps, four more) ->
-    `AF(d, AMtx, o) = AF(v, AMtx, p)`; the temps it then passes to the next call were only left in a1-a3"""
+    `AF(d, struct_20, o) = AF(v, struct_20, p)`; the temps it then passes to the next call were only left in a1-a3"""
     w = r'(0x[0-9A-Fa-f]+)'
     pat = re.compile(
         rf'^(\s*)AF\((\w+), s32, {w}\) = \(s32\) AF\((\w+), s32, {w}\);\n'
@@ -196,7 +196,7 @@ def mtx(body):
         rf'(?:\s*AF\(\2, s32, {w}\) = temp_a[123];\n){{3}}', re.M)
 
     def one(m):
-        return f'{m[1]}AF({m[2]}, AMtx, {m[3]}) = AF({m[4]}, AMtx, {m[5]});\n'
+        return f'{m[1]}AF({m[2]}, struct_20, {m[3]}) = AF({m[4]}, struct_20, {m[5]});\n'
     new = pat.sub(one, body)
     if new != body:
         new = re.sub(r', temp_a1, temp_a2, temp_a3\)', ')', new)
@@ -254,7 +254,7 @@ def avecg(body):
 def avecg_decl(decl):
     for s, (base, mem) in AVECG.items():
         if mem == 'vx':
-            decl = re.sub(rf'^extern [\w ]+\b{s};$', f'extern AVec {s};', decl, flags=re.M)
+            decl = re.sub(rf'^extern [\w ]+\b{s};$', f'extern struct_8 {s};', decl, flags=re.M)
         else:
             decl = re.sub(rf'^extern [\w ]+\b{s};\n', '', decl, flags=re.M)
     return decl

@@ -23,6 +23,7 @@ is the readable version: it renames functions and adds structures on top of the 
 | 1, "Phase 1 complete" | 5 Nov 2026, 11:30 | the working repository's commit `93205e05` (local tag `phase1-complete`): every function of the 182 checked images matched |
 | 2, "Phase 1 final" | 7 Nov 2026, 13:59 | the working repository's commit `ec96cf48` (local tag `phase1-final`): commit 1 plus two cleanups that removed the last frame-padding locals marked `MATCH-TRICK` (r292, `src/stage/engine_8012F5F4.c`: three pad locals and the plain statement forms that replace them; r373, `src/stg/sc03_014_post.c` and `sc03_015_post.c`: one `u8 c[0];` line each). Nothing else in the decomp sources changed between the two |
 | 3, "Original address names restored" | 8 Nov 2026, 15:21 | the working repository's commit `bf15da33` (local tag `phase1-pristine`): commit 2's code with every name the working project gave during Phase 1 replaced by a neutral one (see "Names" below). A pure rename: no type, size, layout, expression or statement changed |
+| 4, "Old names in comments replaced" | 8 Nov 2026, 15:51 | the working repository's commit `8f456aa0` (local tag `phase1-pristine-comments`): commit 3 with the descriptive comments kept and the working project's names inside them replaced by the new names (177 replacements in 15 files). Comments only: the code is commit 3's |
 
 Commits 1 and 2 are the code exactly as it was matched, so they still carry the names the working project gave
 while matching (215 functions and data, the structures of `include/game.h`, `include/work.h` and
@@ -50,10 +51,11 @@ Since commit 3, every name in the code is one of these:
 * **Kept as they are:** the PsyQ library's names (`symbol_addrs_psyq.txt`), the SDK's own types and their fields
   (`MATRIX`, `SVECTOR`, `RECT`, `DRAWENV`, `GsSPRITE` ...; the names declared by the Runtime Library 4.0 headers,
   listed in `tools/pristine_sdk_names.txt`), `main`, the basic types `s8` to `u32`, every macro, local variables,
-  parameters and labels (no address form exists for them), and every comment.
+  parameters and labels (no address form exists for them), and every comment (since commit 4 with the old names
+  inside them replaced by the new ones).
 
-The comments and the notes in `docs/` were written by the working project and still use its names in places
-(`StageActor`, `SetScript`, `g_SoundSlot` ...). To map an old name to its new one, run
+The notes in `docs/` were written by the working project and still use its names in places (`StageActor`,
+`SetScript`, `g_SoundSlot` ...). To map an old name to its new one, run
 `python tools/pristine_names.py plan --out <dir>` on commit 2's tree: it writes every rename (old, new, address or
 offset, where it was defined) to `<dir>/renames.csv` and every kept name with its reason to `<dir>/kept.csv`
 (it needs `pycparser` in the virtual environment; the build does not).
@@ -74,7 +76,7 @@ Every commit was rebuilt from nothing on 8 Nov 2026 (a fresh checkout, no earlie
 182 byte-identical**, with the engine check below passing. In the checked images, every function the compiler made
 is written in C that GCC 2.7.2 + maspsx compiles to the original instructions. A small number of those functions
 carry one marked line that steers the compiler without changing what the code does (`/* MATCH-TRICK: ... */`: 154
-lines in commit 1, 149 in commits 2 and 3; `docs/decomp_recipes.md` explains the forms). No function is left as
+lines in commit 1, 149 in commits 2 to 4; `docs/decomp_recipes.md` explains the forms). No function is left as
 `NON_MATCHING` C.
 
 **Not C, by design or by ruling:**

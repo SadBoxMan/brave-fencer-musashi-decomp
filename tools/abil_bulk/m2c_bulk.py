@@ -68,14 +68,14 @@ for size, n, p in rows:
     b = b.replace('M2C_UNK', 's32').replace('void *arg', 'u8 *arg')
     b = re.sub(r'AF\(([^;=]*?), s8, (\w+)\) = ', r'AF(\1, u8, \2) = ', b)     # a byte store: unsigned (0xFF, not -1)
     b = re.sub(r'\? (\w)', r's32 \1', b)
-    # jump-table calls: *(&D_x + (i * 4))(args) -> D_x[i](args), D_x an AbilStep table
+    # jump-table calls: *(&D_x + (i * 4))(args) -> D_x[i](args), D_x an type_1 table
     tables = set()
     def tbl(m):
         tables.add(m[1])
         return f'{m[1]}[{m[2]}]('
     b = re.sub(r'\*\(&(D_\w+) \+ \((.+?) \* 4\)\)\(', tbl, b)
     b = re.sub(r'\(\*\(&(D_\w+) \+ \((.+?) \* 4\)\)\)\(', tbl, b)
-    decls = [f'extern AbilStep {s}[];' if re.match(rf'extern [\w ]+\*? ?{s}(\[\])?;', x) else x for x in decls for s in [next((s for s in tables if re.search(rf'\b{s}\b', x)), '@@')]]
+    decls = [f'extern type_1 {s}[];' if re.match(rf'extern [\w ]+\*? ?{s}(\[\])?;', x) else x for x in decls for s in [next((s for s in tables if re.search(rf'\b{s}\b', x)), '@@')]]
     # symbols the context declared (no extern line from m2c): declare them too
     have = {re.search(r'(\w+)(?:\[\])?(?:\(\))?;$', x)[1] for x in decls if re.search(r'(\w+)(?:\[\])?(?:\(\))?;$', x)}
     for s in dict.fromkeys(re.findall(r'\b((?:func|D)_\w+)\b', b)):

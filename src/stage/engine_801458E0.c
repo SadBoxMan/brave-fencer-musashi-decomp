@@ -1521,7 +1521,7 @@ s32 func_80146128(void) {
     if (AF(p, s32, 0x1B0) != 0) {
         AF(p, s32, 0x1B0)--;
     }
-    /* MATCH-TRICK: RunStateHandler4E returns u8 in the file; the original tests v0 without andi */
+    /* MATCH-TRICK: func_80155458 returns u8 in the file; the original tests v0 without andi */
     if (((s32 (*)())func_80155458)(p) == 0 && !(AF(p, s32, 0x44) & 0x04000000)) {
         if (func_80029104() & 0xFF) {
             func_8014ADE0(p);
@@ -26433,7 +26433,7 @@ void func_8017B940(void) {
     D_801EE650 = D_80114F2C + d.vz;
 }
 
-/* the orbit point from obj: the block's offset taken to the world (FaceHelper), rotated by the block's angles */
+/* the orbit point from obj: the block's offset taken to the world (func_8012F214), rotated by the block's angles */
 void func_8017BA3C(s32 obj, struct_E *b) {
     SVECTOR r;
     MATRIX m;

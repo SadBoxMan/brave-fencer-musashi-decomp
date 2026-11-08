@@ -24,14 +24,14 @@ typedef struct { s32 field_0; u8 *field_4; } struct_8_4;   /* the loader's fifth
 extern struct_8_4 D_800C7C60;
 extern u8 D_800A2E20[];
 extern s32 D_801EBC68;          /* where the stage's extra loads go */
-extern s32 D_800AF558[];        /* archive file locations (g_ArchiveFileLoc entries) */
+extern s32 D_800AF558[];        /* archive file locations (D_800AE830 entries) */
 extern s32 D_800AF560[];
 extern s32 D_800AECB0[];
 extern s32 D_800AECB8[];
 extern s32 D_800AEFD0[];
 extern s32 func_8001ABBC(s32 kind, s32 id, s32 *file, s32 dest, struct_8_4 *param);
-extern u16 D_800B99F6;          /* Work +0xA3C6: the stage step */
-extern s16 D_800B9A08;          /* Work +0xA3D8: the map id */
+extern u16 D_800B99F6;          /* struct_A444 +0xA3C6: the stage step */
+extern s16 D_800B9A08;          /* struct_A444 +0xA3D8: the map id */
 extern u8 D_800B9A10;
 extern u8 D_800B9A11;
 extern u8 D_800B9A17;
@@ -1187,7 +1187,7 @@ void func_8012A828(struct_10C *a, struct_8_2 *script) {
     func_8012AAAC(a);
 }
 
-/* SetScriptAtEnd: the same, from the last entry, playing backwards (0x200) */
+/* func_8012A860: the same, from the last entry, playing backwards (0x200) */
 void func_8012A860(struct_10C *a, struct_8_2 *script) {
     a->field_90 = script;
     a->field_94 = func_8012ACE0(a) - 1;
@@ -2934,7 +2934,7 @@ void func_8012E8E0(struct_60 *m, SVECTOR *p) {
     }
 }
 
-/* take pending damage (+0x60), scaled by the init record's damageScale (at least 1); a type 0x1D hit notes the position */
+/* take pending damage (+0x60), scaled by the init record's field_30 (at least 1); a type 0x1D hit notes the position */
 void func_8012E9C0(struct_10C *a) {
     s32 n;
     if (a->field_60 != 0) {

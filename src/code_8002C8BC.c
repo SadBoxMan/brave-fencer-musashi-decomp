@@ -6568,7 +6568,7 @@ void func_80038668(s32 i, s32 j) {
     p[j] &= 0xFE;
 }
 
-/* SeqReadHeader: MThd chunk, length 6, format 0, one track, division (not SMPTE) -> +0x1E6 */
+/* func_80038698: MThd chunk, length 6, format 0, one track, division (not SMPTE) -> +0x1E6 */
 s32 func_80038698(u8 **pp) {
     u8 *p;
     s32 x;

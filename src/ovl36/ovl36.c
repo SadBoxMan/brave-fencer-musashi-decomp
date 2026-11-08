@@ -1025,7 +1025,7 @@ void func_800D06CC(void) {
 
 /* a per-frame sound state pair. D_80127500: in maps 0x1010-0x1011, 0x1077-0x1078 and 0x1094-0x1095, unless
    func_80029504() is in 0x460-0x491 or 0x64-0x81, sound 0x518 or 0x517 is started by D_80078E78.unk37 (1, or 3-4)
-   and stopped (0xD) after 0x97 frames; in maps 0x3014 / 0x301C, 0x683 starts or stops with unk37 4 / 0.
+   and stopped (0xD) after 0x97 frames; in maps 0x3014 / 0x301C, 0x683 starts or stops with field_37 4 / 0.
    D_801151F8: picks the map's track id (D_80114EA0 when it differs from D_800A654C), waits 0x3C frames after
    func_8002D4C8(1, 2), then starts it */
 void func_800D06E8(void) {

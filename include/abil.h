@@ -20,13 +20,13 @@ typedef struct { u8 field_0, field_1, field_2, field_3; } struct_4;
 typedef struct { struct_8 field_0[4]; struct_4 field_20[4]; s32 field_30; } struct_34;
 
 /* one entry of the 0x68-stride object array at D_8011F9D0 (20 entries); indexed through a base pointer,
-   `AObj68 *p = D_8011F9D0; p[i].type`, its loops count up as the originals do (r131) */
+   `struct_68 *p = D_8011F9D0; p[i].type`, its loops count up as the originals do (r131) */
 typedef struct { u16 field_0; u8 field_2[0x66]; } struct_68;
 
 /* a MATRIX's layout (0x20 bytes); copied whole it gives the four-words-at-a-time lw/sw blocks (r127) */
 typedef struct { s16 field_0[3][3]; s32 field_14[3]; } struct_20;
 
-/* game.h's ModelObj (the drawn model an actor keeps at +0x20), cut at +0x30. Its stores must be struct stores:
+/* game.h's struct_84 (the drawn model an actor keeps at +0x20), cut at +0x30. Its stores must be struct stores:
    GCC 2.7.2 then lets loads from other pointers move above them (r127, func_ovl34_800CDD9C) */
 typedef struct {
     /* 0x00 */ u16 field_0;

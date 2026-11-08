@@ -1,5 +1,5 @@
 /*
- * Stage engine, 0x8013C98C-0x80144B9C (-O2): the rumble sequence (D_801ED428), the stage-mode steps (StageMode at
+ * Stage engine, 0x8013C98C-0x80144B9C (-O2): the rumble sequence (D_801ED428), the stage-mode steps (struct_C0 at
  * D_80115110) and the GTE distance helpers onward. A source file of its own: -O0 files lie on both sides of it
  * (engine_8013B568.c, engine_80144B9C.c; docs/stage_engine.md, "Source files").
  */
@@ -132,8 +132,8 @@ typedef struct {
     /* 0x06 */ u16 field_6;          /* frames in the mode */
     /* 0x08 */ u16 field_8;              /* 0 to 0x40 in steps of 0x10 */
     /* 0x0A */ u16 field_A;
-    /* 0x0C */ s16 field_C;         /* pad 0: GetPadHeldDirWide */
-    /* 0x0E */ s16 field_E;      /* GetPadPressedDirWide */
+    /* 0x0C */ s16 field_C;         /* pad 0: func_80015018 */
+    /* 0x0E */ s16 field_E;      /* func_80014ED4 */
     /* 0x10 */ s32 field_10;
     /* 0x14 */ s16 field_14;
     /* 0x16 */ s16 field_16;
@@ -170,7 +170,7 @@ extern s16 D_800B9A08;
 extern u8 D_8018E524[], D_8018E53C[], D_8018E5B0[], D_8018E5B8[];
 extern u8 *D_801ED488;
 extern u8 *D_801ED48C;
-/* the two word arrays at StageMode +0x58 and +0x78, read as their own symbols (array-of-struct indexing keeps the
+/* the two word arrays at struct_C0 +0x58 and +0x78, read as their own symbols (array-of-struct indexing keeps the
    `lui at; addu at` form in the loops) */
 typedef struct { s32 field_0; } struct_4_2;
 extern struct_4_2 D_80115168[];
@@ -180,7 +180,7 @@ extern s32 func_800D0488(s16 n);
 extern u32 func_80029504(void);
 extern u8 D_80078EC0;
 extern s32 D_8018E8AC[];
-/* StageMode's message tables at +0x38 and +0x30, cleared as their own symbols */
+/* struct_C0's message tables at +0x38 and +0x30, cleared as their own symbols */
 typedef struct { s16 field_0; } struct_2;
 typedef struct { u8 field_0; } struct_1;
 extern struct_2 D_80115148[];
@@ -1451,7 +1451,7 @@ void func_8013EF88(void) {
     }
 }
 
-/* the fade in; then window 0 opens with the stage's message (unless unk0 is set) */
+/* the fade in; then window 0 opens with the stage's message (unless field_0 is set) */
 void func_8013F138(void) {
     D_80115110.field_8 += 0x10;
     if (D_80115110.field_8 >= 0x40) {
